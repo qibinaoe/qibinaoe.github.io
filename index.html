@@ -132,6 +132,201 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JAVA核心技术-概述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/">JAVA核心技术-概述</a>
+    </h1>
+  
+
+        
+        <a href="/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/" class="archive-article-date">
+  	<time datetime="2020-10-06T09:46:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="关键术语"><a href="#关键术语" class="headerlink" title="关键术语"></a>关键术语</h3><ol>
+<li><p>简单性</p>
+<p> Java语法是C++语法的纯净版，没有头文件、指针运算（指针语法）、结构、联合、操作符重载、虚基类等。</p>
+</li>
+<li><p>面向对象</p>
+<p>Java与C++的主要不同在于多重继承。Java取而代之的是更简单的接口概念</p>
+</li>
+<li><p>分布式</p>
+<p>能够处理HTTP/FTP之类的TCP/IP协议</p>
+</li>
+<li><p>健壮性</p>
+<p>Java强调早期的问题检测、后期动态的(运行时)检测。Java采用的指针模型可以消除重写内存和损坏数据的可能性，</p>
+</li>
+<li><p>安全性</p>
+<p>防范攻击：</p>
+<ul>
+<li>运行时堆栈溢出</li>
+<li>破坏自己的进程空间之外的内存</li>
+<li>未经授权读写文件</li>
+<li>体系结构中立</li>
+</ul>
+</li>
+<li><p>体系结构中立</p>
+<p>编译器生成一个体系结构中立的目标文件格式，这些编译后的代码可以在许多处理器上运行。Java编译器生成与计算机体系结构无关的字节码指令，同时还可以动态地转换成本地机器代码。</p>
+</li>
+<li><p>可移植性</p>
+<ul>
+<li><p>基本数据类型大小以及有关运算行为都有明确的说明(数值类型有固定的字节数，消除代码移植问题)</p>
+</li>
+<li><p>二进制数据以固定的格式进行存储和传输(消除字节顺序的困扰) <strong>Java都是高字节开头（大端法）</strong></p>
+</li>
+<li><p>字符串采用标准的Unicode格式存储</p>
+<p><strong><em>注：有符号的最高位为符号位</em></strong></p>
+<p><strong><em>注: 采用补码表示负数的时候， 1 1111111 表示-1 ；1 0000000 表示 -128， 所以byte的最小值是-128</em></strong></p>
+</li>
+</ul>
+</li>
+</ol>
+<pre><code>#### 内置数据类型
+byte
+| 位数 | 最大值 | 最小值 | 默认值 | 备注 |
+| :----: | :-----: | :------: | :-----: | :----: |
+| 8    | 127 (2&lt;sup&gt;7&lt;/sup&gt;-1) | -128 ( -2&lt;sup&gt;7&lt;/sup&gt;) | 0 | 有符号的，以二进制补码表示的整数 |
+
+
+short
+| 位数 | 最大值 | 最小值 | 默认值 | 备注 |
+| :----: | :-----: | :------: | :-----: | :----: |
+| 16    | 32767 (2&lt;sup&gt;15&lt;/sup&gt;-1) | -32768 ( -2&lt;sup&gt;15&lt;/sup&gt;) | 0 | 有符号的，以二进制补码表示的整数 |
+
+int
+| 位数 | 最大值 | 最小值 | 默认值 | 备注 |
+| :----: | :-----: | :------: | :-----: | :----: |
+| 32    | 2147483647 (2&lt;sup&gt;31&lt;/sup&gt;-1) | -2147483648 ( -2&lt;sup&gt;31&lt;/sup&gt;) | 0 | 有符号的，以二进制补码表示的整数 |
+
+long
+| 位数 | 最大值 | 最小值 | 默认值 | 备注 |
+| :----: | :-----: | :------: | :-----: | :----: |
+| 64    | 2&lt;sup&gt;63&lt;/sup&gt;-1 |  -2&lt;sup&gt;63&lt;/sup&gt;| 0L | 有符号的，以二进制补码表示的整数 |
+
+float
+| 位数 | 默认值 | 备注 |
+| :----:| :-----: | :----: |
+| 32   | 0.0f | 单精度、符合IEEE 754标准的浮点数 |
+
+double
+| 位数 | 默认值 | 备注 |
+| :----:| :-----: | :----: |
+| 64   | 0.0d | 双精度、符合IEEE 754标准的浮点数 |
+
+boolean
+| 位数 | 取值 |默认值 | 
+| :----:| :---: |:-----: |
+| 1   | true 和 false | false | 
+
+基本数据类型参考资料[菜鸟教程](https://www.runoob.com/java/java-basic-datatypes.html)
+
+#### Unicode
+Unicode是字符集。而UTF-8、UTF-16、utf-32是编码规则。
+Unicode的每一个字符叫做码点(Code Point、码位)
+UTF-8的意思是以8位为一个编码单位的可变编码，将码位编码成1到 4个字节（参考[知乎](https://www.zhihu.com/question/23374078)）
+即UTF-8的编码规则是有一定规律的，
+| Unicode 十六进制码点范围|    UTF-8 二进制 |
+| --------| -------|
+|0000 0000 - 0000 007F    | 0xxxxxxx|
+|0000 0080 - 0000 07FF    | 10xxxxx 10xxxxxx |
+|0000 0800 - 0000 FFFF    |1110xxxx 10xxxxxx 10xxxxxx |
+|0001 0000 - 0010 FFFF    | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx|
+因此先将一个字符对应的Unicode的码位转成16进制，看它的码点落在哪个区间内，然后将其套用右边的模板，将该字符转换成2进制，然后从低位开始对应着填进去，如果填完后，还有没有填的X就补零。</code></pre>
+<ol start="8">
+<li><p>解释型</p>
+<p> Java解释器可以在任何移植了解释器的机器上直接执行Java字节码。</p>
+</li>
+<li><p>高性能</p>
+<p> 字节码可以在运行时动态地转换成对应运行这个应用的特定CPU机器码。同时即时编译器可以监控哪些代码频繁执行并优化，同时更为复杂的优化是消除函数调用（内联）</p>
+</li>
+<li><p>多线程</p>
+</li>
+<li><p>动态性</p>
+</li>
+</ol>
+<h3 id="GPL-General-Public-License-GNU-GPL"><a href="#GPL-General-Public-License-GNU-GPL" class="headerlink" title="GPL(General Public License)(GNU GPL)"></a>GPL(General Public License)(GNU GPL)</h3><p>(调侃成为copyleft)<br>公共通用许可证,此许可证允许用户更改和共享程序的所有版本。<br>保证自由软件对所有用户都是自由的。<br>即用户使用更改遵守GPL协议的软件时候，再次发布也应该遵守GPL协议。</p>
+<h3 id="JDK和JRE"><a href="#JDK和JRE" class="headerlink" title="JDK和JRE"></a>JDK和JRE</h3><ul>
+<li>JDK(Java Development Kit)Java开发工具包 ：编写Java程序的程序员使用的软件</li>
+<li>JRE(Java Runtime Environment)Java运行时环境：运行Java程序的用户使用的软件</li>
+<li>SDK(Software Development Kit)软件开发工具包 ：一个过时的术语，用来描述1998~2006年之间的JDK</li>
+</ul>
+<p>如果不开发，只运行Java程序，则只需要安装JRE。</p>
+<p>JDK包括了JRE,Java工具(javac/java/jdb)和Java基础类库(Java API)</p>
+<p>JRE包括JVM(Java Virtual Machine)和Java核心类库</p>
+<p>跳出Java来讲，SDK是辅助开发某一类软件的相关文档、范例和工具的集合，而联通SDK的接口叫做API。</p>
+<hr>
+<hr>
+<h1 id="提醒需要复习复习内容"><a href="#提醒需要复习复习内容" class="headerlink" title="提醒需要复习复习内容"></a>提醒需要复习复习内容</h1><ul>
+<li><strong><em>二进制的原码 补码 反码</em></strong></li>
+<li><strong><em>IEEE 754</em></strong></li>
+<li><strong><em>大端法、小端法</em></strong></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java核心技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-挑战程序设计2-初等排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -561,6 +756,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">挑战程序设计</a>

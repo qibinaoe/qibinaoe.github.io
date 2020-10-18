@@ -6,17 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 初等排序 | qibinBlog</title>
+  <title>Ubuntu搭建Java服务器 | qibinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This a blog for recording something">
-<meta property="og:type" content="website">
-<meta property="og:title" content="qibinBlog">
-<meta property="og:url" content="http://example.com/tags/%E5%88%9D%E7%AD%89%E6%8E%92%E5%BA%8F/index.html">
+  <meta name="description" content="Java Web环境配置 为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器 Ubuntu版本16.04 Java环境 下载Ubuntu环境下的Java JDK Java JDK下载网站然后选择对应的版本，这里选择Linux x64 Compressed Archive对应的安装包为jdk-8u261-linux-x64.tar.gz  sudo mkdir &#x2F;usr&#x2F;loca">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu搭建Java服务器">
+<meta property="og:url" content="http://example.com/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
 <meta property="og:site_name" content="qibinBlog">
-<meta property="og:description" content="This a blog for recording something">
+<meta property="og:description" content="Java Web环境配置 为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器 Ubuntu版本16.04 Java环境 下载Ubuntu环境下的Java JDK Java JDK下载网站然后选择对应的版本，这里选择Linux x64 Compressed Archive对应的安装包为jdk-8u261-linux-x64.tar.gz  sudo mkdir &#x2F;usr&#x2F;loca">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/tomcat%E4%B8%8B%E8%BD%BD.jpg">
+<meta property="og:image" content="http://example.com/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/startup.sh%E4%BF%AE%E6%94%B9.jpg">
+<meta property="og:image" content="http://example.com/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/shutdown.sh%E4%BF%AE%E6%94%B9.jpg">
+<meta property="og:image" content="http://example.com/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/mysql%E5%AE%89%E8%A3%85.jpg">
+<meta property="og:image" content="http://example.com/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81.jpg">
+<meta property="article:published_time" content="2020-10-18T12:21:38.000Z">
+<meta property="article:modified_time" content="2020-10-18T14:18:24.984Z">
 <meta property="article:author" content="ZQB">
+<meta property="article:tag" content="环境配置">
+<meta property="article:tag" content="Java服务器">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/tomcat%E4%B8%8B%E8%BD%BD.jpg">
   
     <link rel="alternative" href="/atom.xml" title="qibinBlog" type="application/atom+xml">
   
@@ -130,79 +140,241 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Ubuntu搭建Java服务器" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/06/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%8E%92%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-10-06T06:07:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/06/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%8E%92%E5%BA%8F/">挑战程序设计2-初等排序</a>
+    <h1 class="article-title" itemprop="name">
+      Ubuntu搭建Java服务器
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="archive-article-date">
+  	<time datetime="2020-10-18T12:21:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Java-Web环境配置"><a href="#Java-Web环境配置" class="headerlink" title="Java Web环境配置"></a>Java Web环境配置</h3><hr>
+<h3 id="为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器"><a href="#为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器" class="headerlink" title="为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器"></a>为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器</h3><hr>
+<h4 id="Ubuntu版本16-04"><a href="#Ubuntu版本16-04" class="headerlink" title="Ubuntu版本16.04"></a>Ubuntu版本16.04</h4><hr>
+<h3 id="Java环境"><a href="#Java环境" class="headerlink" title="Java环境"></a>Java环境</h3><ol>
+<li><p>下载Ubuntu环境下的Java JDK</p>
+<p><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">Java JDK下载网站</a>然后选择对应的版本，这里选择<code>Linux x64 Compressed Archive</code>对应的安装包为<code>jdk-8u261-linux-x64.tar.gz</code></p>
+</li>
+<li><p><code>sudo mkdir /usr/local/java</code> 来创建环境(<strong><em>我还不太明白ubuntu下面各个目录的意义是什么</em></strong>)</p>
+</li>
+<li><p><code>sudo mv jdk-8u261-linux-x64.tar.gz /usr/local/java</code> 将JDK移到该目录</p>
+</li>
+<li><p><code>cd /usr/local/java</code></p>
+</li>
+<li><p><code>tar -zxvf jdk-8u261-linux-x64.tar.gz</code> 来解压</p>
+</li>
+<li><p><code>sudo vim /etc/profile</code> 配置环境 (<strong>记得加sudo</strong>否则报错会报错： E212：无法打开并写入文件)</p>
+</li>
+<li><p>在文件末尾加入</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib:$JRE_HOME&#x2F;lib:$CLASSPATH</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$JRE_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>(复制的时候输入:set paste) (相应取消操作为:set nopaste)</p>
+<ol start="8">
+<li>查看是否成功<code>java -version</code></li>
+</ol>
+<hr>
+<hr>
+<h2 id="Tomcat环境搭建"><a href="#Tomcat环境搭建" class="headerlink" title="Tomcat环境搭建"></a>Tomcat环境搭建</h2><p>这里搭建Tomcat环境,选择的是Tomcat8.5.59,</p>
+<ol>
+<li><p><a target="_blank" rel="noopener" href="https://tomcat.apache.org/download-80.cgi">下载地址</a>,这里选择下载Core中的tar.gz。<br><img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/tomcat%E4%B8%8B%E8%BD%BD.jpg" alt="代码下载"></p>
+</li>
+<li><p><code>sudo mkdir /usr/local/tomcat</code> 创建文件夹</p>
+</li>
+<li><p>将文件移到刚刚创建的目录 <code>sudo mv apache-tomcat-8.5.59.tar.gz /usr/local/tomcat</code></p>
+</li>
+<li><p>解压 <code>sudo tar -zxvf apache-tomcat-8.5.59.tar.gz</code></p>
+</li>
+<li><p>修改tomcat的权限 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat</span><br><span class="line">sudo chmod 755 -R apache-tomcat-8.5.59</span><br></pre></td></tr></table></figure>
+<p>其中-R的递归更改权限的意思，755意思是文件所有者可读可写可执行（7），与文件所有者同属一个用户组的其他用户可读可执行(5)，其他用户组可读可执行。**<em>这部分内容需要学习**</em></p>
+</li>
+<li><p>修改startup.sh文件 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59&#x2F;bin</span><br><span class="line">sudo vim startup.sh</span><br></pre></td></tr></table></figure>
+<p>在最后一句<code> exec &quot;$PRGDIR&quot;/&quot;$EXECUTABLE&quot; start &quot;$@&quot;</code>的上面<br>添加如下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib:$JRE_HOME&#x2F;lib:$CLASSPATH</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$JRE_HOME&#x2F;bin:$PATH</span><br><span class="line">export TOMCAT_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59</span><br></pre></td></tr></table></figure>
+<p>如图<img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/startup.sh%E4%BF%AE%E6%94%B9.jpg" alt="修改startup.sh"></p>
+</li>
+<li><p>修改shutdown.sh文件<br>过程与修改startup.sh类似</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59&#x2F;bin</span><br><span class="line">sudo vim shutdown.sh</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/shutdown.sh%E4%BF%AE%E6%94%B9.jpg" alt="修改shutdown.sh"></p>
+</li>
+<li><p>运行测试<br>sudo ./startup.sh</p>
+<p>访问8080端口</p>
+</li>
+<li><p>关闭测试<br>sudo ./shutdown.sh</p>
+</li>
+</ol>
+<hr>
+<hr>
+<h3 id="Mysql搭建"><a href="#Mysql搭建" class="headerlink" title="Mysql搭建"></a>Mysql搭建</h3><p>我服务器上面不知道为什么已经带有Mysql，因此我就没有再安装Mysql了，不过Mysql的版本是5.7.28版本的(<code>mysql -V</code>)，不是最新的8版本的，但是没有再去卸载再安装了.<br>但是遇到了mysql输入登陆用户名和密码一直错误，主要参考了这篇博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38737992/article/details/81090373">ubuntu18.04 首次登录mysql未设置密码或忘记密码解决方法</a></p>
+<p>具体步骤如下</p>
+<ol>
+<li><p>首先要知道自己有没有mysql,方法借鉴这篇博客的<a target="_blank" rel="noopener" href="https://blog.csdn.net/lizuqingblog/article/details/18423751?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight">Linux(Ubuntu)下MySQL的安装与配置</a><br>输入<code>sudo netstat -tap | grep mysql</code>后，如果显示<br><img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/mysql%E5%AE%89%E8%A3%85.jpg" alt="判断mysql是否安装">，则意味则有安装，如果显示其他，则需要安装</p>
+</li>
+<li><p>然后修改mysql默认用户名和密码</p>
+<ol>
+<li><p><code>sudo cat /etc/mysql/debian.cnf</code><br>会显示如下信息<br><img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81.jpg" alt="mysql默认用户名"></p>
+</li>
+<li><p>然后自己根据上面的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user &#x3D; debian-sys-maint</span><br><span class="line">password &#x3D; jnFC1nzYXcyRbw00</span><br></pre></td></tr></table></figure>
+<p>来进行登陆：输入指令<code>mysql -u debian-sys-maint -p</code>，再输入密码，其中密码不会显示出来</p>
+</li>
+<li><p>进入mysql修改数据库，将用户名<code>root</code>的密码修改成<code>root</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update mysql.user set authentication_string&#x3D;password(&#39;root&#39;) where user&#x3D;&#39;root&#39; and Host &#x3D;&#39;localhost&#39;;</span><br><span class="line">update user set plugin&#x3D;&quot;mysql_native_password&quot;; </span><br><span class="line">flush privileges;</span><br><span class="line">quit;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>重启mysql<code>sudo service mysql restart</code></p>
+</li>
+<li><p>这时候<code>root</code>用户名就可以登陆了，密码为<code>root</code><br><code>mysql -u root -p</code></p>
+</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">挑战程序设计</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">环境配置</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">初等排序</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Java服务器</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        			<a href="/categories/环境配置//" class="article-tag-list-link color5">环境配置</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">挑战程序设计2-初等数据结构-队列</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -225,9 +397,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

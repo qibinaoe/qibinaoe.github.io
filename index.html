@@ -152,88 +152,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Java-Web环境配置"><a href="#Java-Web环境配置" class="headerlink" title="Java Web环境配置"></a>Java Web环境配置</h3><hr>
-<h3 id="为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器"><a href="#为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器" class="headerlink" title="为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器"></a>为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器</h3><hr>
-<h4 id="Ubuntu版本16-04"><a href="#Ubuntu版本16-04" class="headerlink" title="Ubuntu版本16.04"></a>Ubuntu版本16.04</h4><hr>
-<h3 id="Java环境"><a href="#Java环境" class="headerlink" title="Java环境"></a>Java环境</h3><ol>
-<li><p>下载Ubuntu环境下的Java JDK</p>
-<p><a target="_blank" rel="noopener" href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">Java JDK下载网站</a>然后选择对应的版本，这里选择<code>Linux x64 Compressed Archive</code>对应的安装包为<code>jdk-8u261-linux-x64.tar.gz</code></p>
-</li>
-<li><p><code>sudo mkdir /usr/local/java</code> 来创建环境(<strong><em>我还不太明白ubuntu下面各个目录的意义是什么</em></strong>)</p>
-</li>
-<li><p><code>sudo mv jdk-8u261-linux-x64.tar.gz /usr/local/java</code> 将JDK移到该目录</p>
-</li>
-<li><p><code>cd /usr/local/java</code></p>
-</li>
-<li><p><code>tar -zxvf jdk-8u261-linux-x64.tar.gz</code> 来解压</p>
-</li>
-<li><p><code>sudo vim /etc/profile</code> 配置环境 (<strong>记得加sudo</strong>否则报错会报错： E212：无法打开并写入文件)</p>
-</li>
-<li><p>在文件末尾加入</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib:$JRE_HOME&#x2F;lib:$CLASSPATH</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$JRE_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
-<p>(复制的时候输入:set paste) (相应取消操作为:set nopaste)</p>
-<ol start="8">
-<li>查看是否成功<code>java -version</code></li>
-</ol>
-<hr>
-<hr>
-<h2 id="Tomcat环境搭建"><a href="#Tomcat环境搭建" class="headerlink" title="Tomcat环境搭建"></a>Tomcat环境搭建</h2><p>这里搭建Tomcat环境,选择的是Tomcat8.5.59,</p>
-<ol>
-<li><p><a target="_blank" rel="noopener" href="https://tomcat.apache.org/download-80.cgi">下载地址</a>,这里选择下载Core中的tar.gz。<br><img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/tomcat%E4%B8%8B%E8%BD%BD.jpg" alt="代码下载"></p>
-</li>
-<li><p><code>sudo mkdir /usr/local/tomcat</code> 创建文件夹</p>
-</li>
-<li><p>将文件移到刚刚创建的目录 <code>sudo mv apache-tomcat-8.5.59.tar.gz /usr/local/tomcat</code></p>
-</li>
-<li><p>解压 <code>sudo tar -zxvf apache-tomcat-8.5.59.tar.gz</code></p>
-</li>
-<li><p>修改tomcat的权限 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat</span><br><span class="line">sudo chmod 755 -R apache-tomcat-8.5.59</span><br></pre></td></tr></table></figure>
-<p>其中-R的递归更改权限的意思，755意思是文件所有者可读可写可执行（7），与文件所有者同属一个用户组的其他用户可读可执行(5)，其他用户组可读可执行。**<em>这部分内容需要学习**</em></p>
-</li>
-<li><p>修改startup.sh文件 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59&#x2F;bin</span><br><span class="line">sudo vim startup.sh</span><br></pre></td></tr></table></figure>
-<p>在最后一句<code> exec &quot;$PRGDIR&quot;/&quot;$EXECUTABLE&quot; start &quot;$@&quot;</code>的上面<br>添加如下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib:$JRE_HOME&#x2F;lib:$CLASSPATH</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$JRE_HOME&#x2F;bin:$PATH</span><br><span class="line">export TOMCAT_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59</span><br></pre></td></tr></table></figure>
-<p>如图<img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/startup.sh%E4%BF%AE%E6%94%B9.jpg" alt="修改startup.sh"></p>
-</li>
-<li><p>修改shutdown.sh文件<br>过程与修改startup.sh类似</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59&#x2F;bin</span><br><span class="line">sudo vim shutdown.sh</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/shutdown.sh%E4%BF%AE%E6%94%B9.jpg" alt="修改shutdown.sh"></p>
-</li>
-<li><p>运行测试<br>sudo ./startup.sh</p>
-<p>访问8080端口</p>
-</li>
-<li><p>关闭测试<br>sudo ./shutdown.sh</p>
-</li>
-</ol>
-<hr>
-<hr>
-<h3 id="Mysql搭建"><a href="#Mysql搭建" class="headerlink" title="Mysql搭建"></a>Mysql搭建</h3><p>我服务器上面不知道为什么已经带有Mysql，因此我就没有再安装Mysql了，不过Mysql的版本是5.7.28版本的(<code>mysql -V</code>)，不是最新的8版本的，但是没有再去卸载再安装了.<br>但是遇到了mysql输入登陆用户名和密码一直错误，主要参考了这篇博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38737992/article/details/81090373">ubuntu18.04 首次登录mysql未设置密码或忘记密码解决方法</a></p>
-<p>具体步骤如下</p>
-<ol>
-<li><p>首先要知道自己有没有mysql,方法借鉴这篇博客的<a target="_blank" rel="noopener" href="https://blog.csdn.net/lizuqingblog/article/details/18423751?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight">Linux(Ubuntu)下MySQL的安装与配置</a><br>输入<code>sudo netstat -tap | grep mysql</code>后，如果显示<br><img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/mysql%E5%AE%89%E8%A3%85.jpg" alt="判断mysql是否安装">，则意味则有安装，如果显示其他，则需要安装</p>
-</li>
-<li><p>然后修改mysql默认用户名和密码</p>
-<ol>
-<li><p><code>sudo cat /etc/mysql/debian.cnf</code><br>会显示如下信息<br><img src="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81.jpg" alt="mysql默认用户名"></p>
-</li>
-<li><p>然后自己根据上面的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user &#x3D; debian-sys-maint</span><br><span class="line">password &#x3D; jnFC1nzYXcyRbw00</span><br></pre></td></tr></table></figure>
-<p>来进行登陆：输入指令<code>mysql -u debian-sys-maint -p</code>，再输入密码，其中密码不会显示出来</p>
-</li>
-<li><p>进入mysql修改数据库，将用户名<code>root</code>的密码修改成<code>root</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update mysql.user set authentication_string&#x3D;password(&#39;root&#39;) where user&#x3D;&#39;root&#39; and Host &#x3D;&#39;localhost&#39;;</span><br><span class="line">update user set plugin&#x3D;&quot;mysql_native_password&quot;; </span><br><span class="line">flush privileges;</span><br><span class="line">quit;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><p>重启mysql<code>sudo service mysql restart</code></p>
-</li>
-<li><p>这时候<code>root</code>用户名就可以登陆了，密码为<code>root</code><br><code>mysql -u root -p</code></p>
-</li>
-</ol>
-
+        <h3 id="Java-Web环境配置"><a href="#Java-Web环境配置" class="headerlink" title="Java Web环境配置"></a>Java Web环境配置</h3>
+        
+          <a class="article-more-a" href="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/#more">more >></a>
+        
       
 
       
@@ -1011,19 +933,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">

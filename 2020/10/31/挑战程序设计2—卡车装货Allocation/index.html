@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2020 | qibinBlog</title>
+  <title>挑战程序设计2—卡车装货Allocation | qibinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This a blog for recording something">
-<meta property="og:type" content="website">
-<meta property="og:title" content="qibinBlog">
-<meta property="og:url" content="http://example.com/archives/2020/page/2/index.html">
+  <meta name="description" content="搜索的应用——计算最优解题目  解题思路这题题意是按照来货的顺序进行装货。而思路就是不断递增最大载货量P，得到一个每一辆车都能装下所有货的值P，但是这样时间复杂度为O(Pn)，因为判断一个P是否符合需要O(n),遍历到P值需要O(P)。而书上采用的方法是二分法，初始化时，左值为0，右值为每辆车都能装上最重货物，然后不断二分，使得左值为最大不满足P，而右值为最小满足P的。 错误想法而我最开始想这道题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挑战程序设计2—卡车装货Allocation">
+<meta property="og:url" content="http://example.com/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/index.html">
 <meta property="og:site_name" content="qibinBlog">
-<meta property="og:description" content="This a blog for recording something">
+<meta property="og:description" content="搜索的应用——计算最优解题目  解题思路这题题意是按照来货的顺序进行装货。而思路就是不断递增最大载货量P，得到一个每一辆车都能装下所有货的值P，但是这样时间复杂度为O(Pn)，因为判断一个P是否符合需要O(n),遍历到P值需要O(P)。而书上采用的方法是二分法，初始化时，左值为0，右值为每辆车都能装上最重货物，然后不断二分，使得左值为最大不满足P，而右值为最小满足P的。 错误想法而我最开始想这道题">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/%E9%A2%98%E7%9B%AE1.jpg">
+<meta property="og:image" content="http://example.com/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/%E9%A2%98%E7%9B%AE2.jpg">
+<meta property="article:published_time" content="2020-10-31T08:04:57.000Z">
+<meta property="article:modified_time" content="2020-10-31T08:15:01.540Z">
 <meta property="article:author" content="ZQB">
+<meta property="article:tag" content="挑战程序设计">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/%E9%A2%98%E7%9B%AE1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="qibinBlog" type="application/atom+xml">
   
@@ -130,135 +137,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-挑战程序设计2—卡车装货Allocation" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      挑战程序设计2—卡车装货Allocation
+    </h1>
+  
+
+        
+        <a href="/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/" class="archive-article-date">
+  	<time datetime="2020-10-31T08:04:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-31</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="搜索的应用——计算最优解"><a href="#搜索的应用——计算最优解" class="headerlink" title="搜索的应用——计算最优解"></a>搜索的应用——计算最优解</h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><img src="/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/%E9%A2%98%E7%9B%AE1.jpg" alt="题目1"></p>
+<p><img src="/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/%E9%A2%98%E7%9B%AE2.jpg" alt="题目2"></p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>这题题意是按照来货的顺序进行装货。而思路就是不断递增最大载货量P，得到一个每一辆车都能装下所有货的值P，但是这样时间复杂度为O(Pn)，因为判断一个P是否符合需要O(n),遍历到P值需要O(P)。而书上采用的方法是二分法，初始化时，左值为0，右值为每辆车都能装上最重货物，然后不断二分，使得左值为最大不满足P，而右值为最小满足P的。</p>
+<h4 id="错误想法"><a href="#错误想法" class="headerlink" title="错误想法"></a>错误想法</h4><p>而我最开始想这道题的时候以为是已知所有货物的重量，给出货物数量n，货车数量k，求得最大载货数量的最小值。于是开始对货物重量进行从大到小的排序，然后思考如何分配这些货物，才能够达到最大值最小化，虽然题意理解错了，但是也编出了一道我不会的题，或许有兴趣可以对这题目进行思考如何求解。</p>
+<h4 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 100000</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> llong;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,k;</span><br><span class="line">llong T[MAX];</span><br><span class="line"></span><br><span class="line"><span class="comment">//k辆最大运输量为P的卡车能装多少货</span></span><br><span class="line"><span class="comment">//如果能把所有货都装下，则返回货的个数n</span></span><br><span class="line"><span class="comment">//如果不能全部装下，返回已装的货的个数i</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">check</span><span class="params">(llong P)</span></span>&#123;</span><br><span class="line">	<span class="comment">//P为最大运输量</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>; <span class="comment">//第i个货物</span></span><br><span class="line">	<span class="comment">//为每一辆车装货</span></span><br><span class="line">	<span class="comment">//注意：这个是按顺序装货的，意思是一辆车满了就下一辆车，所以不用考虑货物的次序</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++)&#123;</span><br><span class="line">		llong s = <span class="number">0</span>; <span class="comment">//这辆车已装重量</span></span><br><span class="line">		<span class="keyword">while</span>(s + T[i] &lt;= P)&#123;</span><br><span class="line">			s += T[i];</span><br><span class="line">			i++;</span><br><span class="line">			<span class="keyword">if</span>(i == n)&#123;</span><br><span class="line">				<span class="keyword">return</span> n;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	 </span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	llong left = <span class="number">0</span>;</span><br><span class="line">	llong right = <span class="number">10000</span> * <span class="number">100000</span>; <span class="comment">//最重的情况</span></span><br><span class="line">	llong mid;</span><br><span class="line">	<span class="comment">//二分法去查找符合条件的最小P； </span></span><br><span class="line">	<span class="comment">//left指向不符合条件的</span></span><br><span class="line">	<span class="comment">//right指向符合条件的 </span></span><br><span class="line">	<span class="keyword">while</span>(right - left &gt; <span class="number">1</span>)&#123;</span><br><span class="line">		mid = (right + left) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">int</span> v = check(mid);</span><br><span class="line">		<span class="keyword">if</span>(v &gt;= n )&#123;</span><br><span class="line">			<span class="comment">//符合条件但是不一定最小</span></span><br><span class="line">			right = mid; </span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="comment">//不符合条件</span></span><br><span class="line">			left = mid; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> right;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; n; i++) <span class="built_in">cin</span>&gt;&gt;T[i];</span><br><span class="line">	llong ans = solve();</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/" class="archive-article-date">
-  	<time datetime="2020-10-06T09:46:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/">JAVA核心技术-概述</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java核心技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/06/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%8E%92%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-10-06T06:07:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/06/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%8E%92%E5%BA%8F/">挑战程序设计2-初等排序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">挑战程序设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">初等排序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/05/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E6%9C%80%E5%A4%A7%E5%88%A9%E7%9B%8A%E7%AE%97%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2020-10-05T07:15:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/05/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E6%9C%80%E5%A4%A7%E5%88%A9%E7%9B%8A%E7%AE%97%E6%B3%95/">挑战程序设计2-最大利益算法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -274,113 +184,105 @@
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/05/%E6%96%B0%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%9A%8F%E6%83%B3%E4%B8%8E%E5%B0%8F%E7%9B%AE%E6%A0%87/" class="archive-article-date">
-  	<time datetime="2020-10-05T06:59:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">挑战程序设计2—搜索</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/05/%E6%96%B0%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%9A%8F%E6%83%B3%E4%B8%8E%E5%B0%8F%E7%9B%AE%E6%A0%87/">新建博客的随想与小目标</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">freestyle</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随想</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/随想//" class="article-tag-list-link color3">随想</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/05/hexoBlog/" class="archive-article-date">
-  	<time datetime="2020-10-05T05:40:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/05/hexoBlog/">hexoBlog</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2020/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2020/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
   
 
 
@@ -404,8 +306,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

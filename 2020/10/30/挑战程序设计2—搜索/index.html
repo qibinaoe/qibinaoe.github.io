@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 队列 | qibinBlog</title>
+  <title>挑战程序设计2—搜索 | qibinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This a blog for recording something">
-<meta property="og:type" content="website">
-<meta property="og:title" content="qibinBlog">
-<meta property="og:url" content="http://example.com/tags/%E9%98%9F%E5%88%97/index.html">
+  <meta name="description" content="搜索 线性搜索 二分搜索 散列法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挑战程序设计2—搜索">
+<meta property="og:url" content="http://example.com/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/index.html">
 <meta property="og:site_name" content="qibinBlog">
-<meta property="og:description" content="This a blog for recording something">
+<meta property="og:description" content="搜索 线性搜索 二分搜索 散列法">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/dictionary.JPG">
+<meta property="article:published_time" content="2020-10-30T13:19:31.000Z">
+<meta property="article:modified_time" content="2020-10-31T02:34:53.345Z">
 <meta property="article:author" content="ZQB">
+<meta property="article:tag" content="挑战程序设计">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="搜索">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/dictionary.JPG">
   
     <link rel="alternative" href="/atom.xml" title="qibinBlog" type="application/atom+xml">
   
@@ -130,36 +137,94 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-挑战程序设计2—搜索" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/" class="archive-article-date">
-  	<time datetime="2020-10-14T14:02:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-14</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/">挑战程序设计2-初等数据结构-队列</a>
+    <h1 class="article-title" itemprop="name">
+      挑战程序设计2—搜索
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/" class="archive-article-date">
+  	<time datetime="2020-10-30T13:19:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><ul>
+<li>线性搜索</li>
+<li>二分搜索</li>
+<li>散列法<a id="more"></a>
+<h3 id="线性搜索"><a href="#线性搜索" class="headerlink" title="线性搜索"></a>线性搜索</h3>线性搜索是从开头顺序遍历各元素来判断是否与目标值相等，效率低但是适用于任何形式数据。</li>
+</ul>
+<h4 id="线性搜索改进"><a href="#线性搜索改进" class="headerlink" title="线性搜索改进"></a>线性搜索改进</h4><p>在线性搜索的过程中引入一个特殊“标记”，在处理大规模数据时会有常数倍的性能提升。例如本题中，将搜索目标<code>key</code>放在数组末尾作为标记，当<code>while</code>遍历的末尾时，就必定会返回相等，但此时意味着没找到。对于性能的提升在于，相比<code>for</code>循环需要两次判断。1次在判断是否到底末尾，1次在判断是否匹配目标。而加入“标记”，只需要判断是否匹配到目标。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> n, <span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="comment">//才用标记的方法，将要搜索的key作为标记</span></span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	A[n] = key;</span><br><span class="line">	<span class="keyword">while</span>(A[i] != key)&#123;</span><br><span class="line">		i++;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> i!=n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">// 我的做法 </span></span><br><span class="line"><span class="comment">//	int n,q;</span></span><br><span class="line"><span class="comment">//	//线性查找</span></span><br><span class="line"><span class="comment">//	cin &gt;&gt; n;</span></span><br><span class="line"><span class="comment">//	int* p;</span></span><br><span class="line"><span class="comment">//	int temp;</span></span><br><span class="line"><span class="comment">//	p = (int*)malloc(sizeof(int)*n);</span></span><br><span class="line"><span class="comment">//	for(int i = 0; i &lt; n; i++)&#123;</span></span><br><span class="line"><span class="comment">//		cin &gt;&gt; temp;</span></span><br><span class="line"><span class="comment">//		p[i] = temp;</span></span><br><span class="line"><span class="comment">//	&#125; </span></span><br><span class="line"><span class="comment">//	cin &gt;&gt; q;</span></span><br><span class="line"><span class="comment">//	int cur;</span></span><br><span class="line"><span class="comment">//	int count = 0;</span></span><br><span class="line"><span class="comment">//	for(int i = 0; i &lt; q; i++)&#123;</span></span><br><span class="line"><span class="comment">//		cin &gt;&gt; cur;</span></span><br><span class="line"><span class="comment">//		int flag = false;</span></span><br><span class="line"><span class="comment">//		for(int j = 0; j &lt; n; j++)&#123;</span></span><br><span class="line"><span class="comment">//			if(p[j] == cur)&#123;</span></span><br><span class="line"><span class="comment">//				flag = true;</span></span><br><span class="line"><span class="comment">//			&#125;</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line"><span class="comment">//		if(flag)&#123;</span></span><br><span class="line"><span class="comment">//			count++;</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line"><span class="comment">//	&#125;</span></span><br><span class="line"><span class="comment">//	</span></span><br><span class="line"><span class="comment">//	printf(&quot;%d&quot;,count);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 书上做法，其引用标记的概念，简化for循环的比较以提高效率</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>  i,n,A[<span class="number">10001</span>],q,key,sum=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;q);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; q; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;key);</span><br><span class="line">		<span class="comment">//找到了 </span></span><br><span class="line">		<span class="keyword">if</span>(search(A,n,key)) sum++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,sum);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h3><p>二分搜索适用于已经提前按照关键字进行升序排列的数组，由于每一次搜索，数组范围都会减半，因此其时间复杂度为O(logn)</p>
+<h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4><ul>
+<li>二分搜索中需要规定搜索范围的左边和右边，左边<code>left</code>为搜索范围的第一个元素，而右边<code>right</code>为最后一个元素的后一个位置。</li>
+<li>因此初始化的时候<code>left = 0</code>，<code>right = n</code>，对于判断的位置<code>middle</code>为<code>middle = (left + right)/2</code>。</li>
+<li>在一次判断后，如果我们判断的关键字小于当前位置<code>A[middle] &gt; key</code>，说明<code>key</code>小，要在数组前部分搜索，此时需要改变<code>right</code>位置来缩小范围，而<code>right</code>为搜索范围的最后一个元素的后一个位置，而此时<code>middle</code>已经不在我们的搜索范围了。因此<code>left = middle</code></li>
+<li>在一次判断后，如果我们判断的关键字大于当前位置<code>A[middle] &lt; key</code>，说明<code>key</code>大，要在数组后部分搜索，此时需要改变<code>left</code>位置来缩小范围，而<code>left</code>为搜索范围的第一个元素，而此时<code>middle</code>已经不在我们的搜索范围了。因此<code>right = middle+1</code>,<strong>而不是right = middle，虽然这样也能正常运行，但是不是正版的二分搜索</strong></li>
+<li>判断条件<code>left &lt; right</code>。<ul>
+<li>假设我们要搜索的关键词小于数组所有元素，则<code>left</code>一直为<code>0</code>，而<code>right</code>在不断的缩小，在最后一次判断中，<code>right</code>注定是<code>1</code>,而<code>middle</code>为<code>(0+1) /2= 0</code>,因此我们判断了<code>A[0]的位置</code>，再进行一次则<code>right == left跳出循环</code>.</li>
+<li>假设我们要搜索的关键词大于数组所有元素，则<code>right</code>一直为<code>n</code>，而<code>left</code>在不断的变大，在最后一次判断中，<code>left</code>注定是<code>n-1</code>,而<code>middle</code>为<code>(n-1+n) /2= n-0.5 = n-1</code>,因此我们判断了<code>A[n-1]的位置</code>，再进行一次则<code>right == left == n跳出循环</code>.</li>
+</ul>
+</li>
+<li>对于<code>middle = (right + left) / 2</code>这句语句执行的位置应该为<code>while</code>循环的第一句</li>
+</ul>
+<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//二分搜索 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> n, <span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//left指向搜索范围开头元素</span></span><br><span class="line">	<span class="comment">//right指向末尾元素的后一个元素（指向一个不存在的位置） </span></span><br><span class="line">	<span class="keyword">int</span> right = n;</span><br><span class="line">	<span class="keyword">int</span> middle;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">		middle = (right + left) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(A[middle] == key)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(A[middle] &lt; key)&#123;</span><br><span class="line">			<span class="comment">//注意，left指向开头第一个元素，而middle已经判断过了无需判断 </span></span><br><span class="line">			left = middle+<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">//right指向最后一个元素的后一个位置，而我们要判断的是middle前方的数字，因此middle即为最后一个元素的后一个位置 </span></span><br><span class="line">			right =middle;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span>  i,n,A[<span class="number">10001</span>],q,key,sum=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;q);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; q; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;key);</span><br><span class="line">		<span class="comment">//找到了 </span></span><br><span class="line">		<span class="keyword">if</span>(binarySearch(A,n,key)) sum++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,sum);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h3 id="散列法"><a href="#散列法" class="headerlink" title="散列法"></a>散列法</h3><p>散列法是一种搜索算法，能够根据个元素的值来确定储存位置，从而实现数据的告诉搜索。而其中的散列表是一种数据结构，能够对关键字的数据集合高效地执行动态插入、搜索和删除操作。</p>
+<h4 id="与链表区别"><a href="#与链表区别" class="headerlink" title="与链表区别"></a>与链表区别</h4><ul>
+<li>链表在删除和搜索操作中，时间复杂度为O(n)</li>
+<li>散列表在不考虑发生冲突的情况下，时间复杂度为O(1)</li>
+</ul>
+<h4 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h4><ul>
+<li>散列函数 <code>h(k)</code>： 根据k的值求得数组T的下标的函数</li>
+<li>散列值： 散列函数的返回值</li>
+<li>数组T的长度为m，则散列值的范围为0 ~ m-1。因此函数内需要使用到求余运算</li>
+<li>冲突：不同的key对应到同一个散列值</li>
+</ul>
+<h5 id="开放地址法"><a href="#开放地址法" class="headerlink" title="开放地址法"></a>开放地址法</h5><p>开放地址法是解决冲突的手段之一，这里介绍的是双散列结构里的开放地址法。</p>
+<p>在双散列结构中一旦发生冲突，则会调用第二个散列函数求散列值:H(k) = h(k,i) = (h<sub>1</sub>(k)+i*h<sub>2</sub>(k)) mod m</p>
+<p>i是发送冲突后计算下一个散列值的次数。当h<sub>1</sub>(k)计算第一个下标冲突后，则会下标移动h<sub>2</sub>(k)个位置，知道不发送冲突为止。</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
+<li><p>下标每次移动的h<sub>2</sub>(k)个位置应该与数组长度m互质，否则会出现无法生成下标的情况。因此可以让m为质数，而h<sub>2</sub>(k)为小于m的数字</p>
+</li>
+<li><p>在搜索的时候，判断散列表中不存在要搜索的元素时，是通过<code>T[j] == NIL || i &gt;= m</code>的条件</p>
+</li>
+</ul>
+<h4 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h4><p><img src="/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/dictionary.JPG" alt="dictionary"></p>
+<h4 id="我写的代码"><a href="#我写的代码" class="headerlink" title="我写的代码"></a>我写的代码</h4><p>我只是简单的通过将输入值转成ASCILL码相加求余来得散列值。这样做法有以下缺点</p>
+<ul>
+<li>没有解决冲突问题</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">string</span> hashTable[<span class="number">100</span>];</span><br><span class="line">	<span class="built_in">string</span> order;</span><br><span class="line">	<span class="built_in">string</span> str;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="built_in">cin</span> &gt;&gt; order &gt;&gt; str;</span><br><span class="line">		<span class="keyword">int</span> code = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(order[<span class="number">0</span>] == <span class="string">&#x27;i&#x27;</span>)&#123;</span><br><span class="line">			<span class="comment">//插入</span></span><br><span class="line">		</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; str.size(); j++)&#123;</span><br><span class="line">				code += str[j];</span><br><span class="line">			&#125;</span><br><span class="line">			code %= <span class="number">100</span>; </span><br><span class="line">			<span class="comment">//放入散列表</span></span><br><span class="line">			hashTable[code] = str;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; str.size(); j++)&#123;</span><br><span class="line">				code += str[j];</span><br><span class="line">			&#125;</span><br><span class="line">			code %= <span class="number">100</span>; </span><br><span class="line">			<span class="keyword">if</span>(hashTable[code] == str)&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;yes&quot;</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;no&quot;</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h4 id="书上做法"><a href="#书上做法" class="headerlink" title="书上做法"></a>书上做法</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> M 1046572</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NIL (-1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> L 14</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> H[M][L];</span><br><span class="line"></span><br><span class="line"><span class="comment">//字符转数值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getChar</span><span class="params">(<span class="keyword">char</span> ch)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(ch==<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">&#x27;C&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">&#x27;G&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">&#x27;T&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将字符串转成数值并生成key</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getKey</span><span class="params">(<span class="keyword">char</span> str[])</span></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> sum = <span class="number">0</span>,p=<span class="number">1</span>,i;</span><br><span class="line">	<span class="comment">//算出字符串的值 </span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(str);i++)&#123;</span><br><span class="line">		sum += p* getChar(str[i]);</span><br><span class="line">		<span class="comment">//这里p的作用是将每个字符的数值分散来开，减小冲突概率 </span></span><br><span class="line">		p *= <span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">h1</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> key%M;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">h2</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="comment">//保证下标值不为零，否则和h1就一样了 </span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>+key%(M<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">char</span> str[])</span></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> i,key,h;</span><br><span class="line">	<span class="comment">//字符串转成数值</span></span><br><span class="line">	key = getKey(str);</span><br><span class="line">	<span class="comment">//不太明白这里，为什么不判断i&lt;M </span></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;;i++)&#123;</span><br><span class="line">		h = (h1(key)+i*h2(key))%M;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(H[h],str) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">strlen</span>(H[h]) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;  </span><br><span class="line">	<span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(<span class="keyword">char</span> str[])</span></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> i,h,key;</span><br><span class="line">	key = getKey(str);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>;;i++)&#123;</span><br><span class="line">		h = (h1(key) + i*h2(key)) % M;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(H[h],str) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">strlen</span>(H[h]) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">strcpy</span>(H[h],str);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i, n, h;</span><br><span class="line">	<span class="keyword">char</span> str[L], com[<span class="number">9</span>];</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; M; i++) H[i][<span class="number">0</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>; i &lt;n; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%s %s&quot;</span>,com,str);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(com[<span class="number">0</span>] == <span class="string">&#x27;i&#x27;</span>)&#123;</span><br><span class="line">			insert(str);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(find(str))&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;yes\n&quot;</span>);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;no\n&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ul>
+<li>散列有哪些方法</li>
+</ul>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -173,40 +238,112 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">初等数据结构</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">队列</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">搜索</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/10/30/%E8%87%AA%E6%88%91%E8%83%BD%E5%8A%9B%E6%89%B9%E5%88%A4%E3%80%81%E5%AE%A1%E8%A7%86%E4%B8%8E%E6%BF%80%E5%8A%B1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">自我能力批判、审视与激励</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -229,9 +366,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

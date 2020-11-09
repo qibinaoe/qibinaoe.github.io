@@ -16,7 +16,7 @@
 <meta property="og:description" content="基础知识关键术语 简单性">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-06T09:46:27.000Z">
-<meta property="article:modified_time" content="2020-10-07T14:56:32.619Z">
+<meta property="article:modified_time" content="2020-11-04T11:50:42.143Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心技术">
 <meta property="article:tag" content="Java">
@@ -267,8 +267,17 @@ UTF-8的意思是以8位为一个编码单位的可变编码，将码位编码�
 <p>JRE包括JVM(Java Virtual Machine)和Java核心类库</p>
 <p>跳出Java来讲，SDK是辅助开发某一类软件的相关文档、范例和工具的集合，而联通SDK的接口叫做API。</p>
 <hr>
-<hr>
-<h1 id="提醒需要复习复习内容"><a href="#提醒需要复习复习内容" class="headerlink" title="提醒需要复习复习内容"></a>提醒需要复习复习内容</h1><ul>
+<h3 id="javac-和-java"><a href="#javac-和-java" class="headerlink" title="javac 和 java"></a>javac 和 java</h3><ul>
+<li><code>javac</code> 是编译命令，可以将<code>.java</code>文件编译成<code>.class</code>字节码文件</li>
+</ul>
+<p><code>Hello.java</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(&quot;Hello World&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>javac Hello.java</code></p>
+<ul>
+<li><code>java Hello</code> 用于运行字节码文件，通过JVM进行解释运行</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/peng86788/article/details/81296882">参考</a></h2><h1 id="提醒需要复习复习内容"><a href="#提醒需要复习复习内容" class="headerlink" title="提醒需要复习复习内容"></a>提醒需要复习复习内容</h1><ul>
 <li><strong><em>二进制的原码 补码 反码</em></strong></li>
 <li><strong><em>IEEE 754</em></strong></li>
 <li><strong><em>大端法、小端法</em></strong></li>
@@ -497,6 +506,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
               </li>
              
@@ -553,11 +566,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人能力</a>
+                <a href="javascript:void(0)" class="js-tag color3">排序</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">逻辑</a>
+                <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,6 +579,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随想</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人能力</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">逻辑</a>
               </li>
              
               <li class="article-tag-list-item">

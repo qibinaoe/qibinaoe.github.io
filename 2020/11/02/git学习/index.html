@@ -15,13 +15,11 @@
 <meta property="og:site_name" content="qibinBlog">
 <meta property="og:description" content="学习git记录">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2020/11/02/git%E5%AD%A6%E4%B9%A0/workingdirectory.jpg">
 <meta property="article:published_time" content="2020-11-02T07:27:13.000Z">
-<meta property="article:modified_time" content="2020-11-02T09:13:52.546Z">
+<meta property="article:modified_time" content="2020-11-11T13:01:44.775Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/11/02/git%E5%AD%A6%E4%B9%A0/workingdirectory.jpg">
   
     <link rel="alternative" href="/atom.xml" title="qibinBlog" type="application/atom+xml">
   
@@ -267,42 +265,91 @@
 <li>将工作区的被删除的文件，从版本库中复原，即将误删的文件恢复到最新版本(其实是将版本库中的版本替换工作区的把版本，所以工作区是修改还是删除都是变成版本库的版本)</li>
 </ul>
 </li>
+<li><code>git checkout -b dev</code><ul>
+<li>创建<code>dev</code>分支，并切换到<code>dev</code>分支</li>
+<li>相当于<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">          git branch dev</span><br><span class="line">          git checkout dev</span><br><span class="line">        &#96;&#96;&#96;   </span><br><span class="line"></span><br><span class="line">- &#96;git rm &lt;file&gt;&#96;</span><br><span class="line">  - 当有个文件提交到版本库后，我们在工作目录后删除该文件，如果确实要将改文件从版本库删除，则使用&#96;git rm &lt;file&gt;&#96;然后再&#96;git commit&#96;</span><br><span class="line">  &#96;&#96;&#96;git</span><br><span class="line">    $ git rm test.txt</span><br><span class="line">    rm &#39;test.txt&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;remove test.txt&quot;</span><br><span class="line">[master e5ffcc1] remove test.txt</span><br><span class="line">1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line">delete mode 100644 test.txt</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 </ol>
 </li>
-<li><p><code>git rm &lt;file&gt;</code></p>
+<li><p><code>git branch</code></p>
 <ul>
-<li>当有个文件提交到版本库后，我们在工作目录后删除该文件，如果确实要将改文件从版本库删除，则使用<code>git rm &lt;file&gt;</code>然后再<code>git commit</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git rm test.txt</span><br><span class="line">rm &#39;test.txt&#39;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;remove test.txt&quot;</span><br><span class="line">[master e5ffcc1] remove test.txt</span><br><span class="line">1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line">delete mode 100644 test.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h4 id="git概念"><a href="#git概念" class="headerlink" title="git概念"></a>git概念</h4><ul>
-<li><p>工作区(Working Directory)</p>
-<ul>
-<li>电脑的目录，即这里的gitlearning文件夹就是工作区<br><img src="/2020/11/02/git%E5%AD%A6%E4%B9%A0/workingdirectory.jpg" alt="工作区"></li>
-</ul>
-</li>
-<li><p>版本库(Repository)</p>
-<ul>
-<li>工作区中隐藏的文件夹 <code>.git</code>属于版本库不属于工作区 ，其中版本库中存了一个叫做stage(或者叫index)的<strong>暂存区</strong>,同时版本库中还有一个git自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的指针<code>HEAD</code></li>
-</ul>
-</li>
-<li><p><code>git add</code>是将文件添加到暂存区</p>
-<p>  <code>git commit</code>是将暂存区的所有内容提交到当前分支</p>
-<p>  当添加一个新文件<code>LISENCE</code>而没有add到暂存区的时候，使用<code>git status</code>命令会显示其<code>Untracked</code></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">(use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">(use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">(use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">        LISENCE</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>  而当我们把其新添加的文件<code>git add</code>到仓库时，会显示 <code>new files</code></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">(use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">        new file:   LISENCE</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+<li><p><code>git branch</code>命令查看当前分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">      $ git branch</span><br><span class="line">      * dev</span><br><span class="line">        master</span><br><span class="line">    &#96;&#96;&#96; </span><br><span class="line">  - &#96;git branch dev&#96; 创建&#96;dev&#96;分支</span><br><span class="line">  - &#96;git branch -d dev&#96; 删除&#96;dev&#96;分支</span><br><span class="line">- &#96;git merge&#96;命令用于合并并指定分支到当前分支(比如要将dev合并到master,则得先将HEAD指针指向master分支)</span><br><span class="line">  - &#96;git merge dev&#96;</span><br><span class="line"></span><br><span class="line">- &#96;git switch&#96;</span><br><span class="line">  - &#96;git switch -c dev&#96; 创建并切换到新的&#96;dev&#96;分支</span><br><span class="line">  - &#96;git switch dev&#96; 切换到&#96;dev&#96;分支</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">#### git概念</span><br><span class="line"></span><br><span class="line">- 工作区(Working Directory)</span><br><span class="line">    - 电脑的目录，即这里的gitlearning文件夹就是工作区</span><br><span class="line">    ![工作区](workingdirectory.jpg)</span><br><span class="line"></span><br><span class="line">- 版本库(Repository)</span><br><span class="line">    - 工作区中隐藏的文件夹 &#96;.git&#96;属于版本库不属于工作区 ，其中版本库中存了一个叫做stage(或者叫index)的**暂存区**,同时版本库中还有一个git自动创建的第一个分支&#96;master&#96;，以及指向&#96;master&#96;的指针&#96;HEAD&#96;</span><br><span class="line"></span><br><span class="line">- &#96;git add&#96;是将文件添加到暂存区</span><br><span class="line"></span><br><span class="line">    &#96;git commit&#96;是将暂存区的所有内容提交到当前分支</span><br><span class="line"></span><br><span class="line">    当添加一个新文件&#96;LISENCE&#96;而没有add到暂存区的时候，使用&#96;git status&#96;命令会显示其&#96;Untracked&#96;</span><br><span class="line">    &#96;&#96;&#96;git</span><br><span class="line">    $ git status</span><br><span class="line">    On branch master</span><br><span class="line">    Changes not staged for commit:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">    (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">            modified:   readme.txt</span><br><span class="line"></span><br><span class="line">    Untracked files:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">            LISENCE</span><br><span class="line"></span><br><span class="line">    no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>而当我们把其新添加的文件<code>git add</code>到仓库时，会显示 <code>new files</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">(use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">        new file:   LISENCE</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
 
 
+</li>
+</ul>
 </li>
 </ul>
 <ul>
 <li><code>git commit</code>是将暂存区的内容提交，因此如果工作区内的内容没有<code>git add</code>的话，其不会被<code>commit</code>上去</li>
 </ul>
 <hr>
+<h3 id="远程仓库管理"><a href="#远程仓库管理" class="headerlink" title="远程仓库管理"></a>远程仓库管理</h3><ul>
+<li><p>创建SSH key</p>
+<ul>
+<li><code>ssh-keygen -t rsa -C &quot;youremail@example.com</code></li>
+<li><code>id_rsa</code>是私钥</li>
+<li><code>id_rsa.pub</code>是公钥</li>
+<li>将<code>id_rsa.pub</code>记录在github上</li>
+</ul>
+</li>
+<li><p>创建新的repository</p>
+</li>
+<li><p>将本地仓库推送远程库</p>
+<ul>
+<li>在git文件夹里<ul>
+<li><code>git remote add origin https://github.com/qibinaoe/learngit.git</code><ul>
+<li><code>origin</code>是远程库的名字，git的默认叫法</li>
+</ul>
+</li>
+<li><code>git push -u origin master</code> 用<code>git push</code>将本地库中的当前分支<code>master</code>推送到远程 <ul>
+<li>第一次推送<code>master</code>分支时，加上<code>-u</code>参数，同时实现两种操作<ol>
+<li>将本地<code>master</code>分支内容推送到远程新的<code>master</code>分支</li>
+<li>将本地<code>master</code>分支和远程<code>master</code>分支关联起来，在以后的推送和拉去就可以简化命令</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>此后修改后要将本地仓库推送到远程时，只需要使用<code>git push origin master</code>  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>将远程库克隆到本地</p>
+<ul>
+<li><code>$ git clone git@github.com:qibinaoe/gitskills.git</code><ul>
+<li>使用的是ssh的协议</li>
+</ul>
+</li>
+<li><code>$ git clone https://github.com/qibinaoe/gitskills.git</code><ul>
+<li>使用的是https的协议</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>在分支<code>dev</code>上修改后，如果需要将该分支的内容合并到<code>master</code>分支</p>
+<ol>
+<li>切换到<code>master</code>分支<ul>
+<li><code>git checkout master</code></li>
+</ul>
+</li>
+<li>指定要合并的分支<ul>
+<li><pre><code>  $ git merge dev
+  Updating e5ffcc1..a3f33f3
+  Fast-forward
+    readme.txt | 3 ++-
+    1 file changed, 2 insertions(+), 1 deletion(-)</code></pre>
+</li>
+<li>这里的<code>Fast-forward</code>指的是将<code>master</code>指向<code>dev</code></li>
+</ul>
+</li>
+</ol>
 
       
 
@@ -527,15 +574,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -599,15 +646,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">演讲</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人能力</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">逻辑</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">演讲</a>
               </li>
             
             <div class="clearfix"></div>

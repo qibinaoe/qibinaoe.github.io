@@ -16,7 +16,7 @@
 <meta property="og:description" content="Java核心技术——第四章 对象与类">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-11T13:29:45.000Z">
-<meta property="article:modified_time" content="2020-11-14T07:36:22.123Z">
+<meta property="article:modified_time" content="2020-11-14T07:53:46.775Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
@@ -156,14 +156,10 @@
         <p>Java核心技术——第四章 对象与类</p>
 <a id="more"></a>
 <ul>
-<li><p>面向对象设计(Object-oriented programming ,OOP)</p>
-</li>
-<li><p>创建类的实例(instance): 由类class(构造对象的模板或蓝图)构造construct对象的过程</p>
-</li>
-<li><p>封装(encapsulation)的关键在于程序只能通过对象的方法与对象数据进行交互，换句话说，绝对不能让类中的方法直接访问其他类的示例字段(instance field)</p>
-</li>
-<li><p>对别对象和对象变量的概念</p>
-<ul>
+<li>面向对象设计(Object-oriented programming ,OOP)</li>
+<li>创建类的实例(instance): 由类class(构造对象的模板或蓝图)构造construct对象的过程</li>
+<li>封装(encapsulation)的关键在于程序只能通过对象的方法与对象数据进行交互，换句话说，绝对不能让类中的方法直接访问其他类的示例字段(instance field)</li>
+<li>对别对象和对象变量的概念<ul>
 <li><code>Date deadline;</code> 这是一个对象遍历啊你给，不是一个对象，并且没有引用任何对象</li>
 <li>对象变量初始化的方法<ol>
 <li>引用一个新构造的对象 <code>deadline = new Date();</code></li>
@@ -176,30 +172,22 @@
 <li>Java中必须使用<code>clone</code>方法来获得对象的完整副本</li>
 </ul>
 </li>
-<li><p>UTC(Coordinated Universal Time) 国际协调时间</p>
-</li>
-<li><p>GMT(Greenwich Mean Time) 格林尼治时间</p>
-</li>
-<li><p>访问器方法(accessor method) 只访问对象而不修改对象的方法</p>
-</li>
-<li><p>修改器方法(mutator method) 访问对象后，对象的状态发生改变</p>
-</li>
-<li><p>一个源文件(.java)只能由一个公共类，但可以任意数目的非公共类</p>
-<ul>
+<li>UTC(Coordinated Universal Time) 国际协调时间</li>
+<li>GMT(Greenwich Mean Time) 格林尼治时间</li>
+<li>访问器方法(accessor method) 只访问对象而不修改对象的方法</li>
+<li>修改器方法(mutator method) 访问对象后，对象的状态发生改变</li>
+<li>一个源文件(.java)只能由一个公共类，但可以任意数目的非公共类<ul>
 <li>在编译的时候会分别为每个类生成.class文件</li>
 </ul>
 </li>
-<li><p>构造器</p>
-<ul>
+<li>构造器<ul>
 <li>构造器结合<code>new</code>运算符调用</li>
 <li>不能对一个已经存在的对象调用构造器来达到重新设置实例字段的目的</li>
 <li>构造器没有返回值</li>
 </ul>
 </li>
-<li><p>不要在构造器中定义与实例字段同名的局部变量</p>
-</li>
-<li><p>隐式参数与显示参数</p>
-<ul>
+<li>不要在构造器中定义与实例字段同名的局部变量</li>
+<li>隐式参数与显示参数<ul>
 <li><code>employee.raiseSalary(1000);</code><ul>
 <li><code>raiseSalary</code>方法有两个参数<ol>
 <li>隐式参数： <code>employee</code>出现在方法前的<code>Employee</code>类型对象（方法调用的目标或接收者）</li>
@@ -214,26 +202,18 @@
 </li>
 </ul>
 </li>
-<li><p>Java中所有的方法都必须在类的内部定义(不同于C++),但这不表示它们是内联方法。是否将某个方法设置为内联方法是Java虚拟机的任务。即时编辑器会监视那些简短的、经常调用而且没有被覆盖的方法调用，并进行优化。</p>
-</li>
-<li><p>访问器方法</p>
-<ul>
-<li><p>不要编写返回可变对象引用的访问器方法</p>
-<ul>
-<li><p>```<br>  class Employee<br>  {</p>
-<pre><code>private Date  hireDay;
-public Date getHireDay()
-&#123;
-  return hireDay; //不要这样做。因为Date类有一个更改其的方法setTime,这样做会破坏封装性
-&#125;</code></pre>
-<p>  }</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">  - 如果需要返回一个可变对象的引用，应该先对其克隆(clone)再返回。&#96;return (Date)hireDay.clone();&#96;</span><br><span class="line">- 基于类的访问权限</span><br><span class="line">  - 方法可以访问调用这个方法的对象的私有数据</span><br><span class="line">  - 一个方法可以访问所属类的所有对象的私有数据(可读可修改)</span><br><span class="line">    - &#96;&#96;&#96;</span><br><span class="line">        public class Test &#123;</span><br><span class="line">          public static void main(String[] args) &#123;</span><br><span class="line">              Employee e1 &#x3D; new Employee(&quot;good&quot;,10);</span><br><span class="line">              Employee e2 &#x3D; new Employee(&quot;good&quot;,20);</span><br><span class="line">              System.out.println(e2.getSalary()); &#x2F;&#x2F; 20</span><br><span class="line">              System.out.println(e1.equals(e2)); &#x2F;&#x2F; true</span><br><span class="line">              System.out.println(e2.getSalary()); &#x2F;&#x2F;1000</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      class Employee</span><br><span class="line">      &#123;</span><br><span class="line">          private String name;</span><br><span class="line">          private int salary;</span><br><span class="line">          public Employee(String n, int s)</span><br><span class="line">          &#123;</span><br><span class="line">              name &#x3D; n;</span><br><span class="line">              salary &#x3D; s;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">          public boolean equals(Employee l) &#123;</span><br><span class="line">              l.salary &#x3D; 1000;</span><br><span class="line">              return name.equals(l.name);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          public int getSalary() &#123;</span><br><span class="line">              return salary;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>Java中所有的方法都必须在类的内部定义(不同于C++),但这不表示它们是内联方法。是否将某个方法设置为内联方法是Java虚拟机的任务。即时编辑器会监视那些简短的、经常调用而且没有被覆盖的方法调用，并进行优化。</li>
+<li>访问器方法<ul>
+<li>不要编写返回可变对象引用的访问器方法  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Date  hireDay;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> hireDay; <span class="comment">//不要这样做。因为Date类有一个更改其的方法setTime,这样做会破坏封装性</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果需要返回一个可变对象的引用，应该先对其克隆(clone)再返回。<code>return (Date)hireDay.clone();</code></li>
 </ul>
 </li>
+<li>基于类的访问权限<ul>
+<li>方法可以访问调用这个方法的对象的私有数据</li>
+<li>一个方法可以访问所属类的所有对象的私有数据(可读可修改)  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">10</span>);</span><br><span class="line">        Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">        System.out.println(e2.getSalary()); <span class="comment">// 20</span></span><br><span class="line">        System.out.println(e1.equals(e2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(e2.getSalary()); <span class="comment">//1000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Employee l)</span> </span>&#123;</span><br><span class="line">        l.salary = <span class="number">1000</span>;</span><br><span class="line">        <span class="keyword">return</span> name.equals(l.name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSalary</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>final实例字段</p>
-<ul>
+<li>final实例字段<ul>
 <li>实例字段定义为final<ul>
 <li>这些字段必须在构造对象时初始化，即每一个构造器执行之后，这些字段的值已经设置，并且以后不能再修改这个字段</li>
 </ul>
@@ -242,8 +222,7 @@ public Date getHireDay()
 <li>final修饰可变的类会造成混乱(StringBuilder)，因为final只表示储存在final修饰的变量的对象引用不会再知识另一个不同的对象，但是这个对象可以更改</li>
 </ul>
 </li>
-<li><p>静态字段</p>
-<ul>
+<li>静态字段<ul>
 <li>一个字段定义为<code>static</code>,则每个类只有一个这样的字段<ul>
 <li>这个类的所有实例都共享这个static修饰的静态字段</li>
 <li>即使没有这个对象，静态字段仍然存在</li>
@@ -253,64 +232,63 @@ public Date getHireDay()
 <li>对于非静态的实例字段，每个对象都有自己的副本</li>
 </ul>
 </li>
-<li><p>静态常量</p>
-<ul>
+<li>静态常量<ul>
 <li><code>public static final double PI = 3.14159265358979323846;</code></li>
 <li><code>public static final PrintStream out = ...;</code></li>
 <li>在<code>System</code>类中，有个<code>setOut</code>方法能够修改<code>System.out</code>为不同的流，这个方法能够修改<code>final</code>修饰变量的值的原因是因为这是个<strong>原生方法</strong>,不是在Java语言实现的，绕过Java语言的访问控制机制。</li>
 </ul>
 </li>
-<li><p>静态方法</p>
-<ul>
+<li>静态方法<ul>
 <li>不在对象上执行的方法 <code>Math.pow(x, a)</code>, 由于不使用任何对象，因此它没有隐式参数</li>
 <li>静态方法没有<code>this</code>参数</li>
 <li>静态方法不能访问实例字段，但是可以访问静态字段</li>
-<li>非静态方法也也可以访问静态字段<ul>
-<li>```<br>  public static int getNextId()<br>  {<pre><code>return nextId;</code></pre>
-  }<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">    这里的&#96;static&#96;可以省略，但这样一来就得通过对象引用来调用方法</span><br><span class="line">- 工厂方法</span><br><span class="line">  - 静态工厂方法构造对象</span><br><span class="line">    - 无法命名构造器</span><br><span class="line">      - 希望有两个不同的名字得到不同的实例</span><br><span class="line">    - 使用构造器，无法改变所构造对象的类型</span><br><span class="line">- 每一个类都可以有一个&#96;main&#96;方法</span><br><span class="line">  - 对类进行的单元测试的技巧</span><br><span class="line">- 方法参数</span><br><span class="line">  - 按值调用(call by value)</span><br><span class="line">    - 接受调用者提供的值</span><br><span class="line">    - 方法不能修改按值传递的变量的值</span><br><span class="line">  - 按引用调用(call by reference)</span><br><span class="line">    - 接受的是调用者提供的变量地址</span><br><span class="line">    - 方法可以修改按引用传递的变量的值</span><br><span class="line">  - Java总是采用**按值调用**</span><br><span class="line">    - 方法得到的是所有参数值的一个副本，方法不能修改传递给它的任何参数变量的内容</span><br><span class="line">    - 方法参数类型</span><br><span class="line">      - 基本数据类型(数字、布尔值)</span><br><span class="line">      - 对象引用(*注：对象引用也是按值传递，不是按引用传递*)</span><br><span class="line">    - 但是通过对象引用能够修改对象的参数状态，因为方法得到的是对象引用的一个副本，原来对象引用和副本都引用同一个对象</span><br><span class="line">    - 证明对象引用不是按引用传递</span><br><span class="line">      - &#96;&#96;&#96;</span><br><span class="line">          public class Test &#123;</span><br><span class="line">            public static void main(String[] args) &#123;</span><br><span class="line">                Employee e1 &#x3D; new Employee(&quot;bad&quot;,10);</span><br><span class="line">                Employee e2 &#x3D; new Employee(&quot;good&quot;,20);</span><br><span class="line">                System.out.println(e1.getName()); &#x2F;&#x2F; bad</span><br><span class="line">                System.out.println(e2.getName()); &#x2F;&#x2F; good</span><br><span class="line">                swap(e1,e2);</span><br><span class="line">                System.out.println(e1.getName());&#x2F;&#x2F; bad</span><br><span class="line">                System.out.println(e2.getName());&#x2F;&#x2F; good</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            private static void swap(Employee e1, Employee e2) &#123;</span><br><span class="line">                Employee temp &#x3D; e1;</span><br><span class="line">                e1 &#x3D; e2;</span><br><span class="line">                e2 &#x3D; temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        class Employee</span><br><span class="line">        &#123;</span><br><span class="line">            private String name;</span><br><span class="line">            private int salary;</span><br><span class="line"></span><br><span class="line">            public Employee(String n, int s)</span><br><span class="line">            &#123;</span><br><span class="line">                name &#x3D; n;</span><br><span class="line">                salary &#x3D; s;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            public String getName() &#123;</span><br><span class="line">                return name;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#96;&#96;&#96; </span><br><span class="line"></span><br><span class="line">- 对象构造</span><br><span class="line">  - 重载(overloading)</span><br><span class="line">    - 相同名字，不同参数。(不仅适用于构造器，Java允许重载任何方法)</span><br><span class="line">  - 重载解析(overloading solution)</span><br><span class="line">    - 查找匹配的过程</span><br><span class="line">  - 方法的**签名**: 方法名+参数类型</span><br><span class="line">    - 注意，返回值不是签名的一部分</span><br><span class="line">- 默认字段初始化</span><br><span class="line">  - 构造器没有显示为字段设置初值，会被自动赋为默认值</span><br><span class="line">    - 数值为&#96;0&#96;</span><br><span class="line">    - 布尔值为&#96;false&#96;</span><br><span class="line">    - 对象引用为&#96;null&#96;</span><br><span class="line">  - 注意：方法中的**局部变量**必须明确地初始化，否则会报错</span><br><span class="line">- 无参数构造器</span><br><span class="line">  - 写类的时候没有编写构造器，会提供一个无参数构造器</span><br><span class="line">    - 所有实例字段设置为默认值</span><br><span class="line">  - 仅当类没有任何其他构造器的时候，才会得到一个默认的无参数构造器</span><br><span class="line">    - 如果类提供了至少一个构造器，但是没有提供无参数的构造器，那么构造对象时如果不提供参数就是不合法</span><br><span class="line">- 显式字段初始化</span><br><span class="line">  1. 类定义中直接为任何字段赋值 </span><br><span class="line">     - 执行构造器之前先完成赋值操作</span><br><span class="line">     - 希望将某个字段设置为同一值 </span><br><span class="line">     - &#96;&#96;&#96;</span><br><span class="line">        class Employee</span><br><span class="line">        &#123;</span><br><span class="line">          private Sting name &#x3D; &quot;...&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">       &#96;&#96;&#96;   </span><br><span class="line">  2. 利用方法调用初始化一个字段</span><br><span class="line">    - &#96;&#96;&#96;</span><br><span class="line">        class Employee</span><br><span class="line">        &#123;</span><br><span class="line">          private static int nextId;</span><br><span class="line">          private int id &#x3D; assignId();</span><br><span class="line">          ...</span><br><span class="line">          private static int assignId()</span><br><span class="line">          &#123;</span><br><span class="line">            int r &#x3D; nextId;</span><br><span class="line">            nextId++;</span><br><span class="line">            return r;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></li>
+<li>非静态方法也也可以访问静态字段  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getNextId</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> nextId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+这里的<code>static</code>可以省略，但这样一来就得通过对象引用来调用方法</li>
+</ul>
+</li>
+<li>工厂方法<ul>
+<li>静态工厂方法构造对象<ul>
+<li>无法命名构造器<ul>
+<li>希望有两个不同的名字得到不同的实例</li>
+</ul>
+</li>
+<li>使用构造器，无法改变所构造对象的类型</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><code>this</code>关键字调用另一个构造器</p>
-<ul>
-<li><p>构造器的第一个语句形如<code>this(...)</code>，构造器将调用同一个类的另一个构造器</p>
+<li>每一个类都可以有一个<code>main</code>方法<ul>
+<li>对类进行的单元测试的技巧</li>
+</ul>
 </li>
-<li><pre><code>public class Test &#123;
-  public static void main(String[] args) &#123;
-      Employee e1 = new Employee(&quot;bad&quot;,10);
-      Employee e2 = new Employee(&quot;good&quot;,20);
-      System.out.println(e1.getName()); // bad
-      System.out.println(e2.getName()); // good
-  &#125;
-&#125;
-class Employee
-&#123;
-    private String name;
-    private int salary;
-
-    public Employee(String n)
-    &#123;
-        name = &quot;HAHAH&quot; + n;
-    &#125;
-    public Employee(String n, int s)
-    &#123;
-        this(n);
-        salary = s;
-    &#125;
-
-</code></pre>
+<li>方法参数<ul>
+<li>按值调用(call by value)<ul>
+<li>接受调用者提供的值</li>
+<li>方法不能修改按值传递的变量的值</li>
+</ul>
 </li>
+<li>按引用调用(call by reference)<ul>
+<li>接受的是调用者提供的变量地址</li>
+<li>方法可以修改按引用传递的变量的值</li>
+</ul>
+</li>
+<li>Java总是采用<strong>按值调用</strong><ul>
+<li>方法得到的是所有参数值的一个副本，方法不能修改传递给它的任何参数变量的内容</li>
+<li>方法参数类型<ul>
+<li>基本数据类型(数字、布尔值)</li>
+<li>对象引用(<em>注：对象引用也是按值传递，不是按引用传递</em>)</li>
+</ul>
+</li>
+<li>但是通过对象引用能够修改对象的参数状态，因为方法得到的是对象引用的一个副本，原来对象引用和副本都引用同一个对象</li>
+<li>证明对象引用不是按引用传递  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">          <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">                Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">                Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">                System.out.println(e1.getName()); <span class="comment">// bad</span></span><br><span class="line">                System.out.println(e2.getName()); <span class="comment">// good</span></span><br><span class="line">                swap(e1,e2);</span><br><span class="line">                System.out.println(e1.getName());<span class="comment">// bad</span></span><br><span class="line">                System.out.println(e2.getName());<span class="comment">// good</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(Employee e1, Employee e2)</span> </span>&#123;</span><br><span class="line">                Employee temp = e1;</span><br><span class="line">                e1 = e2;</span><br><span class="line">                e2 = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class">        </span>&#123;</span><br><span class="line">            <span class="keyword">private</span> String name;</span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">                name = n;</span><br><span class="line">                salary = s;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> name;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ``` </span><br><span class="line"></span><br><span class="line">- 对象构造</span><br><span class="line">  - 重载(overloading)</span><br><span class="line">    - 相同名字，不同参数。(不仅适用于构造器，Java允许重载任何方法)</span><br><span class="line">  - 重载解析(overloading solution)</span><br><span class="line">    - 查找匹配的过程</span><br><span class="line">  - 方法的**签名**: 方法名+参数类型</span><br><span class="line">    - 注意，返回值不是签名的一部分</span><br><span class="line">- 默认字段初始化</span><br><span class="line">  - 构造器没有显示为字段设置初值，会被自动赋为默认值</span><br><span class="line">    - 数值为`<span class="number">0</span>`</span><br><span class="line">    - 布尔值为`<span class="keyword">false</span>`</span><br><span class="line">    - 对象引用为`<span class="keyword">null</span>`</span><br><span class="line">  - 注意：方法中的**局部变量**必须明确地初始化，否则会报错</span><br><span class="line">- 无参数构造器</span><br><span class="line">  - 写类的时候没有编写构造器，会提供一个无参数构造器</span><br><span class="line">    - 所有实例字段设置为默认值</span><br><span class="line">  - 仅当类没有任何其他构造器的时候，才会得到一个默认的无参数构造器</span><br><span class="line">    - 如果类提供了至少一个构造器，但是没有提供无参数的构造器，那么构造对象时如果不提供参数就是不合法</span><br><span class="line">- 显式字段初始化</span><br><span class="line">  <span class="number">1.</span> 类定义中直接为任何字段赋值 </span><br><span class="line">     - 执行构造器之前先完成赋值操作</span><br><span class="line">     - 希望将某个字段设置为同一值 </span><br><span class="line">       ```Java</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class">        </span>&#123;</span><br><span class="line">          <span class="keyword">private</span> Sting name = <span class="string">&quot;...&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">       ```   </span><br><span class="line">  <span class="number">2.</span> 利用方法调用初始化一个字段</span><br><span class="line">      ```Java</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class">        </span>&#123;</span><br><span class="line">          <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> nextId;</span><br><span class="line">          <span class="keyword">private</span> <span class="keyword">int</span> id = assignId();</span><br><span class="line">          ...</span><br><span class="line">          <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">assignId</span><span class="params">()</span></span></span><br><span class="line"><span class="function">          </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> r = nextId;</span><br><span class="line">            nextId++;</span><br><span class="line">            <span class="keyword">return</span> r;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
-<pre><code>    public String getName() &#123;
-        return name;
-    &#125;
-
-&#125;
-```</code></pre>
-<ul>
+</li>
+<li><code>this</code>关键字调用另一个构造器<ul>
+<li>构造器的第一个语句形如<code>this(...)</code>，构造器将调用同一个类的另一个构造器<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">      Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">      System.out.println(e1.getName()); <span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName()); <span class="comment">// good</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = <span class="string">&quot;HAHAH&quot;</span> + n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(n);</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
 <li>初始化块(initialization block)<ul>
 <li>首先运行初始化块，再运行构造器的主体部分</li>
 <li>通常将初始化代码放在构造器里</li>
@@ -332,14 +310,11 @@ class Employee
 <li><code>private static int nextId = 1;</code></li>
 </ul>
 </li>
-<li>静态的初始化块<ul>
-<li><pre><code> static
+<li>静态的初始化块<pre><code class="Java"> static
  &#123;
    Random generator = new Random();
    nextId = generator.nextInt(1000);
  &#125;</code></pre>
-</li>
-</ul>
 </li>
 </ol>
 </li>
@@ -761,15 +736,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -817,19 +792,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随想</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">排序</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随想</a>
               </li>
              
               <li class="article-tag-list-item">

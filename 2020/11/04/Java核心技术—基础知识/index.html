@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2020/11/04/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84.png">
 <meta property="article:published_time" content="2020-11-04T13:18:38.000Z">
-<meta property="article:modified_time" content="2020-11-11T11:27:46.641Z">
+<meta property="article:modified_time" content="2020-11-14T07:52:56.984Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="核心技术">
@@ -243,7 +243,7 @@
 <li><p>关键字<code>final</code></p>
 <ul>
 <li><code>final</code>指示常量，表示这个变量只能被赋值一次，一旦被赋值之后就不能再更改，常量名使用全大写<code>final double CM_PER_INCH</code></li>
-<li>如果希望某个常量可以在一个类的多个方法中使用，这些常量称为类常量(class constant)。使用关键字<code>static final</code>设置一个类常量,类常量的定义位于位于<code>main</code>方法的外部，如果该类常量声明成<code>public</code>则其他类的方法也可以使用该常量<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Constants2</span><br><span class="line">&#123;</span><br><span class="line">    public static final double CM_PER_INCH &#x3D; 2.54;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)</span><br><span class="line">    &#123;</span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>如果希望某个常量可以在一个类的多个方法中使用，这些常量称为类常量(class constant)。使用关键字<code>static final</code>设置一个类常量,类常量的定义位于位于<code>main</code>方法的外部，如果该类常量声明成<code>public</code>则其他类的方法也可以使用该常量<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Constants2</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> CM_PER_INCH = <span class="number">2.54</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>注：<code>const</code>是Java保留的关键字，但是目前并没有使用，必须用<code>final</code>定义常量</li>
 </ul>
 </li>
@@ -279,91 +279,28 @@
 </ul>
 </li>
 <li><p>强制类型转换</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> x = <span class="number">9.997</span>;</span><br><span class="line"><span class="keyword">int</span> nx = (<span class="keyword">int</span>) x;</span><br><span class="line"><span class="keyword">double</span> y = <span class="number">9.997</span>;</span><br><span class="line"><span class="keyword">int</span> ny = (<span class="keyword">int</span>) Math.round(y);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>位运算符</p>
 <ul>
-<li><p>```<br>  double x = 9.997;<br>  int nx = (int) x;<br>  double y = 9.997;<br>  int ny = (int) Math.round(y);</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 位运算符</span><br><span class="line">  - &#96;&amp;&amp;&#96;和&#96;||&#96;用于布尔值会采用短路，但是&#96;&amp;&#96;和&#96;|&#96;用于布尔值不会采用短路</span><br><span class="line">  - &#96;&gt;&gt;&#96; &#96;&lt;&lt;&#96; 用于位模式左移或右移。 &#96;&gt;&gt;&gt;&#96;运算符会用0填充高位，注意没有&#96;&lt;&lt;&lt;&#96;</span><br><span class="line">  - 位运算符的右操作数要完成模32的运算(如果左操作数是类型，则需要模64)</span><br><span class="line">    - &#96;1&lt;&lt;35 &#x3D;&#x3D; 1&lt;&lt;3 &#x3D;&#x3D; 8&#96;</span><br><span class="line"></span><br><span class="line">- 字符串</span><br><span class="line">  - 子串</span><br><span class="line">    - &#96;&#96;&#96;</span><br><span class="line">        String greeting &#x3D; &quot;Hello&quot;;</span><br><span class="line">        String s &#x3D; greeting.substring(0,3);  &#x2F;&#x2F;改子串长度为3 - 0 &#x3D; 3 ; 左闭右开，即取不到3这个位置</span><br></pre></td></tr></table></figure></li>
-<li><p>拼接</p>
+<li><code>&amp;&amp;</code>和<code>||</code>用于布尔值会采用短路，但是<code>&amp;</code>和<code>|</code>用于布尔值不会采用短路</li>
+<li><code>&gt;&gt;</code> <code>&lt;&lt;</code> 用于位模式左移或右移。 <code>&gt;&gt;&gt;</code>运算符会用0填充高位，注意没有<code>&lt;&lt;&lt;</code></li>
+<li>位运算符的右操作数要完成模32的运算(如果左操作数是类型，则需要模64)<ul>
+<li><code>1&lt;&lt;35 == 1&lt;&lt;3 == 8</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>字符串</p>
 <ul>
-<li>通过<code>+</code>进行拼接两个字符串</li>
-<li>字符串于非字符串的值进行拼接的时候，后面的值会转换成字符串   </li>
-<li>如果需要插入间隔符，用<code>join</code> : <code>String.joint(&quot;/&quot;,&quot;S&quot;,&quot;M&quot;,&quot;L&quot;,&quot;XL&quot;); // 输出 S/M/L/XL</code></li>
+<li>子串<ul>
+<li>```<br>  String greeting = “Hello”;<br>  String s = greeting.substring(0,3);  //改子串长度为3 - 0 = 3 ; 左闭右开，即取不到3这个位置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- 拼接</span><br><span class="line">  - 通过&#96;+&#96;进行拼接两个字符串</span><br><span class="line">  - 字符串于非字符串的值进行拼接的时候，后面的值会转换成字符串   </span><br><span class="line">  - 如果需要插入间隔符，用&#96;join&#96; : &#96;String.joint(&quot;&#x2F;&quot;,&quot;S&quot;,&quot;M&quot;,&quot;L&quot;,&quot;XL&quot;); &#x2F;&#x2F; 输出 S&#x2F;M&#x2F;L&#x2F;XL&#96;</span><br><span class="line">- String类对象是不可变的(immutable)</span><br><span class="line">- 共享带来的效率高于提取子串和拼接字符串</span><br><span class="line">- 原始字符串在堆中分配，对一个String类型重新赋值不会发生内存泄漏，因为Java有垃圾回收机制</span><br><span class="line">-  &#96;String s &#x3D; &quot;helloworld&quot;;&#96; </span><br><span class="line">   -  &#96;s&#96;是字符串变量</span><br><span class="line">   -  &#96;&quot;helloworld&quot;&#96;是字符串字面量</span><br><span class="line">- 相等</span><br><span class="line">  - &#96;s.equals(t)&#96; </span><br><span class="line">  - &#96;&quot;Hello.equals(greeting)&quot;&#96;</span><br><span class="line">  - &#96;&quot;Hello&quot;.equalsIgnoreCase(&quot;hello&quot;)&#96;</span><br><span class="line">  - 注：**不要用**&#96;&#x3D;&#x3D;&#96;去判断两个字符串是否相等</span><br><span class="line">    - &#96;&#x3D;&#x3D;&#96;运算符只能够确定两个字符串的位置是否相同</span><br><span class="line">    - 有可能内容相同的多个字符串副本放在不同的位置</span><br><span class="line">  - 只有**字符串字面量**是共享的</span><br><span class="line">  - Java的&#96;compareTo&#96;类似C的&#96;strcmp&#96;</span><br><span class="line">    - &#96;if(greeting.compareTo(&quot;Hello&quot;) &#x3D;&#x3D; 0)&#96;  </span><br><span class="line">- 空串</span><br><span class="line">  - 空串是长度为0的字符串</span><br><span class="line">    - &#96;if(str.length() &#x3D;&#x3D; 0)&#96;</span><br><span class="line">    - &#96;if(str.equals(&quot;&quot;))&#96;</span><br><span class="line">- null串</span><br><span class="line">  - &#96;if(str &#x3D;&#x3D; null)&#96;</span><br><span class="line">- 判断一个字符串既不是null串也不是空串</span><br><span class="line">  - &#96;if(str !&#x3D; null &amp;&amp; str.length() !&#x3D; 0)&#96;</span><br><span class="line">  - 要先检查不为&#96;null&#96;，否则在&#96;null&#96;上调用方法会报错</span><br><span class="line">- 码点和代码单元</span><br><span class="line">  - char数据类型给是一个采用UTF-16编码表示的Unicode码点的代码单元。</span><br><span class="line">    - 码点是一个编码表中的某个字符对应的代码值</span><br><span class="line">    - 每个字符(char)用16位表示代码单元</span><br><span class="line">      - 注意：在C和C++中，windows的32位机和64位机下，char占1个字节，这跟Java不一样。Java的char类型占2个字节(16bit)</span><br><span class="line">    - 因此每个码点可能由多个代码单元组成</span><br><span class="line"></span><br><span class="line">  - &#96;length()&#96;方法返回的是采用UTF-16编码表示的给定字符串所需要的代码单元</span><br><span class="line">  - &#96;codePointCount()&#96;返回实际长度，即码点数量</span><br><span class="line">  - &#96;charAt(n)&#96;返回位置n的代码单元</span><br><span class="line">    &#96;&#96;&#96;Java</span><br><span class="line">        String hello &#x3D; &quot;hi🍺&quot;;</span><br><span class="line">        System.out.println(hello.length());&#x2F;&#x2F;4</span><br><span class="line">        System.out.println(hello.codePointCount(0, hello.length()));&#x2F;&#x2F;3</span><br><span class="line">        System.out.println(hello.charAt(0));&#x2F;&#x2F;h</span><br><span class="line">        System.out.println(hello.charAt(2));&#x2F;&#x2F;?</span><br><span class="line">        System.out.println(hello.charAt(3));&#x2F;&#x2F;?</span><br><span class="line">        System.out.println(hello.offsetByCodePoints(0,2));&#x2F;&#x2F;2</span><br><span class="line">        System.out.println(hello.codePointAt(hello.offsetByCodePoints(0,2)));&#x2F;&#x2F;127866</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><p>String类对象是不可变的(immutable)</p>
-</li>
-<li><p>共享带来的效率高于提取子串和拼接字符串</p>
-</li>
-<li><p>原始字符串在堆中分配，对一个String类型重新赋值不会发生内存泄漏，因为Java有垃圾回收机制</p>
-</li>
-<li><p><code>String s = &quot;helloworld&quot;;</code> </p>
-<ul>
-<li><code>s</code>是字符串变量</li>
-<li><code>&quot;helloworld&quot;</code>是字符串字面量</li>
-</ul>
-</li>
-<li><p>相等</p>
-<ul>
-<li><code>s.equals(t)</code> </li>
-<li><code>&quot;Hello.equals(greeting)&quot;</code></li>
-<li><code>&quot;Hello&quot;.equalsIgnoreCase(&quot;hello&quot;)</code></li>
-<li>注：<strong>不要用</strong><code>==</code>去判断两个字符串是否相等<ul>
-<li><code>==</code>运算符只能够确定两个字符串的位置是否相同</li>
-<li>有可能内容相同的多个字符串副本放在不同的位置</li>
-</ul>
-</li>
-<li>只有<strong>字符串字面量</strong>是共享的</li>
-<li>Java的<code>compareTo</code>类似C的<code>strcmp</code><ul>
-<li><code>if(greeting.compareTo(&quot;Hello&quot;) == 0)</code>  </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>空串</p>
-<ul>
-<li>空串是长度为0的字符串<ul>
-<li><code>if(str.length() == 0)</code></li>
-<li><code>if(str.equals(&quot;&quot;))</code></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>null串</p>
-<ul>
-<li><code>if(str == null)</code></li>
-</ul>
-</li>
-<li><p>判断一个字符串既不是null串也不是空串</p>
-<ul>
-<li><code>if(str != null &amp;&amp; str.length() != 0)</code></li>
-<li>要先检查不为<code>null</code>，否则在<code>null</code>上调用方法会报错</li>
-</ul>
-</li>
-<li><p>码点和代码单元</p>
-<ul>
-<li><p>char数据类型给是一个采用UTF-16编码表示的Unicode码点的代码单元。</p>
-<ul>
-<li>码点是一个编码表中的某个字符对应的代码值</li>
-<li>每个字符(char)用16位表示代码单元<ul>
-<li>注意：在C和C++中，windows的32位机和64位机下，char占1个字节，这跟Java不一样。Java的char类型占2个字节(16bit)</li>
-</ul>
-</li>
-<li>因此每个码点可能由多个代码单元组成</li>
-</ul>
-</li>
-<li><p><code>length()</code>方法返回的是采用UTF-16编码表示的给定字符串所需要的代码单元</p>
-</li>
-<li><p><code>codePointCount()</code>返回实际长度，即码点数量</p>
-</li>
-<li><p><code>charAt(n)</code>返回位置n的代码单元</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String hello &#x3D; &quot;hi🍺&quot;;</span><br><span class="line">System.out.println(hello.length());&#x2F;&#x2F;4</span><br><span class="line">System.out.println(hello.codePointCount(0, hello.length()));&#x2F;&#x2F;3</span><br><span class="line">System.out.println(hello.charAt(0));&#x2F;&#x2F;h</span><br><span class="line">System.out.println(hello.charAt(2));&#x2F;&#x2F;?</span><br><span class="line">System.out.println(hello.charAt(3));&#x2F;&#x2F;?</span><br><span class="line">System.out.println(hello.offsetByCodePoints(0,2));&#x2F;&#x2F;2</span><br><span class="line">System.out.println(hello.codePointAt(hello.offsetByCodePoints(0,2)));&#x2F;&#x2F;127866</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><code>String</code>类实现了<code>CharSequence</code>的接口</p>
-</li>
-<li><p>构建字符串</p>
-<ul>
+<li><code>String</code>类实现了<code>CharSequence</code>的接口</li>
+<li>构建字符串<ul>
 <li>在短的字符串拼接中，如果采用<code>String</code>类进行拼接的效率低下，每次拼接时都会构建成一个新的<code>String</code>对象，耗时又浪费空间</li>
-<li><code>StringBuilder</code> 字符串构造器 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;构建一个空的字符串构造器</span><br><span class="line">StringBuilder builder &#x3D; new StringBuilder();</span><br><span class="line">&#x2F;&#x2F;添加新的内容，调用append方法</span><br><span class="line">builder.append(ch); &#x2F;&#x2F;添加character</span><br><span class="line">builder.append(str); &#x2F;&#x2F;添加字符串</span><br><span class="line">&#x2F;&#x2F;构建完成调用toString()方法，得到String对象</span><br><span class="line">String completedString &#x3D; builder.toString();</span><br></pre></td></tr></table></figure></li>
+<li><code>StringBuilder</code> 字符串构造器 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构建一个空的字符串构造器</span></span><br><span class="line">StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"><span class="comment">//添加新的内容，调用append方法</span></span><br><span class="line">builder.append(ch); <span class="comment">//添加character</span></span><br><span class="line">builder.append(str); <span class="comment">//添加字符串</span></span><br><span class="line"><span class="comment">//构建完成调用toString()方法，得到String对象</span></span><br><span class="line">String completedString = builder.toString();</span><br></pre></td></tr></table></figure></li>
 <li><code>StringBuffer</code><ul>
 <li><code>StringBuffer</code>效率比<code>StringBuilder</code>稍低</li>
 <li><code>StringBuffer</code>允许采用多线程的方式添加或删除字符</li>
@@ -376,37 +313,14 @@
 </li>
 <li><p>输入输出</p>
 <ul>
-<li><p>要通过控制台进行输入，需要构造一个和标准输入流System.in关联的Scanner对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">      Scanner scanner &#x3D; new Scanner(System.in);</span><br><span class="line">      System.out.print(&quot;你的名字是？&quot;);</span><br><span class="line">      String name &#x3D; scanner.nextLine();  &#x2F;&#x2F; 可以包括空格  next()不能包括空格</span><br><span class="line">      System.out.print(&quot;你多大了&quot;);    &#x2F;&#x2F; nextDouble</span><br><span class="line">      int age &#x3D; scanner.nextInt();</span><br><span class="line">      System.out.printf(name + &quot;  &quot; + (age+1));</span><br><span class="line">    &#96;&#96;&#96; </span><br><span class="line">  - Java5沿用C愿语言函数库中的printf方法</span><br><span class="line">    &#96;System.out.printf(&quot;%8.2f&quot;,x);&#96;</span><br><span class="line">  - &#96;s&#96;转换符可以格式化任意对象</span><br><span class="line">    - 实现Formattable接口的任意对象，将调用formatTo方法</span><br><span class="line">    - 否则调用toString方法</span><br><span class="line">  - &#96;String.format&#96;创建格式化的字符串</span><br><span class="line">    &#96;String message &#x3D; String.format(&quot;Hello, %s. Next year you&#39;ll be %d&quot;,name,age);&#96;</span><br><span class="line">- 文件输入输出</span><br><span class="line">  - &#96;String dir &#x3D; System.getProperty(&quot;user.dir&quot;);&#96; 获取启动目录</span><br><span class="line">  - </span><br></pre></td></tr></table></figure>
-<pre><code>Scanner in = null;
-try &#123;
-    in = new Scanner(new File(&quot;./hello.txt&quot;));
-&#125; catch (FileNotFoundException e) &#123;
-    e.printStackTrace();
-&#125;
-while(in.hasNext())&#123;
-    System.out.println(in.nextLine());
-&#125;
-
-PrintWriter out = null;
-try &#123;
-    out = new PrintWriter(&quot;hello.txt&quot;);
-&#125; catch (FileNotFoundException e) &#123;
-    e.printStackTrace();
-&#125;
-out.println(&quot;不太好&quot;);
-out.close();</code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 控制流程</span><br><span class="line">  - Java控制流程和C++类似</span><br><span class="line">  - 记住do while结构中，while结尾记得写分号&#96;;&#96;</span><br></pre></td></tr></table></figure>
-<p>  do<br>  {</p>
-<pre><code>...</code></pre>
-<p>  }while(..);</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 带标签的break语句：用于跳出多重嵌套的循环语句</span><br><span class="line">  - 标签放在希望的跳出的最外层循环之外，并且紧跟一个冒号</span><br></pre></td></tr></table></figure>
-<p>read_data:<br>while(…)<br>{<br>  for(…)<br>  {</p>
-<pre><code>...
-break read_data;
-......</code></pre>
-<p>  }<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 大数</span><br><span class="line">  - java.math包中有两个类: &#96;BigInteger&#96;和&#96;BigDecimal&#96;</span><br><span class="line">  - 这两类可以处理任意长度数字序列的数值</span><br><span class="line">  - &#96;valueOf()&#96;将普通的数值转成大数</span><br><span class="line">    - &#96;Big Integer a &#x3D; BigInteger.valueOf(100);&#96;</span><br><span class="line">  - 对于更大的数课可以用带字符串参数的构造器</span><br><span class="line">    - &#96;BigInteger reallyBig &#x3D; new BigInteger(&quot;2222421413254532434124323243242343243243242332432&quot;);&#96;</span><br><span class="line">  - 大数运算</span><br><span class="line">    - 不能使用算术运算符&#96;+&#96; &#96;-&#96;</span><br><span class="line">    - 使用&#96;add&#96;和&#96;multyply&#96;</span><br><span class="line">      - &#96;BigInteger d &#x3D; c.multyply(b.add(BigInteger.valueOf(2))); &#x2F;&#x2F; d &#x3D; c*(b+2)&#96;</span><br><span class="line">- 数组</span><br><span class="line">  - 两种声明数组的方式</span><br><span class="line">    1. &#96;int[] a&#96;</span><br><span class="line">    2. &#96;int a[]&#96; </span><br><span class="line">  - 数组需要用&#96;new&#96;来初始化</span><br><span class="line">    - &#96;int[] a &#x3D; new int[100];&#96;</span><br><span class="line">    - 数组长度不要求是常量</span><br><span class="line">      - &#96;int[] a &#x3D; new int[n];&#96;</span><br><span class="line">  - 一旦创建了数组就不能再改变长度</span><br><span class="line">  - 创建数组对象并提供初始值</span><br><span class="line">    - &#96;int[] a &#x3D; &#123;1,2,3,4,5&#125;; &#x2F;&#x2F;这种方式不需要new也不需要之指定长度&#96;  </span><br><span class="line">  - 允许&#123;&#125;中最后一个值后面带逗号、</span><br><span class="line">  - 匿名数组</span><br><span class="line">    - &#96;new int[] &#123;1,2,3,4,5&#125;&#96;</span><br><span class="line">  - 长度为0的数组</span><br><span class="line">    - &#96;new int[0]&#96;</span><br><span class="line">    - &#96;new int[] &#123;&#125;&#96;</span><br><span class="line">    - 注意与null不同</span><br><span class="line">  - 数组初始化</span><br><span class="line">    - 数字数组初始化为0</span><br><span class="line">    - boolean数组初始化为false</span><br><span class="line">    - 对象数组初始化为null</span><br><span class="line">      - &#96;String[] banes &#x3D; new String[10];&#96;里面都是null而不是空串</span><br><span class="line">  - 数组长度&#96;array.length&#96;</span><br><span class="line">  - for each循环</span><br><span class="line">    - for(variable : collection) statment</span><br><span class="line">    - &#96;&#96;&#96;</span><br><span class="line">       for(int element : a) </span><br><span class="line">         System.out.println(element);</span><br></pre></td></tr></table></figure>
+<li>要通过控制台进行输入，需要构造一个和标准输入流System.in关联的Scanner对象<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">      Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">      System.out.print(<span class="string">&quot;你的名字是？&quot;</span>);</span><br><span class="line">      String name = scanner.nextLine();  <span class="comment">// 可以包括空格  next()不能包括空格</span></span><br><span class="line">      System.out.print(<span class="string">&quot;你多大了&quot;</span>);    <span class="comment">// nextDouble</span></span><br><span class="line">      <span class="keyword">int</span> age = scanner.nextInt();</span><br><span class="line">      System.out.printf(name + <span class="string">&quot;  &quot;</span> + (age+<span class="number">1</span>));</span><br><span class="line">    ``` </span><br><span class="line">  - Java5沿用C愿语言函数库中的printf方法</span><br><span class="line">    `System.out.printf(<span class="string">&quot;%8.2f&quot;</span>,x);`</span><br><span class="line">  - `s`转换符可以格式化任意对象</span><br><span class="line">    - 实现Formattable接口的任意对象，将调用formatTo方法</span><br><span class="line">    - 否则调用toString方法</span><br><span class="line">  - `String.format`创建格式化的字符串</span><br><span class="line">    `String message = String.format(<span class="string">&quot;Hello, %s. Next year you&#x27;ll be %d&quot;</span>,name,age);`</span><br><span class="line">- 文件输入输出</span><br><span class="line">  - `String dir = System.getProperty(<span class="string">&quot;user.dir&quot;</span>);` 获取启动目录</span><br><span class="line">  - </span><br><span class="line">    ```Java</span><br><span class="line">        Scanner in = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            in = <span class="keyword">new</span> Scanner(<span class="keyword">new</span> File(<span class="string">&quot;./hello.txt&quot;</span>));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(in.hasNext())&#123;</span><br><span class="line">            System.out.println(in.nextLine());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        PrintWriter out = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            out = <span class="keyword">new</span> PrintWriter(<span class="string">&quot;hello.txt&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        out.println(<span class="string">&quot;不太好&quot;</span>);</span><br><span class="line">        out.close();</span><br><span class="line">    ``` </span><br><span class="line">- 控制流程</span><br><span class="line">  - Java控制流程和C++类似</span><br><span class="line">  - 记住<span class="keyword">do</span> <span class="keyword">while</span>结构中，<span class="keyword">while</span>结尾记得写分号`;`</span><br><span class="line">    ```Java</span><br><span class="line">      <span class="keyword">do</span></span><br><span class="line">      &#123;</span><br><span class="line">        ...</span><br><span class="line">      &#125;<span class="keyword">while</span>(..);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>带标签的break语句：用于跳出多重嵌套的循环语句</p>
+<ul>
+<li><p>标签放在希望的跳出的最外层循环之外，并且紧跟一个冒号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">   read_data:</span><br><span class="line">   <span class="keyword">while</span>(...)</span><br><span class="line">   &#123;</span><br><span class="line">     <span class="keyword">for</span>(...)</span><br><span class="line">     &#123;</span><br><span class="line">       ...</span><br><span class="line">       <span class="keyword">break</span> read_data;</span><br><span class="line">       ......</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> ``` </span><br><span class="line"></span><br><span class="line">- 大数</span><br><span class="line">  - java.math包中有两个类: `BigInteger`和`BigDecimal`</span><br><span class="line">  - 这两类可以处理任意长度数字序列的数值</span><br><span class="line">  - `valueOf()`将普通的数值转成大数</span><br><span class="line">    - `Big Integer a = BigInteger.valueOf(<span class="number">100</span>);`</span><br><span class="line">  - 对于更大的数课可以用带字符串参数的构造器</span><br><span class="line">    - `BigInteger reallyBig = <span class="keyword">new</span> BigInteger(<span class="string">&quot;2222421413254532434124323243242343243243242332432&quot;</span>);`</span><br><span class="line">  - 大数运算</span><br><span class="line">    - 不能使用算术运算符`+` `-`</span><br><span class="line">    - 使用`add`和`multyply`</span><br><span class="line">      - `BigInteger d = c.multyply(b.add(BigInteger.valueOf(<span class="number">2</span>))); <span class="comment">// d = c*(b+2)`</span></span><br><span class="line">- 数组</span><br><span class="line">  - 两种声明数组的方式</span><br><span class="line">    <span class="number">1.</span> `<span class="keyword">int</span>[] a`</span><br><span class="line">    <span class="number">2.</span> `<span class="keyword">int</span> a[]` </span><br><span class="line">  - 数组需要用`<span class="keyword">new</span>`来初始化</span><br><span class="line">    - `<span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>];`</span><br><span class="line">    - 数组长度不要求是常量</span><br><span class="line">      - `<span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[n];`</span><br><span class="line">  - 一旦创建了数组就不能再改变长度</span><br><span class="line">  - 创建数组对象并提供初始值</span><br><span class="line">    - `<span class="keyword">int</span>[] a = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;; <span class="comment">//这种方式不需要new也不需要之指定长度`  </span></span><br><span class="line">  - 允许&#123;&#125;中最后一个值后面带逗号、</span><br><span class="line">  - 匿名数组</span><br><span class="line">    - `<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;`</span><br><span class="line">  - 长度为<span class="number">0</span>的数组</span><br><span class="line">    - `<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>]`</span><br><span class="line">    - `<span class="keyword">new</span> <span class="keyword">int</span>[] &#123;&#125;`</span><br><span class="line">    - 注意与<span class="keyword">null</span>不同</span><br><span class="line">  - 数组初始化</span><br><span class="line">    - 数字数组初始化为<span class="number">0</span></span><br><span class="line">    - <span class="keyword">boolean</span>数组初始化为<span class="keyword">false</span></span><br><span class="line">    - 对象数组初始化为<span class="keyword">null</span></span><br><span class="line">      - `String[] banes = <span class="keyword">new</span> String[<span class="number">10</span>];`里面都是<span class="keyword">null</span>而不是空串</span><br><span class="line">  - 数组长度`array.length`</span><br><span class="line">  - <span class="keyword">for</span> each循环</span><br><span class="line">    - <span class="keyword">for</span>(variable : collection) statment</span><br><span class="line">    - ```</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> element : a) </span><br><span class="line">         System.out.println(element);</span><br></pre></td></tr></table></figure>
 <ul>
 <li>必须是数组或者是实现Iterable接口的类对象 </li>
 </ul>
@@ -417,14 +331,26 @@ break read_data;
 </ul>
 </li>
 <li>数组拷贝<ol>
-<li>两个变量引用同一个数组<ul>
-<li>```<br>int[] a = b;<br>a[5] = 12; // 现在b[5]也是12<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2. 数组的所有值拷贝到一个新的数组</span><br><span class="line">   - 第二个参数为新数组长度</span><br></pre></td></tr></table></figure>
- int a = Arrays.copyOf(b,b.length);<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-  可以用来增加数组的大小</span><br></pre></td></tr></table></figure>
- int a = Arrays.copyOf(b,b.length*2);<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  - 排序</span><br><span class="line">    - &#96;Arrays.sort()&#96;采用的是优化后的快速排序  </span><br><span class="line">- 多维数组</span><br><span class="line">  - 声明： &#96;int[][] balances;&#96;</span><br><span class="line">  - 同样，多维数组也要经过初始化才能够使用</span><br><span class="line">    - &#96;balances &#x3D; new int[N][M];&#96;</span><br><span class="line">    - 或者这种形式 </span><br></pre></td></tr></table></figure>
-int[][] magicSquare =<br>{<br>{16,3,2,13},<br>{5,10,11,8}<br>};<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- 如果要用for each循环去访问二维数组需要两层嵌套</span><br><span class="line">  - &#96;&#96;&#96;</span><br><span class="line">     for(double[] row : a)&#123;</span><br><span class="line">       for(double value : row)&#123;</span><br><span class="line">         ....</span><br><span class="line">       &#125;</span><br><span class="line">     &#125; </span><br></pre></td></tr></table></figure></li>
+<li>两个变量引用同一个数组<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] a = b;</span><br><span class="line">a[<span class="number">5</span>] = <span class="number">12</span>; <span class="comment">// 现在b[5]也是12</span></span><br></pre></td></tr></table></figure></li>
+<li>数组的所有值拷贝到一个新的数组<ul>
+<li>第二个参数为新数组长度<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> a = Arrays.copyOf(b,b.length);</span><br><span class="line"> ```  </span><br><span class="line">-  可以用来增加数组的大小</span><br><span class="line">  ```Java</span><br><span class="line">    <span class="keyword">int</span> a = Arrays.copyOf(b,b.length*<span class="number">2</span>);</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ol>
+</li>
+<li>排序<ul>
+<li><code>Arrays.sort()</code>采用的是优化后的快速排序  </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>多维数组</p>
+<ul>
+<li>声明： <code>int[][] balances;</code></li>
+<li>同样，多维数组也要经过初始化才能够使用<ul>
+<li><code>balances = new int[N][M];</code></li>
+<li>或者这种形式 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">     <span class="keyword">int</span>[][] magicSquare =</span><br><span class="line">        &#123;</span><br><span class="line">        &#123;<span class="number">16</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">13</span>&#125;,</span><br><span class="line">        &#123;<span class="number">5</span>,<span class="number">10</span>,<span class="number">11</span>,<span class="number">8</span>&#125;</span><br><span class="line">        &#125;;</span><br><span class="line">   ``` </span><br><span class="line">- 如果要用<span class="keyword">for</span> each循环去访问二维数组需要两层嵌套</span><br><span class="line">    ```Java</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">double</span>[] row : a)&#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">double</span> value : row)&#123;</span><br><span class="line">         ....</span><br><span class="line">       &#125;</span><br><span class="line">     &#125; </span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
 <li>将二维数组转成字符串<ul>
 <li><code>System.out.println(Arrays.deepToString(a));</code></li>
@@ -436,28 +362,61 @@ int[][] magicSquare =<br>{<br>{16,3,2,13},<br>{5,10,11,8}<br>};<figure class="hi
 <ul>
 <li>Java本质上没有多维数组，只有一维数组，多维数组被解释成数组的数组<br><img src="/2020/11/04/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84.png" alt="不规则数组.png"> </li>
 <li>如图，其实Java中就一维数组，而每个一维数组例如<code>balances[i]</code>引用这第i子数组</li>
-<li>交换多维数组中的两行<ul>
-<li>```<br>double[] temp = balances[i];<br>balances[i] = balances[i+1];<br>balances[i+1] = temp; <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- 因此多维数组中，每一行的元素个数可以不同</span><br><span class="line">  - &#96;&#96;&#96;</span><br><span class="line">     int[][] odds &#x3D; new int[NMAX+1][];</span><br><span class="line">     for(int n &#x3D; 0; n&lt;&#x3D; NMAX; n++)&#123;</span><br><span class="line">       odds[n] &#x3D; new int[n+1];</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
+<li>交换多维数组中的两行 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">     <span class="keyword">double</span>[] temp = balances[i];</span><br><span class="line">     balances[i] = balances[i+<span class="number">1</span>];</span><br><span class="line">     balances[i+<span class="number">1</span>] = temp; </span><br><span class="line">    ``` </span><br><span class="line">- 因此多维数组中，每一行的元素个数可以不同</span><br><span class="line">    ```Java</span><br><span class="line">     <span class="keyword">int</span>[][] odds = <span class="keyword">new</span> <span class="keyword">int</span>[NMAX+<span class="number">1</span>][];</span><br><span class="line">     <span class="keyword">for</span>(<span class="keyword">int</span> n = <span class="number">0</span>; n&lt;= NMAX; n++)&#123;</span><br><span class="line">       odds[n] = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></li>
+<li>多维数组中<code>odds.length</code>指的不是包含子数组的长度，而是仅仅有多少行（结合图理解） <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> n = <span class="number">0</span>; n &lt; odds.length; n++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; odds[n].length; k++)&#123;</span><br><span class="line">      .....</span><br><span class="line">      odds[n][k] = n*k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 </li>
-<li>多维数组中<code>odds.length</code>指的不是包含子数组的长度，而是仅仅有多少行（结合图理解）<ul>
-<li>```<br>for(int n = 0; n &lt; odds.length; n++){<pre><code>for(int k = 0; k &lt; odds[n].length; k++)&#123;
-  .....
-  odds[n][k] = n*k;
-&#125;</code></pre>
-}<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">#### 问题回答</span><br><span class="line"></span><br><span class="line">2. 取余和取模区别， </span><br><span class="line">  - 取余rem  取模mod    </span><br><span class="line">  - 被除数 ➗ 除数 ＝ 商</span><br><span class="line">  - **取余**运算在计算中，使得**商值**向0的方向取整(换句话是说向0的方向舍弃小数位)</span><br><span class="line">  - **取模**运算在计算中，使得**商值**向负无穷的方向取整(换句话是说向负无穷的方向舍弃小数位)</span><br><span class="line">  - 结论</span><br><span class="line">    - 当被除数和除数符号相同时(同正或同负)，取余和取模结果相同</span><br><span class="line">    - 当被除数和除数符号相反时(一正一负)，取余和取模结果不同</span><br><span class="line">  </span><br><span class="line">  - 前提： 对于一个除法(a &#x3D; bq + r),如果 a不能被b整除（a÷b)，那么能够得到两种解，一种是bq&gt;a，使得r&lt;0。另一种是bq&lt;a，使得r &gt; 0。</span><br><span class="line">  - 例子</span><br><span class="line">    - mod(7,3) &#x3D; 1, rem(7,3) &#x3D; 1</span><br><span class="line">    - mod(-7,-3) &#x3D; -1, rem(7,3) &#x3D; 1</span><br><span class="line">    - mod(7,-3) &#x3D; -2, rem(7,-3) &#x3D; 1</span><br><span class="line">      - 两种解: (-2,1) , (-3,-2)</span><br><span class="line">    - mod(-7,3) &#x3D; 2, rem(-7,3) &#x3D; -1</span><br><span class="line">      - 两种解: (-2,-1) , (-3,2) </span><br><span class="line"></span><br><span class="line">  - Java中&#96;%&#96;是取余。&#96;Math.floorMod&#96;是取模</span><br><span class="line">     - &#96;&#96;&#96;Java</span><br><span class="line">        int r1 &#x3D; (7%3);</span><br><span class="line">        int r2 &#x3D; ((-7)%(-3));</span><br><span class="line">        int r3 &#x3D; ((-7)%3);</span><br><span class="line">        int r4 &#x3D; (7%(-3));</span><br><span class="line">        int r5 &#x3D; Math.floorMod(7,3);</span><br><span class="line">        int r6 &#x3D; Math.floorMod(-7,-3);</span><br><span class="line">        int r7 &#x3D; Math.floorMod(-7,3);</span><br><span class="line">        int r8 &#x3D; Math.floorMod(7,-3);</span><br></pre></td></tr></table></figure>
-输出<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">-1</span><br><span class="line">-1</span><br><span class="line">1</span><br><span class="line">1</span><br><span class="line">-1</span><br><span class="line">2</span><br><span class="line">-2</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<hr>
+<h4 id="问题回答"><a href="#问题回答" class="headerlink" title="问题回答"></a>问题回答</h4><ol start="2">
+<li><p>取余和取模区别， </p>
+<ul>
+<li><p>取余rem  取模mod    </p>
+</li>
+<li><p>被除数 ➗ 除数 ＝ 商</p>
+</li>
+<li><p><strong>取余</strong>运算在计算中，使得<strong>商值</strong>向0的方向取整(换句话是说向0的方向舍弃小数位)</p>
+</li>
+<li><p><strong>取模</strong>运算在计算中，使得<strong>商值</strong>向负无穷的方向取整(换句话是说向负无穷的方向舍弃小数位)</p>
+</li>
+<li><p>结论</p>
+<ul>
+<li>当被除数和除数符号相同时(同正或同负)，取余和取模结果相同</li>
+<li>当被除数和除数符号相反时(一正一负)，取余和取模结果不同</li>
+</ul>
+</li>
+<li><p>前提： 对于一个除法(a = bq + r),如果 a不能被b整除（a÷b)，那么能够得到两种解，一种是bq&gt;a，使得r&lt;0。另一种是bq&lt;a，使得r &gt; 0。</p>
+</li>
+<li><p>例子</p>
+<ul>
+<li>mod(7,3) = 1, rem(7,3) = 1</li>
+<li>mod(-7,-3) = -1, rem(7,3) = 1</li>
+<li>mod(7,-3) = -2, rem(7,-3) = 1<ul>
+<li>两种解: (-2,1) , (-3,-2)</li>
+</ul>
+</li>
+<li>mod(-7,3) = 2, rem(-7,3) = -1<ul>
+<li>两种解: (-2,-1) , (-3,2) </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Java中<code>%</code>是取余。<code>Math.floorMod</code>是取模</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> r1 = (<span class="number">7</span>%<span class="number">3</span>);</span><br><span class="line"><span class="keyword">int</span> r2 = ((-<span class="number">7</span>)%(-<span class="number">3</span>));</span><br><span class="line"><span class="keyword">int</span> r3 = ((-<span class="number">7</span>)%<span class="number">3</span>);</span><br><span class="line"><span class="keyword">int</span> r4 = (<span class="number">7</span>%(-<span class="number">3</span>));</span><br><span class="line"><span class="keyword">int</span> r5 = Math.floorMod(<span class="number">7</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">int</span> r6 = Math.floorMod(-<span class="number">7</span>,-<span class="number">3</span>);</span><br><span class="line"><span class="keyword">int</span> r7 = Math.floorMod(-<span class="number">7</span>,<span class="number">3</span>);</span><br><span class="line"><span class="keyword">int</span> r8 = Math.floorMod(<span class="number">7</span>,-<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<p>  输出</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span></span><br><span class="line">-<span class="number">1</span></span><br><span class="line">-<span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">-<span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">-<span class="number">2</span></span><br></pre></td></tr></table></figure></li>
 <li><p>参考来源<a target="_blank" rel="noopener" href="https://blog.csdn.net/coder_panyy/article/details/73743722">取模和求余区别</a></p>
 </li>
 <li><p>参考来源<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/30526656">编程语言中，取余和取模的区别到底是什么？</a></p>
 </li>
 </ul>
 </li>
-</ul>
+</ol>
 
       
 
@@ -555,8 +514,8 @@ int[][] magicSquare =<br>{<br>{16,3,2,13},<br>{5,10,11,8}<br>};<figure class="hi
     </a>
   
   
-    <a href="/2020/11/02/%E5%A4%87%E5%BF%98%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">备忘录</div>
+    <a href="/2020/11/02/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%80%92%E5%BD%92%E5%92%8C%E5%88%86%E6%B2%BB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">挑战程序设计2—递归和分治</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -686,15 +645,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">环境配置</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,19 +701,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随想</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">排序</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随想</a>
               </li>
              
               <li class="article-tag-list-item">

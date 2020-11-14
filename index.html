@@ -154,15 +154,105 @@
       
         <h2 id="Java核心技术——第五章-继承"><a href="#Java核心技术——第五章-继承" class="headerlink" title="Java核心技术——第五章 继承"></a>Java核心技术——第五章 继承</h2><!-- more  -->
 
-<hr>
-<h3 id="类、超类和子类"><a href="#类、超类和子类" class="headerlink" title="类、超类和子类"></a>类、超类和子类</h3><p>继承(inheritance)</p>
+
+<h3 id="类、超类和子类"><a href="#类、超类和子类" class="headerlink" title="类、超类和子类"></a>类、超类和子类</h3><ul>
+<li><p>继承(inheritance)</p>
 <ul>
 <li><p>“is-a”关系是继承的一个明显特征</p>
 </li>
 <li><p>Java用关键字<code>extends</code>表示继承</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    added methods and fields</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Java中所有继承都是公共继承，没有C++中的私有继承和保护继承<br>s</p>
+<li><p>Java中所有继承都是公共继承，没有C++中的私有继承和保护继承</p>
+</li>
+<li><p>新类派生于一个已存在的类</p>
+<ul>
+<li>已存在的类称为<ul>
+<li>超类 superclass</li>
+<li>基类 base class</li>
+<li>父类 parent class</li>
+</ul>
+</li>
+<li>新类称为<ul>
+<li>子累 subclass</li>
+<li>派生类 derived class</li>
+<li>孩子类 child class</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>通过扩展超类定义子类的时候，只需要支出子类与超类的不同之处。</p>
+</li>
+</ul>
+</li>
+<li><p>覆盖(override)方法</p>
+<ul>
+<li><p>超类中的有些方法对于子类不适用需要提供新的方法覆盖</p>
+<ul>
+<li><p>注意：子类不能直接访问超类的私有字段(<code>private</code>)，因此可以通过访问器来获取，但是如果我们重写的方法就是访问器的话，需要加上<code>super</code>，否则会一直循环调用自身以致程序崩溃</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getSalary</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">double</span> baseSalary = <span class="keyword">super</span>.getSalary();</span><br><span class="line">  <span class="keyword">return</span> baseSalary + bonus;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>super</code>和<code>this</code>概念不同</p>
+<ul>
+<li><code>this</code>是对象的引用(隐式参数)</li>
+<li><code>super</code>不是对象的引用<ul>
+<li>不能将值<code>super</code>赋给另一个对象变量</li>
+<li><code>super</code>只是一个指示编译器调用超类方法的特殊关键字</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>子类构造器</p>
+<ul>
+<li>由于子类的构造器不能访问父类的私有字段，所以必须通过一个构造器来初始化私有字段</li>
+<li>利用<code>super</code>语法来调用父类的构造器<ul>
+<li>注意：<strong>使用<code>super</code>调用构造器的语句必须是子类构造器的第一条语句</strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String n, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(n,s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果子类构造器没有显示地调用超类的构造器，将自动调用超类的无参数构造器</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;父类无参数构造器被调用&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String n, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类构造器&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="comment">//父类无参数构造器被调用</span></span><br><span class="line"><span class="comment">//子类构造器</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果超类<strong>没有</strong>无参数构造器，并且子类的构造器没有显示地调用超类的其他构造器，Java编译器会报错</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//删除下面的无参数构造器，会报错</span></span><br><span class="line"><span class="comment">//    public Employee()</span></span><br><span class="line"><span class="comment">//    &#123;</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;父类无参数构造器被调用&quot;);</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String n, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;子类构造器&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>this</code>与<code>super</code><ul>
+<li><code>this</code>两个含义<ol>
+<li>指示隐式参数的引用</li>
+<li>调用该类的其他构造器</li>
+</ol>
+</li>
+<li><code>super</code><ol>
+<li>调用超类的方法</li>
+<li>调用超类的其他构造器</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>调用构造器的语句只能作为另外一个构造器的第一条语句出现</strong></li>
+<li>多态与动态绑定<ul>
+<li>一个对象变量(例如下面代码中的<code>e</code>)可以指示多种实际类型的现象叫做多态(polymorphism)</li>
+<li>在运行时能够自动地选择适当的方法，称为动态绑定(dynamic binding)</li>
+<li>虽然下面的for each循环中的<code>e</code>声明为<code>Employee</code>,但是<code>e</code>既可以引用<code>Employee</code>类型的对象，也可以引用<code>Manager</code>类型的对象</li>
+<li>虚拟机知道<code>e</code>实际引用的对象类型，因此能够正确地调用相应的方法</li>
+<li>Java中，动态绑定时默认的行为</li>
+<li>如果不希望让一个方法是虚拟的，可以将它标记为<code>final</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">Manager m1 = <span class="keyword">new</span> Manager(<span class="string">&quot;xixi&quot;</span>,<span class="number">300</span>);</span><br><span class="line">staff[<span class="number">0</span>] = e1;</span><br><span class="line">staff[<span class="number">1</span>] = e2;</span><br><span class="line">staff[<span class="number">2</span>] = m1;</span><br><span class="line"><span class="keyword">for</span>(Employee e : staff)</span><br><span class="line">&#123;</span><br><span class="line">    System.out.println(e.getName() + <span class="string">&quot;  &quot;</span> + e.getSalary());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 
@@ -555,11 +645,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">核心技术</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">核心技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -1004,7 +1094,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1012,15 +1102,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">链表</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1033,6 +1115,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">链表</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1080,19 +1170,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">个人能力</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">逻辑</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随想</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人能力</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">逻辑</a>
               </li>
              
               <li class="article-tag-list-item">

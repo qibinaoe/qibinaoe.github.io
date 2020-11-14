@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>git学习 | qibinBlog</title>
+  <title>Java核心技术—对象与类 | qibinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习git记录">
+  <meta name="description" content="Java核心技术——第四章 对象与类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git学习">
-<meta property="og:url" content="http://example.com/2020/11/02/git%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:title" content="Java核心技术—对象与类">
+<meta property="og:url" content="http://example.com/2020/11/11/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/index.html">
 <meta property="og:site_name" content="qibinBlog">
-<meta property="og:description" content="学习git记录">
+<meta property="og:description" content="Java核心技术——第四章 对象与类">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-02T07:27:13.000Z">
-<meta property="article:modified_time" content="2020-11-11T13:01:44.775Z">
+<meta property="article:published_time" content="2020-11-11T13:29:45.000Z">
+<meta property="article:modified_time" content="2020-11-14T07:36:22.123Z">
 <meta property="article:author" content="ZQB">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="qibinBlog" type="application/atom+xml">
@@ -133,223 +133,410 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-git学习" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java核心技术—对象与类" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      git学习
+      Java核心技术—对象与类
     </h1>
   
 
         
-        <a href="/2020/11/02/git%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-11-02T07:27:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-02</time>
+        <a href="/2020/11/11/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/" class="archive-article-date">
+  	<time datetime="2020-11-11T13:29:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="学习git记录"><a href="#学习git记录" class="headerlink" title="学习git记录"></a>学习git记录</h2><a id="more"></a>
+        <p>Java核心技术——第四章 对象与类</p>
+<a id="more"></a>
+<ul>
+<li><p>面向对象设计(Object-oriented programming ,OOP)</p>
+</li>
+<li><p>创建类的实例(instance): 由类class(构造对象的模板或蓝图)构造construct对象的过程</p>
+</li>
+<li><p>封装(encapsulation)的关键在于程序只能通过对象的方法与对象数据进行交互，换句话说，绝对不能让类中的方法直接访问其他类的示例字段(instance field)</p>
+</li>
+<li><p>对别对象和对象变量的概念</p>
+<ul>
+<li><code>Date deadline;</code> 这是一个对象遍历啊你给，不是一个对象，并且没有引用任何对象</li>
+<li>对象变量初始化的方法<ol>
+<li>引用一个新构造的对象 <code>deadline = new Date();</code></li>
+<li>引用一个已存在的对象 <code>deadline = birthday;</code></li>
+</ol>
+</li>
+<li>对象变量没有实际包含对象，而是引用一个对象</li>
+<li>new操作符返回值是一个引用</li>
+<li>所有的Java对象都存储在<em>堆</em>中。一个对象包含另一个对象变量时，它只是包含着另一个堆对象的指针</li>
+<li>Java中必须使用<code>clone</code>方法来获得对象的完整副本</li>
+</ul>
+</li>
+<li><p>UTC(Coordinated Universal Time) 国际协调时间</p>
+</li>
+<li><p>GMT(Greenwich Mean Time) 格林尼治时间</p>
+</li>
+<li><p>访问器方法(accessor method) 只访问对象而不修改对象的方法</p>
+</li>
+<li><p>修改器方法(mutator method) 访问对象后，对象的状态发生改变</p>
+</li>
+<li><p>一个源文件(.java)只能由一个公共类，但可以任意数目的非公共类</p>
+<ul>
+<li>在编译的时候会分别为每个类生成.class文件</li>
+</ul>
+</li>
+<li><p>构造器</p>
+<ul>
+<li>构造器结合<code>new</code>运算符调用</li>
+<li>不能对一个已经存在的对象调用构造器来达到重新设置实例字段的目的</li>
+<li>构造器没有返回值</li>
+</ul>
+</li>
+<li><p>不要在构造器中定义与实例字段同名的局部变量</p>
+</li>
+<li><p>隐式参数与显示参数</p>
+<ul>
+<li><code>employee.raiseSalary(1000);</code><ul>
+<li><code>raiseSalary</code>方法有两个参数<ol>
+<li>隐式参数： <code>employee</code>出现在方法前的<code>Employee</code>类型对象（方法调用的目标或接收者）</li>
+<li>显示参数： <code>1000</code>位于方法方法名后面括号中的数值 </li>
+</ol>
+</li>
+</ul>
+</li>
+<li>在每个方法中，关键字<code>this</code>指示隐式参数<ul>
+<li><code>this.salary += raise;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Java中所有的方法都必须在类的内部定义(不同于C++),但这不表示它们是内联方法。是否将某个方法设置为内联方法是Java虚拟机的任务。即时编辑器会监视那些简短的、经常调用而且没有被覆盖的方法调用，并进行优化。</p>
+</li>
+<li><p>访问器方法</p>
+<ul>
+<li><p>不要编写返回可变对象引用的访问器方法</p>
+<ul>
+<li><p>```<br>  class Employee<br>  {</p>
+<pre><code>private Date  hireDay;
+public Date getHireDay()
+&#123;
+  return hireDay; //不要这样做。因为Date类有一个更改其的方法setTime,这样做会破坏封装性
+&#125;</code></pre>
+<p>  }</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">  - 如果需要返回一个可变对象的引用，应该先对其克隆(clone)再返回。&#96;return (Date)hireDay.clone();&#96;</span><br><span class="line">- 基于类的访问权限</span><br><span class="line">  - 方法可以访问调用这个方法的对象的私有数据</span><br><span class="line">  - 一个方法可以访问所属类的所有对象的私有数据(可读可修改)</span><br><span class="line">    - &#96;&#96;&#96;</span><br><span class="line">        public class Test &#123;</span><br><span class="line">          public static void main(String[] args) &#123;</span><br><span class="line">              Employee e1 &#x3D; new Employee(&quot;good&quot;,10);</span><br><span class="line">              Employee e2 &#x3D; new Employee(&quot;good&quot;,20);</span><br><span class="line">              System.out.println(e2.getSalary()); &#x2F;&#x2F; 20</span><br><span class="line">              System.out.println(e1.equals(e2)); &#x2F;&#x2F; true</span><br><span class="line">              System.out.println(e2.getSalary()); &#x2F;&#x2F;1000</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      class Employee</span><br><span class="line">      &#123;</span><br><span class="line">          private String name;</span><br><span class="line">          private int salary;</span><br><span class="line">          public Employee(String n, int s)</span><br><span class="line">          &#123;</span><br><span class="line">              name &#x3D; n;</span><br><span class="line">              salary &#x3D; s;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">          public boolean equals(Employee l) &#123;</span><br><span class="line">              l.salary &#x3D; 1000;</span><br><span class="line">              return name.equals(l.name);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          public int getSalary() &#123;</span><br><span class="line">              return salary;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>final实例字段</p>
+<ul>
+<li>实例字段定义为final<ul>
+<li>这些字段必须在构造对象时初始化，即每一个构造器执行之后，这些字段的值已经设置，并且以后不能再修改这个字段</li>
+</ul>
+</li>
+<li>final修饰符对于类型为基本类型或不可变类(类中所有方法都不会改变其对象)的字段(String)</li>
+<li>final修饰可变的类会造成混乱(StringBuilder)，因为final只表示储存在final修饰的变量的对象引用不会再知识另一个不同的对象，但是这个对象可以更改</li>
+</ul>
+</li>
+<li><p>静态字段</p>
+<ul>
+<li>一个字段定义为<code>static</code>,则每个类只有一个这样的字段<ul>
+<li>这个类的所有实例都共享这个static修饰的静态字段</li>
+<li>即使没有这个对象，静态字段仍然存在</li>
+<li>静态字段属于类，不属于任何单个对象</li>
+</ul>
+</li>
+<li>对于非静态的实例字段，每个对象都有自己的副本</li>
+</ul>
+</li>
+<li><p>静态常量</p>
+<ul>
+<li><code>public static final double PI = 3.14159265358979323846;</code></li>
+<li><code>public static final PrintStream out = ...;</code></li>
+<li>在<code>System</code>类中，有个<code>setOut</code>方法能够修改<code>System.out</code>为不同的流，这个方法能够修改<code>final</code>修饰变量的值的原因是因为这是个<strong>原生方法</strong>,不是在Java语言实现的，绕过Java语言的访问控制机制。</li>
+</ul>
+</li>
+<li><p>静态方法</p>
+<ul>
+<li>不在对象上执行的方法 <code>Math.pow(x, a)</code>, 由于不使用任何对象，因此它没有隐式参数</li>
+<li>静态方法没有<code>this</code>参数</li>
+<li>静态方法不能访问实例字段，但是可以访问静态字段</li>
+<li>非静态方法也也可以访问静态字段<ul>
+<li>```<br>  public static int getNextId()<br>  {<pre><code>return nextId;</code></pre>
+  }<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">    这里的&#96;static&#96;可以省略，但这样一来就得通过对象引用来调用方法</span><br><span class="line">- 工厂方法</span><br><span class="line">  - 静态工厂方法构造对象</span><br><span class="line">    - 无法命名构造器</span><br><span class="line">      - 希望有两个不同的名字得到不同的实例</span><br><span class="line">    - 使用构造器，无法改变所构造对象的类型</span><br><span class="line">- 每一个类都可以有一个&#96;main&#96;方法</span><br><span class="line">  - 对类进行的单元测试的技巧</span><br><span class="line">- 方法参数</span><br><span class="line">  - 按值调用(call by value)</span><br><span class="line">    - 接受调用者提供的值</span><br><span class="line">    - 方法不能修改按值传递的变量的值</span><br><span class="line">  - 按引用调用(call by reference)</span><br><span class="line">    - 接受的是调用者提供的变量地址</span><br><span class="line">    - 方法可以修改按引用传递的变量的值</span><br><span class="line">  - Java总是采用**按值调用**</span><br><span class="line">    - 方法得到的是所有参数值的一个副本，方法不能修改传递给它的任何参数变量的内容</span><br><span class="line">    - 方法参数类型</span><br><span class="line">      - 基本数据类型(数字、布尔值)</span><br><span class="line">      - 对象引用(*注：对象引用也是按值传递，不是按引用传递*)</span><br><span class="line">    - 但是通过对象引用能够修改对象的参数状态，因为方法得到的是对象引用的一个副本，原来对象引用和副本都引用同一个对象</span><br><span class="line">    - 证明对象引用不是按引用传递</span><br><span class="line">      - &#96;&#96;&#96;</span><br><span class="line">          public class Test &#123;</span><br><span class="line">            public static void main(String[] args) &#123;</span><br><span class="line">                Employee e1 &#x3D; new Employee(&quot;bad&quot;,10);</span><br><span class="line">                Employee e2 &#x3D; new Employee(&quot;good&quot;,20);</span><br><span class="line">                System.out.println(e1.getName()); &#x2F;&#x2F; bad</span><br><span class="line">                System.out.println(e2.getName()); &#x2F;&#x2F; good</span><br><span class="line">                swap(e1,e2);</span><br><span class="line">                System.out.println(e1.getName());&#x2F;&#x2F; bad</span><br><span class="line">                System.out.println(e2.getName());&#x2F;&#x2F; good</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            private static void swap(Employee e1, Employee e2) &#123;</span><br><span class="line">                Employee temp &#x3D; e1;</span><br><span class="line">                e1 &#x3D; e2;</span><br><span class="line">                e2 &#x3D; temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        class Employee</span><br><span class="line">        &#123;</span><br><span class="line">            private String name;</span><br><span class="line">            private int salary;</span><br><span class="line"></span><br><span class="line">            public Employee(String n, int s)</span><br><span class="line">            &#123;</span><br><span class="line">                name &#x3D; n;</span><br><span class="line">                salary &#x3D; s;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            public String getName() &#123;</span><br><span class="line">                return name;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#96;&#96;&#96; </span><br><span class="line"></span><br><span class="line">- 对象构造</span><br><span class="line">  - 重载(overloading)</span><br><span class="line">    - 相同名字，不同参数。(不仅适用于构造器，Java允许重载任何方法)</span><br><span class="line">  - 重载解析(overloading solution)</span><br><span class="line">    - 查找匹配的过程</span><br><span class="line">  - 方法的**签名**: 方法名+参数类型</span><br><span class="line">    - 注意，返回值不是签名的一部分</span><br><span class="line">- 默认字段初始化</span><br><span class="line">  - 构造器没有显示为字段设置初值，会被自动赋为默认值</span><br><span class="line">    - 数值为&#96;0&#96;</span><br><span class="line">    - 布尔值为&#96;false&#96;</span><br><span class="line">    - 对象引用为&#96;null&#96;</span><br><span class="line">  - 注意：方法中的**局部变量**必须明确地初始化，否则会报错</span><br><span class="line">- 无参数构造器</span><br><span class="line">  - 写类的时候没有编写构造器，会提供一个无参数构造器</span><br><span class="line">    - 所有实例字段设置为默认值</span><br><span class="line">  - 仅当类没有任何其他构造器的时候，才会得到一个默认的无参数构造器</span><br><span class="line">    - 如果类提供了至少一个构造器，但是没有提供无参数的构造器，那么构造对象时如果不提供参数就是不合法</span><br><span class="line">- 显式字段初始化</span><br><span class="line">  1. 类定义中直接为任何字段赋值 </span><br><span class="line">     - 执行构造器之前先完成赋值操作</span><br><span class="line">     - 希望将某个字段设置为同一值 </span><br><span class="line">     - &#96;&#96;&#96;</span><br><span class="line">        class Employee</span><br><span class="line">        &#123;</span><br><span class="line">          private Sting name &#x3D; &quot;...&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">       &#96;&#96;&#96;   </span><br><span class="line">  2. 利用方法调用初始化一个字段</span><br><span class="line">    - &#96;&#96;&#96;</span><br><span class="line">        class Employee</span><br><span class="line">        &#123;</span><br><span class="line">          private static int nextId;</span><br><span class="line">          private int id &#x3D; assignId();</span><br><span class="line">          ...</span><br><span class="line">          private static int assignId()</span><br><span class="line">          &#123;</span><br><span class="line">            int r &#x3D; nextId;</span><br><span class="line">            nextId++;</span><br><span class="line">            return r;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>this</code>关键字调用另一个构造器</p>
+<ul>
+<li><p>构造器的第一个语句形如<code>this(...)</code>，构造器将调用同一个类的另一个构造器</p>
+</li>
+<li><pre><code>public class Test &#123;
+  public static void main(String[] args) &#123;
+      Employee e1 = new Employee(&quot;bad&quot;,10);
+      Employee e2 = new Employee(&quot;good&quot;,20);
+      System.out.println(e1.getName()); // bad
+      System.out.println(e2.getName()); // good
+  &#125;
+&#125;
+class Employee
+&#123;
+    private String name;
+    private int salary;
 
+    public Employee(String n)
+    &#123;
+        name = &quot;HAHAH&quot; + n;
+    &#125;
+    public Employee(String n, int s)
+    &#123;
+        this(n);
+        salary = s;
+    &#125;
 
-<h3 id="廖雪峰博客"><a href="#廖雪峰博客" class="headerlink" title="廖雪峰博客"></a>廖雪峰博客</h3><p>先从<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰博客git教程</a>中学习并作记录。</p>
-<hr>
-<h4 id="知识点记录"><a href="#知识点记录" class="headerlink" title="知识点记录"></a>知识点记录</h4><ol>
-<li><p>git属于分布式版本控制系统</p>
-</li>
-<li><p>集中式与分布式</p>
-<ul>
-<li>集中式的版本控制系统<ul>
-<li>CVS和SVN(SVN是对CVS的一种改进)</li>
-<li>缺点: <ul>
-<li>需要联网工作上传到中央服务器</li>
-<li>中央服务器坏掉后，会影响所有人</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>分布式的版本控制系统<ul>
-<li>git、bitkeeper</li>
-<li>优点<ul>
-<li>每一个人的电脑都有一个完整的版本库</li>
-<li>安全性高，<br>github服务器是用来中转的，即每一个人可以把自己修改后的推上去，其他人也可以从中同步，而github服务器故障后，只要本地的仓库(repository)还存在,就不会丢失。而对于集中式的版本控制系统，必须联网提交回滚等操作，如果断网就不能实现这些操作，并且服务器故障后，历史版本信息都没有了</li>
-</ul>
+</code></pre>
 </li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p>所有版本控制系统只能跟踪文本文件，如txt、网页、程序代码。不能跟踪二进制文件内容的变化，如图片、word</p>
-</li>
-<li><p>git跟踪并管理的是修改而非文件，意思就是文件中的内容修改后，git能跟踪内容变化是什么。</p>
-</li>
-</ol>
-<hr>
-<h4 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h4><p><code>sudo apt-get install git</code></p>
-<h4 id="git使用问题"><a href="#git使用问题" class="headerlink" title="git使用问题"></a>git使用问题</h4><ol>
-<li><code>git add</code>与<code>git commit</code>区别</li>
-</ol>
-<h4 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h4><ul>
-<li><code>git config</code>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Your Name&quot;</span><br><span class="line">$ git config --global user.email &quot;email@example.com&quot;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>--global</code>参数表示电脑上的所有仓库都使用该配置</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><code>git init</code></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in D:&#x2F;CODE&#x2F;gitlearning&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>git init</code>用于声明当前目录为git可以管理的仓库</li>
-<li>会生成<code>.git</code>目录，用于跟踪管理版本库</li>
-</ul>
-</li>
-<li><p><code>git add</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li>将文件添加到仓库</li>
-</ul>
-</li>
-<li><p><code>git commit</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;wrote a readme file&quot;</span><br><span class="line">[master (root-commit) eaadf4e] wrote a readme file</span><br><span class="line">1 file changed, 2 insertions(+)</span><br><span class="line">create mode 100644 readme.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>git commit</code>表示将文件提交到仓库</li>
-<li><code>-m </code>后的文字代表本次提交的说明</li>
-</ul>
-</li>
-<li><p><code>git status</code></p>
-<ul>
-<li>查看当前仓库的状态</li>
-</ul>
-</li>
-<li><p><code>git diff</code></p>
-<ul>
-<li>查看对当前仓库里的文件做了什么修改</li>
-</ul>
-</li>
-<li><p><code>git log</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit e31be9240c251ddde0747f160b13ca30a8a055aa (HEAD -&gt; master)</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:25:30 2020 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit 99403f77708a6f871ab514371f4dffb075f4c57d</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:24:32 2020 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit 620a5b729a1ed380ae4f7630b1255e5cea3694aa</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:20:14 2020 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty&#x3D;oneline</span><br><span class="line">e31be9240c251ddde0747f160b13ca30a8a055aa (HEAD -&gt; master) append GPL</span><br><span class="line">99403f77708a6f871ab514371f4dffb075f4c57d add distributed</span><br><span class="line">620a5b729a1ed380ae4f7630b1255e5cea3694aa wrote a readme file</span><br></pre></td></tr></table></figure>
-<ul>
-<li>注意这里<code>--pretty=oneline</code>不能写成<code>-pretty=oneline</code></li>
-<li>查看仓库的提交历史记录</li>
-<li>这里类似<code>e31be9240c251ddde0747f160b13ca30a8a055aa</code>叫做<code>commit id</code> 版本号，是由sha1计算出来的，用十六进制表示</li>
-<li>当前版本用<code>HEAD</code>表示，上一个版本用<code>HEAD^</code>表示，上上个版本用<code>HEAD^^</code>表示，而上100个版本可以写成<code>HEAD~100</code></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><code>git reset</code></p>
-<ol>
-<li>将工作区的版本回退到版本库的某个版本 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at 99403f7 add distributed</span><br></pre></td></tr></table></figure>
-<ul>
-<li>回退版本</li>
-<li>git用一个指针<code>HEAD</code>来指向当前版本，</li>
-<li>要想回到时间最新的那个版本，需要有那个版本的commit id，即  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard e31be92</span><br><span class="line">HEAD is now at e31be92 append GPL</span><br></pre></td></tr></table></figure>
-  如果<code>commit id</code>找不到了可以通过<code>git reflog</code>来查看历史命令</li>
-<li>对于<code>commit id</code>只需要前几位数就可以了，当然也不能写太少，不然有重复的时候就指向不明</li>
-</ul>
-</li>
-<li>将暂存区的修改撤销，重新放回工作区 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">        $ git reset HEAD readme.txt</span><br><span class="line">        Unstaged changes after reset:</span><br><span class="line">        M       readme.txt</span><br><span class="line">        &#96;&#96;&#96; </span><br><span class="line">        - 这里的&#96;HEAD&#96;表示使用最新版本</span><br><span class="line">        - 这时工作区内的文件还是修改后的，如果要撤销工作区的修改使用&#96;git checkout -- file&#96;</span><br><span class="line"></span><br><span class="line">- &#96;git reflog&#96;</span><br><span class="line">    </span><br><span class="line">    &#96;&#96;&#96;git</span><br><span class="line">    $ git reflog</span><br><span class="line">    e31be92 (HEAD -&gt; master) HEAD@&#123;0&#125;: reset: moving to e31be92</span><br><span class="line">    99403f7 HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">    e31be92 (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: append GPL</span><br><span class="line">    99403f7 HEAD@&#123;3&#125;: commit: add distributed</span><br><span class="line">    620a5b7 HEAD@&#123;4&#125;: commit (initial): wrote a readme file</span><br><span class="line">    &#96;&#96;&#96; </span><br><span class="line">    - 查看命令历史</span><br><span class="line"></span><br><span class="line">- &#96;git checkout&#96;</span><br><span class="line">    1. &#96;&#96;&#96;git</span><br><span class="line">        $ git  checkout -- readme.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在工作区的修改全部撤销<ul>
-<li>当 <code>readme.txt</code>修改后没放到暂存区的时候，撤销修改回到和版本库一样</li>
-<li>当 <code>readme.txt</code>修改后已经添加到暂存区，又修改了，则撤销修改回到暂存区的状态</li>
-<li>即回到最近一次<code>git commit</code>或<code>git add</code>状态</li>
-</ul>
-<strong>注：git checkout – file</strong>中<code>--</code>需要加上，否则变成“切换到另一个分支”的命令</li>
-<li>将工作区的被删除的文件，从版本库中复原，即将误删的文件恢复到最新版本(其实是将版本库中的版本替换工作区的把版本，所以工作区是修改还是删除都是变成版本库的版本)</li>
-</ul>
-</li>
-<li><code>git checkout -b dev</code><ul>
-<li>创建<code>dev</code>分支，并切换到<code>dev</code>分支</li>
-<li>相当于<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">          git branch dev</span><br><span class="line">          git checkout dev</span><br><span class="line">        &#96;&#96;&#96;   </span><br><span class="line"></span><br><span class="line">- &#96;git rm &lt;file&gt;&#96;</span><br><span class="line">  - 当有个文件提交到版本库后，我们在工作目录后删除该文件，如果确实要将改文件从版本库删除，则使用&#96;git rm &lt;file&gt;&#96;然后再&#96;git commit&#96;</span><br><span class="line">  &#96;&#96;&#96;git</span><br><span class="line">    $ git rm test.txt</span><br><span class="line">    rm &#39;test.txt&#39;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;remove test.txt&quot;</span><br><span class="line">[master e5ffcc1] remove test.txt</span><br><span class="line">1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line">delete mode 100644 test.txt</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p><code>git branch</code></p>
-<ul>
-<li><p><code>git branch</code>命令查看当前分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">      $ git branch</span><br><span class="line">      * dev</span><br><span class="line">        master</span><br><span class="line">    &#96;&#96;&#96; </span><br><span class="line">  - &#96;git branch dev&#96; 创建&#96;dev&#96;分支</span><br><span class="line">  - &#96;git branch -d dev&#96; 删除&#96;dev&#96;分支</span><br><span class="line">- &#96;git merge&#96;命令用于合并并指定分支到当前分支(比如要将dev合并到master,则得先将HEAD指针指向master分支)</span><br><span class="line">  - &#96;git merge dev&#96;</span><br><span class="line"></span><br><span class="line">- &#96;git switch&#96;</span><br><span class="line">  - &#96;git switch -c dev&#96; 创建并切换到新的&#96;dev&#96;分支</span><br><span class="line">  - &#96;git switch dev&#96; 切换到&#96;dev&#96;分支</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">#### git概念</span><br><span class="line"></span><br><span class="line">- 工作区(Working Directory)</span><br><span class="line">    - 电脑的目录，即这里的gitlearning文件夹就是工作区</span><br><span class="line">    ![工作区](workingdirectory.jpg)</span><br><span class="line"></span><br><span class="line">- 版本库(Repository)</span><br><span class="line">    - 工作区中隐藏的文件夹 &#96;.git&#96;属于版本库不属于工作区 ，其中版本库中存了一个叫做stage(或者叫index)的**暂存区**,同时版本库中还有一个git自动创建的第一个分支&#96;master&#96;，以及指向&#96;master&#96;的指针&#96;HEAD&#96;</span><br><span class="line"></span><br><span class="line">- &#96;git add&#96;是将文件添加到暂存区</span><br><span class="line"></span><br><span class="line">    &#96;git commit&#96;是将暂存区的所有内容提交到当前分支</span><br><span class="line"></span><br><span class="line">    当添加一个新文件&#96;LISENCE&#96;而没有add到暂存区的时候，使用&#96;git status&#96;命令会显示其&#96;Untracked&#96;</span><br><span class="line">    &#96;&#96;&#96;git</span><br><span class="line">    $ git status</span><br><span class="line">    On branch master</span><br><span class="line">    Changes not staged for commit:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">    (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">            modified:   readme.txt</span><br><span class="line"></span><br><span class="line">    Untracked files:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">            LISENCE</span><br><span class="line"></span><br><span class="line">    no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>而当我们把其新添加的文件<code>git add</code>到仓库时，会显示 <code>new files</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">(use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">        new file:   LISENCE</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+<pre><code>    public String getName() &#123;
+        return name;
+    &#125;
 
-
-</li>
-</ul>
-</li>
-</ul>
+&#125;
+```</code></pre>
 <ul>
-<li><code>git commit</code>是将暂存区的内容提交，因此如果工作区内的内容没有<code>git add</code>的话，其不会被<code>commit</code>上去</li>
-</ul>
-<hr>
-<h3 id="远程仓库管理"><a href="#远程仓库管理" class="headerlink" title="远程仓库管理"></a>远程仓库管理</h3><ul>
-<li><p>创建SSH key</p>
-<ul>
-<li><code>ssh-keygen -t rsa -C &quot;youremail@example.com</code></li>
-<li><code>id_rsa</code>是私钥</li>
-<li><code>id_rsa.pub</code>是公钥</li>
-<li>将<code>id_rsa.pub</code>记录在github上</li>
+<li>初始化块(initialization block)<ul>
+<li>首先运行初始化块，再运行构造器的主体部分</li>
+<li>通常将初始化代码放在构造器里</li>
+<li>建议将初始化块放在字段定义之后</li>
 </ul>
 </li>
-<li><p>创建新的repository</p>
+<li>调用构造器的具体处理步骤<ol>
+<li>如果构造器第一行调用了另一个构造器，则基于所提供的参数执行第二个构造器</li>
+<li>否则<ol>
+<li>所有数据字段初始化为其默认值</li>
+<li>按照类声明中出现的顺序，执行所有字段的初始化方法和初始化块</li>
+</ol>
 </li>
-<li><p>将本地仓库推送远程库</p>
-<ul>
-<li>在git文件夹里<ul>
-<li><code>git remote add origin https://github.com/qibinaoe/learngit.git</code><ul>
-<li><code>origin</code>是远程库的名字，git的默认叫法</li>
+<li>执行构造器主题代码</li>
+</ol>
+</li>
+<li>静态字段初始化<ol>
+<li>提供初始值<ul>
+<li><code>private static int nextId = 1;</code></li>
 </ul>
 </li>
-<li><code>git push -u origin master</code> 用<code>git push</code>将本地库中的当前分支<code>master</code>推送到远程 <ul>
-<li>第一次推送<code>master</code>分支时，加上<code>-u</code>参数，同时实现两种操作<ol>
-<li>将本地<code>master</code>分支内容推送到远程新的<code>master</code>分支</li>
-<li>将本地<code>master</code>分支和远程<code>master</code>分支关联起来，在以后的推送和拉去就可以简化命令</li>
+<li>静态的初始化块<ul>
+<li><pre><code> static
+ &#123;
+   Random generator = new Random();
+   nextId = generator.nextInt(1000);
+ &#125;</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>包<ul>
+<li>一个类可以使用所属包的所有类，以及其他包的公共类</li>
+<li>在包中定位类是编译器(compiler)的工作。</li>
+<li>类文件中的字节码总是使用完整的包名引用其他类</li>
+<li>在Java中，通过显式地给出类名(java.util.Date)，可以完全避免使用import机制</li>
+</ul>
+</li>
+<li>静态导入<ul>
+<li><code>import</code>语句允许导入静态方法和静态字段，而不只是类</li>
+<li>源文件顶部添加<code>import static java.lang.System.*;</code><ul>
+<li>就可以使用System类的静态方法和静态字段，不必加类名前缀</li>
+<li><code>out.println(&quot;Godd bye&quot;);</code></li>
+<li><code>exit(0);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>包访问<ul>
+<li><code>public</code>: 可以由任意类使用</li>
+<li><code>private</code>: 只能由定义它们的类使用。（提示，变量必须显示的标记为<code>private</code>，否则将默认为包访问，会破坏封装性）</li>
+<li>没有指定<code>public</code>和<code>private</code>的(类、方法、变量): 可以被同一个包的所有方法访问 </li>
+</ul>
+</li>
+<li>编译器查找文件<ul>
+<li>如果引用了一个类而没有指定这个类的包(不是这样<code>Date deadline = new java.util.Date();</code>),它首先查找包含这个类的包(通过<code>import</code>指令，来确定其中是否包含这个类)</li>
+<li>如果找到了一个以上的类，就会产生编译时错误(因为完全限定类名必须是唯一的，与import次序无关)</li>
+</ul>
+</li>
+<li><code>java.lang</code>包总会默认导入</li>
+<li>JAR(Java Archive)<ul>
+<li>JAR文件使用ZIP格式组织文件和子目录，可以使用任何ZIP工具查看JAR文件</li>
+<li>Java归档文件</li>
+<li>可以包含类也可以包含图片和声音等其他类型的文件</li>
+<li>创建JAR文件<ul>
+<li><code>jar cvf jarFileName file1 file2...</code><ul>
+<li>例如<code>jar cvf CalculatorClasses.jar *.class icon.gif</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>jar程序的选项类似Unix tar命令的选项</li>
+<li>清单文件(mainfest)<ul>
+<li>包含在JAR文件当中，一个特殊的<code>META-INF</code>的子目录的</li>
+<li>清单文件被命名为<code>MAINFEST.MF</code></li>
+<li>清单文件被分成多个节<ul>
+<li>第一节称为主节(main section)</li>
+<li>随后的条目用来指定命名实体的属性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文档注释 javadoc<ul>
+<li>javadoc抽取信息，为一下特性编写注释<ul>
+<li>模块</li>
+<li>包</li>
+<li>公共类与接口</li>
+<li>公共的和受保护的字段</li>
+<li>公共的和受保护的构造器及方法</li>
+</ul>
+</li>
+<li>注释放置在所描述特性的前面</li>
+<li>注释以<code>/**</code>开始，以<code>*/</code>结束</li>
+<li>自由格式文本(free-form text)</li>
+<li>标记以@开始，如@since、@param</li>
+<li>自由格式文本第一句应该是一个概要性的句子，javadoc工具将这些句子抽取出生成概要页</li>
+<li>自由格式文本中可以使用html修饰符<ul>
+<li><code>&lt;em&gt; ... &lt;/em&gt;</code> 强调</li>
+<li><code>&lt;strong&gt; ... &lt;/strong&gt;</code> 着重强调</li>
+<li><code>&lt;img ...&gt;</code> 图片</li>
+<li><code>&#123;@code ...&#125;</code>等宽代码</li>
+</ul>
+</li>
+<li>类注释<ul>
+<li>类注释必须放在import语句之后，类定义之前</li>
+</ul>
+</li>
+<li>方法注释<ul>
+<li>方法必须放在所描述的方法之前</li>
+<li>除了通用标记，还能使用以下标记<ul>
+<li><code>@param variable description</code><ul>
+<li>给当前方法的参数部分添加条目</li>
+<li>可以占据多行</li>
+<li>一个方法的所有<code>@param</code>必须放在一起</li>
+</ul>
+</li>
+<li><code>@return description</code><ul>
+<li>给当前方法添加返回部分</li>
+<li>可以跨多行</li>
+</ul>
+</li>
+<li><code>@throws class description</code><ul>
+<li>表示方法可能抛出异常</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>字段注释<ul>
+<li>只需要对公共字段(通常指静态常量<code>public static final</code>)建立文档</li>
+</ul>
+</li>
+<li>通用注释<ul>
+<li><code>@since text</code><ul>
+<li>建立一个”since”(始于)条目</li>
+<li>“text”可以是引入这个特性的版本任何描述<ul>
+<li><code>@since 1.7.1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>@author name</code><ul>
+<li>作者条目</li>
+<li>可以使用多个<code>@author</code>标记</li>
+</ul>
+</li>
+<li><code>version text</code><ul>
+<li>版本条目</li>
+<li>对当前版本的任何描述</li>
+</ul>
+</li>
+<li><code>@see</code>和<code>@link</code><ul>
+<li>可以使用超链接，链接到javadoc文档的相关部分或外部文档</li>
+<li><code>@see reference</code><ul>
+<li>将在”see also”部分增加一个超链接</li>
+<li>可用于类和方法</li>
+<li><em>reference</em>可以有以下选择<ol>
+<li><code>package.class#feature label</code><ul>
+<li>例如<code>@see com.horstmann.corejava.Employee#raiseSalary(double)</code></li>
+<li>包名或包名和类名都可以省略，这样会定位于当前包或当前类 </li>
+</ul>
+</li>
+<li><code>&lt;a href=&quot;...&quot;&gt;label&lt;/a&gt;</code><ul>
+<li><code>@see &lt;a href=&quot;www.horstmann.com/corejava.html&quot;&gt;The Core Java home page&lt;/a&gt;</code> </li>
+</ul>
+</li>
+<li><code>&quot;text&quot;</code> <ul>
+<li><code>@see &quot;Core Java 2 volume 2&quot;</code></li>
+</ul>
+</li>
 </ol>
 </li>
 </ul>
 </li>
-<li>此后修改后要将本地仓库推送到远程时，只需要使用<code>git push origin master</code>  </li>
+<li><code>&#123;@link package.class#feature lable&#125;</code> </li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>将远程库克隆到本地</p>
-<ul>
-<li><code>$ git clone git@github.com:qibinaoe/gitskills.git</code><ul>
-<li>使用的是ssh的协议</li>
+<li>包注释<ul>
+<li>需要在每个包目录中添加一个单独文件<ol>
+<li>提供<em>package-info.java</em>的Java文件<ul>
+<li>该文件包含一个初是的以<code>/**</code>和<code>*/</code>界定的javadoc注释</li>
+<li>后面是一个package语句</li>
 </ul>
 </li>
-<li><code>$ git clone https://github.com/qibinaoe/gitskills.git</code><ul>
-<li>使用的是https的协议</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>在分支<code>dev</code>上修改后，如果需要将该分支的内容合并到<code>master</code>分支</p>
-<ol>
-<li>切换到<code>master</code>分支<ul>
-<li><code>git checkout master</code></li>
-</ul>
-</li>
-<li>指定要合并的分支<ul>
-<li><pre><code>  $ git merge dev
-  Updating e5ffcc1..a3f33f3
-  Fast-forward
-    readme.txt | 3 ++-
-    1 file changed, 2 insertions(+), 1 deletion(-)</code></pre>
-</li>
-<li>这里的<code>Fast-forward</code>指的是将<code>master</code>指向<code>dev</code></li>
+<li>提供<code>package.html</code>的HTML文件<ul>
+<li>会抽取<code>&lt;body&gt;&lt;/body&gt;</code>之间所有文本</li>
 </ul>
 </li>
 </ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>类设计技巧<ul>
+<li>一定要保证数据私有<ul>
+<li>绝对不要破坏封装性</li>
+</ul>
+</li>
+<li>一定要对数据进行初始化<ul>
+<li>不要依赖系统的默认值</li>
+<li>自己提供默认值</li>
+<li>所有构造器中设置默认值</li>
+</ul>
+</li>
+<li>不要再类中使用过多的基本类型<ul>
+<li>用其他类替换使用多个相关的基本类型</li>
+</ul>
+</li>
+<li>不是所有的字段都需要单独的字段访问器和字段更改器</li>
+<li>分解有过多指责的类</li>
+<li>类名和方法名要能够体现出它的职责</li>
+<li>优先使用不可变类<ul>
+<li>并发更改：多个线程试图同时更新一个对象</li>
+<li>如果类是不变的，可以安全地在多个线程间共享其对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
 
@@ -363,7 +550,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java核心技术</a>
         		</li>
       		
 		</ul>
@@ -419,7 +606,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/11/02/git%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/11/11/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -433,18 +620,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/11/02/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%80%92%E5%BD%92%E5%92%8C%E5%88%86%E6%B2%BB/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/11/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          挑战程序设计2—递归和分治
+          设计模式
         
       </div>
     </a>
   
   
-    <a href="/2020/11/01/leetcode%E2%80%94%E9%93%BE%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">leetcode—链表</div>
+    <a href="/2020/11/09/%E5%B0%B1%E4%B8%9A%E7%9B%B8%E5%85%B3%E5%A4%A7%E6%9D%82%E7%83%A9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">就业相关大杂烩</div>
       <i class="icon-circle-right"></i>
     </a>
   

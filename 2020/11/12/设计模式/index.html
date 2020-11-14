@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>git学习 | qibinBlog</title>
+  <title>设计模式 | qibinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习git记录">
+  <meta name="description" content="设计模式读书笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git学习">
-<meta property="og:url" content="http://example.com/2020/11/02/git%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:title" content="设计模式">
+<meta property="og:url" content="http://example.com/2020/11/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="qibinBlog">
-<meta property="og:description" content="学习git记录">
+<meta property="og:description" content="设计模式读书笔记">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-02T07:27:13.000Z">
-<meta property="article:modified_time" content="2020-11-11T13:01:44.775Z">
+<meta property="article:published_time" content="2020-11-12T03:20:54.000Z">
+<meta property="article:modified_time" content="2020-11-12T11:16:52.809Z">
 <meta property="article:author" content="ZQB">
-<meta property="article:tag" content="git">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="qibinBlog" type="application/atom+xml">
@@ -133,224 +133,29 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-git学习" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-设计模式" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      git学习
+      设计模式
     </h1>
   
 
         
-        <a href="/2020/11/02/git%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
-  	<time datetime="2020-11-02T07:27:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-02</time>
+        <a href="/2020/11/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2020-11-12T03:20:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="学习git记录"><a href="#学习git记录" class="headerlink" title="学习git记录"></a>学习git记录</h2><a id="more"></a>
-
-
-<h3 id="廖雪峰博客"><a href="#廖雪峰博客" class="headerlink" title="廖雪峰博客"></a>廖雪峰博客</h3><p>先从<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰博客git教程</a>中学习并作记录。</p>
-<hr>
-<h4 id="知识点记录"><a href="#知识点记录" class="headerlink" title="知识点记录"></a>知识点记录</h4><ol>
-<li><p>git属于分布式版本控制系统</p>
-</li>
-<li><p>集中式与分布式</p>
-<ul>
-<li>集中式的版本控制系统<ul>
-<li>CVS和SVN(SVN是对CVS的一种改进)</li>
-<li>缺点: <ul>
-<li>需要联网工作上传到中央服务器</li>
-<li>中央服务器坏掉后，会影响所有人</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>分布式的版本控制系统<ul>
-<li>git、bitkeeper</li>
-<li>优点<ul>
-<li>每一个人的电脑都有一个完整的版本库</li>
-<li>安全性高，<br>github服务器是用来中转的，即每一个人可以把自己修改后的推上去，其他人也可以从中同步，而github服务器故障后，只要本地的仓库(repository)还存在,就不会丢失。而对于集中式的版本控制系统，必须联网提交回滚等操作，如果断网就不能实现这些操作，并且服务器故障后，历史版本信息都没有了</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>所有版本控制系统只能跟踪文本文件，如txt、网页、程序代码。不能跟踪二进制文件内容的变化，如图片、word</p>
-</li>
-<li><p>git跟踪并管理的是修改而非文件，意思就是文件中的内容修改后，git能跟踪内容变化是什么。</p>
-</li>
-</ol>
-<hr>
-<h4 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h4><p><code>sudo apt-get install git</code></p>
-<h4 id="git使用问题"><a href="#git使用问题" class="headerlink" title="git使用问题"></a>git使用问题</h4><ol>
-<li><code>git add</code>与<code>git commit</code>区别</li>
-</ol>
-<h4 id="git命令"><a href="#git命令" class="headerlink" title="git命令"></a>git命令</h4><ul>
-<li><code>git config</code>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Your Name&quot;</span><br><span class="line">$ git config --global user.email &quot;email@example.com&quot;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>--global</code>参数表示电脑上的所有仓库都使用该配置</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><code>git init</code></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in D:&#x2F;CODE&#x2F;gitlearning&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>git init</code>用于声明当前目录为git可以管理的仓库</li>
-<li>会生成<code>.git</code>目录，用于跟踪管理版本库</li>
-</ul>
-</li>
-<li><p><code>git add</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li>将文件添加到仓库</li>
-</ul>
-</li>
-<li><p><code>git commit</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;wrote a readme file&quot;</span><br><span class="line">[master (root-commit) eaadf4e] wrote a readme file</span><br><span class="line">1 file changed, 2 insertions(+)</span><br><span class="line">create mode 100644 readme.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>git commit</code>表示将文件提交到仓库</li>
-<li><code>-m </code>后的文字代表本次提交的说明</li>
-</ul>
-</li>
-<li><p><code>git status</code></p>
-<ul>
-<li>查看当前仓库的状态</li>
-</ul>
-</li>
-<li><p><code>git diff</code></p>
-<ul>
-<li>查看对当前仓库里的文件做了什么修改</li>
-</ul>
-</li>
-<li><p><code>git log</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit e31be9240c251ddde0747f160b13ca30a8a055aa (HEAD -&gt; master)</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:25:30 2020 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit 99403f77708a6f871ab514371f4dffb075f4c57d</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:24:32 2020 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit 620a5b729a1ed380ae4f7630b1255e5cea3694aa</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:20:14 2020 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty&#x3D;oneline</span><br><span class="line">e31be9240c251ddde0747f160b13ca30a8a055aa (HEAD -&gt; master) append GPL</span><br><span class="line">99403f77708a6f871ab514371f4dffb075f4c57d add distributed</span><br><span class="line">620a5b729a1ed380ae4f7630b1255e5cea3694aa wrote a readme file</span><br></pre></td></tr></table></figure>
-<ul>
-<li>注意这里<code>--pretty=oneline</code>不能写成<code>-pretty=oneline</code></li>
-<li>查看仓库的提交历史记录</li>
-<li>这里类似<code>e31be9240c251ddde0747f160b13ca30a8a055aa</code>叫做<code>commit id</code> 版本号，是由sha1计算出来的，用十六进制表示</li>
-<li>当前版本用<code>HEAD</code>表示，上一个版本用<code>HEAD^</code>表示，上上个版本用<code>HEAD^^</code>表示，而上100个版本可以写成<code>HEAD~100</code></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><code>git reset</code></p>
-<ol>
-<li>将工作区的版本回退到版本库的某个版本 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at 99403f7 add distributed</span><br></pre></td></tr></table></figure>
-<ul>
-<li>回退版本</li>
-<li>git用一个指针<code>HEAD</code>来指向当前版本，</li>
-<li>要想回到时间最新的那个版本，需要有那个版本的commit id，即  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard e31be92</span><br><span class="line">HEAD is now at e31be92 append GPL</span><br></pre></td></tr></table></figure>
-  如果<code>commit id</code>找不到了可以通过<code>git reflog</code>来查看历史命令</li>
-<li>对于<code>commit id</code>只需要前几位数就可以了，当然也不能写太少，不然有重复的时候就指向不明</li>
-</ul>
-</li>
-<li>将暂存区的修改撤销，重新放回工作区 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">        $ git reset HEAD readme.txt</span><br><span class="line">        Unstaged changes after reset:</span><br><span class="line">        M       readme.txt</span><br><span class="line">        &#96;&#96;&#96; </span><br><span class="line">        - 这里的&#96;HEAD&#96;表示使用最新版本</span><br><span class="line">        - 这时工作区内的文件还是修改后的，如果要撤销工作区的修改使用&#96;git checkout -- file&#96;</span><br><span class="line"></span><br><span class="line">- &#96;git reflog&#96;</span><br><span class="line">    </span><br><span class="line">    &#96;&#96;&#96;git</span><br><span class="line">    $ git reflog</span><br><span class="line">    e31be92 (HEAD -&gt; master) HEAD@&#123;0&#125;: reset: moving to e31be92</span><br><span class="line">    99403f7 HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">    e31be92 (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: append GPL</span><br><span class="line">    99403f7 HEAD@&#123;3&#125;: commit: add distributed</span><br><span class="line">    620a5b7 HEAD@&#123;4&#125;: commit (initial): wrote a readme file</span><br><span class="line">    &#96;&#96;&#96; </span><br><span class="line">    - 查看命令历史</span><br><span class="line"></span><br><span class="line">- &#96;git checkout&#96;</span><br><span class="line">    1. &#96;&#96;&#96;git</span><br><span class="line">        $ git  checkout -- readme.txt</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在工作区的修改全部撤销<ul>
-<li>当 <code>readme.txt</code>修改后没放到暂存区的时候，撤销修改回到和版本库一样</li>
-<li>当 <code>readme.txt</code>修改后已经添加到暂存区，又修改了，则撤销修改回到暂存区的状态</li>
-<li>即回到最近一次<code>git commit</code>或<code>git add</code>状态</li>
-</ul>
-<strong>注：git checkout – file</strong>中<code>--</code>需要加上，否则变成“切换到另一个分支”的命令</li>
-<li>将工作区的被删除的文件，从版本库中复原，即将误删的文件恢复到最新版本(其实是将版本库中的版本替换工作区的把版本，所以工作区是修改还是删除都是变成版本库的版本)</li>
-</ul>
-</li>
-<li><code>git checkout -b dev</code><ul>
-<li>创建<code>dev</code>分支，并切换到<code>dev</code>分支</li>
-<li>相当于<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">          git branch dev</span><br><span class="line">          git checkout dev</span><br><span class="line">        &#96;&#96;&#96;   </span><br><span class="line"></span><br><span class="line">- &#96;git rm &lt;file&gt;&#96;</span><br><span class="line">  - 当有个文件提交到版本库后，我们在工作目录后删除该文件，如果确实要将改文件从版本库删除，则使用&#96;git rm &lt;file&gt;&#96;然后再&#96;git commit&#96;</span><br><span class="line">  &#96;&#96;&#96;git</span><br><span class="line">    $ git rm test.txt</span><br><span class="line">    rm &#39;test.txt&#39;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;remove test.txt&quot;</span><br><span class="line">[master e5ffcc1] remove test.txt</span><br><span class="line">1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line">delete mode 100644 test.txt</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p><code>git branch</code></p>
-<ul>
-<li><p><code>git branch</code>命令查看当前分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">      $ git branch</span><br><span class="line">      * dev</span><br><span class="line">        master</span><br><span class="line">    &#96;&#96;&#96; </span><br><span class="line">  - &#96;git branch dev&#96; 创建&#96;dev&#96;分支</span><br><span class="line">  - &#96;git branch -d dev&#96; 删除&#96;dev&#96;分支</span><br><span class="line">- &#96;git merge&#96;命令用于合并并指定分支到当前分支(比如要将dev合并到master,则得先将HEAD指针指向master分支)</span><br><span class="line">  - &#96;git merge dev&#96;</span><br><span class="line"></span><br><span class="line">- &#96;git switch&#96;</span><br><span class="line">  - &#96;git switch -c dev&#96; 创建并切换到新的&#96;dev&#96;分支</span><br><span class="line">  - &#96;git switch dev&#96; 切换到&#96;dev&#96;分支</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">#### git概念</span><br><span class="line"></span><br><span class="line">- 工作区(Working Directory)</span><br><span class="line">    - 电脑的目录，即这里的gitlearning文件夹就是工作区</span><br><span class="line">    ![工作区](workingdirectory.jpg)</span><br><span class="line"></span><br><span class="line">- 版本库(Repository)</span><br><span class="line">    - 工作区中隐藏的文件夹 &#96;.git&#96;属于版本库不属于工作区 ，其中版本库中存了一个叫做stage(或者叫index)的**暂存区**,同时版本库中还有一个git自动创建的第一个分支&#96;master&#96;，以及指向&#96;master&#96;的指针&#96;HEAD&#96;</span><br><span class="line"></span><br><span class="line">- &#96;git add&#96;是将文件添加到暂存区</span><br><span class="line"></span><br><span class="line">    &#96;git commit&#96;是将暂存区的所有内容提交到当前分支</span><br><span class="line"></span><br><span class="line">    当添加一个新文件&#96;LISENCE&#96;而没有add到暂存区的时候，使用&#96;git status&#96;命令会显示其&#96;Untracked&#96;</span><br><span class="line">    &#96;&#96;&#96;git</span><br><span class="line">    $ git status</span><br><span class="line">    On branch master</span><br><span class="line">    Changes not staged for commit:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">    (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">            modified:   readme.txt</span><br><span class="line"></span><br><span class="line">    Untracked files:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">            LISENCE</span><br><span class="line"></span><br><span class="line">    no changes added to commit (use &quot;git add&quot; and&#x2F;or &quot;git commit -a&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>而当我们把其新添加的文件<code>git add</code>到仓库时，会显示 <code>new files</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">(use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">        new file:   LISENCE</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><code>git commit</code>是将暂存区的内容提交，因此如果工作区内的内容没有<code>git add</code>的话，其不会被<code>commit</code>上去</li>
-</ul>
-<hr>
-<h3 id="远程仓库管理"><a href="#远程仓库管理" class="headerlink" title="远程仓库管理"></a>远程仓库管理</h3><ul>
-<li><p>创建SSH key</p>
-<ul>
-<li><code>ssh-keygen -t rsa -C &quot;youremail@example.com</code></li>
-<li><code>id_rsa</code>是私钥</li>
-<li><code>id_rsa.pub</code>是公钥</li>
-<li>将<code>id_rsa.pub</code>记录在github上</li>
-</ul>
-</li>
-<li><p>创建新的repository</p>
-</li>
-<li><p>将本地仓库推送远程库</p>
-<ul>
-<li>在git文件夹里<ul>
-<li><code>git remote add origin https://github.com/qibinaoe/learngit.git</code><ul>
-<li><code>origin</code>是远程库的名字，git的默认叫法</li>
-</ul>
-</li>
-<li><code>git push -u origin master</code> 用<code>git push</code>将本地库中的当前分支<code>master</code>推送到远程 <ul>
-<li>第一次推送<code>master</code>分支时，加上<code>-u</code>参数，同时实现两种操作<ol>
-<li>将本地<code>master</code>分支内容推送到远程新的<code>master</code>分支</li>
-<li>将本地<code>master</code>分支和远程<code>master</code>分支关联起来，在以后的推送和拉去就可以简化命令</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>此后修改后要将本地仓库推送到远程时，只需要使用<code>git push origin master</code>  </li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>将远程库克隆到本地</p>
-<ul>
-<li><code>$ git clone git@github.com:qibinaoe/gitskills.git</code><ul>
-<li>使用的是ssh的协议</li>
-</ul>
-</li>
-<li><code>$ git clone https://github.com/qibinaoe/gitskills.git</code><ul>
-<li>使用的是https的协议</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>在分支<code>dev</code>上修改后，如果需要将该分支的内容合并到<code>master</code>分支</p>
-<ol>
-<li>切换到<code>master</code>分支<ul>
-<li><code>git checkout master</code></li>
-</ul>
-</li>
-<li>指定要合并的分支<ul>
-<li><pre><code>  $ git merge dev
-  Updating e5ffcc1..a3f33f3
-  Fast-forward
-    readme.txt | 3 ++-
-    1 file changed, 2 insertions(+), 1 deletion(-)</code></pre>
-</li>
-<li>这里的<code>Fast-forward</code>指的是将<code>master</code>指向<code>dev</code></li>
-</ul>
-</li>
-</ol>
-
+        <h2 id="设计模式读书笔记"><a href="#设计模式读书笔记" class="headerlink" title="设计模式读书笔记"></a>设计模式读书笔记</h2><a id="more"></a>
+<p>设计模式的学习书籍我看的是刘伟老师的《设计模式的艺术》</p>
+<h3 id="面向对象设计原则"><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h3><h4 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h4><h4 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h4><h4 id="里氏代换原则"><a href="#里氏代换原则" class="headerlink" title="里氏代换原则"></a>里氏代换原则</h4><h4 id="依赖倒转原则"><a href="#依赖倒转原则" class="headerlink" title="依赖倒转原则"></a>依赖倒转原则</h4><h4 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h4><h4 id="合成复用原则"><a href="#合成复用原则" class="headerlink" title="合成复用原则"></a>合成复用原则</h4><h4 id="迪米特法则"><a href="#迪米特法则" class="headerlink" title="迪米特法则"></a>迪米特法则</h4><h3 id="创建型模式-Creational-Pattern"><a href="#创建型模式-Creational-Pattern" class="headerlink" title="创建型模式 Creational Pattern"></a>创建型模式 Creational Pattern</h3><h4 id="单例模式-Singleton-Pattern"><a href="#单例模式-Singleton-Pattern" class="headerlink" title="单例模式 Singleton Pattern"></a>单例模式 Singleton Pattern</h4><h4 id="简单工厂模式-Simple-Factory-Pattern"><a href="#简单工厂模式-Simple-Factory-Pattern" class="headerlink" title="简单工厂模式 Simple Factory Pattern"></a>简单工厂模式 Simple Factory Pattern</h4><h4 id="工厂方法模式-Factory-Method-Pattern"><a href="#工厂方法模式-Factory-Method-Pattern" class="headerlink" title="工厂方法模式 Factory Method Pattern"></a>工厂方法模式 Factory Method Pattern</h4><h4 id="抽象工厂模式-Abstract-Factory-Pattern"><a href="#抽象工厂模式-Abstract-Factory-Pattern" class="headerlink" title="抽象工厂模式 Abstract Factory Pattern"></a>抽象工厂模式 Abstract Factory Pattern</h4><h4 id="原型模式-Prototype-Pattern"><a href="#原型模式-Prototype-Pattern" class="headerlink" title="原型模式 Prototype Pattern"></a>原型模式 Prototype Pattern</h4><h4 id="建造者模式-Builder-Pattern"><a href="#建造者模式-Builder-Pattern" class="headerlink" title="建造者模式 Builder Pattern"></a>建造者模式 Builder Pattern</h4><h3 id="结构型模式-Structural-Pattern"><a href="#结构型模式-Structural-Pattern" class="headerlink" title="结构型模式 Structural Pattern"></a>结构型模式 Structural Pattern</h3><h4 id="适配器模式-Adapter-Pattern"><a href="#适配器模式-Adapter-Pattern" class="headerlink" title="适配器模式 Adapter Pattern"></a>适配器模式 Adapter Pattern</h4><h4 id="桥接模式-Bridge-Pattern"><a href="#桥接模式-Bridge-Pattern" class="headerlink" title="桥接模式 Bridge Pattern"></a>桥接模式 Bridge Pattern</h4><h4 id="组合模式-Composite-Pattern"><a href="#组合模式-Composite-Pattern" class="headerlink" title="组合模式 Composite Pattern"></a>组合模式 Composite Pattern</h4><h4 id="装饰模式-Decorator-Pattern"><a href="#装饰模式-Decorator-Pattern" class="headerlink" title="装饰模式 Decorator Pattern"></a>装饰模式 Decorator Pattern</h4><h4 id="外观模式-Facade-Pattern"><a href="#外观模式-Facade-Pattern" class="headerlink" title="外观模式 Facade Pattern"></a>外观模式 Facade Pattern</h4><h4 id="享元模式-Flyweight-Pattern"><a href="#享元模式-Flyweight-Pattern" class="headerlink" title="享元模式 Flyweight Pattern"></a>享元模式 Flyweight Pattern</h4><h4 id="代理模式-Proxy-Pattern"><a href="#代理模式-Proxy-Pattern" class="headerlink" title="代理模式 Proxy Pattern"></a>代理模式 Proxy Pattern</h4><h3 id="行为型模式-Behavioral-Pattern"><a href="#行为型模式-Behavioral-Pattern" class="headerlink" title="行为型模式 Behavioral Pattern"></a>行为型模式 Behavioral Pattern</h3><h4 id="职责链模式-Chain-of-Responsibility-Pattern"><a href="#职责链模式-Chain-of-Responsibility-Pattern" class="headerlink" title="职责链模式 Chain of Responsibility Pattern"></a>职责链模式 Chain of Responsibility Pattern</h4><h4 id="命令模式-Command-Pattern"><a href="#命令模式-Command-Pattern" class="headerlink" title="命令模式 Command Pattern"></a>命令模式 Command Pattern</h4><h4 id="解释器模式-Interpreter-Pattern"><a href="#解释器模式-Interpreter-Pattern" class="headerlink" title="解释器模式 Interpreter Pattern"></a>解释器模式 Interpreter Pattern</h4><h4 id="迭代器模式-Iterator-Pattern"><a href="#迭代器模式-Iterator-Pattern" class="headerlink" title="迭代器模式 Iterator Pattern"></a>迭代器模式 Iterator Pattern</h4><h4 id="中介者模式-Mediator-Pattern"><a href="#中介者模式-Mediator-Pattern" class="headerlink" title="中介者模式 Mediator Pattern"></a>中介者模式 Mediator Pattern</h4><h4 id="备忘录模式-Memento-Pattern"><a href="#备忘录模式-Memento-Pattern" class="headerlink" title="备忘录模式 Memento Pattern"></a>备忘录模式 Memento Pattern</h4><h4 id="观察者模式-Observer-Pattern"><a href="#观察者模式-Observer-Pattern" class="headerlink" title="观察者模式 Observer Pattern"></a>观察者模式 Observer Pattern</h4><h4 id="状态模式-State-Pattern"><a href="#状态模式-State-Pattern" class="headerlink" title="状态模式 State Pattern"></a>状态模式 State Pattern</h4><h4 id="策略模式-Strategy-Pattern"><a href="#策略模式-Strategy-Pattern" class="headerlink" title="策略模式 Strategy Pattern"></a>策略模式 Strategy Pattern</h4><h4 id="模板方法模式-Template-Method-Pattern"><a href="#模板方法模式-Template-Method-Pattern" class="headerlink" title="模板方法模式 Template Method Pattern"></a>模板方法模式 Template Method Pattern</h4><h4 id="访问者模式-Visitor-Pattern"><a href="#访问者模式-Visitor-Pattern" class="headerlink" title="访问者模式 Visitor Pattern"></a>访问者模式 Visitor Pattern</h4>
       
 
       
@@ -363,7 +168,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
@@ -419,7 +224,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/11/02/git%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/11/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -433,18 +238,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/11/02/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%80%92%E5%BD%92%E5%92%8C%E5%88%86%E6%B2%BB/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          挑战程序设计2—递归和分治
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/11/01/leetcode%E2%80%94%E9%93%BE%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">leetcode—链表</div>
+    <a href="/2020/11/11/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java核心技术—对象与类</div>
       <i class="icon-circle-right"></i>
     </a>
   

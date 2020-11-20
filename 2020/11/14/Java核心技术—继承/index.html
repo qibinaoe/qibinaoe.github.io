@@ -16,7 +16,7 @@
 <meta property="og:description" content="Java核心技术——第五章 继承类、超类和子类   继承(inheritance)  “is-a”关系是继承的一个明显特征  Java用关键字extends表示继承 1234public class Manager extends Employee&amp;#123;    added methods and fields&amp;#125;  Java中所有继承都是公共继承，没有C++中的私有继承和保护继承">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-14T07:45:20.000Z">
-<meta property="article:modified_time" content="2020-11-15T01:40:11.845Z">
+<meta property="article:modified_time" content="2020-11-20T09:06:32.481Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
@@ -253,8 +253,354 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">Manager m1 = <span class="keyword">new</span> Manager(<span class="string">&quot;xixi&quot;</span>,<span class="number">300</span>);</span><br><span class="line">staff[<span class="number">0</span>] = e1;</span><br><span class="line">staff[<span class="number">1</span>] = e2;</span><br><span class="line">staff[<span class="number">2</span>] = m1;</span><br><span class="line"><span class="keyword">for</span>(Employee e : staff)</span><br><span class="line">&#123;</span><br><span class="line">    System.out.println(e.getName() + <span class="string">&quot;  &quot;</span> + e.getSalary());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p>继承层次(inheritance hierarchy)：由一个公共超类派生出来的所有类的集合</p>
+</li>
+<li><p>Java不支持多重继承</p>
+</li>
+<li><p>多态</p>
+<ul>
+<li><p>“is-a”规则可以用来判断是否应该将数据设计为继承关系，其指出子类的每个对象也是超类的对象(经理都是员工)，但是反之则不然</p>
+</li>
+<li><p>“is-a”规则另一种表述：替换原则(substitution principle)</p>
+<ul>
+<li>出现超类对象的任何地方都能用子类对象替换</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">e = <span class="keyword">new</span> Employee(...);</span><br><span class="line">e = <span class="keyword">new</span> Manager(...);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Java对象变量是多态(polymorphic)的</p>
+<ul>
+<li>一个Employee(超类)类型的<em>变量</em>既可以<strong>引用</strong>一个Employee类型的<em>对象</em>，也可以<strong>引用</strong>Employee类的任何一个子类的<em>对象</em>(Manager, Executive…)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = <span class="keyword">new</span> Manager(...);</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">staff[<span class="number">0</span>] = boss; <span class="comment">//将Employee变量引用一个Manager对象</span></span><br></pre></td></tr></table></figure>
+
+<p>变量staff[0]与boss都引用同一个对象，但是编译器<em>只将</em>staff[0]看成一个<em>Employee对象</em></p>
+<p>意味着<br><code>boss.setBonus(5000);//boss是Manager类型的，有setBonus的方法</code>是可以的</p>
+<p>但是<br><code>staff[0].setBonus(5000); // ERROR</code>是不行的，因为staff[0]声明的类型是Employee，但是setBonus不是Employee类的方法</p>
+<p>同时<br><code>Manager m = staff[i]; //ERROR</code>也是不行的。因为m有可能引用一个不是经理的Employee对象，如果调用Manager才有的方法(例如m.setBonus(…)),就会发生运行时错误。</p>
+</li>
+<li><p>Java中，子类引用的数组可以转换成超类引用的数组</p>
 </li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Manager[] managers = <span class="keyword">new</span> Manager[<span class="number">10</span>]; <span class="comment">//子类引用的数组</span></span><br><span class="line">Employee[] staff = managers; <span class="comment">//超类引用的数组，是可以的</span></span><br></pre></td></tr></table></figure>
+
+<p>但切记不要进行这种操作<code>staff[0] = new Employee(...);</code>，因为staff数组里面都是managers对象，我运行会报错<code>java.lang.ArrayStoreException</code>（书上说“虽然编译器接纳这种赋值操作，但是由于managers和staff都引用同一个manager对象数组，如果进行<code>managers[0].setBonus(1000);</code>将会试图调用一个不存在的实例字段”)</p>
+</li>
+</ul>
+</li>
+<li><p>可协变的返回类型</p>
+<ul>
+<li><p>方法的名字和参数列表称为方法的<em>签名</em>，如果在子类中定义了一个与超类签名相同的方法，那么子类中这个方法就会覆盖超类中这个相同签名的方法</p>
+</li>
+<li><p>返回类型<strong>不是</strong>签名的一部分，但是在覆盖超类的方法时，需要保证返回类型的兼容性</p>
+<ul>
+<li><p>允许子类覆盖方法的返回类型改为原返回类型的子类型，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//超类方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Employee <span class="title">getBuddy</span><span class="params">()</span></span>&#123;....&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Manager <span class="title">gerBuddy</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//这是可以的，Manager是Employee的子类</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不允许子类覆盖的方法的返回类型是超类的方法返回类型的超类,例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//超类方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Manager <span class="title">getBuddy</span><span class="params">()</span></span>&#123;....&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Employee <span class="title">gerBuddy</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//ERROR</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不允许子类覆盖的方法的返回类型和超类的方法返回类型不兼容,例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//超类方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getBuddy</span><span class="params">()</span></span>&#123;....&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//子类方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">gerBuddy</span><span class="params">()</span></span>&#123;...&#125; <span class="comment">//ERROR</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>子类覆盖超类方法</p>
+<ul>
+<li>子类方法不能低于超类方法的可见性<ul>
+<li>如果<strong>超类</strong>方式是<code>public</code>，那么<strong>子类</strong>的方法必须也要声明为<code>public</code>。如果子类方法遗漏掉了<code>public</code>修饰符，则编译器会报错</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>方法调用过程</p>
+<ul>
+<li>调用<code>x.f(args)</code>,其中<code>x</code>为<code>C</code>类的一个对象<ol>
+<li>编译器查看对象的<em>声明类型</em>和<em>方法名</em>。编译器会一一列举<code>C</code>类中所有方法名为<code>f</code>的方法和其超类中所有名为<code>f</code>且可访问的方法</li>
+<li>编译器确定方法调用中提供的参数类型。在所有名为<code>f</code>的方法中，如果存在一个与所提供参数类型完全匹配的方法，就调用该方法。这个过程称为*重载解析(overloading resolution)*。如果编译器没有找到与参数类型匹配的方法，或者发现经过类型转换后有多个方法与之匹配，编译器会报错。</li>
+<li><em>静态绑定(static binding)</em>:如果是<code>private</code>方法,<code>static</code>方法,<code>final</code>方法或构造器，则编译器可以准确知道应该调用哪一个方法；<em>动态绑定</em>:要调用的方法依赖于隐式参数的实际类型，必须要运行时使用动态绑定</li>
+<li>假设程序运行并采用动态绑定调用方法，则虚拟机调用与<code>x</code>所引用对象的实际类型对应的那个方法。如果该类没有定义这个方法，则在父类中找。虚拟机预先为<em>每个类</em>计算了一个*方法表(method table)*，其中列出了所有方法的签名和要调用的实际方法。在真正调用方法时，虚拟机仅查找该表、</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>final类</p>
+<ul>
+<li><p>需求：如果想阻止人们用某个类来定义子类</p>
+</li>
+<li><p>不允许扩展的类称为<code>final</code>类(定义类的时候使用final修饰符)</p>
+</li>
+<li><p>例如阻止人们派生<code>Executive</code>类的子类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Executive</span> <span class="keyword">extends</span> <span class="title">Manager</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>final方法</p>
+<ul>
+<li>类中的某个特定的方法也可以声明为<code>final</code></li>
+<li>子类不能覆盖这个方法</li>
+<li><strong><code>final</code>类中的所有方法自动成为final方法</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字段也能声明为final，final字段表示构造对象后就不能再改变值了。<em>final类</em>只有其中的方法自动成为final，不包括字段</p>
+</li>
+<li><p>将方法或类声明为<code>final</code>的主要原因是确保它们在子类不会改变语义</p>
+<ul>
+<li><code>Calendar</code>类中的<code>getTime()</code>和<code>setTime()</code>方法声明为final。意味着<code>Calendar</code>类设计者负责实现<code>Date</code>类与日历状态的转换，不允许子类添乱</li>
+<li><code>String</code>类为<code>final</code>类，如果有一个<code>String</code>引用，则它引用一定是<code>String</code>对象</li>
+</ul>
+</li>
+<li><p>内联(inlining)</p>
+<ul>
+<li>如果一个方法没有被覆盖(重写)而且很短，则编译器能够对它进行优化处理</li>
+</ul>
+</li>
+<li><p>类的对象引用的强制类型转换</p>
+<ul>
+<li><p>用一对圆括号将目标类括起来，并放置在需要转换的对象引用之前</p>
+</li>
+<li><p>使用对象引用的强制类型转换的唯一原因： 要在，暂时忽视对象的实际类型之后，使用对象的全部功能</p>
+<ul>
+<li>暂时忽视的情况：在<code>staff</code>中，某些元素是普通员工(<code>Employee</code>)，因此经理元素(<code>Manager</code>)需要暂时忽视它的实际类型</li>
+<li>要使用对象全部功能： 将<code>staff</code>数组中引用<code>Manager</code>对象的元素复原成<code>Manager</code>对象</li>
+</ul>
+</li>
+<li><p>每个对象变量都有一个类型</p>
+<ul>
+<li>类型描述这个变量<em>所引用</em>的以及<em>能够引用的对象类型</em></li>
+</ul>
+</li>
+<li><p>一个值存入变量时，编译器会检查是否承诺过多</p>
+<ul>
+<li><p>子类的引用赋值给超类的变量，是允许的</p>
+</li>
+<li><p>超类的引用赋值给子类变量时，是不可以的，承诺过多，必须进行强制类型转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Manager m2 = staff[2]; //不能通过运行时检查</span></span><br><span class="line">Manager m2 = (Manager) staff[<span class="number">2</span>]; <span class="comment">//能够通过运行时检查 </span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果试图在继承链上，进行向下的强制类型转换，并且谎报对象内容，会产生<code>ClassCastException</code>的异常</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = (Manager)staff[<span class="number">0</span>]; <span class="comment">//staff[0]存的真实类型Employee,不是Manager，会抛出异常</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在强制类型转换之前，先查看是否能够转换成功，使用<code>instanceof</code>操作符来判断</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(staff[<span class="number">2</span>] <span class="keyword">instanceof</span> Manager)</span><br><span class="line">&#123;</span><br><span class="line">  boss = (Manager)staff[<span class="number">2</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>String c = (String) staff[1];</code>会产生编译错误</li>
+</ul>
+</li>
+<li><p>总之</p>
+<ul>
+<li>只能在继承层次内进行强制类型转换</li>
+<li>在超类强制转换成子类之前，应该使用<code>instanceof</code>进行检查</li>
+</ul>
+</li>
+<li><p>因为实现多态性的动态绑定机制，能够自动找到正确的方法，很多情况不需要进行强制类型转换</p>
+</li>
+<li><p>只有在使用子类(如<code>Manager</code>)中特有的方法才需要进行强制类型转换</p>
+</li>
+</ul>
+</li>
+<li><p>抽象类</p>
+<ul>
+<li><p>包含一个或多个<strong>抽象方法</strong>的类，类本身必须声明为抽象的</p>
+</li>
+<li><p>抽象类还可以包含字段和具体方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> String name;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">getDescription</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过引用一个公共超类，将方法放在继承层次结构中更高层</p>
+</li>
+<li><p>而当高层的类中的方法需要根据实际情况实现时(例如这里的<code>getDescription()</code>)，可以定义成抽象方法，就不需要实现这个方法，留到继承它的类去实现。</p>
+</li>
+<li><p>扩展抽象类的两种情况</p>
+<ul>
+<li>子类保留抽象类的部分方法，或者是所有抽象方法都仍未定义，因此子类也应该标记为抽象类</li>
+<li>子类实现定义的全部方法，那么子类就不是抽象的了</li>
+</ul>
+</li>
+<li><p>即使不含有抽象方法，也可以将类声明称抽象类</p>
+</li>
+<li><p>抽象类不能实例化</p>
+</li>
+<li><p>可以创建具体子类的对象(父类是抽象的，但是本身不是抽象的)、</p>
+</li>
+<li><p>可以定义抽象类的对象变量</p>
+<ul>
+<li><code>Person p = new Student(&quot;dog&quot;,&quot;math&quot;)</code></li>
+<li>这个定义为抽象类的对象变量只能引用<strong>非抽象子类</strong>的对象</li>
+</ul>
+</li>
+<li><p>使用抽象类一个应用就是能够通过直接访问子类中实现抽象类的方法，方便处理</p>
+<ul>
+<li>如果这里将Person超类中的<code>getDescription</code>省略掉的话，就不能在变量<code>p</code>上调用<code>getDescription</code>方法了。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Person[] people = <span class="keyword">new</span> Person[<span class="number">2</span>];</span><br><span class="line">people[<span class="number">0</span>] = <span class="keyword">new</span> Employee(<span class="string">&quot;Dog&quot;</span>,<span class="number">20</span>);</span><br><span class="line">people[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(Person p : people)</span><br><span class="line">&#123;</span><br><span class="line">    System.out.println(p.getDescription());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>受保护访问 protected</p>
+<ul>
+<li>希望限制超类中的某个方法只允许子类访问</li>
+<li>希望允许子类的方法能够访问超类的某个字段</li>
+<li>Java中，保护字段只能由同一个包中的类访问<ul>
+<li>避免滥用保护机制，不能通过派生子类来访问受保护字段</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>访问控制修饰符</p>
+<ul>
+<li>仅对本类可见——private</li>
+<li>对外部完全可见——public</li>
+<li>对本包和所有子类可见——protected</li>
+<li>对本包可见——默认，不需要修饰符</li>
+</ul>
+</li>
+<li><p>Object:所有类的超类</p>
+<ul>
+<li><p>Java中每个类都扩展了Object</p>
+</li>
+<li><p>可以使用Object类型的<em>变量</em>引用任何类型的对象</p>
+</li>
+<li><p>Java中只有基本类型(primitive type)不是对象</p>
+<ul>
+<li>数值、字符、布尔类型都不是对象</li>
+</ul>
+</li>
+<li><p>所有的数组类型，不管是<em>对象数组</em>还是<em>基本类型的数组</em>都扩展了Object类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Employee(...);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>equals方法</p>
+<ul>
+<li><code>Object</code>类中的<code>equals</code>方法用于检测一个对象是否等于另一个对象<ul>
+<li><code>Object</code>类实现的<code>equals</code>方法是判断两个对象引用是否相等</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Object类实现的方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>有时候需要基于状态检测对象的相等性，如果两个对象有相同的<em>状态</em>，才认为对象是否相等</p>
+<ul>
+<li>需要重写<code>equals</code>方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//看这个对象引用是否相等  identical</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">this</span> == otherObject) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果为空，则肯定不相等</span></span><br><span class="line">    <span class="keyword">if</span>(otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//类不匹配，肯定不相等</span></span><br><span class="line">    <span class="keyword">if</span>(getClass() != otherObject.getClass())</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//该类是非空的Employee类，接下来比较对象的状态是否相等</span></span><br><span class="line">    Employee other = (Employee)otherObject;</span><br><span class="line">    <span class="keyword">return</span> salary == other.salary;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意，如果一个变量是<code>null</code>,则不可以调用equals方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Employee e = <span class="keyword">null</span>;</span><br><span class="line">e.equals(e);  <span class="comment">//ERROR  java.lang.NullPointerException</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这时候可以调用<code>Objects.equals(o1,o2)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Employee e = <span class="keyword">null</span>;</span><br><span class="line">System.out.println(Objects.equals(e,e));<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Objects.equals实现如下</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object a, Object b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (a == b) || (a != <span class="keyword">null</span> &amp;&amp; a.equals(b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如果子类可以有自己的相等性概念，则对称性需求将强制使用<code>getClass</code>检测</p>
+</li>
+<li><p>如果由超类决定相等性的概念，那么就可以使用<code>instanceof</code>检测，这样就可以在不同子类的对象之间进行相等性比较</p>
+</li>
+<li><p>编写equals方法的建议</p>
+<ul>
+<li><p>显示参数命名为<code>otherObject</code>，稍后需要将它强制转换程另一个名为<code>other</code>的变量</p>
+</li>
+<li><p>检测<code>this</code>与<code>otherObject</code>是否相等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="keyword">this</span> == otherObject) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检测<code>otherObject</code>是否为<code>null</code>，如果为<code>null</code>，返回<code>false</code>。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>比较<code>this</code>和<code>otherObject</code>的类</p>
+<ul>
+<li>如果<code>equals</code>的语义可以在子类中改变(意思就是两种不同类的子类，是不一样的)，就使用<code>getClass</code>检测</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果所有的子类都有相同的相等性语义(意思是继承同一个超类的，两个不同类的子类，认为它们类型是一样的)，可以使用<code>instanceof</code>检测</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据相等性的要求来比较字段</p>
+<ul>
+<li>使用<code>==</code>比较基本类型字段</li>
+<li>使用<code>Objects.equals()</code>比较对象字段</li>
+<li>如果所有字段都匹配，返回true;否则返回false</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> field1 = other.field1</span><br><span class="line">    &amp;&amp; Objects.equals(field2,other.field2)</span><br><span class="line">    &amp;&amp; ...;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果在子类中重新定义equals,就要在子类新定义的equals方法中包含一个<code>super.equals(other)</code>的调用</p>
+</li>
+<li><p>实现equals方法常见错误：参数类型不是<code>Object</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//错误示例</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Employee other)</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> other != <span class="keyword">null</span></span><br><span class="line">          &amp;&amp; getClass() == other.getClass()</span><br><span class="line">          &amp;&amp; Objects.equals(name,other.name)</span><br><span class="line">          &amp;&amp; ...;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>避免发生错误，可以使用<code>@override</code>标记要覆盖超类的那些子类方法，如果出现错误，编译器会报错</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>hashCode方法</p>
+<ul>
+<li><p>散列码(hash code)是由对象导出的一个整型值(可正可负)</p>
+</li>
+<li><p>如果x和y是两个不同的对象，x.hashCode()与y.hashCode()基本上不会相同</p>
+</li>
+<li><p>String类通过下列方法计算散列码 <code>s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> h = hash;</span><br><span class="line">  <span class="keyword">if</span> (h == <span class="number">0</span> &amp;&amp; value.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">char</span> val[] = value;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; value.length; i++) &#123;</span><br><span class="line">          h = <span class="number">31</span> * h + val[i];</span><br><span class="line">      &#125;</span><br><span class="line">      hash = h;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>每个对象(没有重写的情况下)都有一个默认的散列码(Object类实现的)，其值由对象的储存地址得出</p>
+</li>
+<li><p>如果重新定义了equals方法，就必须为用用户可能插入散列表的对象重新定义hashCode方法</p>
+<ul>
+<li><p>要合理地组合示例字段的散列码，以便能够让不同对象产生的散列码分布均匀</p>
+</li>
+<li><p>null安全的方法Objects.hashCode</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> o != <span class="keyword">null</span> ? o.hashCode() : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自己写一个hashCode()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">7</span>* Objects.hashCode(name)</span><br><span class="line">      + <span class="number">11</span> * Double.hashCode(salary)</span><br><span class="line">      + <span class="number">13</span> * Objects.hashCode(hireDay);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Objects.hash()</code>方法能够对传入各个参数调用Objects.hashCode,并组合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> Objects.hash(name,salary,hireDay);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>其底层用的是<code>Arrays.hashCode()</code>实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object... values)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Arrays.hashCode(values);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>注意：<strong>equals与hashCode的定义必须相容</strong>，如果x.equals(y)返回true,那么x.hashCode()就必须与y.hashCode()返回相同的值</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题与发现"><a href="#问题与发现" class="headerlink" title="问题与发现"></a>问题与发现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">System.out.println(staff[<span class="number">0</span>].getName());</span><br></pre></td></tr></table></figure>
+
+<p>这里会报错<code>java.lang.NullPointerException</code>，因为这里没有初始化</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">Manager m1 = <span class="keyword">new</span> Manager(<span class="string">&quot;xixi&quot;</span>,<span class="number">300</span>);</span><br><span class="line">staff[<span class="number">0</span>] = e1;</span><br><span class="line">staff[<span class="number">1</span>] = e2;</span><br><span class="line">staff[<span class="number">2</span>] = m1;</span><br><span class="line">System.out.println(staff[<span class="number">0</span>] <span class="keyword">instanceof</span> Manager); <span class="comment">// false</span></span><br><span class="line">System.out.println(staff[<span class="number">0</span>] <span class="keyword">instanceof</span> Employee); <span class="comment">// true</span></span><br><span class="line">System.out.println(staff[<span class="number">2</span>] <span class="keyword">instanceof</span> Manager); <span class="comment">// true</span></span><br><span class="line">System.out.println(staff[<span class="number">2</span>] <span class="keyword">instanceof</span> Employee); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<hr>
 
       
 
@@ -467,7 +813,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -475,7 +821,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -484,6 +834,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,19 +885,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随想</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">排序</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随想</a>
               </li>
              
               <li class="article-tag-list-item">

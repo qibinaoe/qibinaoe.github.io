@@ -16,7 +16,7 @@
 <meta property="og:description" content="Linux学习笔记Linux入门我通过学习Linux就该这么学这个网站进行学习。书上的老师推荐的是Redhat7.0。由于Centos下载方便，我下载了Centos7.0,下载地址阿里云镜像. 基础知识笔记Linux系统的内核负责对硬件资源的分配、调度等管理任务。  系统内核对计算机正常运行具有重要作用 用户应该通过系统调用接口开发出的程序或服务来管理计算机  Linux系统关系 程序或服务 系统">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-15T02:33:06.000Z">
-<meta property="article:modified_time" content="2020-11-20T06:31:40.107Z">
+<meta property="article:modified_time" content="2020-11-20T14:07:43.388Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -214,46 +214,53 @@
 <p>以+号开头的参数，可以按照指定格式输出系统的时间或日期</p>
 <ul>
 <li>%%     a literal %  %的转义</li>
-<li>%a     locale’s abbreviated weekday name (e.g., Sun) 缩写的工作日名称</li>
-<li>%A     locale’s full weekday name (e.g., Sunday) 完整的工作日名称</li>
-<li>%b     locale’s abbreviated month name (e.g., Jan) 月份的缩写</li>
-<li>%B     locale’s full month name (e.g., January) 完整的月份名称</li>
+<li><strong>%a</strong>     locale’s abbreviated weekday name (e.g., Sun) 缩写的工作日名称</li>
+<li><strong>%A</strong>     locale’s full weekday name (e.g., Sunday) 完整的工作日名称</li>
+<li><strong>%b</strong>     locale’s abbreviated month name (e.g., Jan) 月份的缩写</li>
+<li><strong>%B</strong>     locale’s full month name (e.g., January) 完整的月份名称</li>
 <li>%c     locale’s date and time (e.g., Thu Mar  3 23:05:25 2005)</li>
 <li>%C     century; like %Y, except omit last two digits (e.g., 20)</li>
-<li>%d     day of month (e.g., 01) 本月中的第几天</li>
+<li><strong>%d</strong>     day of month (e.g., 01) 本月中的第几天</li>
 <li>%D     date; same as %m/%d/%y 输出月/日/年</li>
 <li>%F     full date; same as %Y-%m-%d 输出年-月-日</li>
 <li>%h     same as %b 缩写月份</li>
-<li>%H     hour (00..23) 小时 24小时制</li>
-<li>%I     hour (01..12) 小时 12小时制</li>
-<li>%j     day of year (001..366) 今年的第几天</li>
-<li>%m     month (01..12) 月份</li>
+<li><strong>%H</strong>     hour (00..23) 小时 24小时制</li>
+<li><strong>%I</strong>     hour (01..12) 小时 12小时制</li>
+<li><strong>%j</strong>     day of year (001..366) 今年的第几天</li>
+<li><strong>%m</strong>     month (01..12) 月份</li>
+<li><strong>%M</strong>     minute (00..59) 分钟</li>
+<li><strong>%n</strong>     a newline 换行符</li>
+<li><strong>%p</strong>     locale’s equivalent of either AM or PM; blank if not known</li>
+<li>%P     like %p, but lower case</li>
+<li>%r     locale’s 12-hour clock time (e.g., 11:11:04 PM)</li>
+<li>%R     24-hour hour and minute; same as %H:%M (e.g. 21:54)</li>
+<li>%s     seconds since 1970-01-01 00:00:00 UTC</li>
+<li><strong>%S</strong>     second (00..60) 秒</li>
+<li><strong>%t</strong>     a tab 跳格</li>
+<li>%T     time; same as %H:%M:%S (e.g., 21:55:48 PM)</li>
+<li>%u     day of week (1..7); 1 is Monday</li>
+<li>%U     week number of year, with Sunday as first day of week (00..53)</li>
+<li>%w     day of week (0..6); 0 is Sunday</li>
+<li>%W     week number of year, with Monday as first day of week (00..53)</li>
+<li>%x     locale’s date representation (e.g., 12/31/99)</li>
+<li>%X     locale’s time representation (e.g., 23:13:48)</li>
+<li><strong>%y</strong>     last two digits of year (00..99) 简写年份</li>
+<li><strong>%Y</strong>     year 完整年份</li>
 </ul>
-<p>%M     minute (00..59)</p>
-<p>%n     a newline</p>
-<p>%N     nanoseconds (000000000..999999999)</p>
-<p>%p     locale’s equivalent of either AM or PM; blank if not known</p>
-<p>%P     like %p, but lower case</p>
-<p>%r     locale’s 12-hour clock time (e.g., 11:11:04 PM)</p>
-<p>%R     24-hour hour and minute; same as %H:%M</p>
-<p>%s     seconds since 1970-01-01 00:00:00 UTC</p>
-<p>%S     second (00..60)</p>
-<p>%t     a tab</p>
-<p>%T     time; same as %H:%M:%S</p>
-<p>%u     day of week (1..7); 1 is Monday</p>
-<p>%U     week number of year, with Sunday as first day of week (00..53)</p>
-<p>%V     ISO week number, with Monday as first day of week (01..53)</p>
-<p>%w     day of week (0..6); 0 is Sunday</p>
-<p>%W     week number of year, with Monday as first day of week (00..53)</p>
-<p>%x     locale’s date representation (e.g., 12/31/99)</p>
-<p>%X     locale’s time representation (e.g., 23:13:48)<br>%y     last two digits of year (00..99)</p>
-<p>%Y     year</p>
-<p>%z     +hhmm numeric time zone (e.g., -0400)</p>
-<p>%:z    +hh:mm numeric time zone (e.g., -04:00)</p>
-<p>%::z   +hh:mm:ss numeric time zone (e.g., -04:00:00)</p>
-<p>%:::z  numeric time zone with :  to  necessary  precision  (e.g.,  -04,<br>      +05:30)</p>
-<p>%Z     alphabetic time zone abbreviation (e.g., EDT)</p>
+<p>按照默认格式查看当前系统时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# date</span><br><span class="line">Fri Nov 20 11:15:32 CST 2020</span><br></pre></td></tr></table></figure>
 
+<p>按照年-月-日 小时:分钟:秒”的格式查看当前系统时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# date &quot;+%Y-%m-%d %H:%M:%S&quot;</span><br><span class="line">2020-11-20 11:17:27</span><br></pre></td></tr></table></figure>
+
+<p>将系统时间修改成2020年1月1日 5点30分0秒</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# date -s &quot;20200101 5:30:00&quot;</span><br><span class="line">Wed Jan  1 05:30:00 CST 2020</span><br></pre></td></tr></table></figure>
+
+<p>查看硬件的时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# hwclock</span><br><span class="line">Fri 20 Nov 2020 11:22:23 AM CST  -0.699921 seconds</span><br></pre></td></tr></table></figure>
+
+<p>将系统时间修改成硬件的时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# hwclock --hctosys</span><br></pre></td></tr></table></figure>
       
 
       
@@ -456,7 +463,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -464,7 +471,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -500,11 +507,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">STL</a>
+                <a href="javascript:void(0)" class="js-tag color5">初等排序</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">初等排序</a>
+                <a href="javascript:void(0)" class="js-tag color4">STL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,14 +535,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">排序</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
               </li>
              
@@ -544,7 +543,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,6 +556,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">逻辑</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">

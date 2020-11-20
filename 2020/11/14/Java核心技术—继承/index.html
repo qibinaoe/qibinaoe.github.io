@@ -16,7 +16,7 @@
 <meta property="og:description" content="Java核心技术——第五章 继承类、超类和子类   继承(inheritance)  “is-a”关系是继承的一个明显特征  Java用关键字extends表示继承 1234public class Manager extends Employee&amp;#123;    added methods and fields&amp;#125;  Java中所有继承都是公共继承，没有C++中的私有继承和保护继承">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-14T07:45:20.000Z">
-<meta property="article:modified_time" content="2020-11-20T09:06:32.481Z">
+<meta property="article:modified_time" content="2020-11-20T13:46:37.774Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
@@ -591,6 +591,292 @@
 </li>
 </ul>
 </li>
+<li><p>toString方法</p>
+<ul>
+<li><p>绝大多数的toString方法遵循格式: 类的名字， 随后是一对方括号括起来的字段值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Employee[name=&quot;</span>+name</span><br><span class="line">          +<span class="string">&quot;,salary=&quot;</span>+salary</span><br><span class="line">          +<span class="string">&quot;,hireDay=&quot;</span>+hireDay</span><br><span class="line">          +<span class="string">&quot;]&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>Employee</code>可以不使用硬编码的方式，而是调用getClass().getName()获得类名的字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName()</span><br><span class="line">          +<span class="string">&quot;[name=&quot;</span>+name</span><br><span class="line">          +<span class="string">&quot;,salary=&quot;</span>+salary</span><br><span class="line">          +<span class="string">&quot;,hireDay=&quot;</span>+hireDay</span><br><span class="line">          +<span class="string">&quot;]&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>子类重新定义toString方法时候，可以调用<code>super.toString</code>再加上子类自己的字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.toString()</span><br><span class="line">          +<span class="string">&quot;[bonus=&quot;</span>+bonus</span><br><span class="line">          +<span class="string">&quot;]&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象与字符串通过操作符<code>+</code>连接起来，编译器会自动调用该对象的toString方法来获得该对象的字符串描述</p>
+<ul>
+<li><code>&quot;&quot;+x</code></li>
+</ul>
+</li>
+<li><p>Object类定义的toString方法，打印出对象的类名和散列码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(people[<span class="number">1</span>]); <span class="comment">// test.Student@14ae5a5</span></span><br><span class="line">System.out.println(people[<span class="number">1</span>].hashCode()); <span class="comment">// 21685669</span></span><br><span class="line">System.out.println(System.out); <span class="comment">// java.io.PrintStream@14ae5a5</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> getClass().getName() + <span class="string">&quot;@&quot;</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组类型继承了Object类的toString方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Person[] people = <span class="keyword">new</span> Person[<span class="number">3</span>];</span><br><span class="line">people[<span class="number">0</span>] = <span class="keyword">new</span> Employee(<span class="string">&quot;Dog&quot;</span>,<span class="number">20</span>);</span><br><span class="line">people[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">people[<span class="number">2</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(people); <span class="comment">//[Ltest.Person;@14ae5a5</span></span><br><span class="line">System.out.println(<span class="string">&quot;&quot;</span>+people); <span class="comment">//[Ltest.Person;@14ae5a5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">System.out.println(<span class="string">&quot;&quot;</span>+nums); <span class="comment">//[I@7f31245a</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>[I</code>前缀表明是一个整型数组，这种打印看不出里面具体的元素的值</li>
+<li>可以使用<code>Arrays.toString()</code>来打印一维数组</li>
+<li><code>Arrays.deepToString()</code>打印多维数组</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Person[] people = <span class="keyword">new</span> Person[<span class="number">3</span>];</span><br><span class="line">people[<span class="number">0</span>] = <span class="keyword">new</span> Employee(<span class="string">&quot;Dog&quot;</span>,<span class="number">20</span>);</span><br><span class="line">people[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">people[<span class="number">2</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">System.out.println(Arrays.toString(people));<span class="comment">// [test.Employee@14ae5a5, test.Student@7f31245a, test.Student@6d6f6e28]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(nums)); <span class="comment">// [2, 3, 4, 5]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[][] manNums = &#123;</span><br><span class="line">        &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,</span><br><span class="line">        &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;</span><br><span class="line">        &#125;;</span><br><span class="line">System.out.println(Arrays.deepToString(manNums));<span class="comment">// [[1, 2, 3], [2, 3, 4]]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>泛型数组列表</p>
+<ul>
+<li>Java允许在运行时确定数组的大小</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> actualSize = ...;</span><br><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[actualSize];</span><br></pre></td></tr></table></figure>
+
+<p>但是声明这种数组不能在运行的时候动态改变数组的大小，一旦确定了数组的大小，就不容易改变它</p>
+<ul>
+<li><p>ArrayList  数组列表</p>
+<ul>
+<li><p>类似数组，但是能够在添加或删除元素时，自动地调整数组容量</p>
+</li>
+<li><p>ArrayList是一个有<em>类型参数(type parameter)<em>的</em>泛型类(generic class)</em></p>
+<ul>
+<li>用一对<em>尖括号</em>将<em>类名</em>括起来追加到ArrayList后面来指定数组列表保存的元素对象的类型</li>
+</ul>
+</li>
+<li><p>声明和构造</p>
+<ul>
+<li><code>ArrayList&lt;Employee&gt; staff = new ArrayList&lt;Employee&gt;();</code></li>
+<li>可以省去右边的类型参数：<code>ArrayList&lt;Employee&gt; staff = new ArrayList&lt;&gt;();</code></li>
+</ul>
+</li>
+<li><p>菱形语法 <code>&lt;&gt;</code></p>
+<ul>
+<li>结合new操作符使用菱形语法<ul>
+<li>编译器检查新值要做什么<ul>
+<li>赋值给一个变量</li>
+<li>传递给某个方法</li>
+<li>从某个方法返回</li>
+</ul>
+</li>
+<li>编译器检查这个变量、参数、方法的泛型类型，将这个类型放在<code>&lt;&gt;</code>上</li>
+</ul>
+</li>
+<li>例如 <code>new ArrayList&lt;&gt;()</code>将赋值给一个类型为<code>ArrayList&lt;Employee&gt;</code>的变量，泛型类型为<code>Employee</code></li>
+</ul>
+</li>
+<li><p>add方法 将元素添加到数组中</p>
+<ul>
+<li><code>staff.add(new Employee(...));</code></li>
+<li>数组列表(ArrayList)管理着一个内部的对象引用数组<ul>
+<li>调用add而内部数组已经满的时候，ArrayList会自动地创建一个更大的数组，并将所有的对象从较小的数组中拷贝到较大的数组中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>ensureCapacity方法</p>
+<ul>
+<li>已经知道或能够估计出数组可能存储的元素数量，可以在填充之前调用<code>ensureCapacity</code><ul>
+<li><code>staff.ensureCapacity(100)</code></li>
+<li>这样就不会带来开销很大的重新分配控件</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>初是容量传递给ArrayList</p>
+<ul>
+<li><code>ArrayList&lt;Employee&gt; staff = new ArrayList&lt;&gt;(100);</code></li>
+</ul>
+</li>
+<li><p>数组列表(ArrayList)和数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Person&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">100</span>); <span class="comment">// capacity is 100</span></span><br><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>]; <span class="comment">// size is 100</span></span><br><span class="line">System.out.println(staff.size()); <span class="comment">// 0</span></span><br><span class="line">System.out.println(a.length); <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>trimToSize</p>
+<ul>
+<li>将储存块的大小调整为当前保存当前元素数量所需要的储存空间。垃圾回收器将回收多余的储存空间</li>
+</ul>
+</li>
+<li><p>Java中的ArrayList与C++的vector区别</p>
+<ul>
+<li><p>C++的vector模板为便于访问元素重载了<code>[]</code>运算符</p>
+</li>
+<li><p>Java中没有运算符重载，必须调用显示的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Person&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">100</span>);</span><br><span class="line">staff.add(...);</span><br><span class="line">staff.add(...);</span><br><span class="line">staff.add(...);</span><br><span class="line"><span class="comment">//Person p = staff[1]; //Error 不允许这样做</span></span><br><span class="line">Person p = staff.get(<span class="number">1</span>); <span class="comment">//Right 显式调用 </span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>C++的vector是按值拷贝</p>
+<ul>
+<li>如果<code>a</code>和<code>b</code>是两个vector</li>
+<li>赋值操作<code>a = b</code>将会构造一个与b长度相同的新向量a，并将所有的元素由b拷贝到a</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1 = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v2;</span><br><span class="line">v2 = v1;</span><br><span class="line">v2[<span class="number">2</span>] = <span class="number">5</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; v1[<span class="number">2</span>] &lt;&lt; <span class="string">&quot;  &quot;</span>&lt;&lt;v2[<span class="number">2</span>]; <span class="comment">// 3  5</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Java中对于该赋值语句的操作结果是让<code>a</code>和<code>b</code>引用同一个数组列表(ArrayList)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Integer&gt; a = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">a.add(<span class="number">1</span>);</span><br><span class="line">a.add(<span class="number">2</span>);</span><br><span class="line">a.add(<span class="number">3</span>);</span><br><span class="line">ArrayList&lt;Integer&gt; b = a;</span><br><span class="line">b.set(<span class="number">2</span>,<span class="number">5</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;&quot;</span>+a.get(<span class="number">2</span>) + <span class="string">&quot;  &quot;</span> + b.get(<span class="number">2</span>)); <span class="comment">//5 5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问ArrayList元素</p>
+<ul>
+<li><strong><em>不能用[]的语法格式来访问或改变数组的元素</em></strong></li>
+<li>改变第i个元素 set<ul>
+<li><code>staff.set(i,harry);</code></li>
+<li>必须第i的元素存在才能用set,否则得使用add</li>
+</ul>
+</li>
+<li>得到元素<ul>
+<li><code>staff.get(i);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>在指定位置插入元素 <code>void add(int index, E obj)</code></p>
+<ul>
+<li>后移元素，并将obj插入指定索引位置</li>
+</ul>
+</li>
+<li><p>从指定位置删除元素 <code>E remove(int index)</code></p>
+<ul>
+<li>删除索引位置的元素，并将后面的所有元素前移，返回所删除元素</li>
+</ul>
+</li>
+<li><p>注意ArrayList在中间插入和删除元素的效率很低</p>
+</li>
+<li><p>for each 循环遍历数组列表内容</p>
+</li>
+<li><p>虚拟机中没有类型参数</p>
+</li>
+<li><p><code>SuppressWarnings(&quot;&quot;)</code></p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(Employee e: staff)</span><br><span class="line">  <span class="keyword">do</span> something with e</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>对象包装器和自动装箱</p>
+<ul>
+<li><p>所有的基本类型都有一个与之对应的类(包装器 wrapper)</p>
+<ul>
+<li>Integer</li>
+<li>Long</li>
+<li>Float</li>
+<li>Double</li>
+<li>Short</li>
+<li>Byte</li>
+<li>Character</li>
+<li>Boolean</li>
+</ul>
+</li>
+<li><p>包装器类是不可变的</p>
+<ul>
+<li>里面储存的字段声明为final</li>
+<li><code>private final int value;</code></li>
+</ul>
+</li>
+<li><p>包装器类是final类，不能派生它们的子类</p>
+<ul>
+<li><code>public final class Integer extends Number implements Comparable&lt;Integer&gt;</code></li>
+</ul>
+</li>
+<li><p>尖括号中的类型参数不允许是基本类型</p>
+</li>
+<li><p><code>ArrayList&lt;Integer&gt;</code>的效率远远低于<code>int[]</code>数组</p>
+</li>
+<li><p>自动装箱（autoboxing)</p>
+<ul>
+<li><p><code>list.add(3)</code> 自动变成<code>list.add(Integer.valueOf(3))</code></p>
+</li>
+<li><p>将Integer对象赋给int值时，会自动地拆箱</p>
+<ul>
+<li><code>int n = list.get(i)</code> 自动转换成 <code>int n = list.get(i).intValue()</code></li>
+</ul>
+</li>
+<li><p>算术表达式自动装箱和拆箱</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer n = <span class="number">3</span>;</span><br><span class="line">n++</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>包装器比较</p>
+<ul>
+<li><code>==</code>运算符可以应用于包装器对象，但是是检测是否是相同的内存位置</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Integer a  = <span class="number">5</span>;</span><br><span class="line">Integer b = <span class="number">5</span>;</span><br><span class="line">Integer c = <span class="number">1000</span>;</span><br><span class="line">Integer d = <span class="number">1000</span>;</span><br><span class="line">System.out.println(a==b); <span class="comment">//true</span></span><br><span class="line">System.out.println(c==d); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>  自动装箱规范要求boolean、byte、char &lt;= 127，介于-128和127之间的short和int会被包装到固定的对象中，因此小于等于127的包装器的==比较是true</p>
+</li>
+<li><p>表达式中混用Integer和Double类型，Integer值会拆箱，提升到double，再装箱为Double</p>
+</li>
+<li><p>装箱和拆箱是编译器的工作</p>
+</li>
+<li><p><code>int intValue()</code> 返回Integer对象的值作为int</p>
+</li>
+<li><p><code>static String toString(int i)</code></p>
+</li>
+<li><p><code>static String toString(int i, int radix)</code></p>
+</li>
+<li><p><code>static int parseInt(String s)</code></p>
+</li>
+<li><p><code>static int parseInt(String s, int radix)</code></p>
+</li>
+<li><p><code>static Integer valueOf(String s)</code></p>
+</li>
+<li><p><code>static Integer valueOf(String s, int radix)</code></p>
+</li>
+</ul>
+</li>
+<li><p>参数数量可变的方法</p>
+<ul>
+<li><p>提供参数数量可变的方法(变参(varargs)方法)</p>
+</li>
+<li><p><code>System.out.printf(&quot;%d&quot;,n);</code></p>
+</li>
+<li><p><code>System.out.printf(&quot;%d %s&quot;,n, &quot;widgets&quot;);</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> PrintStream <span class="title">printf</span><span class="params">(String format, Object ... args)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> format(format, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>...</code>是Java代码的一部分，表明这个方法可以接受任意数量的对象,除<code>format</code>外</p>
+<p><code>Object ... args</code>其实是一个Object[] 数组，保存所有其他参数，如果调用者提供的是基本类型的值，则会自动装箱</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span> <span class="title">max</span><span class="params">(<span class="keyword">double</span> ... values)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">double</span> largest = Double.NEGATIVE_INFINITY;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">double</span> value : values)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(value &gt; largest)&#123;</span><br><span class="line">            largest = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> largest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>枚举类</p>
+<ul>
+<li><code>public enum Size &#123;SAMLL, MEDIUM, LARGE, EXTRA_LARGE&#125;</code><ul>
+<li>声明定义的类型是一个类，它有四个实例，只有这四个实例，所以不可能再构造新的对象</li>
+</ul>
+</li>
+<li>比较两个枚举类型的值，直接使用<code>==</code>就可以</li>
+<li>可以为枚举类型添加构造器，方法，字段</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Size</span></span></span><br><span class="line"><span class="class">  </span>&#123;</span><br><span class="line">      <span class="comment">//这里生成四个Size的实例，同时初始化调用构造函数，参数即为括号里面的字符串</span></span><br><span class="line">      SMALL(<span class="string">&quot;S&quot;</span>),MEDIEUM(<span class="string">&quot;M&quot;</span>),LARGE(<span class="string">&quot;L&quot;</span>),EXTRA_LARGE(<span class="string">&quot;XL&quot;</span>);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">private</span> String abbreviation;</span><br><span class="line">      <span class="comment">//枚举类的构造器总是私有的，可以省略private修饰符</span></span><br><span class="line">      <span class="comment">//如果声明一个enum构造器为public或protected，会出现语法错误</span></span><br><span class="line">      Size(String abbreviation) &#123;</span><br><span class="line">          <span class="keyword">this</span>.abbreviation = abbreviation;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> String <span class="title">getAbbreviation</span><span class="params">()</span></span>&#123;</span><br><span class="line">          <span class="keyword">return</span> abbreviation;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>所有枚举类型都是Enum类的子类，继承了很多方法</p>
+<ul>
+<li><p>toString</p>
+<ul>
+<li><code>Size.SMALL.toString()</code>  返回<code>&quot;SMALL&quot;</code></li>
+</ul>
+</li>
+<li><p>toString的逆方法是静态方法valueOf</p>
+<ul>
+<li><code>Size s = Enum.valueOf(Size.class,&quot;SMALL&quot;);</code></li>
+</ul>
+</li>
+<li><p>values()方法返回一个包含全部枚举值的数组</p>
+<ul>
+<li><code>System.out.println(Arrays.toString(Size.values())); //[SMALL, MEDIEUM, LARGE, EXTRA_LARGE]</code></li>
+</ul>
+</li>
+<li><p>ordinal()方法返回声明中枚举常量的位置，位置从0开始计数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Size.SMALL.ordinal()); <span class="comment">// 0</span></span><br><span class="line">System.out.println(Size.LARGE.ordinal()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>int compareTo(E other)</code></p>
+<ul>
+<li>返回结果是 <code>self.ordinal - other.ordinal</code></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -600,6 +886,10 @@
 <hr>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Employee[] staff = <span class="keyword">new</span> Employee[<span class="number">3</span>];</span><br><span class="line">Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">Manager m1 = <span class="keyword">new</span> Manager(<span class="string">&quot;xixi&quot;</span>,<span class="number">300</span>);</span><br><span class="line">staff[<span class="number">0</span>] = e1;</span><br><span class="line">staff[<span class="number">1</span>] = e2;</span><br><span class="line">staff[<span class="number">2</span>] = m1;</span><br><span class="line">System.out.println(staff[<span class="number">0</span>] <span class="keyword">instanceof</span> Manager); <span class="comment">// false</span></span><br><span class="line">System.out.println(staff[<span class="number">0</span>] <span class="keyword">instanceof</span> Employee); <span class="comment">// true</span></span><br><span class="line">System.out.println(staff[<span class="number">2</span>] <span class="keyword">instanceof</span> Manager); <span class="comment">// true</span></span><br><span class="line">System.out.println(staff[<span class="number">2</span>] <span class="keyword">instanceof</span> Employee); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ArrayList&lt;int&gt; a = new ArrayList&lt;int&gt;(); //ERROR</span></span><br></pre></td></tr></table></figure>
+
+<p>Type argument cannot be of primitive type,类型参数不能是基本类型</p>
 <hr>
 
       
@@ -901,15 +1191,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">个人能力</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">逻辑</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">

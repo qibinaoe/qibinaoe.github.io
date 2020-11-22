@@ -6,22 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>挑战程序设计2-初等数据结构-栈 | qibinBlog</title>
+  <title>Java核心技术—接口、lambda表达式与内部类 | qibinBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="初等数据结构——栈栈 Stack">
+  <meta name="description" content="Java核心技术 第六章 接口、lambda表达式与内部类接口">
 <meta property="og:type" content="article">
-<meta property="og:title" content="挑战程序设计2-初等数据结构-栈">
-<meta property="og:url" content="http://example.com/2020/10/07/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/index.html">
+<meta property="og:title" content="Java核心技术—接口、lambda表达式与内部类">
+<meta property="og:url" content="http://example.com/2020/11/22/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/index.html">
 <meta property="og:site_name" content="qibinBlog">
-<meta property="og:description" content="初等数据结构——栈栈 Stack">
+<meta property="og:description" content="Java核心技术 第六章 接口、lambda表达式与内部类接口">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-10-07T02:24:25.000Z">
-<meta property="article:modified_time" content="2020-10-14T14:03:47.428Z">
+<meta property="article:published_time" content="2020-11-22T06:29:49.000Z">
+<meta property="article:modified_time" content="2020-11-22T08:41:52.771Z">
 <meta property="article:author" content="ZQB">
-<meta property="article:tag" content="挑战程序设计">
-<meta property="article:tag" content="算法">
-<meta property="article:tag" content="数据结构">
-<meta property="article:tag" content="栈">
+<meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="qibinBlog" type="application/atom+xml">
@@ -136,43 +133,83 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-挑战程序设计2-初等数据结构-栈" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Java核心技术—接口、lambda表达式与内部类" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      挑战程序设计2-初等数据结构-栈
+      Java核心技术—接口、lambda表达式与内部类
     </h1>
   
 
         
-        <a href="/2020/10/07/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/" class="archive-article-date">
-  	<time datetime="2020-10-07T02:24:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-07</time>
+        <a href="/2020/11/22/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/" class="archive-article-date">
+  	<time datetime="2020-11-22T06:29:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="初等数据结构——栈"><a href="#初等数据结构——栈" class="headerlink" title="初等数据结构——栈"></a>初等数据结构——栈</h2><h3 id="栈-Stack"><a href="#栈-Stack" class="headerlink" title="栈 Stack"></a>栈 Stack</h3><a id="more"></a>
-<p>栈可以内部可以通过数组或者是链表实现(目前我只知道这两种形式)。</p>
-<p>栈具有LIFO(Last In first Out后入先出)的特点</p>
-<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul>
-<li>push(x) 在栈顶部添加元素x</li>
-<li>pop() 从栈顶部取出元素</li>
-<li>isEmpty() : 检查栈是否为空</li>
-<li>isFull(): 检查栈是否已满</li>
-</ul>
-<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><p>逆波兰表示法</p>
-<p>输入示例：<br>1 2 + 3 4 - *</p>
-<p>输出示例：<br>-3</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p><strong><em>我想了一会对于读取两位数及以上的数字没有办法，这个问题留下来思考一下。</em></strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt; </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span>* head;</span><br><span class="line">	<span class="keyword">int</span> maxLength = <span class="number">2000</span>;</span><br><span class="line">	<span class="keyword">int</span> A[<span class="number">2000</span>];</span><br><span class="line">	<span class="keyword">int</span> curr = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr&lt;maxLength)&#123;</span><br><span class="line">			A[curr] = val;</span><br><span class="line">			curr++;</span><br><span class="line">			<span class="keyword">return</span> curr;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="comment">//空的 </span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			curr--;</span><br><span class="line">			<span class="keyword">return</span> A[curr];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isFull</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr == maxLength)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//栈 stack </span></span><br><span class="line">	<span class="comment">//逆波兰表示法</span></span><br><span class="line">	</span><br><span class="line">	 MyStack s;</span><br><span class="line">	 <span class="built_in">string</span> formula = <span class="string">&quot;1 2 + 3 4 - *&quot;</span>;</span><br><span class="line">	 <span class="keyword">int</span> size = formula.size();</span><br><span class="line">	 <span class="keyword">int</span> num1,num2,result;</span><br><span class="line">	 <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)&#123;</span><br><span class="line">	 	<span class="keyword">char</span> cur;</span><br><span class="line">	 	cur = formula[i];</span><br><span class="line">	 	<span class="comment">//判断是否是数字 </span></span><br><span class="line">		<span class="keyword">if</span>(cur &gt;= <span class="number">48</span> &amp;&amp; cur &lt;=<span class="number">57</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> val = (<span class="keyword">int</span>)(cur - <span class="number">48</span>);</span><br><span class="line">			s.push(val); </span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur == <span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur == <span class="string">&#x27;+&#x27;</span> )&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 + num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur ==<span class="string">&#x27;-&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 - num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>( cur == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 * num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>( cur ==<span class="string">&#x27;/&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 / num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">	 &#125;</span><br><span class="line">	 <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;结果:&quot;</span> &lt;&lt; s.pop() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	 </span><br><span class="line">	 <span class="comment">//该方法只能读取单个数字</span></span><br><span class="line">	 </span><br><span class="line">	 <span class="comment">//小知识点</span></span><br><span class="line">	 <span class="comment">//atoi是C语言的标准库，用来将字符串形式的数字转换成整型数值</span></span><br><span class="line">	  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+        <h2 id="Java核心技术-第六章-接口、lambda表达式与内部类"><a href="#Java核心技术-第六章-接口、lambda表达式与内部类" class="headerlink" title="Java核心技术 第六章 接口、lambda表达式与内部类"></a>Java核心技术 第六章 接口、lambda表达式与内部类</h2><h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><a id="more"></a>
+<p>接口<em>不是</em>类，而是对希望符合这个接口的<em>类</em>的一组<em>需求</em></p>
+<p>接口用来描述类应该做什么，而不指定它们具体应该如何做</p>
+<p>举例，<code>Arrays</code>类中的<code>sort</code>方法实现了对对象数组进行排序，但是当然不是任意的对象数组都能够进行排序，因此，如果想使用<code>sort</code>方法进行排序，则对象所属的类必须实现<code>Comparable</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(T o)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="答案解法"><a href="#答案解法" class="headerlink" title="答案解法"></a>答案解法</h4><p>答案的栈的形式跟我自己写的有些不同，答案的栈顶指向栈中的最后一个元素，而我的栈顶指向最后一个元素的后面，即没有元素。同时答案的第一个元素0是空的，从编号1开始存放元素</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> top, S[<span class="number">1000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    S[++top] = x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">    top--;</span><br><span class="line">    <span class="keyword">return</span> S[top+<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    top = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//答案是边读入边处理</span></span><br><span class="line">    <span class="keyword">while</span>( <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, s) != EOF)&#123;</span><br><span class="line">        <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;+&#x27;</span>)&#123;</span><br><span class="line">            a = pop();</span><br><span class="line">            b = pop();</span><br><span class="line">            push(a+b);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span>)&#123;</span><br><span class="line">            b = pop();</span><br><span class="line">            a = pop();</span><br><span class="line">            push(a-b);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">            a = pop();</span><br><span class="line">            b = pop();</span><br><span class="line">            push(a*b);</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            push(atoi(s))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    print(<span class="string">&quot;%d\n&quot;</span>, pop());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现Comparable接口的类，都需要包含compareTo方法，这里Comparable接口为一个泛型类型，因此实现该接口的时候需要带上类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Employee</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Employee o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Comparable也可以使用不带类型参数的，但是这样在实现的方法里就有Object类型的参数，需要手动的进行强制转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">implements</span> <span class="title">Comparable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Employee other = (Employee)o;</span><br><span class="line">        ....</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><em>接口</em>中所有<em>方法</em>都是自动是<strong>public</strong>方法，可以不提供关键字<em>public</em>,但是提供也是可以的</p>
+</li>
+<li><p>在实现接口的类中，重写的方法必须明确声明为<strong>public</strong>,否则编译器会认为是包可见性而报错。</p>
+</li>
+<li><p>接口可以定义常量</p>
+</li>
+<li><p>接口*<em>没有**</em>实例字段*</p>
+</li>
+</ul>
+<p>实现接口的步骤</p>
+<ol>
+<li>将类声明为实现给定的接口</li>
+<li>对接口中的所有方法提供定义</li>
+</ol>
+<hr>
+<p>书上问题：</p>
+<blockquote>
+<p>为什么不能直接在类中直接提供一个<code>compareTo</code>方法，而必须实现<code>Comparable接口</code>呢？</p>
+</blockquote>
+<p>回答</p>
+<blockquote>
+<p>Java是一种强类型(strongly typed)语言，调用方法的时候，编译器要检查该方法确实存在。如果一个类实现了Comparable的接口，可以确保拥有compareTo方法，</p>
+</blockquote>
+<p>书上问题：</p>
+<blockquote>
+<p>对于继承了实现Comparable接口的子类之间比较的问题</p>
+</blockquote>
+<p>解决办法：</p>
+<ul>
+<li>如果不同子类中的比较有不同的含义(意思就是同一个类中可以进行比较，但是与另一个类无法进行比较)，应该将属于不同类的对象之间的比较视为非法的。每个compareTo方法开始时进行检测 <code>if(getClass() != other.getClass()) throw new ClassCastException();</code></li>
+<li>如果存在一个能够比较子类对象的通用算法，可以在超类中提供一个compareTo方法，并将这个方法声明为final</li>
+</ul>
+<hr>
+<p>接口不能用<code>new</code>运算符实例化一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> Comparable(...) <span class="comment">//ERROR</span></span><br></pre></td></tr></table></figure>
+
+<p>能够声明接口的变量，同时该接口变量必须引用实现了这个接口的类对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparable x; <span class="comment">// OK</span></span><br><span class="line">x = <span class="keyword">new</span> Employee(...) <span class="comment">//Employee必须实现Comparable接口才能够引用</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>instanceof</code>来检查一个对象是否实现了某个特定的接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( anObject <span class="keyword">instanceof</span> Comparable) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+
+
       
 
       
@@ -185,36 +222,13 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">挑战程序设计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据结构</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">栈</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java核心技术</a>
         		</li>
       		
 		</ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -264,7 +278,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/10/07/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/11/22/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -278,18 +292,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          挑战程序设计2-初等数据结构-队列
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JAVA核心技术-概述</div>
+    <a href="/2020/11/15/Linux%E5%AD%A6%E4%B9%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux学习</div>
       <i class="icon-circle-right"></i>
     </a>
   

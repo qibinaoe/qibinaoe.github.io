@@ -16,7 +16,7 @@
 <meta property="og:description" content="Java核心技术 第六章 接口、lambda表达式与内部类接口">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-22T06:29:49.000Z">
-<meta property="article:modified_time" content="2020-11-24T02:52:24.787Z">
+<meta property="article:modified_time" content="2020-11-24T06:35:48.889Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
@@ -309,7 +309,82 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LengthComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">String</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String o1, String o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> o1.length() - o2.length();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在传入<code>Arrays.sort()</code>时，比较器的参数需要实例化，因为<code>Arrays.sort()</code>内部是通过调用对象的方法进行比较的:<code>if (c.compare(a[runHi++], a[lo]) &lt; 0)</code></p>
-<h4 id="对象克隆"><a href="#对象克隆" class="headerlink" title="对象克隆"></a>对象克隆</h4><hr>
+<h4 id="对象克隆"><a href="#对象克隆" class="headerlink" title="对象克隆"></a>对象克隆</h4><ul>
+<li><p>用<code>=</code>来为一个包含对象引用的变量建立副本时，只是将原变量和副本指向<em>同一个对象的引用</em></p>
+</li>
+<li><p>Object类中有一个声明为protected的clone方法</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>浅拷贝<ul>
+<li>Object类中这个clone方法默认是浅拷贝，即没有克隆对象中引用的其他对象</li>
+<li>如果对象中的所有数字段都是数值或其他基本类型，拷贝字段没有问题</li>
+<li>如果对象包含子对象的引用，拷贝字段就会得到相同子对象的另一个引用<ul>
+<li>原对象和克隆的对象会共享信息</li>
+</ul>
+</li>
+<li>如果原对象和浅克隆对象<em>共享</em>的子对象是不可变的类(例如 String)，则共享安全</li>
+<li>如果共享子对象一直包含不变的常量、没有更改其方法改变它、没有方法生成引用，则也是安全</li>
+</ul>
+</li>
+<li>深拷贝(deep copy)<ul>
+<li>克隆对象的时候同时克隆所有子对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>对于克隆对象需要确定几点</p>
+<ol>
+<li>默认的clone方法是否满足要求</li>
+<li>是否可以在可变的子对象调用clone来修补默认的clone方法</li>
+<li>是否不该使用clone</li>
+</ol>
+<p>如果需要使用clone方法有以下步骤</p>
+<ol>
+<li>实现Cloneable接口</li>
+<li>重新定义clone方法，并指定public访问修饰符</li>
+</ol>
+<p>注意</p>
+<ul>
+<li><p>如果要使用clone的方法，虽然重写了clone方法，却没有实现Cloneable的接口，会抛出异常<code>java.lang.CloneNotSupportedException</code></p>
+</li>
+<li><p>将修饰符改成public的原因是为了在所有的方法都能够克隆对象</p>
+</li>
+<li><p>标记接口(tagging interface) 记号接口(marker interface)</p>
+<ul>
+<li>标记接口不包含任何方法</li>
+<li>唯一作用是允许在类型查询中使用<code>instanceof</code><ul>
+<li>例如<code>if(obj instanceof Cloneable)...</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Cloneable里面没有方法，clone方法是从Object类继承的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Cloneable</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现浅拷贝</p>
+<ol>
+<li>实现Cloneable接口</li>
+<li>clone定义为public</li>
+<li>调用super.clone()</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Father</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Father <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Father) <span class="keyword">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Object类中返回类型是Object类，根据协变返回类型，可以在子类中指定正确的返回类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
+
+<p>实现深拷贝</p>
+<p>实现深拷贝除了浅拷贝的基础上实现的基本类型，还需要克隆对象中可变的实例字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">implements</span> <span class="title">Cloneable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Employee <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Employee cloned = (Employee) <span class="keyword">super</span>.clone();</span><br><span class="line"></span><br><span class="line">        cloned.hireDay = (Date) hireDay.clone();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cloned;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所有数组类型都有一个公共(public)的clone方法，可以建立一个新数组，包含原数组所有元素的副本</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>&#125;;</span><br><span class="line"><span class="keyword">int</span>[] cloned = nums.clone();</span><br><span class="line">cloned[<span class="number">2</span>] = <span class="number">100</span>;</span><br><span class="line">System.out.println(Arrays.toString(nums)); <span class="comment">// [2, 3, 5, 7, 11, 13]</span></span><br><span class="line">System.out.println(Arrays.toString(cloned)); <span class="comment">// [2, 3, 100, 7, 11, 13]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>实现了一个接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">methodDefault</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodDefault MyInterface&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">methodStatic</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodStatic&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -595,11 +670,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">STL</a>
+                <a href="javascript:void(0)" class="js-tag color5">初等排序</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">初等排序</a>
+                <a href="javascript:void(0)" class="js-tag color4">STL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -616,10 +691,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">队列</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -652,6 +723,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">演讲</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
               </li>
             
             <div class="clearfix"></div>

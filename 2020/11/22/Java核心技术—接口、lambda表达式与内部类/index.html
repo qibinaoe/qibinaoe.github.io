@@ -16,7 +16,7 @@
 <meta property="og:description" content="Java核心技术 第六章 接口、lambda表达式与内部类接口">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-22T06:29:49.000Z">
-<meta property="article:modified_time" content="2020-11-24T06:35:48.889Z">
+<meta property="article:modified_time" content="2020-11-24T13:12:33.415Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
@@ -384,6 +384,68 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>&#125;;</span><br><span class="line"><span class="keyword">int</span>[] cloned = nums.clone();</span><br><span class="line">cloned[<span class="number">2</span>] = <span class="number">100</span>;</span><br><span class="line">System.out.println(Arrays.toString(nums)); <span class="comment">// [2, 3, 5, 7, 11, 13]</span></span><br><span class="line">System.out.println(Arrays.toString(cloned)); <span class="comment">// [2, 3, 100, 7, 11, 13]</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h2><p>lambda表达式是一个可传递的<em>代码块</em>，可以在以后执行一次或多次</p>
+<p>场景：一个代码块传递到某个对象中，这个代码块会在将来某个时间调用</p>
+<p>lambda表达式形式</p>
+<ul>
+<li>参数</li>
+<li>箭头(-&gt;)</li>
+<li>一个表达式<ul>
+<li>如果代码要完成的计算无法放在一个标傲世中，可以像写方法一样放在<code>&#123;&#125;</code>中，并包含显示的return语句</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(planets,(String first, String second) -&gt;</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="keyword">if</span>(first.length() &lt;  second.length()) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                            <span class="keyword">else</span> <span class="keyword">if</span>(first.length() &gt;  second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">                            <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                        &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>如果lambda表达式没有参数，仍要提供空库哦好</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; &#123;<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) System.out.println(i);&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果可以推导出一个lambda表达式的参数类型，则可以忽略其类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;String&gt; comp</span><br><span class="line">    = (first, second)</span><br><span class="line">        -&gt; first.length()-second.length();</span><br></pre></td></tr></table></figure>
+
+<p>如果方法只有一个参数且这个参数类型可以推导出，则可以省略小括号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ActionListener listener = event -&gt;</span><br><span class="line">    System.out.println(<span class="string">&quot;The time is&quot;</span></span><br><span class="line">        + Instant.ofEpochMilli(event.getWhen()));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = <span class="keyword">new</span> Timer(<span class="number">500</span>, event -&gt;</span><br><span class="line">        System.out.println(<span class="string">&quot;The time is&quot;</span> + <span class="keyword">new</span> Date()));</span><br><span class="line">timer.start();</span><br><span class="line"></span><br><span class="line">JOptionPane.showMessageDialog(<span class="keyword">null</span>,<span class="string">&quot;Quit program?&quot;</span>);</span><br><span class="line">System.exit(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String[] planets = <span class="keyword">new</span> String[] &#123;</span><br><span class="line">        <span class="string">&quot;Mercury&quot;</span>,<span class="string">&quot;venus&quot;</span>,<span class="string">&quot;earth&quot;</span>,<span class="string">&quot;Mars&quot;</span>,<span class="string">&quot;Jupiter&quot;</span>,<span class="string">&quot;Saturn&quot;</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(planets));</span><br><span class="line">Arrays.sort(planets);</span><br><span class="line">System.out.println(Arrays.toString(planets));</span><br><span class="line">Arrays.sort(planets,(String first, String second) -&gt; first.length()-second.length());</span><br><span class="line">System.out.println(Arrays.toString(planets));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(planets, (first, second) -&gt; first.length()-second.length());</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>函数式接口(functional interface)</p>
+<ul>
+<li>对于<em>只有一个**</em>抽象*<em>方法的</em>接口*，需要这种接口对象时，可以提供一个lambda表达式</li>
+</ul>
+</li>
+<li><p>Java中，lambda表达式所能做的也<em>只是</em>转换为函数式接口</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Predicate</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">test</span><span class="params">(T t)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">removeIf</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> E&gt; filter)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(filter);</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.removeIf(e -&gt; e == <span class="keyword">null</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法引用-method-reference"><a href="#方法引用-method-reference" class="headerlink" title="方法引用(method reference)"></a>方法引用(method reference)</h3><p>表达式<code>System.out::println</code>是一个方法引用，它指示编译器生成一个函数式接口的实例，覆盖这个接口的抽象方法来调用给定的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = <span class="keyword">new</span> Timer(<span class="number">500</span>, event -&gt;</span><br><span class="line">                System.out.println(event));</span><br></pre></td></tr></table></figure>
+
+<p>使用方法引用可改写成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Timer timer = <span class="keyword">new</span> Timer(<span class="number">500</span>, System.out::println);</span><br></pre></td></tr></table></figure>
+
+<p>用<code>::</code>运算符分隔方法名与对象或类名</p>
+<ol>
+<li><code>object::instanceMethod</code></li>
+<li><code>Class::instanceMethod</code></li>
+<li><code>Class::staticMethod</code></li>
+</ol>
+<p>第一种情况下，方法引用等价于向方法传递参数的lambda表达式:<code>System.out::println</code> — <code>x-&gt;System.out.println(x)</code></p>
+<p>第二种情况下，第一个参数变成方法的隐式参数：<code>Arrays.sort(planets,String::compareToIgnoreCase);</code> — <code>(x,y)-&gt;x.compareToIgnoreCase(y)</code></p>
+<p>第三种情况下，所有参数都传递到静态方法:<code>Math::pow</code> — <code>(x,y)-&gt;Math.pow(x,y)</code></p>
+<p>注：只有当lambda表达式的体只调用一个方法而不做其他操作的时候，才能改写成方法引用</p>
+<p>方法引用和lambda表达式区别之一在于：lambda只有在调用的时候，才会抛出异常。方法引用在构造的时候就会抛出异常</p>
+<p>方法引用中可以使用<code>this</code>参数，例如<code>this::equals</code> 等同于<code>x -&gt; this.equals(x)</code></p>
+<p>方法引用使用<code>super</code>参数， <code>super::instanceMethod</code></p>
 <hr>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>实现了一个接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">methodDefault</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodDefault MyInterface&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">methodStatic</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodStatic&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -654,14 +716,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">链表</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">挑战程序设计</a>
               </li>
              
@@ -670,11 +724,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">初等排序</a>
+                <a href="javascript:void(0)" class="js-tag color4">STL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">STL</a>
+                <a href="javascript:void(0)" class="js-tag color3">链表</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">初等排序</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,6 +749,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">队列</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,7 +788,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">搜索</a>
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
               </li>
             
             <div class="clearfix"></div>

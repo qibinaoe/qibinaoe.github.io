@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2020/11/02/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%80%92%E5%BD%92%E5%92%8C%E5%88%86%E6%B2%BB/%E7%A9%B7%E4%B8%BE%E6%90%9C%E7%B4%A2%E9%A2%98%E7%9B%AE.jpg">
 <meta property="article:published_time" content="2020-11-02T11:00:03.000Z">
-<meta property="article:modified_time" content="2020-11-02T14:06:27.025Z">
+<meta property="article:modified_time" content="2020-11-30T06:07:15.788Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="挑战程序设计">
 <meta property="article:tag" content="算法">
@@ -171,7 +171,6 @@
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//A[]存放 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">selectMFromN</span><span class="params">(<span class="keyword">int</span> A[],<span class="keyword">int</span> B[],<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> index,<span class="keyword">int</span> left)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(left == <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="comment">//挑完了</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; A[i] &lt;&lt; <span class="string">&quot; &quot;</span>; </span><br><span class="line">		&#125; </span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> endIndex = n - left;</span><br><span class="line">	<span class="comment">//可以到n-m，因为 n-m 到 n 有m+1个数 </span></span><br><span class="line">	<span class="comment">//而我们没有遍历到的数是n-m+1 ~ n-1(m-1个数).因为n的时候数组越界 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = index; i &lt;=endIndex; i++)&#123;</span><br><span class="line">		A[index] = B[i];</span><br><span class="line">		selectMFromN(A,B,n,m,index+<span class="number">1</span>,left<span class="number">-1</span>);</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> B[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span>* A;</span><br><span class="line">	<span class="keyword">int</span> m = <span class="number">3</span>;</span><br><span class="line">	A = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*m);</span><br><span class="line">	selectMFromN(A,B,<span class="number">8</span>,<span class="number">3</span>,<span class="number">0</span>,<span class="number">3</span>);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
 
-<p>###</p>
 
       
 
@@ -388,7 +387,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -396,11 +395,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -409,10 +412,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java服务器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,19 +455,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">排序</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随想</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
               </li>
              
               <li class="article-tag-list-item">

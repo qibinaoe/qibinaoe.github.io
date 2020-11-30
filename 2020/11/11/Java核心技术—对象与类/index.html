@@ -16,7 +16,7 @@
 <meta property="og:description" content="Java核心技术——第四章 对象与类">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-11T13:29:45.000Z">
-<meta property="article:modified_time" content="2020-11-27T04:20:10.878Z">
+<meta property="article:modified_time" content="2020-11-30T06:05:07.569Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
@@ -225,7 +225,7 @@
 <li><p>基于类的访问权限</p>
 <ul>
 <li>方法可以访问调用这个方法的对象的私有数据</li>
-<li>一个方法可以访问所属类的所有对象的私有数据(可读可修改)  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">10</span>);</span><br><span class="line">        Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">        System.out.println(e2.getSalary()); <span class="comment">// 20</span></span><br><span class="line">        System.out.println(e1.equals(e2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(e2.getSalary()); <span class="comment">//1000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Employee l)</span> </span>&#123;</span><br><span class="line">        l.salary = <span class="number">1000</span>;</span><br><span class="line">        <span class="keyword">return</span> name.equals(l.name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSalary</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>一个方法可以访问所属类的所有对象的私有数据(可读可修改)  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">10</span>);</span><br><span class="line">        Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">        System.out.println(e2.getSalary()); <span class="comment">// 20</span></span><br><span class="line">        System.out.println(e1.equals(e2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(e2.getSalary()); <span class="comment">//1000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Employee l)</span> </span>&#123;</span><br><span class="line">        l.salary = <span class="number">1000</span>;</span><br><span class="line">        <span class="keyword">return</span> name.equals(l.name);</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSalary</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 <li><p>final实例字段</p>
@@ -309,7 +309,7 @@
 <li><p>但是通过对象引用能够修改对象的参数状态，因为方法得到的是对象引用的一个副本，原来对象引用和副本都引用同一个对象</p>
 </li>
 <li><p>证明对象引用不是按引用传递</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">      Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">      System.out.println(e1.getName()); <span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName()); <span class="comment">// good</span></span><br><span class="line">      swap(e1,e2);</span><br><span class="line">      System.out.println(e1.getName());<span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName());<span class="comment">// good</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(Employee e1, Employee e2)</span> </span>&#123;</span><br><span class="line">      Employee temp = e1;</span><br><span class="line">      e1 = e2;</span><br><span class="line">      e2 = temp;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">      Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">      System.out.println(e1.getName()); <span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName()); <span class="comment">// good</span></span><br><span class="line">      swap(e1,e2);</span><br><span class="line">      System.out.println(e1.getName());<span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName());<span class="comment">// good</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(Employee e1, Employee e2)</span> </span>&#123;</span><br><span class="line">      Employee temp = e1;</span><br><span class="line">      e1 = e2;</span><br><span class="line">      e2 = temp;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -373,7 +373,7 @@
 <li><p><code>this</code>关键字调用另一个构造器</p>
 <ul>
 <li><p>构造器的第一个语句形如<code>this(...)</code>，构造器将调用同一个类的另一个构造器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">      Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">      System.out.println(e1.getName()); <span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName()); <span class="comment">// good</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = <span class="string">&quot;HAHAH&quot;</span> + n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(n);</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Employee e1 = <span class="keyword">new</span> Employee(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">      Employee e2 = <span class="keyword">new</span> Employee(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">      System.out.println(e1.getName()); <span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName()); <span class="comment">// good</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        name = <span class="string">&quot;HAHAH&quot;</span> + n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Employee</span><span class="params">(String n, <span class="keyword">int</span> s)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(n);</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -468,7 +468,8 @@
 </li>
 <li><p>文档注释 javadoc</p>
 <ul>
-<li>javadoc抽取信息，为一下特性编写注释<ul>
+<li><p>javadoc抽取信息，为一下特性编写注释</p>
+<ul>
 <li>模块</li>
 <li>包</li>
 <li>公共类与接口</li>
@@ -476,23 +477,31 @@
 <li>公共的和受保护的构造器及方法</li>
 </ul>
 </li>
-<li>注释放置在所描述特性的前面</li>
-<li>注释以<code>/**</code>开始，以<code>*/</code>结束</li>
-<li>自由格式文本(free-form text)</li>
-<li>标记以@开始，如@since、@param</li>
-<li>自由格式文本第一句应该是一个概要性的句子，javadoc工具将这些句子抽取出生成概要页</li>
-<li>自由格式文本中可以使用html修饰符<ul>
+<li><p>注释放置在所描述特性的前面</p>
+</li>
+<li><p>注释以<code>/**</code>开始，以<code>*/</code>结束</p>
+</li>
+<li><p>自由格式文本(free-form text)</p>
+</li>
+<li><p>标记以@开始，如@since、@param</p>
+</li>
+<li><p>自由格式文本第一句应该是一个概要性的句子，javadoc工具将这些句子抽取出生成概要页</p>
+</li>
+<li><p>自由格式文本中可以使用html修饰符</p>
+<ul>
 <li><code>&lt;em&gt; ... &lt;/em&gt;</code> 强调</li>
 <li><code>&lt;strong&gt; ... &lt;/strong&gt;</code> 着重强调</li>
 <li><code>&lt;img ...&gt;</code> 图片</li>
 <li><code>&#123;@code ...&#125;</code>等宽代码</li>
 </ul>
 </li>
-<li>类注释<ul>
+<li><p>类注释</p>
+<ul>
 <li>类注释必须放在import语句之后，类定义之前</li>
 </ul>
 </li>
-<li>方法注释<ul>
+<li><p>方法注释</p>
+<ul>
 <li>方法必须放在所描述的方法之前</li>
 <li>除了通用标记，还能使用以下标记<ul>
 <li><code>@param variable description</code><ul>
@@ -514,11 +523,13 @@
 </li>
 </ul>
 </li>
-<li>字段注释<ul>
+<li><p>字段注释</p>
+<ul>
 <li>只需要对公共字段(通常指静态常量<code>public static final</code>)建立文档</li>
 </ul>
 </li>
-<li>通用注释<ul>
+<li><p>通用注释</p>
+<ul>
 <li><code>@since text</code><ul>
 <li>建立一个”since”(始于)条目</li>
 <li>“text”可以是引入这个特性的版本任何描述<ul>
@@ -565,7 +576,8 @@
 </li>
 </ul>
 </li>
-<li>包注释<ul>
+<li><p>包注释</p>
+<ul>
 <li>需要在每个包目录中添加一个单独文件<ol>
 <li>提供<em>package-info.java</em>的Java文件<ul>
 <li>该文件包含一个初是的以<code>/**</code>和<code>*/</code>界定的javadoc注释</li>
@@ -821,7 +833,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -829,11 +841,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java核心技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">核心技术</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -842,10 +858,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java服务器</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -889,19 +901,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">排序</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">freestyle</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随想</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">排序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">高等排序</a>
               </li>
              
               <li class="article-tag-list-item">

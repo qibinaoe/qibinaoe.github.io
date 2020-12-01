@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Java核心技术——第五章 继承类、超类和子类 继承(inheritance)  “is-a”关系是继承的一个明显特征  Java用关键字extends表示继承 1234public class Manager extends Employee&amp;#123;    added methods and fields&amp;#125;  Java中所有继承都是公共继承，没有C++中的私有继承和保护继承">
+  <meta name="description" content="Java核心技术——第五章 继承类、超类和子类   继承(inheritance)  “is-a”关系是继承的一个明显特征   Java用关键字extends表示继承   1234public class Manager extends Employee&amp;#123;    added methods and fields&amp;#125;  Java中所有继承都是公共继承，没有C++中的私有继承和保护继">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java核心技术—继承">
 <meta property="og:url" content="http://example.com/2020/11/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E7%BB%A7%E6%89%BF/index.html">
 <meta property="og:site_name" content="Qibin&#39;s Blog">
-<meta property="og:description" content="Java核心技术——第五章 继承类、超类和子类 继承(inheritance)  “is-a”关系是继承的一个明显特征  Java用关键字extends表示继承 1234public class Manager extends Employee&amp;#123;    added methods and fields&amp;#125;  Java中所有继承都是公共继承，没有C++中的私有继承和保护继承">
+<meta property="og:description" content="Java核心技术——第五章 继承类、超类和子类   继承(inheritance)  “is-a”关系是继承的一个明显特征   Java用关键字extends表示继承   1234public class Manager extends Employee&amp;#123;    added methods and fields&amp;#125;  Java中所有继承都是公共继承，没有C++中的私有继承和保护继">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-14T07:45:20.000Z">
-<meta property="article:modified_time" content="2020-11-30T14:27:54.019Z">
+<meta property="article:modified_time" content="2020-12-01T02:26:11.009Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心技术">
 <meta name="twitter:card" content="summary">
@@ -186,7 +186,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-30 22:27:54" itemprop="dateModified" datetime="2020-11-30T22:27:54+08:00">2020-11-30</time>
+                <time title="修改时间：2020-12-01 10:26:11" itemprop="dateModified" datetime="2020-12-01T10:26:11+08:00">2020-12-01</time>
               </span>
 
           
@@ -221,18 +221,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <!-- more  -->
+        <h1 id="Java核心技术——第五章-继承"><a href="#Java核心技术——第五章-继承" class="headerlink" title="Java核心技术——第五章 继承"></a>Java核心技术——第五章 继承</h1><h3 id="类、超类和子类"><a href="#类、超类和子类" class="headerlink" title="类、超类和子类"></a>类、超类和子类</h3><!-- more  -->
 
-<h1 id="Java核心技术——第五章-继承"><a href="#Java核心技术——第五章-继承" class="headerlink" title="Java核心技术——第五章 继承"></a>Java核心技术——第五章 继承</h1><h3 id="类、超类和子类"><a href="#类、超类和子类" class="headerlink" title="类、超类和子类"></a>类、超类和子类</h3><ul>
+<ul>
 <li><p>继承(inheritance)</p>
 <ul>
-<li><p>“is-a”关系是继承的一个明显特征</p>
+<li>“is-a”关系是继承的一个明显特征</li>
+</ul>
 </li>
 <li><p>Java用关键字<code>extends</code>表示继承</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    added methods and fields</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    added methods and fields</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Java中所有继承都是公共继承，没有C++中的私有继承和保护继承</p>
-</li>
+<ul>
 <li><p>新类派生于一个已存在的类</p>
 <ul>
 <li>已存在的类称为<ul>
@@ -345,7 +346,7 @@
 <p>变量staff[0]与boss都引用同一个对象，但是编译器<em>只将</em>staff[0]看成一个<em>Employee对象</em></p>
 <p>意味着<br><code>boss.setBonus(5000);//boss是Manager类型的，有setBonus的方法</code>是可以的</p>
 <p>但是<br><code>staff[0].setBonus(5000); // ERROR</code>是不行的，因为staff[0]声明的类型是Employee，但是setBonus不是Employee类的方法</p>
-<p>同时<br><code>Manager m = staff[i]; //ERROR</code>也是不行的。因为m有可能引用一个不是经理的Employee对象，如果调用Manager才有的方法(例如m.setBonus(…)),就会发生运行时错误。</p>
+<p>同时<br><code>Manager m = staff[i]; //ERROR</code>也是不行的。因为m有可能引用一个不是经理的Employee对象，如果调用Manager才有的方法(例如<code>m.setBonus(...)</code>),就会发生运行时错误。</p>
 </li>
 <li><p>Java中，子类引用的数组可以转换成超类引用的数组</p>
 </li>
@@ -450,7 +451,9 @@
 </li>
 <li><p>如果试图在继承链上，进行向下的强制类型转换，并且谎报对象内容，会产生<code>ClassCastException</code>的异常</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Manager boss = (Manager)staff[<span class="number">0</span>]; <span class="comment">//staff[0]存的真实类型Employee,不是Manager，会抛出异常</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 在强制类型转换之前，先查看是否能够转换成功，使用&#96;instanceof&#96;操作符来判断</span><br><span class="line"></span><br><span class="line">  &#96;&#96;&#96;Java</span><br><span class="line">    if(staff[2] instanceof Manager)</span><br><span class="line">    &#123;</span><br><span class="line">      boss &#x3D; (Manager)staff[2];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在强制类型转换之前，先查看是否能够转换成功，使用<code>instanceof</code>操作符来判断</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(staff[<span class="number">2</span>] <span class="keyword">instanceof</span> Manager)</span><br><span class="line">&#123;</span><br><span class="line">  boss = (Manager)staff[<span class="number">2</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>String c = (String) staff[1];</code>会产生编译错误</p>
 </li>
@@ -544,7 +547,14 @@
 <li><code>Object</code>类实现的<code>equals</code>方法是判断两个对象引用是否相等</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Object类实现的方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">- 有时候需要基于状态检测对象的相等性，如果两个对象有相同的*状态*，才认为对象是否相等</span><br><span class="line">- 需要重写&#96;equals&#96;方法</span><br><span class="line">  </span><br><span class="line">  &#96;&#96;&#96;Java</span><br><span class="line">    public boolean equals(Object otherObject)</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F;看这个对象引用是否相等  identical</span><br><span class="line">      if(this &#x3D;&#x3D; otherObject) return true;</span><br><span class="line">  </span><br><span class="line">        &#x2F;&#x2F;如果为空，则肯定不相等</span><br><span class="line">      if(otherObject &#x3D;&#x3D; null) return false;</span><br><span class="line">  </span><br><span class="line">        &#x2F;&#x2F;类不匹配，肯定不相等</span><br><span class="line">        if(getClass() !&#x3D; otherObject.getClass())</span><br><span class="line">          return false;</span><br><span class="line">  </span><br><span class="line">        &#x2F;&#x2F;该类是非空的Employee类，接下来比较对象的状态是否相等</span><br><span class="line">        Employee other &#x3D; (Employee)otherObject;</span><br><span class="line">        return salary &#x3D;&#x3D; other.salary;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>有时候需要基于状态检测对象的相等性，如果两个对象有相同的<em>状态</em>，才认为对象是否相等</p>
+</li>
+<li><p>需要重写<code>equals</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object otherObject)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//看这个对象引用是否相等  identical</span></span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">this</span> == otherObject) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//如果为空，则肯定不相等</span></span><br><span class="line">  <span class="keyword">if</span>(otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//类不匹配，肯定不相等</span></span><br><span class="line">    <span class="keyword">if</span>(getClass() != otherObject.getClass())</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">//该类是非空的Employee类，接下来比较对象的状态是否相等</span></span><br><span class="line">    Employee other = (Employee)otherObject;</span><br><span class="line">    <span class="keyword">return</span> salary == other.salary;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </li>
 <li><p>注意，如果一个变量是<code>null</code>,则不可以调用equals方法</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Employee e = <span class="keyword">null</span>;</span><br><span class="line">e.equals(e);  <span class="comment">//ERROR  java.lang.NullPointerException</span></span><br></pre></td></tr></table></figure>
@@ -555,7 +565,6 @@
 </li>
 <li><p>Objects.equals实现如下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object a, Object b)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (a == b) || (a != <span class="keyword">null</span> &amp;&amp; a.equals(b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">    </span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -575,14 +584,26 @@
 </li>
 <li><p>检测<code>otherObject</code>是否为<code>null</code>，如果为<code>null</code>，返回<code>false</code>。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(otherObject == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">- 比较&#96;this&#96;和&#96;otherObject&#96;的类</span><br><span class="line">- 如果&#96;equals&#96;的语义可以在子类中改变(意思就是两种不同类的子类，是不一样的)，就使用&#96;getClass&#96;检测</span><br><span class="line">  </span><br><span class="line">  &#96;&#96;&#96;Java</span><br><span class="line">     if(getClass() !&#x3D; otherObject.getClass()) return false;</span><br></pre></td></tr></table></figure>
 
 <ul>
+<li><p>比较<code>this</code>和<code>otherObject</code>的类</p>
+</li>
+<li><p>如果<code>equals</code>的语义可以在子类中改变(意思就是两种不同类的子类，是不一样的)，就使用<code>getClass</code>检测</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(getClass() != otherObject.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>如果所有的子类都有相同的相等性语义(意思是继承同一个超类的，两个不同类的子类，认为它们类型是一样的)，可以使用<code>instanceof</code>检测</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!(otherObject <span class="keyword">instanceof</span> ClassName)) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">- 根据相等性的要求来比较字段</span><br><span class="line">  - 使用&#96;&#x3D;&#x3D;&#96;比较基本类型字段</span><br><span class="line">  - 使用&#96;Objects.equals()&#96;比较对象字段</span><br><span class="line">- 如果所有字段都匹配，返回true;否则返回false</span><br><span class="line">  </span><br><span class="line">&#96;&#96;&#96;Java</span><br><span class="line">  return field1 &#x3D; other.field1</span><br><span class="line">      &amp;&amp; Objects.equals(field2,other.field2)</span><br><span class="line">      &amp;&amp; ...;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据相等性的要求来比较字段</p>
+<ul>
+<li>使用<code>==</code>比较基本类型字段</li>
+<li>使用<code>Objects.equals()</code>比较对象字段</li>
+</ul>
+</li>
+<li><p>如果所有字段都匹配，返回true;否则返回false</p>
 </li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> field1 = other.field1</span><br><span class="line">    &amp;&amp; Objects.equals(field2,other.field2)</span><br><span class="line">    &amp;&amp; ...;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>如果在子类中重新定义equals,就要在子类新定义的equals方法中包含一个<code>super.equals(other)</code>的调用</p>
 </li>
@@ -613,17 +634,25 @@
 </ul>
 </li>
 <li><p>null安全的方法Objects.hashCode</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> o != <span class="keyword">null</span> ? o.hashCode() : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">- 自己写一个hashCode()</span><br><span class="line">  </span><br><span class="line">      &#96;&#96;&#96;Java</span><br><span class="line">        public int hashCode()</span><br><span class="line">        &#123;</span><br><span class="line">          return 7* Objects.hashCode(name)</span><br><span class="line">              + 11 * Double.hashCode(salary)</span><br><span class="line">              + 13 * Objects.hashCode(hireDay);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">- &#96;Objects.hash()&#96;方法能够对传入各个参数调用Objects.hashCode,并组合</span><br><span class="line">  </span><br><span class="line">      &#96;&#96;&#96;Java</span><br><span class="line">        public int hashCode()</span><br><span class="line">        &#123;</span><br><span class="line">          return Objects.hash(name,salary,hireDay);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> o != <span class="keyword">null</span> ? o.hashCode() : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>其底层用的是<code>Arrays.hashCode()</code>实现</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object... values)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Arrays.hashCode(values);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<li><p>自己写一个hashCode()</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">7</span>* Objects.hashCode(name)</span><br><span class="line">      + <span class="number">11</span> * Double.hashCode(salary)</span><br><span class="line">      + <span class="number">13</span> * Objects.hashCode(hireDay);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
 </li>
-<li><p>注意：<strong>equals与hashCode的定义必须相容</strong>，如果x.equals(y)返回true,那么x.hashCode()就必须与y.hashCode()返回相同的值</p>
-</li>
+<li><p><code>Objects.hash()</code>方法能够对传入各个参数调用Objects.hashCode,并组合</p>
+<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> Objects.hash(name,salary,hireDay);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+<ul>
+<li>其底层用的是<code>Arrays.hashCode()</code>实现</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object... values)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> Arrays.hashCode(values);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意：<strong>equals与hashCode的定义必须相容</strong>，如果x.equals(y)返回true,那么x.hashCode()就必须与y.hashCode()返回相同的值</li>
 </ul>
 </li>
 <li><p>toString方法</p>
@@ -644,12 +673,12 @@
 <li><p><code>&quot;&quot;+x</code></p>
 </li>
 <li><p>Object类定义的toString方法，打印出对象的类名和散列码</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  System.out.println(people[<span class="number">1</span>]); <span class="comment">// test.Student@14ae5a5</span></span><br><span class="line">System.out.println(people[<span class="number">1</span>].hashCode()); <span class="comment">// 21685669</span></span><br><span class="line">System.out.println(System.out); <span class="comment">// java.io.PrintStream@14ae5a5</span></span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(people[<span class="number">1</span>]); <span class="comment">// test.Student@14ae5a5</span></span><br><span class="line">System.out.println(people[<span class="number">1</span>].hashCode()); <span class="comment">// 21685669</span></span><br><span class="line">System.out.println(System.out); <span class="comment">// java.io.PrintStream@14ae5a5</span></span><br><span class="line">  </span><br></pre></td></tr></table></figure>
 
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName() + <span class="string">&quot;@&quot;</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName() + <span class="string">&quot;@&quot;</span> + 		Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>数组类型继承了Object类的toString方法</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  Person[] people = <span class="keyword">new</span> Person[<span class="number">3</span>];</span><br><span class="line">  people[<span class="number">0</span>] = <span class="keyword">new</span> Employee(<span class="string">&quot;Dog&quot;</span>,<span class="number">20</span>);</span><br><span class="line">people[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">people[<span class="number">2</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(people); <span class="comment">//[Ltest.Person;@14ae5a5</span></span><br><span class="line">System.out.println(<span class="string">&quot;&quot;</span>+people); <span class="comment">//[Ltest.Person;@14ae5a5</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">System.out.println(<span class="string">&quot;&quot;</span>+nums); <span class="comment">//[I@7f31245a</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Person[] people = <span class="keyword">new</span> Person[<span class="number">3</span>];</span><br><span class="line">people[<span class="number">0</span>] = <span class="keyword">new</span> Employee(<span class="string">&quot;Dog&quot;</span>,<span class="number">20</span>);</span><br><span class="line">people[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">people[<span class="number">2</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(people); <span class="comment">//[Ltest.Person;@14ae5a5</span></span><br><span class="line">System.out.println(<span class="string">&quot;&quot;</span>+people); <span class="comment">//[Ltest.Person;@14ae5a5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">System.out.println(<span class="string">&quot;&quot;</span>+nums); <span class="comment">//[I@7f31245a</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><p><code>[I</code>前缀表明是一个整型数组，这种打印看不出里面具体的元素的值</p>
@@ -657,12 +686,13 @@
 <li>可以使用<code>Arrays.toString()</code>来打印一维数组</li>
 <li><code>Arrays.deepToString()</code>打印多维数组</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">  Person[] people = <span class="keyword">new</span> Person[<span class="number">3</span>];</span><br><span class="line">  people[<span class="number">0</span>] = <span class="keyword">new</span> Employee(<span class="string">&quot;Dog&quot;</span>,<span class="number">20</span>);</span><br><span class="line">  people[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">people[<span class="number">2</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">System.out.println(Arrays.toString(people));<span class="comment">// [test.Employee@14ae5a5, test.Student@7f31245a, test.Student@6d6f6e28]</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(nums)); <span class="comment">// [2, 3, 4, 5]</span></span><br><span class="line">    </span><br><span class="line">  <span class="keyword">int</span>[][] manNums = &#123;</span><br><span class="line">          &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,</span><br><span class="line">          &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;</span><br><span class="line">          &#125;;</span><br><span class="line">System.out.println(Arrays.deepToString(manNums));<span class="comment">// [[1, 2, 3], [2, 3, 4]]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Person[] people = <span class="keyword">new</span> Person[<span class="number">3</span>];</span><br><span class="line">people[<span class="number">0</span>] = <span class="keyword">new</span> Employee(<span class="string">&quot;Dog&quot;</span>,<span class="number">20</span>);</span><br><span class="line">people[<span class="number">1</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">people[<span class="number">2</span>] = <span class="keyword">new</span> Student(<span class="string">&quot;Cat&quot;</span>,<span class="string">&quot;math&quot;</span>);</span><br><span class="line">System.out.println(Arrays.toString(people));<span class="comment">// [test.Employee@14ae5a5, test.Student@7f31245a, test.Student@6d6f6e28]</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(nums)); <span class="comment">// [2, 3, 4, 5]</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">int</span>[][] manNums = &#123;</span><br><span class="line">          &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,</span><br><span class="line">          &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;</span><br><span class="line">          &#125;;</span><br><span class="line">System.out.println(Arrays.deepToString(manNums));<span class="comment">// [[1, 2, 3], [2, 3, 4]]</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 </li>
 </ul>
-</li>
+<ul>
 <li><p>泛型数组列表</p>
 <ul>
 <li>Java允许在运行时确定数组的大小</li>
@@ -725,9 +755,11 @@
 </li>
 <li><p><code>ArrayList&lt;Employee&gt; staff = new ArrayList&lt;&gt;(100);</code></p>
 <ul>
-<li><p>数组列表(ArrayList)和数组</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    ArrayList&lt;Person&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">100</span>); <span class="comment">// capacity is 100</span></span><br><span class="line">    <span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>]; <span class="comment">// size is 100</span></span><br><span class="line">    System.out.println(staff.size()); <span class="comment">// 0</span></span><br><span class="line">System.out.println(a.length); <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
-</li>
+<li>数组列表(ArrayList)和数组</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Person&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">100</span>); <span class="comment">// capacity is 100</span></span><br><span class="line"><span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">100</span>]; <span class="comment">// size is 100</span></span><br><span class="line">System.out.println(staff.size()); <span class="comment">// 0</span></span><br><span class="line">System.out.println(a.length); <span class="comment">// 100</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>trimToSize</p>
 <ul>
 <li>将储存块的大小调整为当前保存当前元素数量所需要的储存空间。垃圾回收器将回收多余的储存空间</li>
@@ -739,16 +771,20 @@
 </li>
 <li><p>Java中的ArrayList与C++的vector区别</p>
 <pre><code>- C++的vector模板为便于访问元素重载了`[]`运算符
-- Java中没有运算符重载，必须调用显示的方法
-
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    ArrayList&lt;Person&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">100</span>);</span><br><span class="line">    staff.add(...);</span><br><span class="line">    staff.add(...);</span><br><span class="line">    staff.add(...);</span><br><span class="line"><span class="comment">//Person p = staff[1]; //Error 不允许这样做</span></span><br><span class="line">    Person p = staff.get(<span class="number">1</span>); <span class="comment">//Right 显式调用</span></span><br></pre></td></tr></table></figure></code></pre>
+    - Java中没有运算符重载，必须调用显示的方法
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   ArrayList&lt;Person&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">100</span>);</span><br><span class="line">   staff.add(...);</span><br><span class="line">   staff.add(...);</span><br><span class="line">   staff.add(...);</span><br><span class="line"><span class="comment">//Person p = staff[1]; //Error 不允许这样做</span></span><br><span class="line">   Person p = staff.get(<span class="number">1</span>); <span class="comment">//Right 显式调用</span></span><br></pre></td></tr></table></figure></code></pre>
 <ul>
 <li><p>C++的vector是按值拷贝</p>
 <pre><code>- 如果`a`和`b`是两个vector
-- 赋值操作`a = b`将会构造一个与b长度相同的新向量a，并将所有的元素由b拷贝到a</code></pre>
-  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1 = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v2;</span><br><span class="line">    v2 = v1;</span><br><span class="line">v2[<span class="number">2</span>] = <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; v1[<span class="number">2</span>] &lt;&lt; <span class="string">&quot;  &quot;</span>&lt;&lt;v2[<span class="number">2</span>]; <span class="comment">// 3  5</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  - Java中对于该赋值语句的操作结果是让&#96;a&#96;和&#96;b&#96;引用同一个数组列表(ArrayList)</span><br><span class="line"></span><br><span class="line">  &#96;&#96;&#96;Java</span><br><span class="line">    ArrayList&lt;Integer&gt; a &#x3D; new ArrayList&lt;Integer&gt;();</span><br><span class="line">    a.add(1);</span><br><span class="line">    a.add(2);</span><br><span class="line">    a.add(3);</span><br><span class="line">    ArrayList&lt;Integer&gt; b &#x3D; a;</span><br><span class="line">b.set(2,5);</span><br><span class="line">    System.out.println(&quot;&quot;+a.get(2) + &quot;  &quot; + b.get(2)); &#x2F;&#x2F;5 5</span><br></pre></td></tr></table></figure>
+    - 赋值操作`a = b`将会构造一个与b长度相同的新向量a，并将所有的元素由b拷贝到a</code></pre>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1 = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line">   <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v2;</span><br><span class="line">   v2 = v1;</span><br><span class="line">v2[<span class="number">2</span>] = <span class="number">5</span>;</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; v1[<span class="number">2</span>] &lt;&lt; <span class="string">&quot;  &quot;</span>&lt;&lt;v2[<span class="number">2</span>]; <span class="comment">// 3  5</span></span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p>Java中对于该赋值语句的操作结果是让<code>a</code>和<code>b</code>引用同一个数组列表(ArrayList)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   ArrayList&lt;Integer&gt; a = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">   a.add(<span class="number">1</span>);</span><br><span class="line">   a.add(<span class="number">2</span>);</span><br><span class="line">   a.add(<span class="number">3</span>);</span><br><span class="line">   ArrayList&lt;Integer&gt; b = a;</span><br><span class="line">b.set(<span class="number">2</span>,<span class="number">5</span>);</span><br><span class="line">   System.out.println(<span class="string">&quot;&quot;</span>+a.get(<span class="number">2</span>) + <span class="string">&quot;  &quot;</span> + b.get(<span class="number">2</span>)); <span class="comment">//5 5</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
 <ul>
 <li><p>访问ArrayList元素</p>
 <ul>
@@ -905,7 +941,7 @@
 </ul>
 </li>
 <li><p>ordinal()方法返回声明中枚举常量的位置，位置从0开始计数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Size.SMALL.ordinal()); <span class="comment">// 0</span></span><br><span class="line">    System.out.println(Size.LARGE.ordinal()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Size.SMALL.ordinal()); <span class="comment">// 0</span></span><br><span class="line">  System.out.println(Size.LARGE.ordinal()); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>int compareTo(E other)</code></p>
 <ul>
@@ -941,7 +977,7 @@
 <ul>
 <li><code>Class</code>对象描述一个特定类的属性<ul>
 <li><code>getName()</code>方法返回类的名字，会带上包名</li>
-<li>`System.out.println(new Random().getClass().getName()); // java.util.Random</li>
+<li><code>System.out.println(new Random().getClass().getName()); // java.util.Random</code></li>
 </ul>
 </li>
 </ul>
@@ -951,15 +987,18 @@
 </ul>
 </li>
 <li><p>静态方法<code>forName()</code>获得类名对应的Class对象</p>
-<pre><code><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Class cl = Class.forName(<span class="string">&quot;java.util.Random&quot;</span>);</span><br><span class="line">    System.out.println(cl.getName());</span><br><span class="line">&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Class cl = Class.forName(<span class="string">&quot;java.util.Random&quot;</span>);</span><br><span class="line">    System.out.println(cl.getName());</span><br><span class="line">&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-`forName`方法会抛出一个*检查型异常(checked exception)*,因此需要提供一个*异常处理器(exception handler)*</code></pre>
+<pre><code>`forName`方法会抛出一个*检查型异常(checked exception)*,因此需要提供一个*异常处理器(exception handler)*</code></pre>
 <ul>
-<li><p>在启动时，包含main方法的类被加载，它会加载所有需要的类，这些被加载的类又要加载它们需要的类。对于大型应用程序将会花费很长时间</p>
+<li>在启动时，包含main方法的类被加载，它会加载所有需要的类，这些被加载的类又要加载它们需要的类。对于大型应用程序将会花费很长时间</li>
+<li>如果T是任意的Java类型(或void关键字)，则T.class代表匹配的类对象</li>
+</ul>
 </li>
-<li><p>如果T是任意的Java类型(或void关键字)，则T.class代表匹配的类对象</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- Class对象实际上表示的是一个**类型**，可能是类，也可能不是类</span><br><span class="line">  </span><br><span class="line">      &#96;&#96;&#96;Java</span><br><span class="line">        Class cl1 &#x3D; Random.class;</span><br><span class="line">        Class cl2 &#x3D; int.class;</span><br><span class="line">        Class cl3 &#x3D; Double[].class;</span><br><span class="line">        Class cl4 &#x3D; void.class;</span><br><span class="line">        Class cl5 &#x3D; Integer.class;</span><br><span class="line">        System.out.println(cl1.getName()); &#x2F;&#x2F; java.util.Random</span><br><span class="line">        System.out.println(cl2.getName()); &#x2F;&#x2F; int</span><br><span class="line">        System.out.println(cl3.getName()); &#x2F;&#x2F; [Ljava.lang.Double;</span><br><span class="line">        System.out.println(cl4.getName()); &#x2F;&#x2F; void</span><br><span class="line">        System.out.println(cl5.getName()); &#x2F;&#x2F; java.lang.Integer</span><br></pre></td></tr></table></figure>
-</li>
+<li><p>Class对象实际上表示的是一个<strong>类型</strong>，可能是类，也可能不是类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Class cl1 = Random.class;</span><br><span class="line">Class cl2 = <span class="keyword">int</span>.class;</span><br><span class="line">Class cl3 = Double[].class;</span><br><span class="line">Class cl4 = <span class="keyword">void</span>.class;</span><br><span class="line">Class cl5 = Integer.class;</span><br><span class="line">System.out.println(cl1.getName()); <span class="comment">// java.util.Random</span></span><br><span class="line">System.out.println(cl2.getName()); <span class="comment">// int</span></span><br><span class="line">System.out.println(cl3.getName()); <span class="comment">// [Ljava.lang.Double;</span></span><br><span class="line">System.out.println(cl4.getName()); <span class="comment">// void</span></span><br><span class="line">System.out.println(cl5.getName()); <span class="comment">// java.lang.Integer</span></span><br></pre></td></tr></table></figure>
+
+<ul>
 <li><p>虚拟机为每个<em>类型</em>管理一个<em>唯一</em>的Class对象，因此可以用==运算符实现两个类对象的比较</p>
 <ul>
 <li><code>if(e.getClass() == Employee.class)</code></li>
@@ -1019,7 +1058,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Father</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;method Father&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>子类定义</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> <span class="comment">// OK</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;method Son&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> <span class="comment">// OK</span></span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;method Son&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     

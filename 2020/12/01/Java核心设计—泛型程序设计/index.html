@@ -14,10 +14,11 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="Java核心设计 第八章 泛型程序设计泛型程序设计泛型设计(generic programming) : 编写的代码可以对多种不同类型的对象重用 类型参数(type parameter) ArrayList&lt;String&gt; files &#x3D; new ArrayList&lt;&gt;();">
@@ -28,7 +29,7 @@
 <meta property="og:description" content="Java核心设计 第八章 泛型程序设计泛型程序设计泛型设计(generic programming) : 编写的代码可以对多种不同类型的对象重用 类型参数(type parameter) ArrayList&lt;String&gt; files &#x3D; new ArrayList&lt;&gt;();">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-01T00:52:19.000Z">
-<meta property="article:modified_time" content="2020-12-01T02:08:39.326Z">
+<meta property="article:modified_time" content="2020-12-01T08:46:55.597Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心设计">
 <meta name="twitter:card" content="summary">
@@ -170,6 +171,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
 
     <main class="main">
@@ -208,7 +210,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-12-01 08:52:19 / 修改时间：10:08:39" itemprop="dateCreated datePublished" datetime="2020-12-01T08:52:19+08:00">2020-12-01</time>
+              <time title="创建时间：2020-12-01 08:52:19 / 修改时间：16:46:55" itemprop="dateCreated datePublished" datetime="2020-12-01T08:52:19+08:00">2020-12-01</time>
             </span>
 
           
@@ -322,6 +324,107 @@
 </ul>
 </li>
 </ul>
+<h2 id="泛型代码与虚拟机"><a href="#泛型代码与虚拟机" class="headerlink" title="泛型代码与虚拟机"></a>泛型代码与虚拟机</h2><ul>
+<li>虚拟机没有泛型类型对象，所有对象都属于普通类</li>
+</ul>
+<h3 id="类型擦除"><a href="#类型擦除" class="headerlink" title="类型擦除"></a>类型擦除</h3><ul>
+<li>无论何时定义一个<strong>泛型类型</strong>，都会自动提供一个相应的<strong>原始类型（raw type）</strong>。<ul>
+<li>原始类型的名字就是去掉<strong>类型参数</strong>后<strong>泛型类型名</strong></li>
+</ul>
+</li>
+<li><strong>类型变量</strong>会被<strong>擦除（erased）</strong>，并<strong>替换</strong>为其<strong>限定类型（对于无限定的变量替换成<code>Object</code>）</strong></li>
+</ul>
+<p><code>Pair&lt;T&gt;</code>的<strong>原始类型（raw type）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object first;</span><br><span class="line">    <span class="keyword">private</span> Object second;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">()</span> </span>&#123;first = <span class="keyword">null</span>; second = <span class="keyword">null</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Pair</span><span class="params">(Object first, Object second)</span></span>&#123;<span class="keyword">this</span>.first = first; <span class="keyword">this</span>.second = second;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getFirst</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> first;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getSecond</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> second;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFirst</span><span class="params">(Object newValue)</span></span>&#123;<span class="keyword">this</span>.first = newValue;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(Object newValue)</span></span>&#123;<span class="keyword">this</span>.second = newValue;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，<code>T</code>是无限定的变量，所以直接用Object替换</p>
+<blockquote>
+<p>C++会为每个模板的实例化产生不同的类型，这一现象叫做“模板代码膨胀”。Java不存在这个问题</p>
+</blockquote>
+<p>原始类型用第一个<strong>限定</strong>来替换<strong>类型变量</strong>。如果没有给定限定，则替换为<code>Object</code></p>
+<p>举例</p>
+<p>声明一个类型:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interval</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span> &amp; <span class="title">Serializable</span>&gt; <span class="keyword">implements</span> <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> T lower;</span><br><span class="line">    <span class="keyword">private</span> T upper;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Interval</span><span class="params">(T first, T second)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(first.compareTo(second) &lt;= <span class="number">0</span>) &#123; lower = first; upper = second;&#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; lower = second; upper = first;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>原始类型（raw type）<code>Interval</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Interval</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Comparable lower;</span><br><span class="line">    <span class="keyword">private</span> Comparable upper;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Interval</span><span class="params">(Comparable first, Comparable second)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(first.compareTo(second) &lt;= <span class="number">0</span>) &#123; lower = first; upper = second;&#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; lower = second; upper = first;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>注：如果声明的类型变量的限定顺序是这样的<code>&lt;T extends Comparable &amp; Serializable&gt;</code>。则原始类型会用<code>Serializable</code>替换<code>T</code>。编译器在必要时向<code>Comparable</code>插入强制类型转换。</p>
+<p>为提高效率，应该将<strong>标签（tagging）接口（即没有方法的接口）</strong>放在<strong>限定列表的末尾</strong>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="转换泛型表达式"><a href="#转换泛型表达式" class="headerlink" title="转换泛型表达式"></a>转换泛型表达式</h3><p>编写一个<strong>泛型方法</strong>调用时，如果<strong>擦除</strong>了<strong>返回类型</strong>，编译器会插入<strong>强制类型转换</strong>。例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Pair&lt;Employee&gt; buddies = ...;</span><br><span class="line">Employee buddy = buddies.getFirst();</span><br></pre></td></tr></table></figure>
+
+<p><code>getFirst()</code>在擦除类型后，返回类型是<code>Object</code>，编译器自动<strong>插入</strong>转换到<code>Employee</code>的<strong>强制类型转换</strong></p>
+<p>编译器将这个方法调用转换成两条虚拟机指令</p>
+<ol>
+<li>对<strong>原始方法</strong><code>Pair.getFirst()</code>的调用（这里已经被转换成原始类型）</li>
+<li>将返回的<code>Object</code>类型强制转换为 <code>Employee</code>类型</li>
+</ol>
+<p>访问<strong>泛型字段</strong>时，也要插入强制类型转换。假设<code>Pair</code>类中的<code>first</code>字段是<code>public</code>的</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Employee buddy = buddies.first;</span><br></pre></td></tr></table></figure>
+
+<p>也会在结果字节码中插入强制类型转换</p>
+<h3 id="转换泛型方法"><a href="#转换泛型方法" class="headerlink" title="转换泛型方法"></a>转换泛型方法</h3><p>泛型方法<code>public static &lt;T extends Comparable&gt; T min(T[] a)</code></p>
+<p>擦除类型后</p>
+<p><code>public static Comparable min(Comparable[] a)</code></p>
+<p>方法擦除的两个问题：</p>
+<ul>
+<li>类型擦除与多态发生冲突</li>
+</ul>
+<p>例如继承泛型类的子类中，重写父类的方法。再类型擦除后，会有一个从父类继承来的方法，一个自己重写的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DateInterval</span> <span class="keyword">extends</span> <span class="title">Pair</span>&lt;<span class="title">LocalDate</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(LocalDate second)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DateInterval interval = <span class="keyword">new</span> DateInterval(...);</span><br><span class="line">Pair&lt;LocalDate&gt; pair = interval;</span><br><span class="line">pair.setSecond(aDate);</span><br></pre></td></tr></table></figure>
+
+<p>在类型擦除后，有两个同名方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(LocalDate second)</span></span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(Object second)</span></span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第二个是从父类继承来的。</p>
+<p>解决办法是在子类中（这里指<code>DateInterval</code>类）生成<strong>桥方法（bridge method）</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSecond</span><span class="params">(Object second)</span></span>&#123;setSeond((LocalDate) second);&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类型擦除后，子类会有两个方法名和参数类型相同，但是返回类型不相同的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LocalDate <span class="title">getSecond</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Object <span class="title">getSecond</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在虚拟机中，会有<strong>参数类型</strong>和<strong>返回类型</strong>共同制定一个方法，因此编译器可以为两个仅返回类型不同的方法生成字节码，虚拟机能够正确处理这种情况</p>
+<blockquote>
+<p>桥方法也用在有协变的返回类型（convariant return type）：一个方法覆盖另一个方法时，可以指定一个更严格的返回类型。</p>
+</blockquote>
+<ul>
+<li>虚拟机没有泛型，只有普通的类和方法</li>
+<li>所有的类型参数都会替换为它们的限定类型</li>
+<li>会合成桥方法来保持多态</li>
+<li>为保持类型安全性，必要时会插入强制类型转换</li>
+</ul>
+<p>使用注解（annotation）来消除警告</p>
+<ul>
+<li>给局部变量加注解</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SupperssWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">Dictionary&lt;Integer, Components&gt; labelTable = slider.getLabelTable();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>给整个方法加注解</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarning(&quot;unchecked&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureSlider</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型的限制与局限性"><a href="#泛型的限制与局限性" class="headerlink" title="泛型的限制与局限性"></a>泛型的限制与局限性</h2><ul>
+<li><strong>不能</strong>用<strong>基本类型</strong>实例化<strong>类型参数</strong><ul>
+<li>没有<code>Pair&lt;double&gt;</code>，只有<code>Pair&lt;Double&gt;</code></li>
+<li>类型擦除后，<code>Object</code>类型的字段不能储存<code>double</code>值</li>
+</ul>
+</li>
+<li>运行时<strong>类型查询</strong>只适用于原始类型<ul>
+<li>虚拟机对象总有一个特定的非泛型类型，所有的类型查询只产生原始类型</li>
+<li>试图查询一个对象是饭否属于某个泛型</li>
+</ul>
+</li>
+</ul>
 
     </div>
 
@@ -403,7 +506,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">Java核心设计 第八章 泛型程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.</span> <span class="nav-text">泛型程序设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">泛型类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">泛型方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F%E7%9A%84%E9%99%90%E5%AE%9A"><span class="nav-number">1.4.</span> <span class="nav-text">类型变量的限定</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E5%85%AB%E7%AB%A0-%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">Java核心设计 第八章 泛型程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.</span> <span class="nav-text">泛型程序设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">泛型类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">泛型方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F%E7%9A%84%E9%99%90%E5%AE%9A"><span class="nav-number">1.4.</span> <span class="nav-text">类型变量的限定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E4%BB%A3%E7%A0%81%E4%B8%8E%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">1.5.</span> <span class="nav-text">泛型代码与虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%93%A6%E9%99%A4"><span class="nav-number">1.5.1.</span> <span class="nav-text">类型擦除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E6%B3%9B%E5%9E%8B%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">转换泛型表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.3.</span> <span class="nav-text">转换泛型方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E9%99%90%E5%88%B6%E4%B8%8E%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-number">1.6.</span> <span class="nav-text">泛型的限制与局限性</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -438,7 +541,7 @@
         <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="/780891896@qq.com" title="E-Mail → 780891896@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
   </div>
 
@@ -485,6 +588,11 @@
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -497,6 +605,65 @@
 
 
 <script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
 
 
 
@@ -521,6 +688,7 @@
 
 
 
+    <div id="pjax">
   
 
   
@@ -554,5 +722,6 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
 });
 </script>
 
+    </div>
 </body>
 </html>

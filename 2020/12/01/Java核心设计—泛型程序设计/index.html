@@ -29,7 +29,7 @@
 <meta property="og:description" content="Java核心设计 第八章 泛型程序设计泛型程序设计泛型设计(generic programming) : 编写的代码可以对多种不同类型的对象重用 类型参数(type parameter) ArrayList&lt;String&gt; files &#x3D; new ArrayList&lt;&gt;();">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-01T00:52:19.000Z">
-<meta property="article:modified_time" content="2020-12-01T08:46:55.597Z">
+<meta property="article:modified_time" content="2020-12-03T10:48:16.615Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java核心设计">
 <meta name="twitter:card" content="summary">
@@ -208,10 +208,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-12-01 08:52:19 / 修改时间：16:46:55" itemprop="dateCreated datePublished" datetime="2020-12-01T08:52:19+08:00">2020-12-01</time>
+              <time title="创建时间：2020-12-01 08:52:19" itemprop="dateCreated datePublished" datetime="2020-12-01T08:52:19+08:00">2020-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-03 18:48:16" itemprop="dateModified" datetime="2020-12-03T18:48:16+08:00">2020-12-03</time>
+              </span>
 
           
             <span id="/2020/12/01/Java%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E2%80%94%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" class="post-meta-item leancloud_visitors" data-flag-title="Java核心设计—泛型程序设计" title="阅读次数">
@@ -414,14 +420,69 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarning(&quot;unchecked&quot;)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureSlider</span><span class="params">()</span> </span>&#123;...&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="泛型的限制与局限性"><a href="#泛型的限制与局限性" class="headerlink" title="泛型的限制与局限性"></a>泛型的限制与局限性</h2><ul>
-<li><strong>不能</strong>用<strong>基本类型</strong>实例化<strong>类型参数</strong><ul>
+<li><p><strong>不能</strong>用<strong>基本类型</strong>实例化<strong>类型参数</strong></p>
+<ul>
 <li>没有<code>Pair&lt;double&gt;</code>，只有<code>Pair&lt;Double&gt;</code></li>
 <li>类型擦除后，<code>Object</code>类型的字段不能储存<code>double</code>值</li>
 </ul>
 </li>
-<li>运行时<strong>类型查询</strong>只适用于原始类型<ul>
-<li>虚拟机对象总有一个特定的非泛型类型，所有的类型查询只产生原始类型</li>
-<li>试图查询一个对象是饭否属于某个泛型</li>
+<li><p>运行时<strong>类型查询</strong>只适用于<strong>原始类型</strong></p>
+<ul>
+<li><p>虚拟机对象总有一个特定的非泛型类型，所有的类型查询只产生原始类型</p>
+</li>
+<li><p>试图查询一个对象是否属于某个泛型类型(<code>instanceof</code>)，会得到编译器错误</p>
+</li>
+<li><p>试图强制类型转换成泛型类型时，会得到的警告</p>
+</li>
+<li><pre><code class="java">if(a instanceof Pair&lt;String&gt;) // ERROR
+
+if(a instanceof Pair&lt;T&gt;) //ERROR
+
+Pair&lt;String&gt; p = (Pair&lt;String&gt;) a; // warning
+
+Pair&lt;String&gt; stringPair = ...;
+Pair&lt;Employee&gt; employeePair = ...;
+if(stringPair.getClass() == employeePair.getClasss()) // equal 因为返回的都是原始类型
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">- 不能创建参数化类型的数组</span><br><span class="line"></span><br><span class="line">  - &#96;Pair&lt;String&gt;[] table &#x3D; new Pair&lt;String&gt;[10]; &#x2F;&#x2F;ERROR 不允许这样&#96; </span><br><span class="line">  - 因为**擦除**之后，编译器不能保证存入数组的值都为&#96;String&#96;</span><br><span class="line">  - &#96;Pair&lt;String&gt;[] table &#x3D; (Pair&lt;String&gt;[]) new Pair&lt;?&gt;[10];&#96;</span><br><span class="line">    - 可以这样写，但是不安全</span><br><span class="line"></span><br><span class="line">- Varargs警告对于泛型类型数组</span><br><span class="line"></span><br><span class="line">  - &#96;&#96;&#96;java</span><br><span class="line">    public static &lt;T&gt; void addAll(Collection&lt;T&gt; coll, T... ts)</span><br><span class="line">    &#123;</span><br><span class="line">        for (T t : ts) coll.add(t);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;Pair&lt;String&gt;&gt; table = ...;</span><br><span class="line">Pair&lt;String&gt; pair1 = ...;</span><br><span class="line">Pair&lt;String&gt; pair2 = ...;</span><br><span class="line">addAll(table, pair1, pair2);</span><br></pre></td></tr></table></figure>
+
+- 在向参数个数可变的方法传递一个泛型类型的实例时，Java虚拟机必须建立一个泛型数组。相对于上一条&quot;不能创建参数化类型的数组&quot;而言，这种情况会有所放松，会得到一个警告而不是错误
+- 抑制警告的方法有
+  - 方法增加注解`SuppressWarnings(&quot;unchecked&quot;)`
+  - 或方法增加注解`SafeVaragrs`
+    - `SafeVarargs`注解只能用于声明为`static`、`final`的方法（其他方法可能被覆盖，使得注解没有意义）</code></pre>
+</li>
+</ul>
+</li>
+<li><p>不能实例化类型变量</p>
+<ul>
+<li><p>不能在类似 <code>new T()</code>的表达式中使用类型变量</p>
+<ul>
+<li><code>public Pair() &#123;first = new T(); second = new T();&#125; // ERROR</code></li>
+</ul>
+</li>
+<li><p>解决办法1：提供一个构造器表达式</p>
+<ul>
+<li><pre><code class="java">Pair&lt;String&gt; p = Pair.makePair(String::new);
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line">public static &lt;T&gt; Pair&lt;T&gt; makePair(Supplies&lt;T&gt; constr)</span><br><span class="line">&#123;</span><br><span class="line">    return new Pair&lt;&gt;(constr.get(),constr.get());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></code></pre>
+</li>
+</ul>
+</li>
+<li><p>解决办法2：反射</p>
+<ul>
+<li><pre><code class="java">public static &lt;T&gt; Pair&lt;T&gt; makePair(Class&lt;T&gt; cl)
+&#123;
+    try&#123;
+        return new Pair&lt;&gt;(cl.getConstructor().newInstance(),cl.getConstructor().newInstance());
+    &#125;
+    catch(Exception e) &#123;return null;&#125;
+&#125;
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line">Pair&lt;String&gt; p &#x3D; Pair.makePair(String.class);</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

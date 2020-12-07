@@ -205,8 +205,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-12-07 09:17:52" itemprop="dateCreated datePublished" datetime="2020-12-07T09:17:52+08:00">2020-12-07</time>
+              <time title="创建时间：2020-12-07 09:17:52 / 修改时间：17:15:37" itemprop="dateCreated datePublished" datetime="2020-12-07T09:17:52+08:00">2020-12-07</time>
             </span>
 
           
@@ -241,7 +242,144 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <a id="more"></a>
+
+<h2 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h2><h3 id="接口和实现分离"><a href="#接口和实现分离" class="headerlink" title="接口和实现分离"></a>接口和实现分离</h3><p>Java集合类库将<strong>接口（interface）</strong>与<strong>实现（implementation）</strong>分离。</p>
+<ul>
+<li>Java中定义了相应的接口<ul>
+<li><code>public interface Queue&lt;E&gt; extends Collection&lt;E&gt; &#123;...&#125;</code></li>
+</ul>
+</li>
+<li>具体的实现类继承了该接口</li>
+<li>循环数组队列可以使用<code>ArrayDeque</code>类</li>
+<li>链表队列使用<code>LinkedList</code>类</li>
+</ul>
+<p>可以使用<strong>接口类型</strong>存放集合引用。</p>
+<p>只有在构造集合对象的时候才会使用具体的类，在使用的时候不需要关心是何种方式实现的 </p>
+<p>有一组名字以<code>Abstract</code>开头的类，例如<code>AbstractQueue</code>，这些类是为<strong>类库实现者</strong>设计的</p>
+<h3 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h3><p>集合类的基本接口是<code>Collection</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterable</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>add方法用于向集合 添加元素<ul>
+<li>添加元素改变了集合返回true；如果集合没有发生变化，返回false。</li>
+<li>集（set）如果对象已存在则返回false</li>
+</ul>
+</li>
+<li>iterator方法返回一个实现了<code>Iterator</code>接口的对象，该迭代器对象依次访问集合中的元素</li>
+</ul>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the next element in the iteration.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the next element in the iteration</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> NoSuchElementException if the iteration has no more elements</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">E <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">     <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@implSpec</span></span></span><br><span class="line"><span class="comment">     * The default implementation throws an instance of</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> UnsupportedOperationException&#125; and performs no other action.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> UnsupportedOperationException if the &#123;<span class="doctag">@code</span> remove&#125;</span></span><br><span class="line"><span class="comment">     *         operation is not supported by this iterator</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IllegalStateException if the &#123;<span class="doctag">@code</span> next&#125; method has not</span></span><br><span class="line"><span class="comment">     *         yet been called, or the &#123;<span class="doctag">@code</span> remove&#125; method has already</span></span><br><span class="line"><span class="comment">     *         been called after the last call to the &#123;<span class="doctag">@code</span> next&#125;</span></span><br><span class="line"><span class="comment">     *         method</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">&quot;remove&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> E&gt; action)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">while</span> (hasNext())</span><br><span class="line">            action.accept(next());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>返回调用<code>next</code>方法可以逐个访问集合中的每个元素</p>
+<p>到达了<strong>集合末尾</strong>，next方法会抛出<code>NoSuchElementException</code></p>
+<p>在调用<code>next</code>之前调用<code>hasNext</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;String&gt; c = ...;</span><br><span class="line">Iterator&lt;String&gt; iter = c.iterator();</span><br><span class="line"><span class="keyword">while</span>(iter.hasNext())&#123;</span><br><span class="line">    String element = iter.next();</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>“for each”循环转换为带有迭代器的循环</p>
+<p>因此”for each”循环可以处理任何<strong>实现了<code>Iterable</code>接口的对象</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(String element : c)&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于<code>Collection</code>接口扩展了<code>Iterable</code>接口，因此标准类库的任何集合都可以使用for each循环</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="keyword">this</span>) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">default</span> Spliterator&lt;T&gt; <span class="title">spliterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Spliterators.spliteratorUnknownSize(iterator(), <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>调用<code>forEachRemaining</code>方法并提供lambda表达式来处理每一个元素，直到没有元素为止</p>
+<p><code>iterator.forEachRemaing(element -&gt; do something with element);</code></p>
+<p><strong>访问元素的顺序取决于集合类型</strong></p>
+<ul>
+<li>HashSet会按照基本上随机的顺序获得元素</li>
+</ul>
+<blockquote>
+<p> Iterator接口的next和hasNext方法和Enumeration接口的nextElement和hasMoreElements方法作用一样</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Enumeration</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasMoreElements</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">E <span class="title">nextElement</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Java迭代器的<strong>查找操作</strong>和<strong>位置变更</strong>紧密<strong>耦合</strong></p>
+<ul>
+<li>查找一个元素的唯一方法是调用<code>next</code>，查找操作的同时，迭代器的位置就会随之向前移动</li>
+<li>可以认为Java迭代器位于两个元素之间，调用<code>next</code>时，迭代器就越过下一个元素。并返回刚刚越过的那个元素的引用</li>
+</ul>
+<p>next方法和remove方法调用之间存在<strong>依赖性</strong></p>
+<ul>
+<li><p>Iterator接口的 remove方法将会删除上次调用<code>next</code>方法时<strong>返回的元素</strong></p>
+<ul>
+<li><p>如果想删除指定位置上的元素，仍然需要越过这个元素</p>
+</li>
+<li><p>如果调用remove之前没有调用next，将是不合法的</p>
+</li>
+<li><pre><code class="JAVA">it.remove();
+if.remove();//ERROR
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 泛型实用方法</span><br><span class="line"></span><br><span class="line">Collection和Iterator是泛型接口</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line">public interface Collection&lt;E&gt; extends Iterable&lt;E&gt; &#123;</span><br><span class="line">    int size();</span><br><span class="line">    boolean isEmpty();</span><br><span class="line">    boolean contains(Object o);</span><br><span class="line">    Iterator&lt;E&gt; iterator();</span><br><span class="line">    Object[] toArray();</span><br><span class="line">    &lt;T&gt; T[] toArray(T[] a);</span><br><span class="line">    boolean add(E e);</span><br><span class="line">    boolean remove(Object o);</span><br><span class="line">    boolean containsAll(Collection&lt;?&gt; c);</span><br><span class="line">    boolean addAll(Collection&lt;? extends E&gt; c);</span><br><span class="line">    boolean removeAll(Collection&lt;?&gt; c);</span><br><span class="line">    default boolean removeIf(Predicate&lt;? super E&gt; filter) &#123;</span><br><span class="line">        Objects.requireNonNull(filter);</span><br><span class="line">        boolean removed &#x3D; false;</span><br><span class="line">        final Iterator&lt;E&gt; each &#x3D; iterator();</span><br><span class="line">        while (each.hasNext()) &#123;</span><br><span class="line">            if (filter.test(each.next())) &#123;</span><br><span class="line">                each.remove();</span><br><span class="line">                removed &#x3D; true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return removed;</span><br><span class="line">    &#125;</span><br><span class="line">    boolean retainAll(Collection&lt;?&gt; c);</span><br><span class="line">    void clear();</span><br><span class="line">    boolean equals(Object o);</span><br><span class="line">    int hashCode();</span><br><span class="line">    @Override</span><br><span class="line">    default Spliterator&lt;E&gt; spliterator() &#123;</span><br><span class="line">        return Spliterators.spliterator(this, 0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    default Stream&lt;E&gt; stream() &#123;</span><br><span class="line">        return StreamSupport.stream(spliterator(), false);</span><br><span class="line">    &#125;</span><br><span class="line">    default Stream&lt;E&gt; parallelStream() &#123;</span><br><span class="line">        return StreamSupport.stream(spliterator(), true);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>还有一个叫做<code>public abstract class AbstractCollection&lt;E&gt; implements Collection&lt;E&gt; </code>类，实现了大部分<code>Collection</code>接口的方法，来方便实现者</p>
+<p>但是可以在Collection添加默认方法，也可以达到同样的效果</p>
+<h2 id="集合框架的接口"><a href="#集合框架的接口" class="headerlink" title="集合框架的接口"></a>集合框架的接口</h2><p>Java集合框架中接口的关系，其中箭头表示继承关系（<code>extends</code>）</p>
+<p><img data-src="Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E9%9B%86%E5%90%88/image-20201207164318982.png" alt="image-20201207164318982"></p>
+<h3 id="集合基本接口"><a href="#集合基本接口" class="headerlink" title="集合基本接口"></a>集合基本接口</h3><h4 id="Collection和Map"><a href="#Collection和Map" class="headerlink" title="Collection和Map"></a>Collection和Map</h4><p>集合有两个基本接口<code>Collection</code>（集合）和<code>Map</code>（映射）</p>
+<ul>
+<li>集合插入元素<code>boolean add(E element)</code></li>
+<li>集合读取元素，可以用迭代器访问元素</li>
+<li>映射（Map）包含键/值对<ul>
+<li>用<code>put</code>方法插入 :   <code>V put(K key, V value);</code></li>
+<li>用<code>get</code>方法读取值:   <code>V get(K key)</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><p><code>List</code>是一个<strong>有序集合（ordered collection）</strong>。</p>
+<p>元素会增加到容器中的特定位置</p>
+<p>访问元素方式</p>
+<ul>
+<li>迭代器方法<ul>
+<li>必须<strong>按顺序访问</strong>元素</li>
+</ul>
+</li>
+<li>整数索引方法<ul>
+<li>又称<strong>随机访问（random access）</strong>，可以<strong>任意顺序</strong>访问元素</li>
+</ul>
+</li>
+</ul>
+<p><code>List</code>中随机访问的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function">E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function">E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="ListIterator"><a href="#ListIterator" class="headerlink" title="ListIterator"></a>ListIterator</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ListIterator</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>ListIterator</code>接口是<code>Iterator</code>的一个子接口。它定义了一个方法用于在迭代器位置前面增加一个元素<code>void add(E element)</code></p>
+<p>两种有序集合</p>
+<ul>
+<li><p>数组支持的有序集合</p>
+<ul>
+<li>可以快速地随机访问</li>
+<li>适合使用List方法并提供一个整数索引访问</li>
+</ul>
+</li>
+<li><p>链表支持的有序集合</p>
+<ul>
+<li><p>随机访问很慢</p>
+</li>
+<li><p>最好使用迭代器遍历</p>
+</li>
+<li><p>但是<code>LinkedList</code>仍然继承了<code>List</code>接口</p>
+</li>
+<li><pre><code class="JAVA">public class LinkedList&lt;E&gt;
+    extends AbstractSequentialList&lt;E&gt;
+    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><p>集（Set）接口等同于<code>Collection</code>接口。但是集的方法的行为有更严谨的定义</p>
+<ul>
+<li><code>add</code>方法不允许增加重复元素</li>
+<li><code>equals</code>方法：只要两个集包含同样到元素就是相等，而不要求元素需要有同样的顺序</li>
+<li><code>hashCode</code>方法定义要保证包含相同元素的两个集会得到相同的散列码</li>
+</ul>
+<h4 id="SortedSet和SortedMap"><a href="#SortedSet和SortedMap" class="headerlink" title="SortedSet和SortedMap"></a>SortedSet和SortedMap</h4><p><code>SortedSet</code>和<code>SortedMap</code>接口提供用于排序的比较器对象。定义了可以得到集合子集视图的方法。</p>
+<h4 id="NavigableSet和NavigableMap"><a href="#NavigableSet和NavigableMap" class="headerlink" title="NavigableSet和NavigableMap"></a>NavigableSet和NavigableMap</h4><p>Java6引入了<code>NavigableSet</code>和<code>NavigableMap</code>接口，包含一些用于搜索和遍历有序集和映射的方法。</p>
+<p><code>TreeSet</code>和<code>TreeMap</code>类实现了这些接口。</p>
+
       
     </div>
 

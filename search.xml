@@ -842,20 +842,93 @@ if.remove();//ERROR
 </li>
 <li><pre><code class="JAVA">public class LinkedList&lt;E&gt;
     extends AbstractSequentialList&lt;E&gt;
-    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable</code></pre>
+    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### Set</span><br><span class="line"></span><br><span class="line">集（Set）接口等同于&#96;Collection&#96;接口。但是集的方法的行为有更严谨的定义</span><br><span class="line"></span><br><span class="line">- &#96;add&#96;方法不允许增加重复元素</span><br><span class="line">- &#96;equals&#96;方法：只要两个集包含同样到元素就是相等，而不要求元素需要有同样的顺序</span><br><span class="line">- &#96;hashCode&#96;方法定义要保证包含相同元素的两个集会得到相同的散列码</span><br><span class="line"></span><br><span class="line">#### SortedSet和SortedMap</span><br><span class="line"></span><br><span class="line">&#96;SortedSet&#96;和&#96;SortedMap&#96;接口提供用于排序的比较器对象。定义了可以得到集合子集视图的方法。</span><br><span class="line"></span><br><span class="line">#### NavigableSet和NavigableMap</span><br><span class="line"></span><br><span class="line">Java6引入了&#96;NavigableSet&#96;和&#96;NavigableMap&#96;接口，包含一些用于搜索和遍历有序集和映射的方法。</span><br><span class="line"></span><br><span class="line">&#96;TreeSet&#96;和&#96;TreeMap&#96;类实现了这些接口。</span><br><span class="line"></span><br><span class="line">## 具体集合</span><br><span class="line"></span><br><span class="line">除了以&#96;Map&#96;结尾的类之外，其他类都实现了&#96;Collection&#96;接口。以&#96;Map&#96;结尾的类实现了&#96;Map&#96;接口</span><br><span class="line"></span><br><span class="line">| 集合类型        | 描述                                             |</span><br><span class="line">| --------------- | ------------------------------------------------ |</span><br><span class="line">| ArrayList       | 可以**动态**增加和缩减的一个**索引**序列         |</span><br><span class="line">| LinkedList      | 可以在任何位置**高效插入和删除**的一个有序序列   |</span><br><span class="line">| ArrayDeque      | 实现为**循环数组**的一个**双端队列**             |</span><br><span class="line">| HashSet         | 没有重复元素的一个**无序**集合                   |</span><br><span class="line">| TreeSet         | 一个**有序**集                                   |</span><br><span class="line">| EnumSet         | 一个包含**枚举类型**值的集                       |</span><br><span class="line">| LinkedHashSet   | 一个可以**记住元素插入次序**的集                 |</span><br><span class="line">| PriorityQueue   | 允许高效**删除最小元素**的一个集合               |</span><br><span class="line">| HashMap         | 存储键&#x2F;值关联的一个数据结构                      |</span><br><span class="line">| TreeMap         | **键有序**的一个映射                             |</span><br><span class="line">| EnumMap         | 键属于**枚举类型**的一个映射                     |</span><br><span class="line">| LinkedHashMap   | 可以**记住键&#x2F;值项添加次序**的一个映射            |</span><br><span class="line">| WeakHashMap     | 值不会再别处使用时就可以被**垃圾回收**的一个映射 |</span><br><span class="line">| IdentityHashMap | 用&#96;&#x3D;&#x3D;&#96;而不是用equals比较键的一个映射             |</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 集合框架中的类</span><br><span class="line"></span><br><span class="line">![image-20201207213253315](Java核心技术—集合&#x2F;image-20201207213253315.png)</span><br><span class="line"></span><br><span class="line">![image-20201207215131415](Java核心技术—集合&#x2F;image-20201207215131415.png)</span><br><span class="line"></span><br><span class="line">书上P376页图9-5中，对于&#96;ArrayQueue&#96;的位置有些偏差</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;Java</span><br><span class="line">public class ArrayQueue&lt;T&gt; extends AbstractList&lt;T&gt;</span><br></pre></td></tr></table></figure>
+</code></pre>
 </li>
 </ul>
 </li>
 </ul>
-<h4 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h4><p>集（Set）接口等同于<code>Collection</code>接口。但是集的方法的行为有更严谨的定义</p>
+<h3 id="链表-LinkedList"><a href="#链表-LinkedList" class="headerlink" title="链表 LinkedList"></a>链表 LinkedList</h3><p>数组和数组列表（ArrayList）缺点：从中间删除或插入元素的开销大</p>
+<p>Java中，所有链表实际上都是<strong>双向链接（doubly linked）</strong>的。每个链接存放着其前驱的引用。</p>
+<p><code>LinkedList.add</code>方法将对象添加到链表的<strong>尾部</strong></p>
+<p>对于插入链表中间，由于迭代器描述集合的位置，可以通过迭代器完成该操作</p>
 <ul>
-<li><code>add</code>方法不允许增加重复元素</li>
-<li><code>equals</code>方法：只要两个集包含同样到元素就是相等，而不要求元素需要有同样的顺序</li>
-<li><code>hashCode</code>方法定义要保证包含相同元素的两个集会得到相同的散列码</li>
+<li>只有对自然有序的集合使用迭代器添加元素才有实际意义</li>
+<li>set数据类型是无序的，因此<code>Iterator</code>接口中没有<code>add</code>方法</li>
 </ul>
-<h4 id="SortedSet和SortedMap"><a href="#SortedSet和SortedMap" class="headerlink" title="SortedSet和SortedMap"></a>SortedSet和SortedMap</h4><p><code>SortedSet</code>和<code>SortedMap</code>接口提供用于排序的比较器对象。定义了可以得到集合子集视图的方法。</p>
-<h4 id="NavigableSet和NavigableMap"><a href="#NavigableSet和NavigableMap" class="headerlink" title="NavigableSet和NavigableMap"></a>NavigableSet和NavigableMap</h4><p>Java6引入了<code>NavigableSet</code>和<code>NavigableMap</code>接口，包含一些用于搜索和遍历有序集和映射的方法。</p>
-<p><code>TreeSet</code>和<code>TreeMap</code>类实现了这些接口。</p>
+<p><code>ListIterator</code>继承<code>Iterator</code>，包含了<code>add</code>方法</p>
+<p>这里<code>add</code>方法与<code>Collection.add</code>不同，不返回<code>boolean</code>类型，假定add操作总会改变链表</p>
+<p>同时<code> E previous();</code>和<code>boolean hasPrevious();</code>可以反向遍历链表</p>
+<ul>
+<li><code>previous</code>方法返回<strong>跨越</strong>过的对象</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ListIterator</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">E <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">hasPrevious</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">E <span class="title">previous</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">nextIndex</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">previousIndex</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(E e)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E e)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <code>LinkedList</code>类的<code>listIterator</code>方法返回一个实现了<code>ListIterator</code>接口的迭代器对象    </p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    checkPositionIndex(index);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ListItr(index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> listIterator(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ListIterator</code>的<code>add</code>方法在迭代器位置<strong>之前</strong>添加一个新的对象，注意可以认为迭代器的位置在两个元素之间</p>
+<p>一个刚由<code>listIterator</code>方法返回并指向链表表头的迭代器调用<code>add</code>，新添加的元素成为链表的新表头</p>
+<p>在迭代器越过链表的最后一个元素（即hasNext()返回false），添加元素称为链表新的表尾</p>
+<p>如果链表有n个元素，则有n+1的位置可以 添加新元素</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">|ABC</span><br><span class="line">A|BC</span><br><span class="line">AB|C</span><br><span class="line">ABC|</span><br></pre></td></tr></table></figure>
+
+<p>如果一个迭代器在修改集合，另一个在遍历集合，则会出现混乱</p>
+<ul>
+<li><code>ListIterator</code>可以检测到这种修改</li>
+<li>如果一个迭代器发现它的集合被另一个迭代器修改了，或是该集合自身的某个方法修改了（就是集合变了的意思），就会抛出<code>ConcurrentModificationException</code>异常</li>
+<li>集合可以跟踪更改操作（添加或删除元素）的次数，每个迭代器都会为它负责的更改操作<strong>维护</strong>一个<strong>单独</strong>的<strong>更改操作数</strong>。<ul>
+<li>在迭代器被调用方法的开始，迭代器会检查它自己的更改操作数是否和集合的更改操作数相等。不一致就抛出<code>ConcurrentModificationException</code></li>
+<li>链表只跟踪对列表的<strong>结构性修改</strong>，例如添加和删除<strong>链接</strong><ul>
+<li><code>set</code>方法不被视为结构性修改</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">checkForComodification</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (modCount != expectedModCount)</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>contains</code>方法检测某个元素是否出现在链表中</p>
+<p><strong>链表不支持快速随机访问</strong></p>
+<ul>
+<li>如果要查看链表中的第n个元素，就得从头开始，越过n-1个元素（<code>get</code>方法进行优化：如果索引大于<code>size()/2</code>，则从列表后端向前搜索元素）</li>
+</ul>
+<p>**<u>划重点</u>**：不要用下面这种虚假的效率极低的随机访问遍历列表</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++)</span><br><span class="line">    <span class="keyword">do</span> something with list.get(i);</span><br></pre></td></tr></table></figure>
+
+<p>列表迭代器能够告诉当前位置的索引：由于Java迭代器指向两个元素之间的位置，所以有两个索引</p>
+<ul>
+<li><code>nextIndex</code>返回下一次调用<code>next</code>方法时返回元素的整数索引</li>
+<li><code>previousIndex</code>返回下一次调用<code>previous</code>方法时返回元素的整数索引</li>
+<li><code>list.listIterator(n).next()</code>和<code>list.get(n)</code>会产生同一个元素</li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li><p>区别迭代器<code>ListIterator</code>的<code>add</code>和集合本身的<code>add</code>的区别</p>
+</li>
+<li><p>迭代器的<code>add</code>是在迭代器<strong>之前</strong>的位置添加的</p>
+<ul>
+<li>原本<code>A|BCD</code></li>
+<li>调用add后（新增个P）</li>
+<li><code>AP|BCD</code>注意迭代器的位置</li>
+</ul>
+</li>
+<li><p>调用迭代器的<code>remove</code>方法是删除<code>next</code>方法或者<code>previous</code>方法返回的那个元素</p>
+<ul>
+<li>因此调用next()后，remove方法删除的是迭代器左侧的元素</li>
+<li>调用previous后，remove方法删除的是迭代器右侧的元素</li>
+</ul>
+</li>
+<li><p>同<code>remove</code>一样，迭代器的<code>set</code>方法</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">LinkedList&lt;String&gt; a = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">a.add(<span class="string">&quot;one&quot;</span>);</span><br><span class="line">a.add(<span class="string">&quot;two&quot;</span>);</span><br><span class="line">a.add(<span class="string">&quot;three&quot;</span>);</span><br><span class="line">ListIterator&lt;String&gt; iterator = a.listIterator();</span><br><span class="line">System.out.println(a);<span class="comment">//[one, two, three]</span></span><br><span class="line">iterator.next();</span><br><span class="line">iterator.remove();</span><br><span class="line">System.out.println(a);<span class="comment">//[two, three]</span></span><br><span class="line">iterator.add(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">System.out.println(a);<span class="comment">//[aaa, two, three]</span></span><br><span class="line">iterator.previous();</span><br><span class="line">iterator.remove();</span><br><span class="line">System.out.println(a);<span class="comment">//[two, three]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">LinkedList&lt;String&gt; a = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">a.add(<span class="string">&quot;one&quot;</span>);</span><br><span class="line">a.add(<span class="string">&quot;two&quot;</span>);</span><br><span class="line">a.add(<span class="string">&quot;three&quot;</span>);</span><br><span class="line">ListIterator&lt;String&gt; iterator = a.listIterator();</span><br><span class="line">System.out.println(a);<span class="comment">//[one, two, three]</span></span><br><span class="line">iterator.next();</span><br><span class="line">iterator.set(<span class="string">&quot;yi&quot;</span>);</span><br><span class="line">System.out.println(a);<span class="comment">//[yi, two, three]</span></span><br><span class="line">iterator.add(<span class="string">&quot;aaa&quot;</span>);</span><br><span class="line">System.out.println(a);<span class="comment">//[yi, aaa, two, three]</span></span><br><span class="line">iterator.previous();</span><br><span class="line">iterator.set(<span class="string">&quot;ooo&quot;</span>);</span><br><span class="line">System.out.println(a);<span class="comment">//[yi, ooo, two, three]</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <tags>
         <tag>Java核心技术</tag>
@@ -876,6 +949,101 @@ if.remove();//ERROR
 ]]></content>
       <tags>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu搭建Java服务器</title>
+    <url>/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+    <content><![CDATA[<h3 id="Java-Web环境配置"><a href="#Java-Web环境配置" class="headerlink" title="Java Web环境配置"></a>Java Web环境配置</h3><a id="more"></a>
+<hr>
+<h3 id="为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器"><a href="#为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器" class="headerlink" title="为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器"></a>为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器</h3><hr>
+<h4 id="Ubuntu版本16-04"><a href="#Ubuntu版本16-04" class="headerlink" title="Ubuntu版本16.04"></a>Ubuntu版本16.04</h4><hr>
+<h3 id="Java环境"><a href="#Java环境" class="headerlink" title="Java环境"></a>Java环境</h3><!-- more -->
+<ol>
+<li><p>下载Ubuntu环境下的Java JDK</p>
+<p><a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">Java JDK下载网站</a>然后选择对应的版本，这里选择<code>Linux x64 Compressed Archive</code>对应的安装包为<code>jdk-8u261-linux-x64.tar.gz</code></p>
+</li>
+<li><p><code>sudo mkdir /usr/local/java</code> 来创建环境(<strong><em>我还不太明白ubuntu下面各个目录的意义是什么</em></strong>)</p>
+</li>
+<li><p><code>sudo mv jdk-8u261-linux-x64.tar.gz /usr/local/java</code> 将JDK移到该目录</p>
+</li>
+<li><p><code>cd /usr/local/java</code></p>
+</li>
+<li><p><code>tar -zxvf jdk-8u261-linux-x64.tar.gz</code> 来解压</p>
+</li>
+<li><p><code>sudo vim /etc/profile</code> 配置环境 (<strong>记得加sudo</strong>否则报错会报错： E212：无法打开并写入文件)</p>
+</li>
+<li><p>在文件末尾加入</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib:$JRE_HOME&#x2F;lib:$CLASSPATH</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$JRE_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>(复制的时候输入:set paste) (相应取消操作为:set nopaste)<br>8. <code>source /etc/profile</code></p>
+<ol start="9">
+<li>查看是否成功<code>java -version</code></li>
+</ol>
+<hr>
+<hr>
+<h2 id="Tomcat环境搭建"><a href="#Tomcat环境搭建" class="headerlink" title="Tomcat环境搭建"></a>Tomcat环境搭建</h2><p>这里搭建Tomcat环境,选择的是Tomcat8.5.59,</p>
+<ol>
+<li><p><a href="https://tomcat.apache.org/download-80.cgi">下载地址</a>,这里选择下载Core中的tar.gz。<br><img data-src="tomcat%E4%B8%8B%E8%BD%BD.jpg" alt="代码下载"></p>
+</li>
+<li><p><code>sudo mkdir /usr/local/tomcat</code> 创建文件夹</p>
+</li>
+<li><p>将文件移到刚刚创建的目录 <code>sudo mv apache-tomcat-8.5.59.tar.gz /usr/local/tomcat</code></p>
+</li>
+<li><p>解压 <code>sudo tar -zxvf apache-tomcat-8.5.59.tar.gz</code></p>
+</li>
+<li><p>修改tomcat的权限 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat</span><br><span class="line">sudo chmod 755 -R apache-tomcat-8.5.59</span><br></pre></td></tr></table></figure>
+<p>其中-R的递归更改权限的意思，755意思是文件所有者可读可写可执行（7），与文件所有者同属一个用户组的其他用户可读可执行(5)，其他用户组可读可执行。**<em>这部分内容需要学习**</em></p>
+</li>
+<li><p>修改startup.sh文件 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59&#x2F;bin</span><br><span class="line">sudo vim startup.sh</span><br></pre></td></tr></table></figure>
+<p>在最后一句<code> exec &quot;$PRGDIR&quot;/&quot;$EXECUTABLE&quot; start &quot;$@&quot;</code>的上面<br>添加如下代码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib:$JRE_HOME&#x2F;lib:$CLASSPATH</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$JRE_HOME&#x2F;bin:$PATH</span><br><span class="line">export TOMCAT_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59</span><br></pre></td></tr></table></figure>
+<p>如图<img data-src="startup.sh%E4%BF%AE%E6%94%B9.jpg" alt="修改startup.sh"></p>
+</li>
+<li><p>修改shutdown.sh文件<br>过程与修改startup.sh类似</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59&#x2F;bin</span><br><span class="line">sudo vim shutdown.sh</span><br></pre></td></tr></table></figure>
+<p><img data-src="shutdown.sh%E4%BF%AE%E6%94%B9.jpg" alt="修改shutdown.sh"></p>
+</li>
+<li><p>运行测试<br>sudo ./startup.sh</p>
+<p>访问8080端口</p>
+</li>
+<li><p>关闭测试<br>sudo ./shutdown.sh</p>
+</li>
+</ol>
+<hr>
+<hr>
+<h3 id="Mysql搭建"><a href="#Mysql搭建" class="headerlink" title="Mysql搭建"></a>Mysql搭建</h3><p>我服务器上面不知道为什么已经带有Mysql，因此我就没有再安装Mysql了，不过Mysql的版本是5.7.28版本的(<code>mysql -V</code>)，不是最新的8版本的，但是没有再去卸载再安装了.<br>但是遇到了mysql输入登陆用户名和密码一直错误，主要参考了这篇博客<a href="https://blog.csdn.net/qq_38737992/article/details/81090373">ubuntu18.04 首次登录mysql未设置密码或忘记密码解决方法</a></p>
+<p>具体步骤如下</p>
+<ol>
+<li><p>首先要知道自己有没有mysql,方法借鉴这篇博客的<a href="https://blog.csdn.net/lizuqingblog/article/details/18423751?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight">Linux(Ubuntu)下MySQL的安装与配置</a><br>输入<code>sudo netstat -tap | grep mysql</code>后，如果显示<br><img data-src="mysql%E5%AE%89%E8%A3%85.jpg" alt="判断mysql是否安装">，则意味则有安装，如果显示其他，则需要安装</p>
+</li>
+<li><p>然后修改mysql默认用户名和密码</p>
+<ol>
+<li><p><code>sudo cat /etc/mysql/debian.cnf</code><br>会显示如下信息<br><img data-src="%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81.jpg" alt="mysql默认用户名"></p>
+</li>
+<li><p>然后自己根据上面的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">user &#x3D; debian-sys-maint</span><br><span class="line">password &#x3D; jnFC1nzYXcyRbw00</span><br></pre></td></tr></table></figure>
+<p>来进行登陆：输入指令<code>mysql -u debian-sys-maint -p</code>，再输入密码，其中密码不会显示出来</p>
+</li>
+<li><p>进入mysql修改数据库，将用户名<code>root</code>的密码修改成<code>root</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update mysql.user set authentication_string&#x3D;password(&#39;root&#39;) where user&#x3D;&#39;root&#39; and Host &#x3D;&#39;localhost&#39;;</span><br><span class="line">update user set plugin&#x3D;&quot;mysql_native_password&quot;; </span><br><span class="line">flush privileges;</span><br><span class="line">quit;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>重启mysql<code>sudo service mysql restart</code></p>
+</li>
+<li><p>这时候<code>root</code>用户名就可以登陆了，密码为<code>root</code><br><code>mysql -u root -p</code></p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>环境配置</category>
+      </categories>
+      <tags>
+        <tag>环境配置</tag>
+        <tag>Java服务器</tag>
       </tags>
   </entry>
   <entry>
@@ -1109,101 +1277,6 @@ if.remove();//ERROR
 ]]></content>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu搭建Java服务器</title>
-    <url>/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
-    <content><![CDATA[<h3 id="Java-Web环境配置"><a href="#Java-Web环境配置" class="headerlink" title="Java Web环境配置"></a>Java Web环境配置</h3><a id="more"></a>
-<hr>
-<h3 id="为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器"><a href="#为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器" class="headerlink" title="为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器"></a>为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器</h3><hr>
-<h4 id="Ubuntu版本16-04"><a href="#Ubuntu版本16-04" class="headerlink" title="Ubuntu版本16.04"></a>Ubuntu版本16.04</h4><hr>
-<h3 id="Java环境"><a href="#Java环境" class="headerlink" title="Java环境"></a>Java环境</h3><!-- more -->
-<ol>
-<li><p>下载Ubuntu环境下的Java JDK</p>
-<p><a href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">Java JDK下载网站</a>然后选择对应的版本，这里选择<code>Linux x64 Compressed Archive</code>对应的安装包为<code>jdk-8u261-linux-x64.tar.gz</code></p>
-</li>
-<li><p><code>sudo mkdir /usr/local/java</code> 来创建环境(<strong><em>我还不太明白ubuntu下面各个目录的意义是什么</em></strong>)</p>
-</li>
-<li><p><code>sudo mv jdk-8u261-linux-x64.tar.gz /usr/local/java</code> 将JDK移到该目录</p>
-</li>
-<li><p><code>cd /usr/local/java</code></p>
-</li>
-<li><p><code>tar -zxvf jdk-8u261-linux-x64.tar.gz</code> 来解压</p>
-</li>
-<li><p><code>sudo vim /etc/profile</code> 配置环境 (<strong>记得加sudo</strong>否则报错会报错： E212：无法打开并写入文件)</p>
-</li>
-<li><p>在文件末尾加入</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib:$JRE_HOME&#x2F;lib:$CLASSPATH</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$JRE_HOME&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
-<p>(复制的时候输入:set paste) (相应取消操作为:set nopaste)<br>8. <code>source /etc/profile</code></p>
-<ol start="9">
-<li>查看是否成功<code>java -version</code></li>
-</ol>
-<hr>
-<hr>
-<h2 id="Tomcat环境搭建"><a href="#Tomcat环境搭建" class="headerlink" title="Tomcat环境搭建"></a>Tomcat环境搭建</h2><p>这里搭建Tomcat环境,选择的是Tomcat8.5.59,</p>
-<ol>
-<li><p><a href="https://tomcat.apache.org/download-80.cgi">下载地址</a>,这里选择下载Core中的tar.gz。<br><img data-src="tomcat%E4%B8%8B%E8%BD%BD.jpg" alt="代码下载"></p>
-</li>
-<li><p><code>sudo mkdir /usr/local/tomcat</code> 创建文件夹</p>
-</li>
-<li><p>将文件移到刚刚创建的目录 <code>sudo mv apache-tomcat-8.5.59.tar.gz /usr/local/tomcat</code></p>
-</li>
-<li><p>解压 <code>sudo tar -zxvf apache-tomcat-8.5.59.tar.gz</code></p>
-</li>
-<li><p>修改tomcat的权限 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat</span><br><span class="line">sudo chmod 755 -R apache-tomcat-8.5.59</span><br></pre></td></tr></table></figure>
-<p>其中-R的递归更改权限的意思，755意思是文件所有者可读可写可执行（7），与文件所有者同属一个用户组的其他用户可读可执行(5)，其他用户组可读可执行。**<em>这部分内容需要学习**</em></p>
-</li>
-<li><p>修改startup.sh文件 </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59&#x2F;bin</span><br><span class="line">sudo vim startup.sh</span><br></pre></td></tr></table></figure>
-<p>在最后一句<code> exec &quot;$PRGDIR&quot;/&quot;$EXECUTABLE&quot; start &quot;$@&quot;</code>的上面<br>添加如下代码</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export JAVA_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261</span><br><span class="line">export JRE_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;java&#x2F;jdk1.8.0_261&#x2F;jre</span><br><span class="line">export CLASSPATH&#x3D;.:$JAVA_HOME&#x2F;lib:$JRE_HOME&#x2F;lib:$CLASSPATH</span><br><span class="line">export PATH&#x3D;$JAVA_HOME&#x2F;bin:$JRE_HOME&#x2F;bin:$PATH</span><br><span class="line">export TOMCAT_HOME&#x3D;&#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59</span><br></pre></td></tr></table></figure>
-<p>如图<img data-src="startup.sh%E4%BF%AE%E6%94%B9.jpg" alt="修改startup.sh"></p>
-</li>
-<li><p>修改shutdown.sh文件<br>过程与修改startup.sh类似</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;apache-tomcat-8.5.59&#x2F;bin</span><br><span class="line">sudo vim shutdown.sh</span><br></pre></td></tr></table></figure>
-<p><img data-src="shutdown.sh%E4%BF%AE%E6%94%B9.jpg" alt="修改shutdown.sh"></p>
-</li>
-<li><p>运行测试<br>sudo ./startup.sh</p>
-<p>访问8080端口</p>
-</li>
-<li><p>关闭测试<br>sudo ./shutdown.sh</p>
-</li>
-</ol>
-<hr>
-<hr>
-<h3 id="Mysql搭建"><a href="#Mysql搭建" class="headerlink" title="Mysql搭建"></a>Mysql搭建</h3><p>我服务器上面不知道为什么已经带有Mysql，因此我就没有再安装Mysql了，不过Mysql的版本是5.7.28版本的(<code>mysql -V</code>)，不是最新的8版本的，但是没有再去卸载再安装了.<br>但是遇到了mysql输入登陆用户名和密码一直错误，主要参考了这篇博客<a href="https://blog.csdn.net/qq_38737992/article/details/81090373">ubuntu18.04 首次登录mysql未设置密码或忘记密码解决方法</a></p>
-<p>具体步骤如下</p>
-<ol>
-<li><p>首先要知道自己有没有mysql,方法借鉴这篇博客的<a href="https://blog.csdn.net/lizuqingblog/article/details/18423751?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.edu_weight">Linux(Ubuntu)下MySQL的安装与配置</a><br>输入<code>sudo netstat -tap | grep mysql</code>后，如果显示<br><img data-src="mysql%E5%AE%89%E8%A3%85.jpg" alt="判断mysql是否安装">，则意味则有安装，如果显示其他，则需要安装</p>
-</li>
-<li><p>然后修改mysql默认用户名和密码</p>
-<ol>
-<li><p><code>sudo cat /etc/mysql/debian.cnf</code><br>会显示如下信息<br><img data-src="%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81.jpg" alt="mysql默认用户名"></p>
-</li>
-<li><p>然后自己根据上面的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">user &#x3D; debian-sys-maint</span><br><span class="line">password &#x3D; jnFC1nzYXcyRbw00</span><br></pre></td></tr></table></figure>
-<p>来进行登陆：输入指令<code>mysql -u debian-sys-maint -p</code>，再输入密码，其中密码不会显示出来</p>
-</li>
-<li><p>进入mysql修改数据库，将用户名<code>root</code>的密码修改成<code>root</code></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">update mysql.user set authentication_string&#x3D;password(&#39;root&#39;) where user&#x3D;&#39;root&#39; and Host &#x3D;&#39;localhost&#39;;</span><br><span class="line">update user set plugin&#x3D;&quot;mysql_native_password&quot;; </span><br><span class="line">flush privileges;</span><br><span class="line">quit;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-<li><p>重启mysql<code>sudo service mysql restart</code></p>
-</li>
-<li><p>这时候<code>root</code>用户名就可以登陆了，密码为<code>root</code><br><code>mysql -u root -p</code></p>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>环境配置</category>
-      </categories>
-      <tags>
-        <tag>环境配置</tag>
-        <tag>Java服务器</tag>
       </tags>
   </entry>
   <entry>
@@ -1727,6 +1800,71 @@ if.remove();//ERROR
 ]]></content>
   </entry>
   <entry>
+    <title>挑战程序设计2-Areas on the cross-Section diagram</title>
+    <url>/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-Areas-on-the-cross-Section-diagram/</url>
+    <content><![CDATA[<h2 id="Areas-on-the-cross-Section-diagram-计算面积"><a href="#Areas-on-the-cross-Section-diagram-计算面积" class="headerlink" title="Areas on the cross-Section diagram 计算面积"></a>Areas on the cross-Section diagram 计算面积</h2><a id="more"></a>
+<p><img data-src="%E9%A2%98%E7%9B%AE.jpg" alt="题目"></p>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>这题解法有很多，书上使用的是用两个栈来储存面积</p>
+<p>首先定义一个栈S1用于存放<code>\</code>的位置(数字)，当遇到<code>/</code>的时候，弹出栈顶。将<code>\</code>和<code>/</code>的位置相减即为该行的面积。当遇到<code>_</code>的时候，不用去理，因为<code>_</code>只是增加了<code>\</code>和<code>/</code>两个之间的距离，对于其他没有影响。</p>
+<p>对于计算总面积，只需要将上面将计算每一小行的面积进行累加，即可得到总面积。而如果要计算单个区域面积，则要进行如下进一步讨论。</p>
+<ol>
+<li>声明一个栈S2用于存放每一个小区域的面积，以及最左边的<code>\</code>，因为该面积的围成区域是由左右两边的<code>\/</code>共同决定的，当遇到一个<code>/</code>，既可以确定一个小区域。</li>
+<li>那问题来了，如何计算两个小区域是否为同一区域呢？可以发现，当右边<code>/</code>不断提高时，如果最左边<code>\</code>能够包括已经存在的<code>\</code>，换句话说，其位置范围更广，水能够淹没小区域形成大区域。那么就可以将小区域合并</li>
+<li>合并的方法是判断S2中的小区域最左边的<code>\</code>与当前正在判断<code>\</code>的距离比较，如果新的能够包含旧的，则弹出S2顶，加入新的，直到栈中为空或则栈中不再能构成更大的区域。</li>
+<li>也因为<code>3.</code>,所以S2应该储存一个数值对。</li>
+</ol>
+<h3 id="首先代码"><a href="#首先代码" class="headerlink" title="首先代码"></a>首先代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printStack</span><span class="params">(<span class="built_in">stack</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; s)</span></span>&#123;</span><br><span class="line">	<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; p = s.top();</span><br><span class="line">	s.pop();</span><br><span class="line">	<span class="keyword">if</span>(!s.empty()) printStack(s);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,p.second);</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//计算面积方式，&#x27;\&#x27;与&#x27;/&#x27;相匹配，位置之差为面积 </span></span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; S1; <span class="comment">//存放&#x27;\&#x27;的位置</span></span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; S2; <span class="comment">// 存放每一部分的面积以及其最左边的位置</span></span><br><span class="line">	<span class="keyword">int</span> position = <span class="number">0</span>; <span class="comment">//记录当前位置</span></span><br><span class="line">	<span class="built_in">string</span> sentence;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; sentence;</span><br><span class="line">	<span class="keyword">int</span> totalSquare = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sentence.size(); i++)&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">char</span> cur = sentence[i];</span><br><span class="line">		<span class="keyword">if</span>(cur == <span class="string">&#x27;\\&#x27;</span>)&#123;</span><br><span class="line">			S1.push(position);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(cur == <span class="string">&#x27;/&#x27;</span>)&#123;</span><br><span class="line">			<span class="comment">//计算该行面积，</span></span><br><span class="line">			<span class="keyword">if</span>(!S1.empty())&#123;</span><br><span class="line">				<span class="keyword">int</span> lastPosition = S1.top();</span><br><span class="line">				S1.pop();</span><br><span class="line">				<span class="keyword">int</span> curSquare = position - lastPosition;</span><br><span class="line">				totalSquare += curSquare;</span><br><span class="line">				<span class="keyword">if</span>(S2.empty())&#123;</span><br><span class="line">					S2.push(<span class="built_in">make_pair</span>(lastPosition,curSquare));	</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					<span class="keyword">int</span> curTotal = curSquare;</span><br><span class="line">					<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; p;</span><br><span class="line">					<span class="keyword">while</span>(!S2.empty()&amp;&amp;S2.top().first &gt; lastPosition)&#123;</span><br><span class="line">						p = S2.top();</span><br><span class="line">						S2.pop();</span><br><span class="line">						curTotal += p.second;</span><br><span class="line">					&#125;</span><br><span class="line">					S2.push(<span class="built_in">make_pair</span>(lastPosition,curTotal));</span><br><span class="line">				&#125;  </span><br><span class="line">			&#125;</span><br><span class="line">			 </span><br><span class="line">		&#125;</span><br><span class="line">		position++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,totalSquare);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,S2.size());</span><br><span class="line">	printStack(S2);</span><br><span class="line">	 </span><br><span class="line">	 </span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//\\///\_/\/\\\\/_/\\///__\\\_\\/_\/_/\</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="其他话"><a href="#其他话" class="headerlink" title="其他话"></a>其他话</h3><ul>
+<li>打印栈</li>
+</ul>
+<p>本题要求输出每个小面积，而我们该算法中小面积是储存在栈中，因此需要打印逆序栈。对于我使用的方法，我通过递归方式去打印栈，但是这样会造成空间浪费。而对于书本给出的解法是通过遍历栈并同时存入vector，然后反转vector并打印出来</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line"><span class="keyword">while</span>(S2.size() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">	ans.push_back(S2.top().second);</span><br><span class="line">	S2.pop();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverse(ans.begin(),ans.end());</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; ans.size();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ans.size(); i++)&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; ans[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>挑战程序设计</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>挑战程序设计2-初等排序</title>
+    <url>/2020/10/06/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="第二章初等算法"><a href="#第二章初等算法" class="headerlink" title="第二章初等算法"></a>第二章初等算法</h1><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><a id="more"></a>
+<p>插入排序一个很生动的比喻就是玩扑克牌时，整理自己手中牌的情景，只不过是从左到，从小到大（当然从大到小也可以）。对于插入排序的思路是分为已排序部分和未排序部分，未排序部分在左边，然后不断往右扩充。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>（这里i从0开始）<br>首先从第i=1张牌开始,因为i=0这张牌默认是已排序的。基本思路是先取出第i张牌，腾出一个空位，同时保存<code>A[i]</code>的值，即<code>val = i</code>。然后开始为i之前的牌中，寻找适合i的位置,因此这需要一次遍历，并且是从后往前遍历。所以<code>j = i - 1</code>来开始第二层循环，并且通过判断<code>j &gt;= 0 &amp;&amp; A[j] &gt; val</code>来判断，记住<code>j+1</code>的位置始终是空的，因此我们通过判断<code>A[j]</code>和<code>val</code>(原本的<code>A[i]</code>)的大小来决定是谁填入<code>j+1</code>的这个坑。并且一直遍历下去，如果遍历到j=-1的时候说明j&gt;=0的位置的数字都比val大，而(j+1)为0，即<code>A[0]</code>这个位置填入<code>val</code></p>
+<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>因为该算法只会挪动值比val大的值，而不会去挪动与val相等的值，因此具有稳定性</p>
+<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>可以看出这两层循环因此最差情况需要O(n^2),(粗略估计，实际要去算的话，最差是1+2+…+N-1)，而最好情况就是所有都是有序的，因此只需遍历第一层循环就好了。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//插入排序insertionSort</span></span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">6</span>;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//从左到右 从小到大排序 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">			&#125; </span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="comment">// i 为要寻找位置的数字的数字 </span></span><br><span class="line">		<span class="keyword">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//首先记录i的数字，腾出位置 </span></span><br><span class="line">		<span class="keyword">int</span> val = A[i];</span><br><span class="line">		<span class="comment">//j为i之前所有位置 </span></span><br><span class="line">		<span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; A[j]&gt;val)&#123;</span><br><span class="line">			<span class="comment">//该循坏条件代表，在所有i之前的j的数字</span></span><br><span class="line">			<span class="comment">//如果比val值大的位置，应该向右挪</span></span><br><span class="line">			<span class="comment">//此时A[j+1]的位置是空的，因为i的位置已经记录了。</span></span><br><span class="line">			A[j+<span class="number">1</span>] = A[j];</span><br><span class="line">			j--; </span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//此时j以及j之前的位置，要么不存在，要么都比val小，</span></span><br><span class="line">		<span class="comment">//而j+1的位置是空的，j+1往后的位置比val大，所以j+1的位置填入val</span></span><br><span class="line">		A[j+<span class="number">1</span>] = val; </span><br><span class="line">		<span class="comment">//输出每一步骤的改变</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序就像水中冒泡泡一样，如果想要从左到右，从小到大的话，即每一次遍历，将最小的往最左边移动，因此能够保证最最左边是有序的，而有序的个数跟遍历的次数有关，而最右边不一定保证有序，因此，每一次内层遍历都得从最右边开始。同时，如果在一次内层遍历中，若没有发生元素交换，说明右边无序的部分其实已经是有序的，这时候可以结束算法。</p>
+<h3 id="稳定性-1"><a href="#稳定性-1" class="headerlink" title="稳定性"></a>稳定性</h3><p>在内层交换中，使用的是<code>A[j] &lt; A[j-1]</code>，因此是稳定的，如果使用<code>(A[j] &lt;= A[j-1]</code>则不稳定</p>
+<h3 id="复杂度-1"><a href="#复杂度-1" class="headerlink" title="复杂度"></a>复杂度</h3><p>对于最坏的情况也是需要O(n^2)</p>
+<h3 id="小知识"><a href="#小知识" class="headerlink" title="小知识"></a>小知识</h3><p>冒泡排序中的交换次数又称为反序数或逆序数，可体现数列的错乱程度。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//冒泡排序 Bubble Sort</span></span><br><span class="line">	<span class="comment">//冒泡排序的思路就是将最小的泡泡往前浮</span></span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">5</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//最外层循环 </span></span><br><span class="line">	<span class="comment">//1. int i = 0; i&lt;N; i++</span></span><br><span class="line">	<span class="comment">//2. int i = 0; flag; i++</span></span><br><span class="line">	<span class="comment">//如果一次遍历中，都没有交换，说明后半部分已经是有序的，可以结束遍历 </span></span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; flag; i++)&#123;</span><br><span class="line">		Sflag = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = N<span class="number">-1</span>; j &gt; i; j--)&#123;</span><br><span class="line">			<span class="comment">// 判断j是不是最小的泡泡，如果是，往前飘</span></span><br><span class="line">			<span class="keyword">if</span>(A[j] &lt; A[j<span class="number">-1</span>])&#123;</span><br><span class="line">				<span class="comment">//交换</span></span><br><span class="line">				<span class="keyword">int</span> temp = A[j];</span><br><span class="line">				A[j] = A[j<span class="number">-1</span>];</span><br><span class="line">				A[j<span class="number">-1</span>] = temp; </span><br><span class="line">				flag = <span class="number">1</span>;</span><br><span class="line">			&#125; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<hr>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>按照从左到右从小打大的排序，即升序来看。选择排序即选择一个最小值放在最左边，它是一种放眼大局来选择一个最小值的，这一点和插入排序不同。插入排序是局部入手减小逆序列。<br>懂得选择排序的思想写出来就比较简单了，也是左边的是排序部分，右边是未排序部分，而每一次从未排序部分中挑一个最小值，放在排序部分(<code>i</code>)的位置，并且将原来i位置的值，交换到其位置。</p>
+<h3 id="稳定性-2"><a href="#稳定性-2" class="headerlink" title="稳定性"></a>稳定性</h3><p>由于选择排序是直接交换两个不相邻的元素，所以是不稳定排序，例如（3H 5S 3D 1S）。对于3H 3D，排序后相对位置顺序发生了改变。</p>
+<h3 id="复杂度-2"><a href="#复杂度-2" class="headerlink" title="复杂度"></a>复杂度</h3><p>O(n^2)</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//选择排序 selection sort</span></span><br><span class="line">	<span class="comment">//从左到右从小到大</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">6</span>;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line">	<span class="comment">//选出最小的一个值，放在最左边</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> minj = i;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; N; j++)&#123;</span><br><span class="line">			<span class="comment">//只是为了找出最小值的位置，在这过程不需要交换 </span></span><br><span class="line">			<span class="keyword">if</span>(A[minj] &gt; A[j])&#123;</span><br><span class="line">				<span class="comment">//交换</span></span><br><span class="line">				minj = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//交换</span></span><br><span class="line">		<span class="keyword">int</span> tempVal = A[minj];</span><br><span class="line">		A[minj] = A[i];</span><br><span class="line">		A[i] = tempVal;</span><br><span class="line">		<span class="comment">//这样A[i]的值为最小值，然后可以向后继续，同时最左边为排序完的   </span></span><br><span class="line">	&#125; </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<hr>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序是插入排序的一种改进，通过借助插入排序可以告诉的处理顺序较为整齐的数据，因此希尔排序先通过将整体的顺序整理得相对整齐，再最后一次进行普通的插入排序。<br>因此算法中的g其实相当于插入排序的1<br>(注意g不要超过n)</p>
+<h3 id="稳定性-3"><a href="#稳定性-3" class="headerlink" title="稳定性"></a>稳定性</h3><p>希尔排序因为除了最后一次插入排序，其他大于1的间隔的排序，会导致其不稳定，因此希尔排序是不稳定的。</p>
+<h3 id="复杂度-3"><a href="#复杂度-3" class="headerlink" title="复杂度"></a>复杂度</h3><p>希尔排序当g = 1,4,13,40,121 (g<sub>n+1</sub> = 3g<sub>n</sub> +1) 其复杂度基本维持在O(N<sup>1.25</sup>),但是当遇到2的幂指数的是时候（1，2，4，8…），希尔排序效率大打折扣。</p>
+<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//希尔排序 shell sort</span></span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> m = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> G[] = &#123;<span class="number">4</span>,<span class="number">1</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//希尔排序本质是插入排序的升级版，只不过是间隔G[i]进行排序，这样做会导致</span></span><br><span class="line">	<span class="comment">//在一次排序中，会有(N/G[i])个小部分构成的整体是有序的，</span></span><br><span class="line">	<span class="comment">//其利用插入排序中，当大部分是有序的时候，其效率高的特点，因此先整体进行</span></span><br><span class="line">	<span class="comment">//排序，在最后一次间隔为1做最后的处理</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//这里的m是其排序的次数 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p = <span class="number">0</span>; p &lt; m; p++)&#123;</span><br><span class="line">		<span class="keyword">int</span> g = G[p];</span><br><span class="line">		<span class="comment">//进行插入排序</span></span><br><span class="line">		<span class="comment">//i的初始值是第一个要比较的后一个，比如在普通的插入排序中，i的初始值是第二个数（从1开始），来比较第一个数,即i是第一个未排序的位置</span></span><br><span class="line">		 </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = g; i &lt; N; i++)&#123;</span><br><span class="line">			<span class="comment">// j是最后一个已排序的位置 </span></span><br><span class="line">			<span class="keyword">int</span> j = i - g;</span><br><span class="line">			<span class="comment">// val为需要放入已排序部分的值 </span></span><br><span class="line">			<span class="keyword">int</span> val = A[i];</span><br><span class="line">			<span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; A[j] &gt; val)&#123;</span><br><span class="line">				<span class="comment">//第一次的时候val的位置是一个坑，可以放东西，即j+g使坑，</span></span><br><span class="line">				<span class="comment">//在普通插入排序中，坑是j+1</span></span><br><span class="line">				A[j+g] = A[j];</span><br><span class="line">				<span class="comment">//比较的位置间隔g，因此不是j--而是j = j-g </span></span><br><span class="line">				j = j-g; </span><br><span class="line">			&#125;</span><br><span class="line">			A[j+g] = val;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	 </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>挑战程序设计</tag>
+        <tag>算法</tag>
+        <tag>初等排序</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>挑战程序设计2-STL</title>
     <url>/2020/10/28/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-STL/</url>
     <content><![CDATA[<h2 id="挑战程序设计2-STL-简单介绍"><a href="#挑战程序设计2-STL-简单介绍" class="headerlink" title="挑战程序设计2 STL 简单介绍"></a>挑战程序设计2 STL 简单介绍</h2><a id="more"></a>
@@ -1825,68 +1963,33 @@ if.remove();//ERROR
       </tags>
   </entry>
   <entry>
-    <title>挑战程序设计2-Areas on the cross-Section diagram</title>
-    <url>/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-Areas-on-the-cross-Section-diagram/</url>
-    <content><![CDATA[<h2 id="Areas-on-the-cross-Section-diagram-计算面积"><a href="#Areas-on-the-cross-Section-diagram-计算面积" class="headerlink" title="Areas on the cross-Section diagram 计算面积"></a>Areas on the cross-Section diagram 计算面积</h2><a id="more"></a>
-<p><img data-src="%E9%A2%98%E7%9B%AE.jpg" alt="题目"></p>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>这题解法有很多，书上使用的是用两个栈来储存面积</p>
-<p>首先定义一个栈S1用于存放<code>\</code>的位置(数字)，当遇到<code>/</code>的时候，弹出栈顶。将<code>\</code>和<code>/</code>的位置相减即为该行的面积。当遇到<code>_</code>的时候，不用去理，因为<code>_</code>只是增加了<code>\</code>和<code>/</code>两个之间的距离，对于其他没有影响。</p>
-<p>对于计算总面积，只需要将上面将计算每一小行的面积进行累加，即可得到总面积。而如果要计算单个区域面积，则要进行如下进一步讨论。</p>
-<ol>
-<li>声明一个栈S2用于存放每一个小区域的面积，以及最左边的<code>\</code>，因为该面积的围成区域是由左右两边的<code>\/</code>共同决定的，当遇到一个<code>/</code>，既可以确定一个小区域。</li>
-<li>那问题来了，如何计算两个小区域是否为同一区域呢？可以发现，当右边<code>/</code>不断提高时，如果最左边<code>\</code>能够包括已经存在的<code>\</code>，换句话说，其位置范围更广，水能够淹没小区域形成大区域。那么就可以将小区域合并</li>
-<li>合并的方法是判断S2中的小区域最左边的<code>\</code>与当前正在判断<code>\</code>的距离比较，如果新的能够包含旧的，则弹出S2顶，加入新的，直到栈中为空或则栈中不再能构成更大的区域。</li>
-<li>也因为<code>3.</code>,所以S2应该储存一个数值对。</li>
-</ol>
-<h3 id="首先代码"><a href="#首先代码" class="headerlink" title="首先代码"></a>首先代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printStack</span><span class="params">(<span class="built_in">stack</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; s)</span></span>&#123;</span><br><span class="line">	<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; p = s.top();</span><br><span class="line">	s.pop();</span><br><span class="line">	<span class="keyword">if</span>(!s.empty()) printStack(s);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,p.second);</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//计算面积方式，&#x27;\&#x27;与&#x27;/&#x27;相匹配，位置之差为面积 </span></span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; S1; <span class="comment">//存放&#x27;\&#x27;的位置</span></span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt; S2; <span class="comment">// 存放每一部分的面积以及其最左边的位置</span></span><br><span class="line">	<span class="keyword">int</span> position = <span class="number">0</span>; <span class="comment">//记录当前位置</span></span><br><span class="line">	<span class="built_in">string</span> sentence;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; sentence;</span><br><span class="line">	<span class="keyword">int</span> totalSquare = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sentence.size(); i++)&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">char</span> cur = sentence[i];</span><br><span class="line">		<span class="keyword">if</span>(cur == <span class="string">&#x27;\\&#x27;</span>)&#123;</span><br><span class="line">			S1.push(position);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(cur == <span class="string">&#x27;/&#x27;</span>)&#123;</span><br><span class="line">			<span class="comment">//计算该行面积，</span></span><br><span class="line">			<span class="keyword">if</span>(!S1.empty())&#123;</span><br><span class="line">				<span class="keyword">int</span> lastPosition = S1.top();</span><br><span class="line">				S1.pop();</span><br><span class="line">				<span class="keyword">int</span> curSquare = position - lastPosition;</span><br><span class="line">				totalSquare += curSquare;</span><br><span class="line">				<span class="keyword">if</span>(S2.empty())&#123;</span><br><span class="line">					S2.push(<span class="built_in">make_pair</span>(lastPosition,curSquare));	</span><br><span class="line">				&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					<span class="keyword">int</span> curTotal = curSquare;</span><br><span class="line">					<span class="built_in">pair</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; p;</span><br><span class="line">					<span class="keyword">while</span>(!S2.empty()&amp;&amp;S2.top().first &gt; lastPosition)&#123;</span><br><span class="line">						p = S2.top();</span><br><span class="line">						S2.pop();</span><br><span class="line">						curTotal += p.second;</span><br><span class="line">					&#125;</span><br><span class="line">					S2.push(<span class="built_in">make_pair</span>(lastPosition,curTotal));</span><br><span class="line">				&#125;  </span><br><span class="line">			&#125;</span><br><span class="line">			 </span><br><span class="line">		&#125;</span><br><span class="line">		position++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,totalSquare);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,S2.size());</span><br><span class="line">	printStack(S2);</span><br><span class="line">	 </span><br><span class="line">	 </span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//\\///\_/\/\\\\/_/\\///__\\\_\\/_\/_/\</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="其他话"><a href="#其他话" class="headerlink" title="其他话"></a>其他话</h3><ul>
-<li>打印栈</li>
+    <title>挑战程序设计2-初等数据结构-栈</title>
+    <url>/2020/10/07/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/</url>
+    <content><![CDATA[<h2 id="初等数据结构——栈"><a href="#初等数据结构——栈" class="headerlink" title="初等数据结构——栈"></a>初等数据结构——栈</h2><h3 id="栈-Stack"><a href="#栈-Stack" class="headerlink" title="栈 Stack"></a>栈 Stack</h3><a id="more"></a>
+<p>栈可以内部可以通过数组或者是链表实现(目前我只知道这两种形式)。</p>
+<p>栈具有LIFO(Last In first Out后入先出)的特点</p>
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul>
+<li>push(x) 在栈顶部添加元素x</li>
+<li>pop() 从栈顶部取出元素</li>
+<li>isEmpty() : 检查栈是否为空</li>
+<li>isFull(): 检查栈是否已满</li>
 </ul>
-<p>本题要求输出每个小面积，而我们该算法中小面积是储存在栈中，因此需要打印逆序栈。对于我使用的方法，我通过递归方式去打印栈，但是这样会造成空间浪费。而对于书本给出的解法是通过遍历栈并同时存入vector，然后反转vector并打印出来</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ans;</span><br><span class="line"><span class="keyword">while</span>(S2.size() &gt; <span class="number">0</span>)&#123;</span><br><span class="line">	ans.push_back(S2.top().second);</span><br><span class="line">	S2.pop();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">reverse(ans.begin(),ans.end());</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; sum &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; ans.size();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ans.size(); i++)&#123;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; ans[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>挑战程序设计</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>挑战程序设计2-初等排序</title>
-    <url>/2020/10/06/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%8E%92%E5%BA%8F/</url>
-    <content><![CDATA[<h1 id="第二章初等算法"><a href="#第二章初等算法" class="headerlink" title="第二章初等算法"></a>第二章初等算法</h1><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><a id="more"></a>
-<p>插入排序一个很生动的比喻就是玩扑克牌时，整理自己手中牌的情景，只不过是从左到，从小到大（当然从大到小也可以）。对于插入排序的思路是分为已排序部分和未排序部分，未排序部分在左边，然后不断往右扩充。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>（这里i从0开始）<br>首先从第i=1张牌开始,因为i=0这张牌默认是已排序的。基本思路是先取出第i张牌，腾出一个空位，同时保存<code>A[i]</code>的值，即<code>val = i</code>。然后开始为i之前的牌中，寻找适合i的位置,因此这需要一次遍历，并且是从后往前遍历。所以<code>j = i - 1</code>来开始第二层循环，并且通过判断<code>j &gt;= 0 &amp;&amp; A[j] &gt; val</code>来判断，记住<code>j+1</code>的位置始终是空的，因此我们通过判断<code>A[j]</code>和<code>val</code>(原本的<code>A[i]</code>)的大小来决定是谁填入<code>j+1</code>的这个坑。并且一直遍历下去，如果遍历到j=-1的时候说明j&gt;=0的位置的数字都比val大，而(j+1)为0，即<code>A[0]</code>这个位置填入<code>val</code></p>
-<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>因为该算法只会挪动值比val大的值，而不会去挪动与val相等的值，因此具有稳定性</p>
-<h3 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h3><p>可以看出这两层循环因此最差情况需要O(n^2),(粗略估计，实际要去算的话，最差是1+2+…+N-1)，而最好情况就是所有都是有序的，因此只需遍历第一层循环就好了。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//插入排序insertionSort</span></span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">6</span>;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//从左到右 从小到大排序 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; N; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">			&#125; </span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="comment">// i 为要寻找位置的数字的数字 </span></span><br><span class="line">		<span class="keyword">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//首先记录i的数字，腾出位置 </span></span><br><span class="line">		<span class="keyword">int</span> val = A[i];</span><br><span class="line">		<span class="comment">//j为i之前所有位置 </span></span><br><span class="line">		<span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; A[j]&gt;val)&#123;</span><br><span class="line">			<span class="comment">//该循坏条件代表，在所有i之前的j的数字</span></span><br><span class="line">			<span class="comment">//如果比val值大的位置，应该向右挪</span></span><br><span class="line">			<span class="comment">//此时A[j+1]的位置是空的，因为i的位置已经记录了。</span></span><br><span class="line">			A[j+<span class="number">1</span>] = A[j];</span><br><span class="line">			j--; </span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//此时j以及j之前的位置，要么不存在，要么都比val小，</span></span><br><span class="line">		<span class="comment">//而j+1的位置是空的，j+1往后的位置比val大，所以j+1的位置填入val</span></span><br><span class="line">		A[j+<span class="number">1</span>] = val; </span><br><span class="line">		<span class="comment">//输出每一步骤的改变</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><p>逆波兰表示法</p>
+<p>输入示例：<br>1 2 + 3 4 - *</p>
+<p>输出示例：<br>-3</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p><strong><em>我想了一会对于读取两位数及以上的数字没有办法，这个问题留下来思考一下。</em></strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt; </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span>* head;</span><br><span class="line">	<span class="keyword">int</span> maxLength = <span class="number">2000</span>;</span><br><span class="line">	<span class="keyword">int</span> A[<span class="number">2000</span>];</span><br><span class="line">	<span class="keyword">int</span> curr = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr&lt;maxLength)&#123;</span><br><span class="line">			A[curr] = val;</span><br><span class="line">			curr++;</span><br><span class="line">			<span class="keyword">return</span> curr;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="comment">//空的 </span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			curr--;</span><br><span class="line">			<span class="keyword">return</span> A[curr];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isFull</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr == maxLength)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//栈 stack </span></span><br><span class="line">	<span class="comment">//逆波兰表示法</span></span><br><span class="line">	</span><br><span class="line">	 MyStack s;</span><br><span class="line">	 <span class="built_in">string</span> formula = <span class="string">&quot;1 2 + 3 4 - *&quot;</span>;</span><br><span class="line">	 <span class="keyword">int</span> size = formula.size();</span><br><span class="line">	 <span class="keyword">int</span> num1,num2,result;</span><br><span class="line">	 <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)&#123;</span><br><span class="line">	 	<span class="keyword">char</span> cur;</span><br><span class="line">	 	cur = formula[i];</span><br><span class="line">	 	<span class="comment">//判断是否是数字 </span></span><br><span class="line">		<span class="keyword">if</span>(cur &gt;= <span class="number">48</span> &amp;&amp; cur &lt;=<span class="number">57</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> val = (<span class="keyword">int</span>)(cur - <span class="number">48</span>);</span><br><span class="line">			s.push(val); </span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur == <span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur == <span class="string">&#x27;+&#x27;</span> )&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 + num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur ==<span class="string">&#x27;-&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 - num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>( cur == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 * num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>( cur ==<span class="string">&#x27;/&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 / num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">	 &#125;</span><br><span class="line">	 <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;结果:&quot;</span> &lt;&lt; s.pop() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	 </span><br><span class="line">	 <span class="comment">//该方法只能读取单个数字</span></span><br><span class="line">	 </span><br><span class="line">	 <span class="comment">//小知识点</span></span><br><span class="line">	 <span class="comment">//atoi是C语言的标准库，用来将字符串形式的数字转换成整型数值</span></span><br><span class="line">	  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
 
-<hr>
-<hr>
-<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序就像水中冒泡泡一样，如果想要从左到右，从小到大的话，即每一次遍历，将最小的往最左边移动，因此能够保证最最左边是有序的，而有序的个数跟遍历的次数有关，而最右边不一定保证有序，因此，每一次内层遍历都得从最右边开始。同时，如果在一次内层遍历中，若没有发生元素交换，说明右边无序的部分其实已经是有序的，这时候可以结束算法。</p>
-<h3 id="稳定性-1"><a href="#稳定性-1" class="headerlink" title="稳定性"></a>稳定性</h3><p>在内层交换中，使用的是<code>A[j] &lt; A[j-1]</code>，因此是稳定的，如果使用<code>(A[j] &lt;= A[j-1]</code>则不稳定</p>
-<h3 id="复杂度-1"><a href="#复杂度-1" class="headerlink" title="复杂度"></a>复杂度</h3><p>对于最坏的情况也是需要O(n^2)</p>
-<h3 id="小知识"><a href="#小知识" class="headerlink" title="小知识"></a>小知识</h3><p>冒泡排序中的交换次数又称为反序数或逆序数，可体现数列的错乱程度。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//冒泡排序 Bubble Sort</span></span><br><span class="line">	<span class="comment">//冒泡排序的思路就是将最小的泡泡往前浮</span></span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">5</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">1</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//最外层循环 </span></span><br><span class="line">	<span class="comment">//1. int i = 0; i&lt;N; i++</span></span><br><span class="line">	<span class="comment">//2. int i = 0; flag; i++</span></span><br><span class="line">	<span class="comment">//如果一次遍历中，都没有交换，说明后半部分已经是有序的，可以结束遍历 </span></span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; flag; i++)&#123;</span><br><span class="line">		Sflag = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = N<span class="number">-1</span>; j &gt; i; j--)&#123;</span><br><span class="line">			<span class="comment">// 判断j是不是最小的泡泡，如果是，往前飘</span></span><br><span class="line">			<span class="keyword">if</span>(A[j] &lt; A[j<span class="number">-1</span>])&#123;</span><br><span class="line">				<span class="comment">//交换</span></span><br><span class="line">				<span class="keyword">int</span> temp = A[j];</span><br><span class="line">				A[j] = A[j<span class="number">-1</span>];</span><br><span class="line">				A[j<span class="number">-1</span>] = temp; </span><br><span class="line">				flag = <span class="number">1</span>;</span><br><span class="line">			&#125; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<hr>
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>按照从左到右从小打大的排序，即升序来看。选择排序即选择一个最小值放在最左边，它是一种放眼大局来选择一个最小值的，这一点和插入排序不同。插入排序是局部入手减小逆序列。<br>懂得选择排序的思想写出来就比较简单了，也是左边的是排序部分，右边是未排序部分，而每一次从未排序部分中挑一个最小值，放在排序部分(<code>i</code>)的位置，并且将原来i位置的值，交换到其位置。</p>
-<h3 id="稳定性-2"><a href="#稳定性-2" class="headerlink" title="稳定性"></a>稳定性</h3><p>由于选择排序是直接交换两个不相邻的元素，所以是不稳定排序，例如（3H 5S 3D 1S）。对于3H 3D，排序后相对位置顺序发生了改变。</p>
-<h3 id="复杂度-2"><a href="#复杂度-2" class="headerlink" title="复杂度"></a>复杂度</h3><p>O(n^2)</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//选择排序 selection sort</span></span><br><span class="line">	<span class="comment">//从左到右从小到大</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">6</span>;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">5</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line">	<span class="comment">//选出最小的一个值，放在最左边</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> minj = i;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = i+<span class="number">1</span>; j &lt; N; j++)&#123;</span><br><span class="line">			<span class="comment">//只是为了找出最小值的位置，在这过程不需要交换 </span></span><br><span class="line">			<span class="keyword">if</span>(A[minj] &gt; A[j])&#123;</span><br><span class="line">				<span class="comment">//交换</span></span><br><span class="line">				minj = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//交换</span></span><br><span class="line">		<span class="keyword">int</span> tempVal = A[minj];</span><br><span class="line">		A[minj] = A[i];</span><br><span class="line">		A[i] = tempVal;</span><br><span class="line">		<span class="comment">//这样A[i]的值为最小值，然后可以向后继续，同时最左边为排序完的   </span></span><br><span class="line">	&#125; </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<hr>
-<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>希尔排序是插入排序的一种改进，通过借助插入排序可以告诉的处理顺序较为整齐的数据，因此希尔排序先通过将整体的顺序整理得相对整齐，再最后一次进行普通的插入排序。<br>因此算法中的g其实相当于插入排序的1<br>(注意g不要超过n)</p>
-<h3 id="稳定性-3"><a href="#稳定性-3" class="headerlink" title="稳定性"></a>稳定性</h3><p>希尔排序因为除了最后一次插入排序，其他大于1的间隔的排序，会导致其不稳定，因此希尔排序是不稳定的。</p>
-<h3 id="复杂度-3"><a href="#复杂度-3" class="headerlink" title="复杂度"></a>复杂度</h3><p>希尔排序当g = 1,4,13,40,121 (g<sub>n+1</sub> = 3g<sub>n</sub> +1) 其复杂度基本维持在O(N<sup>1.25</sup>),但是当遇到2的幂指数的是时候（1，2，4，8…），希尔排序效率大打折扣。</p>
-<h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//希尔排序 shell sort</span></span><br><span class="line">	<span class="keyword">int</span> N = <span class="number">5</span>;</span><br><span class="line">	<span class="keyword">int</span> A[] = &#123;<span class="number">5</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> m = <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> G[] = &#123;<span class="number">4</span>,<span class="number">1</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//希尔排序本质是插入排序的升级版，只不过是间隔G[i]进行排序，这样做会导致</span></span><br><span class="line">	<span class="comment">//在一次排序中，会有(N/G[i])个小部分构成的整体是有序的，</span></span><br><span class="line">	<span class="comment">//其利用插入排序中，当大部分是有序的时候，其效率高的特点，因此先整体进行</span></span><br><span class="line">	<span class="comment">//排序，在最后一次间隔为1做最后的处理</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">//这里的m是其排序的次数 </span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p = <span class="number">0</span>; p &lt; m; p++)&#123;</span><br><span class="line">		<span class="keyword">int</span> g = G[p];</span><br><span class="line">		<span class="comment">//进行插入排序</span></span><br><span class="line">		<span class="comment">//i的初始值是第一个要比较的后一个，比如在普通的插入排序中，i的初始值是第二个数（从1开始），来比较第一个数,即i是第一个未排序的位置</span></span><br><span class="line">		 </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = g; i &lt; N; i++)&#123;</span><br><span class="line">			<span class="comment">// j是最后一个已排序的位置 </span></span><br><span class="line">			<span class="keyword">int</span> j = i - g;</span><br><span class="line">			<span class="comment">// val为需要放入已排序部分的值 </span></span><br><span class="line">			<span class="keyword">int</span> val = A[i];</span><br><span class="line">			<span class="keyword">while</span>(j &gt;= <span class="number">0</span> &amp;&amp; A[j] &gt; val)&#123;</span><br><span class="line">				<span class="comment">//第一次的时候val的位置是一个坑，可以放东西，即j+g使坑，</span></span><br><span class="line">				<span class="comment">//在普通插入排序中，坑是j+1</span></span><br><span class="line">				A[j+g] = A[j];</span><br><span class="line">				<span class="comment">//比较的位置间隔g，因此不是j--而是j = j-g </span></span><br><span class="line">				j = j-g; </span><br><span class="line">			&#125;</span><br><span class="line">			A[j+g] = val;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; N; m++)&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; A[m] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; </span><br><span class="line">	 </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>]]></content>
+<h4 id="答案解法"><a href="#答案解法" class="headerlink" title="答案解法"></a>答案解法</h4><p>答案的栈的形式跟我自己写的有些不同，答案的栈顶指向栈中的最后一个元素，而我的栈顶指向最后一个元素的后面，即没有元素。同时答案的第一个元素0是空的，从编号1开始存放元素</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> top, S[<span class="number">1000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    S[++top] = x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">    top--;</span><br><span class="line">    <span class="keyword">return</span> S[top+<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    top = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//答案是边读入边处理</span></span><br><span class="line">    <span class="keyword">while</span>( <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, s) != EOF)&#123;</span><br><span class="line">        <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;+&#x27;</span>)&#123;</span><br><span class="line">            a = pop();</span><br><span class="line">            b = pop();</span><br><span class="line">            push(a+b);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span>)&#123;</span><br><span class="line">            b = pop();</span><br><span class="line">            a = pop();</span><br><span class="line">            push(a-b);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">            a = pop();</span><br><span class="line">            b = pop();</span><br><span class="line">            push(a*b);</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            push(atoi(s))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    print(<span class="string">&quot;%d\n&quot;</span>, pop());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>算法</category>
       </categories>
       <tags>
         <tag>挑战程序设计</tag>
         <tag>算法</tag>
-        <tag>初等排序</tag>
+        <tag>数据结构</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -1970,36 +2073,6 @@ if.remove();//ERROR
         <tag>挑战程序设计</tag>
         <tag>算法</tag>
         <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>挑战程序设计2-初等数据结构-栈</title>
-    <url>/2020/10/07/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/</url>
-    <content><![CDATA[<h2 id="初等数据结构——栈"><a href="#初等数据结构——栈" class="headerlink" title="初等数据结构——栈"></a>初等数据结构——栈</h2><h3 id="栈-Stack"><a href="#栈-Stack" class="headerlink" title="栈 Stack"></a>栈 Stack</h3><a id="more"></a>
-<p>栈可以内部可以通过数组或者是链表实现(目前我只知道这两种形式)。</p>
-<p>栈具有LIFO(Last In first Out后入先出)的特点</p>
-<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul>
-<li>push(x) 在栈顶部添加元素x</li>
-<li>pop() 从栈顶部取出元素</li>
-<li>isEmpty() : 检查栈是否为空</li>
-<li>isFull(): 检查栈是否已满</li>
-</ul>
-<h4 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h4><p>逆波兰表示法</p>
-<p>输入示例：<br>1 2 + 3 4 - *</p>
-<p>输出示例：<br>-3</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p><strong><em>我想了一会对于读取两位数及以上的数字没有办法，这个问题留下来思考一下。</em></strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt; </span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStack</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">int</span>* head;</span><br><span class="line">	<span class="keyword">int</span> maxLength = <span class="number">2000</span>;</span><br><span class="line">	<span class="keyword">int</span> A[<span class="number">2000</span>];</span><br><span class="line">	<span class="keyword">int</span> curr = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> val)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr&lt;maxLength)&#123;</span><br><span class="line">			A[curr] = val;</span><br><span class="line">			curr++;</span><br><span class="line">			<span class="keyword">return</span> curr;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="comment">//空的 </span></span><br><span class="line">			<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			curr--;</span><br><span class="line">			<span class="keyword">return</span> A[curr];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr &lt;= <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">isFull</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(curr == maxLength)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//栈 stack </span></span><br><span class="line">	<span class="comment">//逆波兰表示法</span></span><br><span class="line">	</span><br><span class="line">	 MyStack s;</span><br><span class="line">	 <span class="built_in">string</span> formula = <span class="string">&quot;1 2 + 3 4 - *&quot;</span>;</span><br><span class="line">	 <span class="keyword">int</span> size = formula.size();</span><br><span class="line">	 <span class="keyword">int</span> num1,num2,result;</span><br><span class="line">	 <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++)&#123;</span><br><span class="line">	 	<span class="keyword">char</span> cur;</span><br><span class="line">	 	cur = formula[i];</span><br><span class="line">	 	<span class="comment">//判断是否是数字 </span></span><br><span class="line">		<span class="keyword">if</span>(cur &gt;= <span class="number">48</span> &amp;&amp; cur &lt;=<span class="number">57</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> val = (<span class="keyword">int</span>)(cur - <span class="number">48</span>);</span><br><span class="line">			s.push(val); </span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur == <span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur == <span class="string">&#x27;+&#x27;</span> )&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 + num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cur ==<span class="string">&#x27;-&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 - num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>( cur == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 * num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>( cur ==<span class="string">&#x27;/&#x27;</span>)&#123;</span><br><span class="line">			num1 = s.pop();</span><br><span class="line">			num2 = s.pop();</span><br><span class="line">			result = num2 / num1;</span><br><span class="line">			s.push(result);</span><br><span class="line">		&#125;</span><br><span class="line">	 &#125;</span><br><span class="line">	 <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;结果:&quot;</span> &lt;&lt; s.pop() &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	 </span><br><span class="line">	 <span class="comment">//该方法只能读取单个数字</span></span><br><span class="line">	 </span><br><span class="line">	 <span class="comment">//小知识点</span></span><br><span class="line">	 <span class="comment">//atoi是C语言的标准库，用来将字符串形式的数字转换成整型数值</span></span><br><span class="line">	  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<h4 id="答案解法"><a href="#答案解法" class="headerlink" title="答案解法"></a>答案解法</h4><p>答案的栈的形式跟我自己写的有些不同，答案的栈顶指向栈中的最后一个元素，而我的栈顶指向最后一个元素的后面，即没有元素。同时答案的第一个元素0是空的，从编号1开始存放元素</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> top, S[<span class="number">1000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    S[++top] = x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span></span>&#123;</span><br><span class="line">    top--;</span><br><span class="line">    <span class="keyword">return</span> S[top+<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a,b;</span><br><span class="line">    top = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> s[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//答案是边读入边处理</span></span><br><span class="line">    <span class="keyword">while</span>( <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, s) != EOF)&#123;</span><br><span class="line">        <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;+&#x27;</span>)&#123;</span><br><span class="line">            a = pop();</span><br><span class="line">            b = pop();</span><br><span class="line">            push(a+b);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span>)&#123;</span><br><span class="line">            b = pop();</span><br><span class="line">            a = pop();</span><br><span class="line">            push(a-b);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>( s[<span class="number">0</span>] == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">            a = pop();</span><br><span class="line">            b = pop();</span><br><span class="line">            push(a*b);</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            push(atoi(s))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    print(<span class="string">&quot;%d\n&quot;</span>, pop());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>挑战程序设计</tag>
-        <tag>算法</tag>
-        <tag>数据结构</tag>
-        <tag>栈</tag>
       </tags>
   </entry>
   <entry>
@@ -2287,6 +2360,30 @@ if.remove();//ERROR
       </tags>
   </entry>
   <entry>
+    <title>自我能力批判、审视与激励</title>
+    <url>/2020/10/30/%E8%87%AA%E6%88%91%E8%83%BD%E5%8A%9B%E6%89%B9%E5%88%A4%E3%80%81%E5%AE%A1%E8%A7%86%E4%B8%8E%E6%BF%80%E5%8A%B1/</url>
+    <content><![CDATA[<h2 id="针对自我能力审视"><a href="#针对自我能力审视" class="headerlink" title="针对自我能力审视"></a>针对自我能力审视</h2><a id="more"></a>
+<p>我发现我个人能力在各个方面都有很大的缺陷。其中近期我较为关注的是我个人表达能力以及逻辑思考能力。</p>
+<p>在上团队激励与沟通课程上，我以小组长的身份上台介绍<em>不存在</em>的小组讨论时候，当教室话筒放大我的音量，我发现我说话时常带着”然后、然后”等词。我对此铭记在心，却没有很大行动加以思考。在今日<code>2020-10-30</code>我看了计算机学院大创答辩时候，也发现许多人都带有自己一定的语言习惯，我认为这很大程度上会影响观众聆听的效果，以及整体演讲的效果。具体对此思考点击看<code>说话、演讲等感悟</code>文章，而最终引起我反思的时候是，我现在正在写技术博客，而发现我的写作用词竟也带着一系列的“然后”。如下</p>
+<p><img data-src="%E5%86%99%E4%BD%9C%E4%B8%AD%E4%B8%80%E7%B3%BB%E5%88%97%E7%84%B6%E5%90%8E.jpg" alt="写作中一系列然后"></p>
+<p>我对此开始进行思考与反思，并写下这篇博客。</p>
+<p>首先通过知乎渠道进行查询，大多是以下能力欠缺导致的。</p>
+<ul>
+<li>口头表达能力、语言表达能力欠缺低下</li>
+<li>书面表达能力欠缺</li>
+<li>词汇量积累不够</li>
+<li>大脑思考速度跟不上嘴的表达速度，以<code>然后</code>来弥补时间来思考</li>
+<li>语言发表缺乏逻辑性，逻辑不清晰，思路不清晰</li>
+</ul>
+<p>对于该方面能力的提升，我讲通过视频书籍等方式去提升自己。</p>
+<h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><p>我认为个人技术能力固然重要，但是缺乏个人表达能力，逻辑演绎能力等个人素质的体现，很难在社会上站住脚，得到发展。因此不要一心只顾提升个人技术水平，而忘却了素质水平。</p>
+]]></content>
+      <tags>
+        <tag>个人能力</tag>
+        <tag>逻辑</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>算法4—知识</title>
     <url>/2020/11/14/%E7%AE%97%E6%B3%954%E2%80%94%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<h2 id="算法4-答疑与知识"><a href="#算法4-答疑与知识" class="headerlink" title="算法4 答疑与知识"></a>算法4 答疑与知识</h2><a id="more"></a>
@@ -2327,30 +2424,6 @@ if.remove();//ERROR
 <li></li>
 </ul>
 ]]></content>
-  </entry>
-  <entry>
-    <title>自我能力批判、审视与激励</title>
-    <url>/2020/10/30/%E8%87%AA%E6%88%91%E8%83%BD%E5%8A%9B%E6%89%B9%E5%88%A4%E3%80%81%E5%AE%A1%E8%A7%86%E4%B8%8E%E6%BF%80%E5%8A%B1/</url>
-    <content><![CDATA[<h2 id="针对自我能力审视"><a href="#针对自我能力审视" class="headerlink" title="针对自我能力审视"></a>针对自我能力审视</h2><a id="more"></a>
-<p>我发现我个人能力在各个方面都有很大的缺陷。其中近期我较为关注的是我个人表达能力以及逻辑思考能力。</p>
-<p>在上团队激励与沟通课程上，我以小组长的身份上台介绍<em>不存在</em>的小组讨论时候，当教室话筒放大我的音量，我发现我说话时常带着”然后、然后”等词。我对此铭记在心，却没有很大行动加以思考。在今日<code>2020-10-30</code>我看了计算机学院大创答辩时候，也发现许多人都带有自己一定的语言习惯，我认为这很大程度上会影响观众聆听的效果，以及整体演讲的效果。具体对此思考点击看<code>说话、演讲等感悟</code>文章，而最终引起我反思的时候是，我现在正在写技术博客，而发现我的写作用词竟也带着一系列的“然后”。如下</p>
-<p><img data-src="%E5%86%99%E4%BD%9C%E4%B8%AD%E4%B8%80%E7%B3%BB%E5%88%97%E7%84%B6%E5%90%8E.jpg" alt="写作中一系列然后"></p>
-<p>我对此开始进行思考与反思，并写下这篇博客。</p>
-<p>首先通过知乎渠道进行查询，大多是以下能力欠缺导致的。</p>
-<ul>
-<li>口头表达能力、语言表达能力欠缺低下</li>
-<li>书面表达能力欠缺</li>
-<li>词汇量积累不够</li>
-<li>大脑思考速度跟不上嘴的表达速度，以<code>然后</code>来弥补时间来思考</li>
-<li>语言发表缺乏逻辑性，逻辑不清晰，思路不清晰</li>
-</ul>
-<p>对于该方面能力的提升，我讲通过视频书籍等方式去提升自己。</p>
-<h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><p>我认为个人技术能力固然重要，但是缺乏个人表达能力，逻辑演绎能力等个人素质的体现，很难在社会上站住脚，得到发展。因此不要一心只顾提升个人技术水平，而忘却了素质水平。</p>
-]]></content>
-      <tags>
-        <tag>个人能力</tag>
-        <tag>逻辑</tag>
-      </tags>
   </entry>
   <entry>
     <title>设计模式</title>

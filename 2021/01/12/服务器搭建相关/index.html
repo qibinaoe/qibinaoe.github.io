@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="此篇记录购买使用腾讯云服务器的过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="服务器搭建相关">
+<meta property="og:url" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="此篇记录购买使用腾讯云服务器的过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113171752769.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113173347812.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113173530273.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113174601775.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113175558899.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113175736330.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113175843323.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113195735712.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113195848933.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113200022201.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113200925540.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113201106957.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113201234523.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113200709403.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113201458213.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113202125845.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113183635153.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113184148720.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113184306127.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113184955024.png">
+<meta property="og:image" content="http://example.com/image-20210113185033292.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113185047095.png">
+<meta property="og:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113185140995.png">
+<meta property="article:published_time" content="2021-01-12T14:46:36.000Z">
+<meta property="article:modified_time" content="2021-01-14T12:33:07.390Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="服务器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113171752769.png">
+
+<link rel="canonical" href="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>服务器搭建相关 | Qibin's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Qibin's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          服务器搭建相关
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-12 22:46:36" itemprop="dateCreated datePublished" datetime="2021-01-12T22:46:36+08:00">2021-01-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-14 20:33:07" itemprop="dateModified" datetime="2021-01-14T20:33:07+08:00">2021-01-14</time>
+              </span>
+
+          
+            <span id="/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/" class="post-meta-item leancloud_visitors" data-flag-title="服务器搭建相关" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>此篇记录购买使用腾讯云服务器的过程</p>
+<a id="more"></a>
+
+<h2 id="购买"><a href="#购买" class="headerlink" title="购买"></a>购买</h2><h3 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h3><p>服务器的操作系统选择的是<code>Centos 7.6</code></p>
+<h3 id="购买流程"><a href="#购买流程" class="headerlink" title="购买流程"></a>购买流程</h3><ul>
+<li>购买服务器</li>
+<li>购买域名</li>
+<li>备案</li>
+</ul>
+<h3 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h3><p>通过重置腾讯云默认密码后，可以在腾讯云的webshell进行登陆</p>
+<p>也可以通过ssh进行登录</p>
+<h4 id="ssh登陆"><a href="#ssh登陆" class="headerlink" title="ssh登陆"></a>ssh登陆</h4><p>我使用的是Microsoft Store下载的Windows Terminal</p>
+<p><img data-src="image-20210113171752769.png" alt="image-20210113171752769"></p>
+<p>这个控制台内置了<code>ssh</code>的功能</p>
+<p>因此可以通过</p>
+<p><code>ssh root@公网ip地址</code>进行登陆，同时输入密码</p>
+<h2 id="安全设置"><a href="#安全设置" class="headerlink" title="安全设置"></a>安全设置</h2><h3 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h3><p>这里用户名用<code>myuser</code>来指代</p>
+<p>输入指令</p>
+<ul>
+<li><code>adduser myuser</code></li>
+<li><code>passwd myuser</code></li>
+</ul>
+<p>这时候会要求输入两次密码：</p>
+<blockquote>
+<p>Changing password for user myuser.<br>New password:<br>Retype new password:<br>passwd: all authentication tokens updated successfully.</p>
+</blockquote>
+<p>即可</p>
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><p>授权新创建的<code>myuser</code>能够<code>sudo</code>成超级用户的权限</p>
+<p><strong>首先查找<code>sudoers</code>文件的位置</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-0-11-centos ~]# whereis sudoers</span><br><span class="line">sudoers: /etc/sudoers.d /etc/sudoers /usr/share/man/man5/sudoers.5.gz</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看当前<code>sudoers</code>文件的权限</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-0-11-centos ~]# ls -l /etc/sudoers</span><br><span class="line">-r--r----- 1 root root 4328 Nov 28  2019 /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<p>由于该文件是只读文件，因此先修改文件权限为可写</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-0-11-centos ~]# chmod -v u+w /etc/sudoers</span><br><span class="line">mode of ‘/etc/sudoers’ changed from 0440 (r--r-----) to 0640 (rw-r-----)</span><br><span class="line">You have new mail in /var/spool/mail/root</span><br></pre></td></tr></table></figure>
+
+<p><strong>打开文件，追加新增用户</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<p>按<code>i</code>进行编写模式</p>
+<p>在文件中找到这个位置</p>
+<p><img data-src="image-20210113173347812.png" alt="image-20210113173347812"></p>
+<p>在<code>root    ALL=(ALL)       ALL</code>位置下面添加我们新的用户</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myuser    ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="image-20210113173530273.png" alt="image-20210113173530273">    </p>
+<p>如果嫌每次切换成超级用户都要输密码麻烦的话，可以这样修改</p>
+<p>即将刚刚那条语句改成</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myuser    ALL=(ALL)       NOPASSWD:ALL</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="image-20210113174601775.png" alt="image-20210113174601775"></p>
+<p>保存后退出（按esc退出编写模式，按<code>:wq</code>进行退出保存）</p>
+<p>这时候就可以尝试进行切换</p>
+<p>当<code>sudo su</code>切换回超级用户时，输入的密码是<code>myuser</code>的密码，不是<code>root</code>的密码（如果弄成免密切换的话，就不需要输入密码）</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su mysuer</span><br><span class="line">sudo su</span><br></pre></td></tr></table></figure>
+
+<p><strong>将写权限收回</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-0-11-centos /]# chmod -v u-w /etc/sudoers</span><br><span class="line">mode of ‘/etc/sudoers’ changed from 0640 (rw-r-----) to 0440 (r--r-----)</span><br><span class="line">[root@VM-0-11-centos /]# ls -l /etc/sudoers</span><br><span class="line">-r--r----- 1 root root 4357 Jan 13 17:46 /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<h3 id="禁止root用户远程登陆"><a href="#禁止root用户远程登陆" class="headerlink" title="禁止root用户远程登陆"></a>禁止root用户远程登陆</h3><p><strong>编辑ssh配置文件</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-0-11-centos /]# vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>寻找到<code>PermitRootLogin</code></p>
+<p><img data-src="image-20210113175558899.png" alt="image-20210113175558899"></p>
+<p>可通过<code>/PermitRootLogin</code>快速定位</p>
+<p><img data-src="image-20210113175736330.png" alt="image-20210113175736330"></p>
+<p>取消注释，并将<code>yes</code>改成<code>no</code></p>
+<p><img data-src="image-20210113175843323.png" alt="image-20210113175843323"></p>
+<p>保存退出</p>
+<p>重启服务</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@VM-0-11-centos /]# systemctl restart sshd.service</span><br><span class="line">You have new mail in /var/spool/mail/root</span><br></pre></td></tr></table></figure>
+
+<p>这样就不能用<code>root</code>用户进行ssh远程登陆</p>
+<p>因此得先用刚刚新创建的<code>myuser</code>用户进行远程登陆：</p>
+<p><code>ssh myuser@公网ip地址</code></p>
+<p>输入密码</p>
+<p>再<code>sudo su</code>切换到超级用户</p>
+<h3 id="配置密钥登陆"><a href="#配置密钥登陆" class="headerlink" title="配置密钥登陆"></a>配置密钥登陆</h3><p>通过密钥登陆就省得每次登陆都输入密码了</p>
+<p><strong>原理介绍：</strong></p>
+<blockquote>
+<p>公钥添加到服务器的某个账户上</p>
+<p>私钥放在客户端</p>
+<p>客户端利用私钥即可完成认证并登陆</p>
+<ul>
+<li>没有私钥，任何人都无法通过 SSH 暴力破解密码来远程登录到系统</li>
+<li>如果将公钥复制到其他账户甚至主机，利用私钥也可以登录</li>
+</ul>
+</blockquote>
+<p>参考来自<a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/set-ssh-login-key.html">菜鸟教程-设置 SSH 通过密钥登录</a></p>
+<p><strong>操作大体流程：</strong></p>
+<ul>
+<li>主机A（客户端）创建公钥私钥</li>
+<li>将公钥复制到主机B（被登陆机）的指定用户下</li>
+<li>主机A使用保存私钥的用户登录到主机B对应保存公钥的用户</li>
+</ul>
+<p>参考来自<a target="_blank" rel="noopener" href="https://www.cnblogs.com/henkeyi/p/10487553.html">Linux密钥登录原理和ssh使用密钥实现免密码登陆</a></p>
+<p><strong>详细流程：</strong></p>
+<p>在<strong>本地</strong>客户端<strong>生成公钥私钥</strong></p>
+<p>有几种方法去生成公钥私钥：</p>
+<p>1.安装git bash。官网地址<a target="_blank" rel="noopener" href="https://git-scm.com/">git bash</a></p>
+<p>2.在Microsoft Store安装terminal</p>
+<p>3.使用putty</p>
+<p>这里使用terminal</p>
+<p><strong>输入</strong></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="image-20210113195735712.png" alt="image-20210113195735712"></p>
+<p>然后连续按<strong>3</strong>次回车，因为我们不为其设置密码</p>
+<p><img data-src="image-20210113195848933.png" alt="image-20210113195848933"></p>
+<p>这样就生成了公钥和私钥</p>
+<p>进入上面生成的目录“C:\Users\Administrator/.ssh”即可看到</p>
+<p><img data-src="image-20210113200022201.png" alt="image-20210113200022201"></p>
+<p><strong>将公钥拷贝到服务器</strong></p>
+<p>使用git bash输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub myuser@123.123.123.123</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="image-20210113200925540.png" alt="image-20210113200925540"></p>
+<p><img data-src="image-20210113201106957.png" alt="image-20210113201106957"></p>
+<p><img data-src="image-20210113201234523.png" alt="image-20210113201234523"></p>
+<p>这里如果使用terminal会失败，显示命令找不到，因此使用git bash进行</p>
+<p><img data-src="image-20210113200709403.png" alt="image-20210113200709403"></p>
+<p>同时注意我们已经把root用户给禁止用ssh登陆了，所以我们写我们创建的普通用户</p>
+<p>至此已经将公钥拷到服务器了，可以直接进行ssh登陆，而不用输入密码</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh myuser@123.123.123.123</span><br></pre></td></tr></table></figure>
+
+<p>但是还需要输入用户名和ip地址这一大串挺麻烦的</p>
+<p>因此我们到目录“C:\Users\你的电脑用户名/.ssh”中，新建一个config文件</p>
+<p><img data-src="%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113201458213.png" alt="image-20210113201458213"></p>
+<p>在里面输入</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host 登陆别名                                                                      </span><br><span class="line">	HostName 目标主机ip地址</span><br><span class="line">	User 登陆用户名</span><br><span class="line">	Port 登陆端口（默认22）</span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host freestyle                                                                      </span><br><span class="line">	HostName 123.123.123.123</span><br><span class="line">	User myuser</span><br><span class="line">	Port 22</span><br></pre></td></tr></table></figure>
+
+<p>同时还可以在下面另起一行，意思为间隔120s发送keepalive请求，防止自动断线</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServerAliveInterval 120</span><br></pre></td></tr></table></figure>
+
+<p>最终效果如下</p>
+<p><img data-src="image-20210113202125845.png" alt="image-20210113202125845"></p>
+<p>这样我们可以在终端输入</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh freestyle</span><br></pre></td></tr></table></figure>
+
+<p>进行登录了</p>
+<h2 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h2><p>这里文件传输使用的是<code>WinSCP</code></p>
+<p>用<code>WinSCP</code>与我们服务器相连</p>
+<blockquote>
+<p>Linux scp 命令用于 Linux 之间复制文件和目录。<br>scp 是 secure copy 的缩写, scp 是 linux 系统下基于 <strong>ssh</strong> 登陆进行安全的远程文件拷贝命令。<br>scp 是加密的，<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-rcp.html">rcp</a> 是不加密的，scp 是 rcp 的加强版。</p>
+</blockquote>
+<p>参考来自<a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-comm-scp.html">菜鸟教程</a></p>
+<p><strong>打开程序</strong></p>
+<p><img data-src="image-20210113183635153.png" alt="image-20210113183635153"></p>
+<p><strong>点击新建站点</strong></p>
+<p>文件协议选择SCP</p>
+<p>输入主机名：即ip地址、</p>
+<p>输入端口号：默认22号（若修改过则更改，具体依照服务器<strong>ssh</strong>的端口号）</p>
+<p>输入用户名：即要登陆的用户，例如<code>root</code>，<strong>但是</strong>我们已经禁止用<code>root</code>进行ssh登陆了，所以我们输入创建的普通用户<code>myuser</code></p>
+<p>输入密码：即对应的密码</p>
+<p><img data-src="image-20210113184148720.png" alt="image-20210113184148720"></p>
+<p><strong>点击保存并确定</strong></p>
+<p><img data-src="%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/image-20210113184306127.png" alt="image-20210113184306127"></p>
+<p>这是后双击或者点击登陆即可<strong>登陆</strong></p>
+<p>由于是普通用户而不是超级用户，因此对于文件的操作可能会受限。所以通过修改设置来使其切换成超级用户</p>
+<p>在登陆界面<strong>点击编辑</strong></p>
+<p><img data-src="image-20210113184955024.png" alt="image-20210113184955024"></p>
+<p><strong>点击高级</strong></p>
+<p><img data-src="/image-20210113185033292.png" alt="image-20210113185033292"></p>
+<p>在SFTP中协议选项中的SFTP服务器输入：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su -c /bin/sftp-server</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="image-20210113185047095.png" alt="image-20210113185047095"></p>
+<p>在SCP/Shell中的Shell中添加</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su -</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="image-20210113185140995.png" alt="image-20210113185140995"></p>
+<p><strong>确定并保存</strong></p>
+<p>以上就完成了使用scp进行文件的传输</p>
+<p>当然也可以通过ssh的密钥方式进行认证登录，这里就不进行设置</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="python环境"><a href="#python环境" class="headerlink" title="python环境"></a>python环境</h3><p>查看python版本</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[qibin@VM-0-11-centos ~]$ python -V</span><br><span class="line">Python 2.7.5</span><br><span class="line">[qibin@VM-0-11-centos ~]$ python3 -V</span><br><span class="line">Python 3.6.8</span><br></pre></td></tr></table></figure>
+
+<p>可以看到已经预装了</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Python 2.7.5</span><br><span class="line">Python 3.6.8</span><br></pre></td></tr></table></figure>
+
+<p>所以就不去折腾下载python3更高的版本了</p>
+<h4 id="升级pip版本"><a href="#升级pip版本" class="headerlink" title="升级pip版本"></a>升级pip版本</h4><p>先看看当前pip版本</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[qibin@VM-0-11-centos ~]$ pip3 show pip</span><br><span class="line">Name: pip</span><br><span class="line">Version: 9.0.3</span><br><span class="line">Summary: The PyPA recommended tool for installing Python packages.</span><br><span class="line">Home-page: https://pip.pypa.io/</span><br><span class="line">Author: The pip developers</span><br><span class="line">Author-email: python-virtualenv@groups.google.com</span><br><span class="line">License: MIT</span><br><span class="line">Location: /usr/lib/python3.6/site-packages</span><br><span class="line">Requires:</span><br></pre></td></tr></table></figure>
+
+<p>升级pip</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[qibin@VM-0-11-centos ~]$ sudo python3 -m pip install --upgrade pip</span><br><span class="line">WARNING: Running pip install with root privileges is generally not a good idea. Try `__main__.py install --user` instead.</span><br><span class="line">Collecting pip</span><br><span class="line">  Downloading http://mirrors.tencentyun.com/pypi/packages/54/eb/4a3642e971f404d69d4f6fa3885559d67562801b99d7592487f1ecc4e017/pip-20.3.3-py2.py3-none-any.whl (1.5MB)</span><br><span class="line">    100% |████████████████████████████████| 1.5MB 3.5MB/s</span><br><span class="line">Installing collected packages: pip</span><br><span class="line">Successfully installed pip-20.3.3</span><br></pre></td></tr></table></figure>
+
+<h4 id="virtualenv环境"><a href="#virtualenv环境" class="headerlink" title="virtualenv环境"></a>virtualenv环境</h4><p>参考资料<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/1016959663602400/1019273143120480">廖雪峰教程-virtualenv</a></p>
+<p>安装包</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install virtualenv --user</span><br></pre></td></tr></table></figure>
+
+<p>创建对应项目的虚拟环境</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[qibin@VM-0-11-centos ~]$ pwd</span><br><span class="line">/home/qibin</span><br><span class="line">[qibin@VM-0-11-centos ~]$ mkdir wechat-project</span><br><span class="line">[qibin@VM-0-11-centos ~]$ cd wechat-project/</span><br><span class="line">[qibin@VM-0-11-centos wechat-project]$ virtualenv venv</span><br><span class="line">created virtual environment CPython3.6.8.final.0-64 in 810ms</span><br><span class="line">  creator CPython3Posix(dest=/home/qibin/wechat-project/venv, clear=False, no_vcs_ignore=False, global=False)</span><br><span class="line">  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/home/qibin/.local/share/virtualenv)</span><br><span class="line">    added seed packages: pip==20.3.3, setuptools==51.1.2, wheel==0.36.2</span><br><span class="line">  activators BashActivator,CShellActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator</span><br></pre></td></tr></table></figure>
+
+<p>进入该环境</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[qibin@VM-0-11-centos wechat-project]$ ls venv/</span><br><span class="line">bin  lib  lib64  pyvenv.cfg</span><br><span class="line">[qibin@VM-0-11-centos wechat-project]$ source venv/bin/activate</span><br><span class="line">(venv) [qibin@VM-0-11-centos wechat-project]$</span><br></pre></td></tr></table></figure>
+
+<p>下载需要的库</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(venv) [qibin@VM-0-11-centos wechat-project]$ python3 -m pip install werobot -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line"></span><br><span class="line">Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple</span><br><span class="line">Collecting werobot</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+
+<p>退出环境</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(venv) [qibin@VM-0-11-centos wechat-project]$ deactivate</span><br><span class="line">[qibin@VM-0-11-centos wechat-project]$</span><br></pre></td></tr></table></figure>
+
+<h3 id="pip镜像下载"><a href="#pip镜像下载" class="headerlink" title="pip镜像下载"></a>pip镜像下载</h3><p><code>pip --default-timeout=100 install 库名 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"># 服务器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/12/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%B5%81%E5%BA%93/" rel="prev" title="Java核心技术—流库">
+      <i class="fa fa-chevron-left"></i> Java核心技术—流库
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/19/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="Maven学习笔记">
+      Maven学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%AD%E4%B9%B0"><span class="nav-number">1.</span> <span class="nav-text">购买</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.</span> <span class="nav-text">系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B4%AD%E4%B9%B0%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">购买流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E9%99%86"><span class="nav-number">1.3.</span> <span class="nav-text">登陆</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh%E7%99%BB%E9%99%86"><span class="nav-number">1.3.1.</span> <span class="nav-text">ssh登陆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">安全设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7"><span class="nav-number">2.1.</span> <span class="nav-text">创建新用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">2.2.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%81%E6%AD%A2root%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86"><span class="nav-number">2.3.</span> <span class="nav-text">禁止root用户远程登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AF%86%E9%92%A5%E7%99%BB%E9%99%86"><span class="nav-number">2.4.</span> <span class="nav-text">配置密钥登陆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93"><span class="nav-number">3.</span> <span class="nav-text">文件传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">4.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#python%E7%8E%AF%E5%A2%83"><span class="nav-number">4.1.</span> <span class="nav-text">python环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7pip%E7%89%88%E6%9C%AC"><span class="nav-number">4.1.1.</span> <span class="nav-text">升级pip版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#virtualenv%E7%8E%AF%E5%A2%83"><span class="nav-number">4.1.2.</span> <span class="nav-text">virtualenv环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pip%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD"><span class="nav-number">4.2.</span> <span class="nav-text">pip镜像下载</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '7H4SjLdtdpa0cx5LGWPiScjO-gzGzoHsz',
+      appKey     : 'u9mq2X2EwSj2tEFnoSDfTx0P',
+      placeholder: "说些话吧",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div>
+</body>
+</html>

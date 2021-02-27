@@ -607,9 +607,9 @@
 
 <p>当内部类是公共访问的时候，可以这样构造。</p>
 <p>在外围类的作用域之外，这样引用内部类 <code>OuterClass.InnerClass</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OuterClass.InnerClass cat = <span class="keyword">new</span> OuterClass(<span class="number">200</span>, <span class="string">&quot;cat&quot;</span>, <span class="keyword">false</span>).<span class="function">new <span class="title">InnerClass</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OuterClass.InnerClass cat = <span class="keyword">new</span> OuterClass(<span class="number">200</span>, <span class="string">&quot;cat&quot;</span>, <span class="keyword">false</span>).n<span class="function">ew <span class="title">InnerClass</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OuterClass dog = <span class="keyword">new</span> OuterClass(<span class="number">100</span>, <span class="string">&quot;dog&quot;</span>, <span class="keyword">true</span>);</span><br><span class="line">OuterClass.InnerClass dogson = dog.<span class="function">new <span class="title">InnerClass</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">OuterClass dog = <span class="keyword">new</span> OuterClass(<span class="number">100</span>, <span class="string">&quot;dog&quot;</span>, <span class="keyword">true</span>);</span><br><span class="line">OuterClass.InnerClass dogson = dog.n<span class="function">ew <span class="title">InnerClass</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
 
 <p>内部类声明的所有<em>静态字段</em>必须是<em>final</em>,并初始化为一个编译时常量</p>
 <p>内部类<em>不能</em>有<em>static方法</em></p>
@@ -792,7 +792,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -801,7 +801,7 @@
         <span class="site-state-item-name">分类</span>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>

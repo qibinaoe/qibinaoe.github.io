@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
 
-    <meta name="description" content="Java中hashcode与equals探索 在面试中，面试官问了一个问题：程序员在使用HashMap的时候，如何插入数据能够减少发生哈希碰撞。">
+    <meta name="description" content="在面试中，面试官问了一个问题：程序员在使用HashMap的时候，如何插入数据能够减少发生哈希碰撞。对此问题进行思考">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hashcode与equals探索">
 <meta property="og:url" content="http://qibinaoe.top/2021/04/17/hashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2/index.html">
 <meta property="og:site_name" content="Qibin&#39;s Blog">
-<meta property="og:description" content="Java中hashcode与equals探索 在面试中，面试官问了一个问题：程序员在使用HashMap的时候，如何插入数据能够减少发生哈希碰撞。">
+<meta property="og:description" content="在面试中，面试官问了一个问题：程序员在使用HashMap的时候，如何插入数据能够减少发生哈希碰撞。对此问题进行思考">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/hashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2-1.png">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/hashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2-2.png">
@@ -34,10 +34,9 @@
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/hashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2-4.png">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/hashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2-5.png">
 <meta property="article:published_time" content="2021-04-17T05:53:56.000Z">
-<meta property="article:modified_time" content="2022-06-07T11:35:05.256Z">
+<meta property="article:modified_time" content="2022-06-08T05:10:09.027Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Java">
-<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://algorithm-image.qibinaoe.top/hashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2-1.png">
 
@@ -152,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%B8%ADhashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.</span> <span class="nav-text">Java中hashcode与equals探索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AF%9D"><span class="nav-number">1.1.</span> <span class="nav-text">后话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99-v6"><span class="nav-number">1.2.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%B8%ADhashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.</span> <span class="nav-text">Java中hashcode与equals探索</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E8%AF%9D"><span class="nav-number">1.1.</span> <span class="nav-text">后话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99-v7"><span class="nav-number">1.2.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,12 +172,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -273,7 +272,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-07 19:35:05" itemprop="dateModified" datetime="2022-06-07T19:35:05+08:00">2022-06-07</time>
+      <time title="修改时间：2022-06-08 13:10:09" itemprop="dateModified" datetime="2022-06-08T13:10:09+08:00">2022-06-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
     </span>
 
   
@@ -310,7 +318,7 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="Java中hashcode与equals探索"><a class="header-anchor" href="#Java中hashcode与equals探索"> </a>Java中hashcode与equals探索</h1>
 <p>在面试中，面试官问了一个问题：程序员在使用HashMap的时候，如何插入数据能够减少发生哈希碰撞。</p>
-<span id="more"></span>
+<!-- more -->
 <p>而我思考HashMap中，对于key的定位与其hashcode有关系，那么如何选择key呢？</p>
 <p>在这个思考的过程中，参考资料中的问题与解答给了我很大的启发。</p>
 <p>首先明白，为什么重写equals的时候需要重写hashcode？</p>
@@ -338,7 +346,7 @@
 <li>String类为final类，不可以修改，因为如果修改了HashMap中的key对象的属性，其在下一次调用时计算出来的hashcode不一致，会导致获取的value为null</li>
 <li>String类型的hashcode会被缓存下来</li>
 </ol>
-<h2 id="参考资料-v6"><a class="header-anchor" href="#参考资料-v6"> </a>参考资料</h2>
+<h2 id="参考资料-v7"><a class="header-anchor" href="#参考资料-v7"> </a>参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/bachbrahms/article/details/106983428?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-6.control&amp;dist_request_id=&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-6.control">彻底理解java中HashMap的“冲突”问题及hashCode和equals方法重写问题</a></li>
 </ul>
@@ -352,7 +360,6 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
-              <a href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag"><i class="fa fa-tag"></i> 随笔</a>
           </div>
 
         

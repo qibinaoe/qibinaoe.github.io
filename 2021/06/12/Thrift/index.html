@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
 
-    <meta name="description" content="Thrift学习笔记 thritf简单的学习记录">
+    <meta name="description" content="本篇是对Thritf简单的学习记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Thrift">
 <meta property="og:url" content="http://qibinaoe.top/2021/06/12/Thrift/index.html">
 <meta property="og:site_name" content="Qibin&#39;s Blog">
-<meta property="og:description" content="Thrift学习笔记 thritf简单的学习记录">
+<meta property="og:description" content="本篇是对Thritf简单的学习记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/400px-Apache_Thrift_architecture.png">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/thrift-thrift-layers.png">
@@ -42,10 +42,9 @@
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210612140922678.png">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210612145600801.png">
 <meta property="article:published_time" content="2021-06-12T06:57:11.000Z">
-<meta property="article:modified_time" content="2022-06-07T11:38:46.541Z">
+<meta property="article:modified_time" content="2022-06-08T05:09:10.982Z">
 <meta property="article:author" content="ZQB">
 <meta property="article:tag" content="Thrift">
-<meta property="article:tag" content="序列化">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://algorithm-image.qibinaoe.top/400px-Apache_Thrift_architecture.png">
 
@@ -160,7 +159,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Thrift%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Thrift学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99-v7"><span class="nav-number">1.1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thrift%E7%AE%80%E4%BB%8B"><span class="nav-number">1.2.</span> <span class="nav-text">Thrift简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Thrift%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">Thrift架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thrift%E8%AE%BA%E6%96%87"><span class="nav-number">1.2.2.</span> <span class="nav-text">Thrift论文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEThrift%E7%8E%AF%E5%A2%83"><span class="nav-number">1.3.</span> <span class="nav-text">安装配置Thrift环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">1.3.1.</span> <span class="nav-text">Windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tutorial"><span class="nav-number">1.4.</span> <span class="nav-text">Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%85%E8%AF%BBtutorial%E6%96%87%E6%A1%A3"><span class="nav-number">1.4.1.</span> <span class="nav-text">阅读tutorial文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Thrift%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Thrift类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">重命名类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%B8%B8%E9%87%8F"><span class="nav-number">1.4.1.5.</span> <span class="nav-text">定义常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.6.</span> <span class="nav-text">枚举类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">1.4.1.7.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%9C%8D%E5%8A%A1%EF%BC%88Service%EF%BC%89"><span class="nav-number">1.4.1.8.</span> <span class="nav-text">定义服务（Service）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">1.4.1.9.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Thrift-networdk-stack"><span class="nav-number">1.4.1.10.</span> <span class="nav-text">Thrift networdk stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server"><span class="nav-number">1.4.1.11.</span> <span class="nav-text">Server</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-v2"><span class="nav-number">1.4.2.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">生成的文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91tutorial-thrift%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.3.</span> <span class="nav-text">编译tutorial.thrift文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cthrift-tutorial-java"><span class="nav-number">1.5.</span> <span class="nav-text">编译运行thrift&#x2F;tutorial&#x2F;java</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85apache-ant"><span class="nav-number">1.5.1.</span> <span class="nav-text">安装apache ant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91compiler"><span class="nav-number">1.5.2.</span> <span class="nav-text">编译compiler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91java-tutorial"><span class="nav-number">1.5.3.</span> <span class="nav-text">编译java tutorial</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Thrift%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Thrift学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99-v6"><span class="nav-number">1.1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thrift%E7%AE%80%E4%BB%8B"><span class="nav-number">1.2.</span> <span class="nav-text">Thrift简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Thrift%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">Thrift架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thrift%E8%AE%BA%E6%96%87"><span class="nav-number">1.2.2.</span> <span class="nav-text">Thrift论文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEThrift%E7%8E%AF%E5%A2%83"><span class="nav-number">1.3.</span> <span class="nav-text">安装配置Thrift环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">1.3.1.</span> <span class="nav-text">Windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tutorial"><span class="nav-number">1.4.</span> <span class="nav-text">Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%85%E8%AF%BBtutorial%E6%96%87%E6%A1%A3"><span class="nav-number">1.4.1.</span> <span class="nav-text">阅读tutorial文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Thrift%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Thrift类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">重命名类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%B8%B8%E9%87%8F"><span class="nav-number">1.4.1.5.</span> <span class="nav-text">定义常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.6.</span> <span class="nav-text">枚举类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">1.4.1.7.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%9C%8D%E5%8A%A1%EF%BC%88Service%EF%BC%89"><span class="nav-number">1.4.1.8.</span> <span class="nav-text">定义服务（Service）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">1.4.1.9.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Thrift-networdk-stack"><span class="nav-number">1.4.1.10.</span> <span class="nav-text">Thrift networdk stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server"><span class="nav-number">1.4.1.11.</span> <span class="nav-text">Server</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-v2"><span class="nav-number">1.4.2.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">生成的文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91tutorial-thrift%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.3.</span> <span class="nav-text">编译tutorial.thrift文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cthrift-tutorial-java"><span class="nav-number">1.5.</span> <span class="nav-text">编译运行thrift&#x2F;tutorial&#x2F;java</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85apache-ant"><span class="nav-number">1.5.1.</span> <span class="nav-text">安装apache ant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91compiler"><span class="nav-number">1.5.2.</span> <span class="nav-text">编译compiler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91java-tutorial"><span class="nav-number">1.5.3.</span> <span class="nav-text">编译java tutorial</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -181,12 +180,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -281,7 +280,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-07 19:38:46" itemprop="dateModified" datetime="2022-06-07T19:38:46+08:00">2022-06-07</time>
+      <time title="修改时间：2022-06-08 13:09:10" itemprop="dateModified" datetime="2022-06-08T13:09:10+08:00">2022-06-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%90%8E%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">后端</span></a>
+        </span>
     </span>
 
   
@@ -317,9 +325,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="Thrift学习笔记"><a class="header-anchor" href="#Thrift学习笔记"> </a>Thrift学习笔记</h1>
-<p>thritf简单的学习记录</p>
-<span id="more"></span>
-<h2 id="参考资料-v7"><a class="header-anchor" href="#参考资料-v7"> </a>参考资料</h2>
+<!-- more -->
+<h2 id="参考资料-v6"><a class="header-anchor" href="#参考资料-v6"> </a>参考资料</h2>
 <ol>
 <li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-hans/Thrift">Thrift - 维基百科，自由的百科全书</a></li>
 <li><a target="_blank" rel="noopener" href="https://thrift.apache.org/">Apache Thrift - Home</a></li>
@@ -654,7 +661,6 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Thrift/" rel="tag"><i class="fa fa-tag"></i> Thrift</a>
-              <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 序列化</a>
           </div>
 
         

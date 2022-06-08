@@ -21,12 +21,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
 
-    <meta name="description" content="Java Web环境配置">
+    <meta name="description" content="本篇记录在Ubuntu配置Java环境等记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu搭建Java服务器">
 <meta property="og:url" content="http://qibinaoe.top/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
 <meta property="og:site_name" content="Qibin&#39;s Blog">
-<meta property="og:description" content="Java Web环境配置">
+<meta property="og:description" content="本篇记录在Ubuntu配置Java环境等记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/tomcat%E4%B8%8B%E8%BD%BD.jpg">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/startup.sh%E4%BF%AE%E6%94%B9.jpg">
@@ -34,10 +34,9 @@
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/mysql%E5%AE%89%E8%A3%85.jpg">
 <meta property="og:image" content="http://algorithm-image.qibinaoe.top/%E9%BB%98%E8%AE%A4%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81.jpg">
 <meta property="article:published_time" content="2020-10-18T12:21:38.000Z">
-<meta property="article:modified_time" content="2022-06-07T12:24:44.026Z">
+<meta property="article:modified_time" content="2022-06-08T05:03:21.447Z">
 <meta property="article:author" content="ZQB">
-<meta property="article:tag" content="环境配置">
-<meta property="article:tag" content="Java服务器">
+<meta property="article:tag" content="折腾">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://algorithm-image.qibinaoe.top/tomcat%E4%B8%8B%E8%BD%BD.jpg">
 
@@ -173,12 +172,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -273,7 +272,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-07 20:24:44" itemprop="dateModified" datetime="2022-06-07T20:24:44+08:00">2022-06-07</time>
+      <time title="修改时间：2022-06-08 13:03:21" itemprop="dateModified" datetime="2022-06-08T13:03:21+08:00">2022-06-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -281,7 +280,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">环境配置</span></a>
+          <a href="/categories/%E6%8A%98%E8%85%BE/" itemprop="url" rel="index"><span itemprop="name">折腾</span></a>
         </span>
     </span>
 
@@ -318,7 +317,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h3 id="Java-Web环境配置"><a class="header-anchor" href="#Java-Web环境配置"> </a>Java Web环境配置</h3>
-<span id="more"></span>
+<!-- more -->
 <hr>
 <h3 id="为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器"><a class="header-anchor" href="#为了配置大创的服务器来实现文件传输，因此搭建了Java-Web的服务器"> </a>为了配置大创的服务器来实现文件传输，因此搭建了Java Web的服务器</h3>
 <hr>
@@ -447,8 +446,7 @@ sudo ./shutdown.sh</p>
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag"><i class="fa fa-tag"></i> 环境配置</a>
-              <a href="/tags/Java%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> Java服务器</a>
+              <a href="/tags/%E6%8A%98%E8%85%BE/" rel="tag"><i class="fa fa-tag"></i> 折腾</a>
           </div>
 
         

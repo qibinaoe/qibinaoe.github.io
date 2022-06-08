@@ -21,16 +21,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
 
-    <meta name="description" content="Java核心设计 第八章 泛型程序设计  泛型程序设计 泛型设计(generic programming) : 编写的代码可以对多种不同类型的对象重用 类型参数(type parameter) ArrayList&lt;String&gt; files &#x3D; new ArrayList&lt;&gt;();">
+    <meta name="description" content="本篇是Java核心技术书中有关泛型程序设计相关记录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java核心设计—泛型程序设计">
 <meta property="og:url" content="http://qibinaoe.top/2020/12/01/Java%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%E2%80%94%E6%B3%9B%E5%9E%8B%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Qibin&#39;s Blog">
-<meta property="og:description" content="Java核心设计 第八章 泛型程序设计  泛型程序设计 泛型设计(generic programming) : 编写的代码可以对多种不同类型的对象重用 类型参数(type parameter) ArrayList&lt;String&gt; files &#x3D; new ArrayList&lt;&gt;();">
+<meta property="og:description" content="本篇是Java核心技术书中有关泛型程序设计相关记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-01T00:52:19.000Z">
-<meta property="article:modified_time" content="2020-12-15T13:48:35.060Z">
+<meta property="article:modified_time" content="2022-06-08T05:14:30.331Z">
 <meta property="article:author" content="ZQB">
+<meta property="article:tag" content="Java">
 <meta property="article:tag" content="Java核心设计">
 <meta name="twitter:card" content="summary">
 
@@ -166,12 +167,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -266,7 +267,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-12-15 21:48:35" itemprop="dateModified" datetime="2020-12-15T21:48:35+08:00">2020-12-15</time>
+      <time title="修改时间：2022-06-08 13:14:30" itemprop="dateModified" datetime="2022-06-08T13:14:30+08:00">2022-06-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
     </span>
 
   
@@ -305,7 +315,7 @@
 <h2 id="泛型程序设计"><a class="header-anchor" href="#泛型程序设计"> </a>泛型程序设计</h2>
 <p><strong>泛型设计(generic programming)</strong> : 编写的代码可以对多种不同类型的对象重用</p>
 <p><strong>类型参数(type parameter)</strong> <code>ArrayList&lt;String&gt; files = new ArrayList&lt;&gt;();</code></p>
-<span id="more"></span>
+<!-- more -->
 <p>在Java增加泛型类之前，泛型程序设计是用<strong>继承</strong>实现的，存在两个问题</p>
 <ul>
 <li>当获取一个值时，必须进行强制类型转换</li>
@@ -751,6 +761,7 @@ if(stringPair.getClass() == employeePair.getClasss()) // equal 因为返回的�
 
     <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
               <a href="/tags/Java%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> Java核心设计</a>
           </div>
 

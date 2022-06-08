@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="初等数据结构-队列Queue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挑战程序设计2-初等数据结构-队列">
+<meta property="og:url" content="http://qibinaoe.top/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="初等数据结构-队列Queue">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://qibinaoe.top/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/%E9%98%9F%E5%88%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+<meta property="og:image" content="http://qibinaoe.top/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/%E9%98%9F%E5%88%97%E7%A4%BA%E6%84%8F%E5%9B%BE2.png">
+<meta property="article:published_time" content="2020-10-14T14:02:13.000Z">
+<meta property="article:modified_time" content="2020-10-15T14:15:20.305Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="挑战程序设计">
+<meta property="article:tag" content="初等数据结构">
+<meta property="article:tag" content="队列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qibinaoe.top/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/%E9%98%9F%E5%88%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/","path":"2020/10/14/挑战程序设计2-初等数据结构-队列/","title":"挑战程序设计2-初等数据结构-队列"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>挑战程序设计2-初等数据结构-队列 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97Queue"><span class="nav-number">1.</span> <span class="nav-text">初等数据结构-队列Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">队列定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C-v2"><span class="nav-number">1.2.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E7%BB%83%E4%B9%A0"><span class="nav-number">1.3.</span> <span class="nav-text">题目练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-v6"><span class="nav-number">1.4.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E4%BB%A3%E7%A0%81%E5%AD%98%E5%9C%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.5.</span> <span class="nav-text">分析代码存在问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.6.</span> <span class="nav-text">循环队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%8C%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97%E7%89%88%E6%9C%AC"><span class="nav-number">1.7.</span> <span class="nav-text">代码实现，循环队列版本</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/10/14/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="挑战程序设计2-初等数据结构-队列 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          挑战程序设计2-初等数据结构-队列
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-14 22:02:13" itemprop="dateCreated datePublished" datetime="2020-10-14T22:02:13+08:00">2020-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-10-15 22:15:20" itemprop="dateModified" datetime="2020-10-15T22:15:20+08:00">2020-10-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="初等数据结构-队列Queue"><a class="header-anchor" href="#初等数据结构-队列Queue"> </a>初等数据结构-队列Queue</h2>
+<span id="more"></span>
+<h3 id="队列定义"><a class="header-anchor" href="#队列定义"> </a>队列定义</h3>
+<p>队列Queue是一个等待处理的行列，按照先进先出(FIFO first in first out)的规则管理数据</p>
+<h3 id="基本操作-v2"><a class="header-anchor" href="#基本操作-v2"> </a>基本操作</h3>
+<ul>
+<li>enqueue(x): 在队列末尾添加元素</li>
+<li>dequeue(): 从队列开头去除元素</li>
+<li>isEmpty(): 检查队列是否为空</li>
+<li>isFull(): 检查队列是否已满</li>
+</ul>
+<h3 id="题目练习"><a class="header-anchor" href="#题目练习"> </a>题目练习</h3>
+<p>题目有点长，详细请见P64页</p>
+<h3 id="代码实现-v6"><a class="header-anchor" href="#代码实现-v6"> </a>代码实现</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br><span class="line"><span class="keyword">using</span> std::string;</span><br><span class="line"><span class="keyword">using</span> std::endl;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Element</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> val;</span><br><span class="line">	string name;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Element</span>(string n,<span class="type">int</span> v):<span class="built_in">name</span>(n),<span class="built_in">val</span>(v)&#123;&#125;</span><br><span class="line">	<span class="comment">//对于这里，设计到C++类的知识</span></span><br><span class="line">	<span class="comment">//如果写了构造函数，就不会生成默认构造函数，但是这对于下面代码中使用</span></span><br><span class="line">	<span class="comment">//以该类形成的数组中，就会报错，因此还需要写一个参数为空的构造器 </span></span><br><span class="line">	<span class="built_in">Element</span>()&#123;&#125;;</span><br><span class="line">	~<span class="built_in">Element</span>()&#123;&#125;; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//非循环队列 (顺序队列)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyQueue</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> length = <span class="number">100000</span>;</span><br><span class="line">	<span class="type">int</span> head = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> rear = <span class="number">0</span>;</span><br><span class="line">	Element *A = <span class="keyword">new</span> Element[<span class="number">100000</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">MyQueue</span>(<span class="type">int</span> len):<span class="built_in">length</span>(len)&#123;&#125;;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> head == rear;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isFull</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> rear == length<span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">enqueue</span><span class="params">(Element e)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">isFull</span>())&#123;</span><br><span class="line">			A[rear] = e;</span><br><span class="line">			rear++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> rear;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">Element <span class="title">dequeue</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">isEmpty</span>())&#123;</span><br><span class="line">			head++;</span><br><span class="line">			<span class="keyword">return</span> A[head<span class="number">-1</span>];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//队列 Queue</span></span><br><span class="line">	<span class="comment">//非循环队列</span></span><br><span class="line">	</span><br><span class="line">	<span class="function">MyQueue <span class="title">queue</span><span class="params">(<span class="number">100000</span>)</span></span>;</span><br><span class="line">	<span class="type">int</span> N = <span class="number">5</span>;</span><br><span class="line">	<span class="type">int</span> q = <span class="number">100</span>;</span><br><span class="line">	<span class="function">Element <span class="title">e1</span><span class="params">(string(<span class="string">&quot;p1&quot;</span>),<span class="number">150</span>)</span></span>;</span><br><span class="line">	<span class="function">Element <span class="title">e2</span><span class="params">(string(<span class="string">&quot;p2&quot;</span>),<span class="number">80</span>)</span></span>;</span><br><span class="line">	<span class="function">Element <span class="title">e3</span><span class="params">(string(<span class="string">&quot;p3&quot;</span>),<span class="number">200</span>)</span></span>;</span><br><span class="line">	<span class="function">Element <span class="title">e4</span><span class="params">(string(<span class="string">&quot;p4&quot;</span>),<span class="number">350</span>)</span></span>;</span><br><span class="line">	<span class="function">Element <span class="title">e5</span><span class="params">(string(<span class="string">&quot;p5&quot;</span>),<span class="number">20</span>)</span></span>;</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e1);</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e2);</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e3);</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e4);</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e5);</span><br><span class="line">	<span class="type">int</span> curTime = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(!queue.<span class="built_in">isEmpty</span>())&#123;</span><br><span class="line">		Element curE = queue.<span class="built_in">dequeue</span>();</span><br><span class="line">		<span class="type">int</span> curVal = curE.val;</span><br><span class="line">		<span class="keyword">if</span>(curVal &lt;= q)&#123;</span><br><span class="line">			curTime += curVal;</span><br><span class="line">			cout &lt;&lt; curE.name &lt;&lt;<span class="string">&quot; &quot;</span> &lt;&lt; curTime &lt;&lt; endl;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			curTime += q;</span><br><span class="line">			curE.val -= q;</span><br><span class="line">			queue.<span class="built_in">enqueue</span>(curE);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分析代码存在问题"><a class="header-anchor" href="#分析代码存在问题"> </a>分析代码存在问题</h3>
+<pre><code>对于这道题，刚开始的时候不懂得循环队列怎么写，显然非循环队列容易造成空间浪费，形成“假满”的现象，因此考虑使用循环队列。
+
+对于循环队列，还是通过一个数组来实现，而循环队列和非循环队列之间的差别在于，当`head`或者`tail`到达数组尾部时候，通过求模操作能够会到数组头部去。
+</code></pre>
+<h3 id="循环队列"><a class="header-anchor" href="#循环队列"> </a>循环队列</h3>
+<p>对于循环队列，需要解决的两个问题就是<strong>如何判断队列为空</strong>以及<strong>如何判断队列为满</strong>，在顺序队列当中，这两个问题很好解决，即尾部<code>tail</code>到达数组长度为满，当头部<code>head</code>与尾部<code>tail</code>相等时，队列为空。</p>
+<p>对于循环队列，当<code>head</code>与<code>tail</code>相等时，到底是为空还是满呢？为了解决问题，参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/smile_zhangw/article/details/80894159">CSDN博客</a>后其总结的方法有如下三种。</p>
+<ol>
+<li>
+<p>设置标志位</p>
+<p>可以设置初始化值位<code>0</code>，即代表空，当执行插入操作<code>enqueue</code>的时候，标志位置为<code>1</code>；当执行删除操作<code>dequeue</code>的时候，标志位置为0。这样，当判断<code>isEmpty()</code>的时候,如果前提条件<code>head == tail</code>满足，同时标志为为<code>0</code>，队列没有进行过操作，或者是上一个执行的是删除操作，所以队列必然是空；而如果标志位为<code>1</code>，则说明上一个执行的操作是增加，则队列是满的状态。因此就可以区分开来。</p>
+</li>
+<li>
+<p>使用计数器</p>
+<p>通过计数器来记录队列中存在的元素个数，然后与队列长度进行比较，就能够知道当<code>head == tail</code>的时候，队列是为空还是满</p>
+</li>
+<li>
+<p>空闲单元法</p>
+<p>空闲单元法即人为的浪费一个空间，这样就可以判断；参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/lpp0900320123/article/details/20694409?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.channel_param&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-6.channel_param">另一篇CSDN博客</a>，我发现我之前的浪费一个空间有点误解，我之前一位浪费的是一个固定空间，比如在数组第一个元素或者数组最后一个元素；而其实，该故意腾出来的空间跟<code>tail</code>和<code>head</code>一样，不是固定的，而是随着他们相对位置而变化的。</p>
+<p>在此之前，先明确几个规定</p>
+<ul>
+<li>初始化的时候，<code>head</code>和<code>tail</code>都初始化为0</li>
+<li>当队列为空的时候，<code>head == tail</code>，但是不一定等于0</li>
+<li><code>tail</code>总是指向最后一个元素的下一个位置</li>
+<li>尾部<code>tail</code>也叫做<code>rear</code></li>
+</ul>
+<p>其中，这里的第三条很重要，也是理解这个判断为满的关键</p>
+<p>例如这个图<img src="%E9%98%9F%E5%88%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png" alt="队列为空">，<code>tail</code>已经指向末尾了，如果这时候要插入一个元素，则<code>tail</code>会跑到和<code>head</code>同样的位置，这时候就不能分辨空和满了。而当我们把这个tail这个时候指向的这个位置浪费掉，则满的判断就变成了<code>(tail+1)%SIZE == head</code>了，这样就区分开来了，而如果队列要进入新的元素，而<code>(tail+1)%SIZE != head</code>的时候，则<code>tail</code>可以放心的插入元素，即<code>Q[tail] = x; tail = (tail+1)%SIZE</code>。不需要考虑浪费的那个空间在哪里。这样就解决了空和满的问题<img src="%E9%98%9F%E5%88%97%E7%A4%BA%E6%84%8F%E5%9B%BE2.png" alt="队列尾部插入"></p>
+</li>
+</ol>
+<h3 id="代码实现，循环队列版本"><a class="header-anchor" href="#代码实现，循环队列版本"> </a>代码实现，循环队列版本</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> std::cout;</span><br><span class="line"><span class="keyword">using</span> std::string;</span><br><span class="line"><span class="keyword">using</span> std::endl;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Element</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> val;</span><br><span class="line">	string name;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Element</span>(string n,<span class="type">int</span> v):<span class="built_in">name</span>(n),<span class="built_in">val</span>(v)&#123;&#125;</span><br><span class="line">	<span class="comment">//对于这里，设计到C++类的知识</span></span><br><span class="line">	<span class="comment">//如果写了构造函数，就不会生成默认构造函数，但是这对于下面代码中使用</span></span><br><span class="line">	<span class="comment">//以该类形成的数组中，就会报错，因此还需要写一个参数为空的构造器 </span></span><br><span class="line">	<span class="built_in">Element</span>()&#123;&#125;;</span><br><span class="line">	~<span class="built_in">Element</span>()&#123;&#125;; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//循环队列 </span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyQueue</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> length = <span class="number">6</span>;</span><br><span class="line">	<span class="type">int</span> head = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> rear = <span class="number">0</span>;</span><br><span class="line">	Element *A = <span class="keyword">new</span> Element[length];</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">MyQueue</span>(<span class="type">int</span> len):<span class="built_in">length</span>(len)&#123;&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isEmpty</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> head == rear;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">bool</span> <span class="title">isFull</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> (rear+<span class="number">1</span>)%length == head;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="type">int</span> <span class="title">enqueue</span><span class="params">(Element e)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">isFull</span>())&#123;</span><br><span class="line">			A[rear] = e;</span><br><span class="line">			rear = (rear + <span class="number">1</span>) % length;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> rear;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function">Element <span class="title">dequeue</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!<span class="built_in">isEmpty</span>())&#123;</span><br><span class="line">			<span class="type">int</span> temp = head;</span><br><span class="line">			head = (head + <span class="number">1</span> ) % length;</span><br><span class="line">			<span class="keyword">return</span> A[temp];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//队列 Queue</span></span><br><span class="line">	<span class="comment">//循环队列</span></span><br><span class="line">	</span><br><span class="line">	<span class="function">MyQueue <span class="title">queue</span><span class="params">(<span class="number">6</span>)</span></span>;</span><br><span class="line">	<span class="type">int</span> N = <span class="number">5</span>;</span><br><span class="line">	<span class="type">int</span> q = <span class="number">100</span>;</span><br><span class="line">	<span class="function">Element <span class="title">e1</span><span class="params">(string(<span class="string">&quot;p1&quot;</span>),<span class="number">150</span>)</span></span>;</span><br><span class="line">	<span class="function">Element <span class="title">e2</span><span class="params">(string(<span class="string">&quot;p2&quot;</span>),<span class="number">80</span>)</span></span>;</span><br><span class="line">	<span class="function">Element <span class="title">e3</span><span class="params">(string(<span class="string">&quot;p3&quot;</span>),<span class="number">200</span>)</span></span>;</span><br><span class="line">	<span class="function">Element <span class="title">e4</span><span class="params">(string(<span class="string">&quot;p4&quot;</span>),<span class="number">350</span>)</span></span>;</span><br><span class="line">	<span class="function">Element <span class="title">e5</span><span class="params">(string(<span class="string">&quot;p5&quot;</span>),<span class="number">20</span>)</span></span>;</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e1);</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e2);</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e3);</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e4);</span><br><span class="line">	queue.<span class="built_in">enqueue</span>(e5);</span><br><span class="line">	<span class="type">int</span> curTime = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(!queue.<span class="built_in">isEmpty</span>())&#123;</span><br><span class="line">		Element curE = queue.<span class="built_in">dequeue</span>();</span><br><span class="line">		<span class="type">int</span> curVal = curE.val;</span><br><span class="line">		<span class="keyword">if</span>(curVal &lt;= q)&#123;</span><br><span class="line">			curTime += curVal;</span><br><span class="line">			cout &lt;&lt; curE.name &lt;&lt;<span class="string">&quot; &quot;</span> &lt;&lt; curTime &lt;&lt; endl;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			curTime += q;</span><br><span class="line">			curE.val -= q;</span><br><span class="line">			queue.<span class="built_in">enqueue</span>(curE);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> 挑战程序设计</a>
+              <a href="/tags/%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"><i class="fa fa-tag"></i> 初等数据结构</a>
+              <a href="/tags/%E9%98%9F%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> 队列</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/07/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/" rel="prev" title="挑战程序设计2-初等数据结构-栈">
+                  <i class="fa fa-chevron-left"></i> 挑战程序设计2-初等数据结构-栈
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/18/Ubuntu%E6%90%AD%E5%BB%BAJava%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="next" title="Ubuntu搭建Java服务器">
+                  Ubuntu搭建Java服务器 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"ab07dff6aff0f38707d898b35faee2b0"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

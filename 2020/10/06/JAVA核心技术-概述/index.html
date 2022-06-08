@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="基础知识  关键术语   简单性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA核心技术-概述">
+<meta property="og:url" content="http://qibinaoe.top/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="基础知识  关键术语   简单性">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-06T09:46:27.000Z">
+<meta property="article:modified_time" content="2020-11-04T11:50:42.143Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Java核心技术">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/","path":"2020/10/06/JAVA核心技术-概述/","title":"JAVA核心技术-概述"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JAVA核心技术-概述 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.1.</span> <span class="nav-text">关键术语</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">内置数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unicode"><span class="nav-number">1.1.2.</span> <span class="nav-text">Unicode</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPL-General-Public-License-GNU-GPL"><span class="nav-number">1.2.</span> <span class="nav-text">GPL(General Public License)(GNU GPL)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK%E5%92%8CJRE"><span class="nav-number">1.3.</span> <span class="nav-text">JDK和JRE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#javac-%E5%92%8C-java"><span class="nav-number">1.4.</span> <span class="nav-text">javac 和 java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E9%86%92%E9%9C%80%E8%A6%81%E5%A4%8D%E4%B9%A0%E5%A4%8D%E4%B9%A0%E5%86%85%E5%AE%B9"><span class="nav-number"></span> <span class="nav-text">提醒需要复习复习内容</span></a></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/10/06/JAVA%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JAVA核心技术-概述 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JAVA核心技术-概述
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-06 17:46:27" itemprop="dateCreated datePublished" datetime="2020-10-06T17:46:27+08:00">2020-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-11-04 19:50:42" itemprop="dateModified" datetime="2020-11-04T19:50:42+08:00">2020-11-04</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="基础知识"><a class="header-anchor" href="#基础知识"> </a>基础知识</h2>
+<h3 id="关键术语"><a class="header-anchor" href="#关键术语"> </a>关键术语</h3>
+<ol>
+<li>
+<p>简单性</p>
+ <span id="more"></span>
+<p>Java语法是C++语法的纯净版，没有头文件、指针运算（指针语法）、结构、联合、操作符重载、虚基类等。</p>
+</li>
+<li>
+<p>面向对象</p>
+<p>Java与C++的主要不同在于多重继承。Java取而代之的是更简单的接口概念</p>
+</li>
+<li>
+<p>分布式</p>
+<p>能够处理HTTP/FTP之类的TCP/IP协议</p>
+</li>
+<li>
+<p>健壮性</p>
+<p>Java强调早期的问题检测、后期动态的(运行时)检测。Java采用的指针模型可以消除重写内存和损坏数据的可能性，</p>
+</li>
+<li>
+<p>安全性</p>
+<p>防范攻击：</p>
+<ul>
+<li>运行时堆栈溢出</li>
+<li>破坏自己的进程空间之外的内存</li>
+<li>未经授权读写文件</li>
+<li>体系结构中立</li>
+</ul>
+</li>
+<li>
+<p>体系结构中立</p>
+<p>编译器生成一个体系结构中立的目标文件格式，这些编译后的代码可以在许多处理器上运行。Java编译器生成与计算机体系结构无关的字节码指令，同时还可以动态地转换成本地机器代码。</p>
+</li>
+<li>
+<p>可移植性</p>
+<ul>
+<li>基本数据类型大小以及有关运算行为都有明确的说明(数值类型有固定的字节数，消除代码移植问题)</li>
+<li>二进制数据以固定的格式进行存储和传输(消除字节顺序的困扰) <strong>Java都是高字节开头（大端法）</strong></li>
+<li>字符串采用标准的Unicode格式存储</li>
+</ul>
+<p><em><strong>注：有符号的最高位为符号位</strong></em></p>
+<p><em><strong>注: 采用补码表示负数的时候， 1 1111111 表示-1 ；1 0000000 表示 -128， 所以byte的最小值是-128</strong></em></p>
+<h4 id="内置数据类型"><a class="header-anchor" href="#内置数据类型"> </a>内置数据类型</h4>
+<p>byte</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位数</th>
+<th style="text-align:center">最大值</th>
+<th style="text-align:center">最小值</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">127 (2<sup>7</sup>-1)</td>
+<td style="text-align:center">-128 ( -2<sup>7</sup>)</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">有符号的，以二进制补码表示的整数</td>
+</tr>
+</tbody>
+</table>
+<p>short</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位数</th>
+<th style="text-align:center">最大值</th>
+<th style="text-align:center">最小值</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">32767 (2<sup>15</sup>-1)</td>
+<td style="text-align:center">-32768 ( -2<sup>15</sup>)</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">有符号的，以二进制补码表示的整数</td>
+</tr>
+</tbody>
+</table>
+<p>int</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位数</th>
+<th style="text-align:center">最大值</th>
+<th style="text-align:center">最小值</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">32</td>
+<td style="text-align:center">2147483647 (2<sup>31</sup>-1)</td>
+<td style="text-align:center">-2147483648 ( -2<sup>31</sup>)</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">有符号的，以二进制补码表示的整数</td>
+</tr>
+</tbody>
+</table>
+<p>long</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位数</th>
+<th style="text-align:center">最大值</th>
+<th style="text-align:center">最小值</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">64</td>
+<td style="text-align:center">2<sup>63</sup>-1</td>
+<td style="text-align:center">-2<sup>63</sup></td>
+<td style="text-align:center">0L</td>
+<td style="text-align:center">有符号的，以二进制补码表示的整数</td>
+</tr>
+</tbody>
+</table>
+<p>float</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位数</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">32</td>
+<td style="text-align:center">0.0f</td>
+<td style="text-align:center">单精度、符合IEEE 754标准的浮点数</td>
+</tr>
+</tbody>
+</table>
+<p>double</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位数</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">64</td>
+<td style="text-align:center">0.0d</td>
+<td style="text-align:center">双精度、符合IEEE 754标准的浮点数</td>
+</tr>
+</tbody>
+</table>
+<p>boolean</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">位数</th>
+<th style="text-align:center">取值</th>
+<th style="text-align:center">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">true 和 false</td>
+<td style="text-align:center">false</td>
+</tr>
+</tbody>
+</table>
+<p>基本数据类型参考资料<a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-basic-datatypes.html">菜鸟教程</a></p>
+<h4 id="Unicode"><a class="header-anchor" href="#Unicode"> </a>Unicode</h4>
+<p>Unicode是字符集。而UTF-8、UTF-16、utf-32是编码规则。<br>
+Unicode的每一个字符叫做码点(Code Point、码位)<br>
+UTF-8的意思是以8位为一个编码单位的可变编码，将码位编码成1到 4个字节（参考<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23374078">知乎</a>）<br>
+即UTF-8的编码规则是有一定规律的，</p>
+<table>
+<thead>
+<tr>
+<th>Unicode 十六进制码点范围</th>
+<th>UTF-8 二进制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0000 0000 - 0000 007F</td>
+<td>0xxxxxxx</td>
+</tr>
+<tr>
+<td>0000 0080 - 0000 07FF</td>
+<td>10xxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>0000 0800 - 0000 FFFF</td>
+<td>1110xxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>0001 0000 - 0010 FFFF</td>
+<td>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</td>
+</tr>
+<tr>
+<td>因此先将一个字符对应的Unicode的码位转成16进制，看它的码点落在哪个区间内，然后将其套用右边的模板，将该字符转换成2进制，然后从低位开始对应着填进去，如果填完后，还有没有填的X就补零。</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>解释型</p>
+<p>Java解释器可以在任何移植了解释器的机器上直接执行Java字节码。</p>
+</li>
+<li>
+<p>高性能</p>
+<p>字节码可以在运行时动态地转换成对应运行这个应用的特定CPU机器码。同时即时编译器可以监控哪些代码频繁执行并优化，同时更为复杂的优化是消除函数调用（内联）</p>
+</li>
+<li>
+<p>多线程</p>
+</li>
+<li>
+<p>动态性</p>
+</li>
+</ol>
+<h3 id="GPL-General-Public-License-GNU-GPL"><a class="header-anchor" href="#GPL-General-Public-License-GNU-GPL"> </a>GPL(General Public License)(GNU GPL)</h3>
+<p>(调侃成为copyleft)<br>
+公共通用许可证,此许可证允许用户更改和共享程序的所有版本。<br>
+保证自由软件对所有用户都是自由的。<br>
+即用户使用更改遵守GPL协议的软件时候，再次发布也应该遵守GPL协议。</p>
+<h3 id="JDK和JRE"><a class="header-anchor" href="#JDK和JRE"> </a>JDK和JRE</h3>
+<ul>
+<li>JDK(Java Development Kit)Java开发工具包 ：编写Java程序的程序员使用的软件</li>
+<li>JRE(Java Runtime Environment)Java运行时环境：运行Java程序的用户使用的软件</li>
+<li>SDK(Software Development Kit)软件开发工具包 ：一个过时的术语，用来描述1998~2006年之间的JDK</li>
+</ul>
+<p>如果不开发，只运行Java程序，则只需要安装JRE。</p>
+<p>JDK包括了JRE,Java工具(javac/java/jdb)和Java基础类库(Java API)</p>
+<p>JRE包括JVM(Java Virtual Machine)和Java核心类库</p>
+<p>跳出Java来讲，SDK是辅助开发某一类软件的相关文档、范例和工具的集合，而联通SDK的接口叫做API。</p>
+<hr>
+<h3 id="javac-和-java"><a class="header-anchor" href="#javac-和-java"> </a>javac 和 java</h3>
+<ul>
+<li><code>javac</code> 是编译命令，可以将<code>.java</code>文件编译成<code>.class</code>字节码文件</li>
+</ul>
+<p><code>Hello.java</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(&quot;Hello World&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>javac Hello.java</code></p>
+<ul>
+<li><code>java Hello</code> 用于运行字节码文件，通过JVM进行解释运行</li>
+</ul>
+<h2 id="参考"><a class="header-anchor" href="#参考"> </a><a target="_blank" rel="noopener" href="https://blog.csdn.net/peng86788/article/details/81296882">参考</a></h2>
+<h1 id="提醒需要复习复习内容"><a class="header-anchor" href="#提醒需要复习复习内容"> </a>提醒需要复习复习内容</h1>
+<ul>
+<li><em><strong>二进制的原码 补码 反码</strong></em></li>
+<li><em><strong>IEEE 754</strong></em></li>
+<li><em><strong>大端法、小端法</strong></em></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+              <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" rel="tag"><i class="fa fa-tag"></i> Java核心技术</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/06/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%8E%92%E5%BA%8F/" rel="prev" title="挑战程序设计2-初等排序">
+                  <i class="fa fa-chevron-left"></i> 挑战程序设计2-初等排序
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/07/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/" rel="next" title="挑战程序设计2-初等数据结构-栈">
+                  挑战程序设计2-初等数据结构-栈 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"335d994687700db00b0f06d4706430fd"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

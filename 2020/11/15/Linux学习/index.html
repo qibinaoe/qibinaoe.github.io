@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="Linux学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习">
+<meta property="og:url" content="http://qibinaoe.top/2020/11/15/Linux%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="Linux学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116194750201.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219181849865.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219182451420.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219184106757.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219184208274.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219184307219.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219185022243.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219185322475.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219190454296.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210219190843839.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210220221616510.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210220222101844.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210220222606926.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210226235406806.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210226235648590.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228204115125.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228204229682.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228204415482.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228205218766.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228204703717.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228204018513.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228205339443.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228212901921.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228210733905.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228221028051.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228221317677.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228221518342.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228221606705.png">
+<meta property="og:image" content="http://qibinaoe.top/2020/11/15/Linux%E5%AD%A6%E4%B9%A0/Linux%E5%AD%A6%E4%B9%A0/image-20210228222757877.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210228222915513.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/%E6%9F%A5%E7%9C%8B%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.jpg">
+<meta property="article:published_time" content="2020-11-15T02:33:06.000Z">
+<meta property="article:modified_time" content="2022-06-07T12:06:11.066Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://algorithm-image.qibinaoe.top/image-20210116194750201.png">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/11/15/Linux%E5%AD%A6%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/11/15/Linux%E5%AD%A6%E4%B9%A0/","path":"2020/11/15/Linux学习/","title":"Linux学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux学习 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Linux学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%AC%94%E8%AE%B0"><span class="nav-number">1.1.</span> <span class="nav-text">基础知识笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E7%B3%BB%E7%BB%9F%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.1.</span> <span class="nav-text">Linux系统关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell-%E5%A3%B3%E6%88%96%E7%BB%88%E7%AB%AF"><span class="nav-number">1.1.2.</span> <span class="nav-text">shell 壳或终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4-v2"><span class="nav-number">1.1.3.</span> <span class="nav-text">命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.1.4.</span> <span class="nav-text">命令对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.5.</span> <span class="nav-text">命令参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%B3%BB%E7%BB%9F%E5%B7%A5%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="nav-number">1.2.</span> <span class="nav-text">常用系统工作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">1.2.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#date"><span class="nav-number">1.2.2.</span> <span class="nav-text">date</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reboot"><span class="nav-number">1.2.3.</span> <span class="nav-text">reboot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poweroff"><span class="nav-number">1.2.4.</span> <span class="nav-text">poweroff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wget"><span class="nav-number">1.2.5.</span> <span class="nav-text">wget</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ps"><span class="nav-number">1.2.6.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top"><span class="nav-number">1.2.7.</span> <span class="nav-text">top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pidof"><span class="nav-number">1.2.8.</span> <span class="nav-text">pidof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kill"><span class="nav-number">1.2.9.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#killall"><span class="nav-number">1.2.10.</span> <span class="nav-text">killall</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%8A%B6%E6%80%81%E6%A3%80%E6%B5%8B%E5%91%BD%E4%BB%A4"><span class="nav-number">1.3.</span> <span class="nav-text">系统状态检测命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ifconfig"><span class="nav-number">1.3.1.</span> <span class="nav-text">ifconfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uname"><span class="nav-number">1.3.2.</span> <span class="nav-text">uname</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uptime"><span class="nav-number">1.3.3.</span> <span class="nav-text">uptime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free"><span class="nav-number">1.3.4.</span> <span class="nav-text">free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#who"><span class="nav-number">1.3.5.</span> <span class="nav-text">who</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#last"><span class="nav-number">1.3.6.</span> <span class="nav-text">last</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lastb"><span class="nav-number">1.3.7.</span> <span class="nav-text">lastb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#history"><span class="nav-number">1.3.8.</span> <span class="nav-text">history</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sosreport"><span class="nav-number">1.3.9.</span> <span class="nav-text">sosreport</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E5%88%87%E6%8D%A2%E5%91%BD%E4%BB%A4"><span class="nav-number">1.4.</span> <span class="nav-text">工作目录切换命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd"><span class="nav-number">1.4.1.</span> <span class="nav-text">pwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd"><span class="nav-number">1.4.2.</span> <span class="nav-text">cd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">1.4.3.</span> <span class="nav-text">ls</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91%E5%91%BD%E4%BB%A4"><span class="nav-number">1.5.</span> <span class="nav-text">文本文件编辑命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">1.5.1.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more"><span class="nav-number">1.5.2.</span> <span class="nav-text">more</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#head"><span class="nav-number">1.5.3.</span> <span class="nav-text">head</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tail"><span class="nav-number">1.5.4.</span> <span class="nav-text">tail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tr"><span class="nav-number">1.5.5.</span> <span class="nav-text">tr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wc"><span class="nav-number">1.5.6.</span> <span class="nav-text">wc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stat"><span class="nav-number">1.5.7.</span> <span class="nav-text">stat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cut"><span class="nav-number">1.5.8.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff"><span class="nav-number">1.5.9.</span> <span class="nav-text">diff</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86%E5%91%BD%E4%BB%A4"><span class="nav-number">1.6.</span> <span class="nav-text">文件目录管理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#touch"><span class="nav-number">1.6.1.</span> <span class="nav-text">touch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir"><span class="nav-number">1.6.2.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp"><span class="nav-number">1.6.3.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mv"><span class="nav-number">1.6.4.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm"><span class="nav-number">1.6.5.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dd"><span class="nav-number">1.6.6.</span> <span class="nav-text">dd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-number">1.6.7.</span> <span class="nav-text">file</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%8E%8B%E7%BC%A9%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%91%BD%E4%BB%A4"><span class="nav-number">1.7.</span> <span class="nav-text">打包压缩与搜索命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tar"><span class="nav-number">1.7.1.</span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">1.7.2.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">1.7.3.</span> <span class="nav-text">find</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.8.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEcentos%E7%BD%91%E7%BB%9C"><span class="nav-number">1.8.1.</span> <span class="nav-text">配置centos网络</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/11/15/Linux%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Linux学习 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-15 10:33:06" itemprop="dateCreated datePublished" datetime="2020-11-15T10:33:06+08:00">2020-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-07 20:06:11" itemprop="dateModified" datetime="2022-06-07T20:06:11+08:00">2022-06-07</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>20 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Linux学习笔记"><a class="header-anchor" href="#Linux学习笔记"> </a>Linux学习笔记</h1>
+<span id="more"></span>
+<p>Linux入门我通过学习<a target="_blank" rel="noopener" href="https://www.linuxprobe.com/">Linux就该这么学</a>这个网站进行学习。书上的老师推荐的是Redhat7.0。由于Centos下载方便，我下载了Centos7.0,下载地址<a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/centos/7/isos/x86_64/">阿里云镜像</a>.</p>
+<h2 id="基础知识笔记"><a class="header-anchor" href="#基础知识笔记"> </a>基础知识笔记</h2>
+<p>Linux系统的<em>内核</em>负责对硬件资源的分配、调度等管理任务。</p>
+<ul>
+<li>系统内核对计算机正常运行具有重要作用</li>
+<li>用户应该通过系统调用接口开发出的程序或服务来管理计算机</li>
+</ul>
+<h3 id="Linux系统关系"><a class="header-anchor" href="#Linux系统关系"> </a>Linux系统关系</h3>
+<ul>
+<li>程序或服务
+<ul>
+<li>系统调用接口
+<ul>
+<li>内核
+<ul>
+<li>硬件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="shell-壳或终端"><a class="header-anchor" href="#shell-壳或终端"> </a>shell 壳或终端</h3>
+<p>shell是一个命令行工具，用户借助shell来与内核(硬件)进行通信。通过用户的命令去调用相应的程序服务去完成工作</p>
+<p>许多主流默认使用的终端是Bash(Bourne-Again Shell)解释器</p>
+<h3 id="命令-v2"><a class="header-anchor" href="#命令-v2"> </a>命令</h3>
+<p>Linux命令格式</p>
+<blockquote>
+<p><strong>命令名称</strong> <strong>[命令参数]</strong> <strong>命令对象</strong></p>
+</blockquote>
+<p>之间用空格隔开</p>
+<h3 id="命令对象"><a class="header-anchor" href="#命令对象"> </a>命令对象</h3>
+<p>要处理的文件、目录、用户等资源</p>
+<h3 id="命令参数"><a class="header-anchor" href="#命令参数"> </a>命令参数</h3>
+<ul>
+<li>长格式
+<ul>
+<li>使用完整选项名称</li>
+<li><code>man --help</code></li>
+</ul>
+</li>
+<li>短格式
+<ul>
+<li>单个字母缩写</li>
+<li><code>man -h</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="常用系统工作命令"><a class="header-anchor" href="#常用系统工作命令"> </a>常用系统工作命令</h2>
+<h3 id="man"><a class="header-anchor" href="#man"> </a>man</h3>
+<blockquote>
+<p><code>man man</code></p>
+</blockquote>
+<p>查看<code>man</code>命令自身的帮助信息</p>
+<ul>
+<li><code>/</code> 从上至下搜索某个关键字, <code>/linux</code></li>
+<li><code>?</code> 从下至上搜索某个关键字, <code>?linux</code></li>
+<li><code>n</code> 定位到下一个关键字</li>
+<li><code>N</code> 定位到上一个关键字</li>
+</ul>
+<p>echo</p>
+<p>echo命令用于在终端输出<em>字符串</em>或<em>变量提取后的值</em></p>
+<blockquote>
+<p>echo [字符串|$变量]</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]<span class="comment"># echo hello world</span></span><br><span class="line">hello world</span><br><span class="line">[root@qibin ~]<span class="comment"># echo &quot;hello world&quot;</span></span><br><span class="line">hello world</span><br><span class="line">[root@qibin ~]<span class="comment"># echo $PATH</span></span><br><span class="line">/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/root/bin</span><br><span class="line">[root@qibin ~]<span class="comment"># echo $SHELL</span></span><br><span class="line">/bin/bash</span><br></pre></td></tr></table></figure>
+<h3 id="date"><a class="header-anchor" href="#date"> </a>date</h3>
+<p>date命名用于显示及设置系统的时间或日期</p>
+<blockquote>
+<p>date [选项][+指定的格式]</p>
+</blockquote>
+<p>以+号开头的参数，可以按照指定格式输出系统的时间或日期</p>
+<ul>
+<li>%%     a literal %  %的转义</li>
+<li><strong>%a</strong>     locale’s abbreviated weekday name (e.g., Sun) 缩写的工作日名称</li>
+<li><strong>%A</strong>     locale’s full weekday name (e.g., Sunday) 完整的工作日名称</li>
+<li><strong>%b</strong>     locale’s abbreviated month name (e.g., Jan) 月份的缩写</li>
+<li><strong>%B</strong>     locale’s full month name (e.g., January) 完整的月份名称</li>
+<li>%c     locale’s date and time (e.g., Thu Mar  3 23:05:25 2005)</li>
+<li>%C     century; like %Y, except omit last two digits (e.g., 20)</li>
+<li><strong>%d</strong>     day of month (e.g., 01) 本月中的第几天</li>
+<li>%D     date; same as %m/%d/%y 输出月/日/年</li>
+<li>%F     full date; same as %Y-%m-%d 输出年-月-日</li>
+<li>%h     same as %b 缩写月份</li>
+<li><strong>%H</strong>     hour (00…23) 小时 24小时制</li>
+<li><strong>%I</strong>     hour (01…12) 小时 12小时制</li>
+<li><strong>%j</strong>     day of year (001…366) 今年的第几天</li>
+<li><strong>%m</strong>     month (01…12) 月份</li>
+<li><strong>%M</strong>     minute (00…59) 分钟</li>
+<li><strong>%n</strong>     a newline 换行符</li>
+<li><strong>%p</strong>     locale’s equivalent of either AM or PM; blank if not known</li>
+<li>%P     like %p, but lower case</li>
+<li>%r     locale’s 12-hour clock time (e.g., 11:11:04 PM)</li>
+<li>%R     24-hour hour and minute; same as %H:%M (e.g. 21:54)</li>
+<li>%s     seconds since 1970-01-01 00:00:00 UTC</li>
+<li><strong>%S</strong>     second (00…60) 秒</li>
+<li><strong>%t</strong>     a tab 跳格</li>
+<li>%T     time; same as %H:%M:%S (e.g., 21:55:48 PM)</li>
+<li>%u     day of week (1…7); 1 is Monday</li>
+<li>%U     week number of year, with Sunday as first day of week (00…53)</li>
+<li>%w     day of week (0…6); 0 is Sunday</li>
+<li>%W     week number of year, with Monday as first day of week (00…53)</li>
+<li>%x     locale’s date representation (e.g., 12/31/99)</li>
+<li>%X     locale’s time representation (e.g., 23:13:48)</li>
+<li><strong>%y</strong>     last two digits of year (00…99) 简写年份</li>
+<li><strong>%Y</strong>     year 完整年份</li>
+</ul>
+<p>按照默认格式查看当前系统时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# date</span><br><span class="line">Fri Nov 20 11:15:32 CST 2020</span><br></pre></td></tr></table></figure>
+<p>按照年-月-日 小时:分钟:秒”的格式查看当前系统时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# date &quot;+%Y-%m-%d %H:%M:%S&quot;</span><br><span class="line">2020-11-20 11:17:27</span><br></pre></td></tr></table></figure>
+<p>将系统时间修改成2020年1月1日 5点30分0秒</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# date -s &quot;20200101 5:30:00&quot;</span><br><span class="line">Wed Jan  1 05:30:00 CST 2020</span><br></pre></td></tr></table></figure>
+<p>查看硬件的时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# hwclock</span><br><span class="line">Fri 20 Nov 2020 11:22:23 AM CST  -0.699921 seconds</span><br></pre></td></tr></table></figure>
+<p>将系统时间修改成硬件的时间</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# hwclock --hctosys</span><br></pre></td></tr></table></figure>
+<h3 id="reboot"><a class="header-anchor" href="#reboot"> </a>reboot</h3>
+<p>重启系统，默认只有root管理员能够重启</p>
+<h3 id="poweroff"><a class="header-anchor" href="#poweroff"> </a>poweroff</h3>
+<p>关闭系统，默认只有root管理员能关机</p>
+<h3 id="wget"><a class="header-anchor" href="#wget"> </a>wget</h3>
+<p>在终端下载网络文件</p>
+<blockquote>
+<p>wget [参数]  下载地址</p>
+</blockquote>
+<ul>
+<li><strong>-b</strong> 后台下载</li>
+<li><strong>-P</strong> 下载到指定地址  (默认为<code>.</code>，即当前目录)</li>
+<li><strong>-t</strong> 最大尝试次数 (默认为20次)</li>
+<li><strong>-c</strong> 断点续传</li>
+<li><strong>-p</strong> 下载页面内所有资源，包括图片、视频等</li>
+<li><strong>-r</strong> 递归下载，默认最大深度为5</li>
+</ul>
+<h3 id="ps"><a class="header-anchor" href="#ps"> </a>ps</h3>
+<p>ps命令用于查看进程信息</p>
+<ul>
+<li><strong>-a</strong> 显示所有进程</li>
+<li><strong>-u</strong> 显示用户以及其他详细信息</li>
+<li><strong>-x</strong> 显示没有控制终端的进程？？？</li>
+</ul>
+<p>进程状态</p>
+<ul>
+<li>D    uninterruptible sleep (usually IO)  不可中断</li>
+<li>R    running or runnable (on run queue) 正在运行的或者是在运行队列中等待的</li>
+<li>S    interruptible sleep (waiting for an event to complete) 中断</li>
+<li>T    stopped by job control signal 停止</li>
+<li>t    stopped by debugger during the tracing</li>
+<li>W    paging (not valid since the 2.6.xx kernel)</li>
+<li>X    dead (should never be seen)</li>
+<li>Z    defunct (“zombie”) process, terminated but not reaped by its parent 僵死</li>
+</ul>
+<h3 id="top"><a class="header-anchor" href="#top"> </a>top</h3>
+<p>top命令用于动态监视进程的活动与系统负载信息</p>
+<h3 id="pidof"><a class="header-anchor" href="#pidof"> </a>pidof</h3>
+<p>pidof命令用于查看一个正在运行的程序的进程ID(PID)</p>
+<blockquote>
+<p>pidof [参数] [服务名称]</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]<span class="comment"># pidof sshd</span></span><br><span class="line">1112</span><br></pre></td></tr></table></figure>
+<h3 id="kill"><a class="header-anchor" href="#kill"> </a>kill</h3>
+<p>kill命令用于终止<strong>指定PID</strong>的服务进程</p>
+<blockquote>
+<p>kill [参数] [进程PID]</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]<span class="comment"># kill 1112</span></span><br></pre></td></tr></table></figure>
+<h3 id="killall"><a class="header-anchor" href="#killall"> </a>killall</h3>
+<p>killall用于终止某个<strong>指定名称</strong>的服务所对应的<strong>全部进程</strong></p>
+<blockquote>
+<p>killall [参数] [服务名称]</p>
+</blockquote>
+<p>通常一个复杂的服务程序会有多个进程协同工作，因此想要同时终止该服务程序的所有进程，通过<code>killall</code>指令代替<code>kill</code>命令，就不需要逐个输入每个pid去终止</p>
+<p>在系统终端执行一个命令想要立即终止，用<code>ctrl + C</code> (有时候<code>ctrl + Z</code>?),就可以立即终止该命令。</p>
+<p>如果不想显示命令屏幕的信息，可以在执行命令的末尾加上一个<code>&amp;</code>，这样命令就在系统后台执行</p>
+<h2 id="系统状态检测命令"><a class="header-anchor" href="#系统状态检测命令"> </a>系统状态检测命令</h2>
+<h3 id="ifconfig"><a class="header-anchor" href="#ifconfig"> </a>ifconfig</h3>
+<p>ifconfig命令用于获取网卡配置与网络状态等信息</p>
+<blockquote>
+<p>ifconfig [网络设备] [参数]</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]<span class="comment"># ifconfig</span></span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.192.141  netmask 255.255.255.0  broadcast 192.168.192.255</span><br><span class="line">        inet6 fe80::eca9:ec1e:58ac:ac80  prefixlen 64  scopeid 0x20&lt;<span class="built_in">link</span>&gt;</span><br><span class="line">        ether 00:0c:29:5d:b1:6e  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 70599  bytes 93326961 (89.0 MiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 23218  bytes 1661695 (1.5 MiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+<p>其中，<code>inet</code>后面的参数是ipv4的地址，ether参数后面的是网卡物理地址(MAC地址)，RX是接收数据包信息，TX是发送数据包信息</p>
+<h3 id="uname"><a class="header-anchor" href="#uname"> </a>uname</h3>
+<p>uname命令用于查看系统信息，系统内核信息</p>
+<p>系统内核名称、主机名、内核发行版本、节点名、系统时间、硬件名称、硬件平台、处理器类型、操作系统名称</p>
+<blockquote>
+<p>uname [参数]</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]<span class="comment"># uname -a</span></span><br><span class="line">Linux qibin.com 3.10.0-1127.el7.x86_64 <span class="comment">#1 SMP Tue Mar 31 23:36:51 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</span></span><br></pre></td></tr></table></figure>
+<p>查看当前系统的详细信息，通过查看<code>centos-release</code>文件（redhat操作系统则查看<code>redhat-release</code>）</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# cat /etc/centos-release</span><br><span class="line">CentOS Linux release 7.8.2003 (Core)</span><br></pre></td></tr></table></figure>
+<h3 id="uptime"><a class="header-anchor" href="#uptime"> </a>uptime</h3>
+<p>uptime用于查看系统负载信息</p>
+<p>显示当前系统时间、系统已运行时间、启用终端数量（当前登录的用户数量）以及平均负载值</p>
+<ul>
+<li>
+<p>平均负载值指系统在最近1分钟、5分钟和15分钟以内的压力情况</p>
+</li>
+<li>
+<p>负载值越低越好， 不要长期超过1。生产环境不要长期超过5</p>
+</li>
+</ul>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin run]# uptime</span><br><span class="line"> 23:41:06 up  7:28,  3 users,  load average: 0.48, 0.29, 0.19</span><br></pre></td></tr></table></figure>
+<p>对于文件<code>/var/run/utmp</code>储存着当前登录的用户信息</p>
+<ul>
+<li>这个文件不是通常的文本文件，而是二进制文件</li>
+</ul>
+<p>对于文件夹<code>/proc</code>储存着进程信息</p>
+<h3 id="free"><a class="header-anchor" href="#free"> </a>free</h3>
+<p>free命令用于显示当前系统中内存的使用量</p>
+<blockquote>
+<p>free [-h]</p>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin proc]# free</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:         995684      564644       93660       36120      337380      250096</span><br><span class="line">Swap:       2097148      168704     1928444</span><br><span class="line">[root@qibin proc]# free -h</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:           972M        551M         91M         35M        329M        244M</span><br><span class="line">Swap:          2.0G        164M        1.8G</span><br></pre></td></tr></table></figure>
+<ul>
+<li>total  内存总量</li>
+<li>used  已用量</li>
+<li>free 空闲量</li>
+<li>shared  进程共享的内存量</li>
+<li>buff/cache 缓存的内存量</li>
+<li>available  可用量</li>
+</ul>
+<p>内存信息储存在<code>/proc/meminfo</code>文件中</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin proc]# cat /proc/meminfo</span><br><span class="line">MemTotal:         995684 kB</span><br><span class="line">MemFree:           87764 kB</span><br><span class="line">MemAvailable:     248396 kB</span><br><span class="line">Buffers:              36 kB</span><br><span class="line">Cached:           307280 kB</span><br><span class="line">SwapCached:         9068 kB</span><br><span class="line">Active:           272516 kB</span><br><span class="line">Inactive:         403176 kB</span><br><span class="line">...</span><br><span class="line">DirectMap1G:           0 kB</span><br></pre></td></tr></table></figure>
+<h3 id="who"><a class="header-anchor" href="#who"> </a>who</h3>
+<p>who命令用于查看当前登入主机的用户终端信息</p>
+<blockquote>
+<p>who [参数]</p>
+</blockquote>
+<p>显示登入本机的用户的名称、终端设备、登录到系统的时间</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# who</span><br><span class="line">root     :0           2020-11-21 14:57 (:0)</span><br><span class="line">root     pts/0        2020-11-22 09:00 (:0)</span><br><span class="line">root     pts/1        2021-01-15 23:34 (:0)</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin proc]# who -a</span><br><span class="line">           system boot  2020-11-21 14:56</span><br><span class="line">           run-level 5  2020-11-21 14:56</span><br><span class="line">root     ? :0           2020-11-21 14:57   ?          1861 (:0)</span><br><span class="line">root     + pts/0        2020-11-22 09:00 00:01       11663 (:0)</span><br><span class="line">root     + pts/1        2021-01-15 23:34   .         11663 (:0)</span><br></pre></td></tr></table></figure>
+<h3 id="last"><a class="header-anchor" href="#last"> </a>last</h3>
+<p>last用于查看所有系统的登录记录</p>
+<blockquote>
+<p>last [参数]</p>
+</blockquote>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin proc]# last</span><br><span class="line">root     pts/1        :0               Fri Jan 15 23:34   still logged in   </span><br><span class="line">root     pts/0        :0               Sun Nov 22 09:00   still logged in   </span><br><span class="line">root     pts/0        :0               Sun Nov 22 08:56 - 08:56  (00:00)    </span><br><span class="line">root     pts/0        :0               Sun Nov 22 08:22 - 08:55  (00:33)    </span><br><span class="line">root     pts/1        :0               Sat Nov 21 19:29 - 21:26  (01:57)    </span><br><span class="line">root     pts/0        :0               Sat Nov 21 14:59 - 21:26  (06:27)    </span><br><span class="line">root     :0           :0               Sat Nov 21 14:57   still logged in   </span><br><span class="line">reboot   system boot  3.10.0-1127.el7. Sat Nov 21 14:56 - 19:26 (56+04:29)  </span><br><span class="line">root     pts/0        :0               Tue Nov 17 10:27 - 14:56 (4+04:29)   </span><br><span class="line">root     :0           :0               Tue Nov 17 10:25 - crash (4+04:30)   </span><br><span class="line">reboot   system boot  3.10.0-1127.el7. Tue Nov 17 10:24 - 19:26 (60+09:02)  </span><br><span class="line">qibin    pts/0        :0               Tue Nov 17 10:23 - 10:23  (00:00)    </span><br><span class="line">qibin    pts/0        :0               Sun Nov 15 14:57 - 10:23 (1+19:25)   </span><br><span class="line">qibin    :0           :0               Sun Nov 15 09:52 - down  (2+00:31)   </span><br><span class="line">reboot   system boot  3.10.0-1127.el7. Sun Nov 15 09:47 - 10:23 (2+00:36) </span><br></pre></td></tr></table></figure>
+<p>last记录根据于<code>/var/log/wtmp</code></p>
+<blockquote>
+<p>使用last命令可以查看本机的登录记录。但是，由于这些信息都是以<strong>日志文件</strong>的形式保存在系统中，因此黑客可以很容易地对内容进行篡改。千万不要单纯以该命令的输出信息而判断系统有无被恶意入侵！</p>
+</blockquote>
+<h3 id="lastb"><a class="header-anchor" href="#lastb"> </a>lastb</h3>
+<p>lastb类似于last命令，只不过是查看所有尝试不正确登陆的记录</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin /]# lastb</span><br><span class="line">root     :0           :0               Tue Nov 17 10:25 - 10:25  (00:00)    </span><br><span class="line">root     :0           :0               Tue Nov 17 10:25 - 10:25  (00:00)    </span><br><span class="line"></span><br><span class="line">btmp begins Tue Nov 17 10:25:44 2020</span><br></pre></td></tr></table></figure>
+<p>lastb取决于文件<code>/var/log/btmp</code></p>
+<p>last和lastb的记录都是从文件生成开始的</p>
+<hr>
+<h3 id="history"><a class="header-anchor" href="#history"> </a>history</h3>
+<p>history命令用于显示历史执行过的命令</p>
+<blockquote>
+<p>history [-c]</p>
+</blockquote>
+<p>使用参数<code>-c</code>会清空所有的命令历史记录</p>
+<p>使用<code>!数字</code>方式来重复执行某一次命令</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin /]# history</span><br><span class="line">    1  pwd</span><br><span class="line">    2  ls</span><br><span class="line">    3  man man</span><br><span class="line">    4  man ls</span><br><span class="line">    5  echo hello world</span><br><span class="line">    6  echo &quot;hello world&quot;</span><br><span class="line">    7  echo $PATH</span><br><span class="line">    8  echo $SHELL</span><br><span class="line">   ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin ~]# !2</span><br><span class="line">ls</span><br><span class="line">anaconda-ks.cfg  Documents  initial-setup-ks.cfg  Pictures  Templates</span><br><span class="line">Desktop          Downloads  Music                 Public    Videos</span><br></pre></td></tr></table></figure>
+<p>可以通过修改文件<code>/etc/profile</code>的HISTSIZE变量值来记录命令的条数</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116194750201.png" alt="image-20210116194750201"></p>
+<p>历史命令保存在用户家目录的<code>.bash_history</code>文件中</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin /]# cat ~/.bash_history</span><br><span class="line">pwd</span><br><span class="line">ls</span><br><span class="line">man man</span><br><span class="line">man ls</span><br><span class="line">echo hello world</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h3 id="sosreport"><a class="header-anchor" href="#sosreport"> </a>sosreport</h3>
+<p>sosreport命令用于收集系统配置及架构信息并输出诊断文档，格式为sosreport</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin /]# sosreport</span><br><span class="line"></span><br><span class="line">sosreport (version 3.8)</span><br><span class="line"></span><br><span class="line">This command will collect diagnostic and configuration information from</span><br><span class="line">this CentOS Linux system and installed applications.</span><br><span class="line"></span><br><span class="line">An archive containing the collected information will be generated in</span><br><span class="line">/var/tmp/sos.9PR5Yw and may be provided to a CentOS support</span><br><span class="line">representative.</span><br><span class="line"></span><br><span class="line">Any information provided to CentOS will be treated in accordance with</span><br><span class="line">the published support policies at:</span><br><span class="line"></span><br><span class="line">  https://wiki.centos.org/</span><br><span class="line"></span><br><span class="line">The generated archive may contain data considered sensitive and its</span><br><span class="line">content should be reviewed by the originating organization before being</span><br><span class="line">passed to any third party.</span><br><span class="line"></span><br><span class="line">No changes will be made to system configuration.</span><br><span class="line"></span><br><span class="line">Press ENTER to continue, or CTRL-C to quit.</span><br><span class="line"></span><br><span class="line">Please enter the case id that you are generating this report for []: </span><br><span class="line"></span><br><span class="line"> Setting up archive ...</span><br><span class="line"> Setting up plugins ...</span><br><span class="line">[plugin:networking] skipped command &#x27;ip -s macsec show&#x27;: required kernel modules or services not present (kmods=[macsec] services=[]). Use &#x27;--allow-system-changes&#x27; to enable collection.</span><br><span class="line">[plugin:networking] skipped command &#x27;ss -peaonmi&#x27;: required kernel modules or services not present (kmods=[tcp_diag,udp_diag,inet_diag,unix_diag,netlink_diag,af_packet_diag] services=[]). Use &#x27;--allow-system-changes&#x27; to enable collection.</span><br><span class="line"> Running plugins. Please wait ...</span><br><span class="line"></span><br><span class="line">  Starting 1/103 abrt            [Running: abrt]                                  Starting 2/103 alternatives    [Running: abrt alternatives]                     Starting 3/103 anaconda        [Running: abrt alternatives anaconda]           </span><br><span class="line">  ....</span><br><span class="line">Creating compressed archive...</span><br><span class="line"></span><br><span class="line">Your sosreport has been generated and saved in:</span><br><span class="line">  /var/tmp/sosreport-qibin-2021-01-16-noswgvs.tar.xz</span><br><span class="line"></span><br><span class="line">The checksum is: 65e2990052e65e9ce1546fa390b27e54</span><br><span class="line"></span><br><span class="line">Please send this file to your support representative.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>其中生成文件在/var/tmp中</p>
+<p>同时还有校验码checksum</p>
+<h2 id="工作目录切换命令"><a class="header-anchor" href="#工作目录切换命令"> </a>工作目录切换命令</h2>
+<p>工作目录指用户当前在系统中所处的位置</p>
+<h3 id="pwd"><a class="header-anchor" href="#pwd"> </a>pwd</h3>
+<p>pwd命令显示用户当前所处的工作目录</p>
+<h3 id="cd"><a class="header-anchor" href="#cd"> </a>cd</h3>
+<p>cd命令用于切换工作路径</p>
+<blockquote>
+<p>cd [目录名称]</p>
+</blockquote>
+<ul>
+<li><code>cd -</code> 切换到上一次所处的目录</li>
+<li><code>cd ..</code> 切换到上级目录</li>
+<li><code>cd ~</code>切换到当前用户的家目录</li>
+<li><code>cd ~用户名</code> 切换到其他用户的家目录</li>
+</ul>
+<h3 id="ls"><a class="header-anchor" href="#ls"> </a>ls</h3>
+<p>ls显示目录中的文件信息</p>
+<blockquote>
+<p>ls [选项] [文件]</p>
+</blockquote>
+<ul>
+<li><code>-a</code> 参数用于查看所有文件（包括隐藏文件）</li>
+<li><code>-l</code>参数可以查看文件的属性、大小等详细信息</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210219181849865.png" alt="image-20210219181849865"></p>
+<h2 id="文本文件编辑命令"><a class="header-anchor" href="#文本文件编辑命令"> </a>文本文件编辑命令</h2>
+<h3 id="cat"><a class="header-anchor" href="#cat"> </a>cat</h3>
+<p>cat命令用于查看纯文本文件（内容较少的）</p>
+<blockquote>
+<p>cat [选项] [文件]</p>
+</blockquote>
+<ul>
+<li>参数<code>-n</code>显示行号
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210219182451420.png" alt="image-20210219182451420"></li>
+</ul>
+</li>
+<li><code>cat 文件1 &gt; 文件2</code> 将文件1的内容覆盖到文件2</li>
+<li><code>cat -n 文件1 &gt; 文件2</code> 将文件1的内容添加行号后覆盖到文件2
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210219184106757.png" alt="image-20210219184106757"></li>
+</ul>
+</li>
+<li><code>cat /dev/null &gt; hello.txt</code>：清空<code>hello.txt</code>
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210219184208274.png" alt="image-20210219184208274"></li>
+</ul>
+</li>
+<li>向文本中添加信息
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210219184307219.png" alt="image-20210219184307219"></li>
+</ul>
+</li>
+</ul>
+<h3 id="more"><a class="header-anchor" href="#more"> </a>more</h3>
+<p>more命令用于查看纯文本文件（内容较多）</p>
+<blockquote>
+<p>more [选项] 文件</p>
+</blockquote>
+<p>使用空格或回车向下翻页</p>
+<h3 id="head"><a class="header-anchor" href="#head"> </a>head</h3>
+<p>查看纯文本文件的前N行</p>
+<blockquote>
+<p>head [选项] [文件]</p>
+</blockquote>
+<ul>
+<li><code>head -n 数字 文件</code>
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210219185022243.png" alt="image-20210219185022243"></li>
+</ul>
+</li>
+</ul>
+<h3 id="tail"><a class="header-anchor" href="#tail"> </a>tail</h3>
+<p>查看纯文本文件的后N行（类似<code>head</code>）</p>
+<p>查看持续刷新的文件内容</p>
+<ul>
+<li><code>tail -n 数字 文件名</code> :查看后N行
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210219185322475.png" alt="image-20210219185322475"></li>
+</ul>
+</li>
+<li><code>tail -f 文件名</code> ：持续查看刷新的文件</li>
+</ul>
+<h3 id="tr"><a class="header-anchor" href="#tr"> </a>tr</h3>
+<p>tr命令用于替换纯文本文件中的字符</p>
+<blockquote>
+<p>tr [原始字符] [目标字符]</p>
+</blockquote>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210219190454296.png" alt="image-20210219190454296"></p>
+<h3 id="wc"><a class="header-anchor" href="#wc"> </a>wc</h3>
+<p>wc命令用于统计指定文本的行数，字数，字节数</p>
+<blockquote>
+<p>wc [参数] 文本</p>
+</blockquote>
+<ul>
+<li><code>-c</code>只显示字节数</li>
+<li><code>-l</code>只显示行数</li>
+<li><code>-w</code>只显示单词数</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210219190843839.png" alt="image-20210219190843839"></p>
+<h3 id="stat"><a class="header-anchor" href="#stat"> </a>stat</h3>
+<p>stat命令用于查看文件的具体储存信息和时间信息</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210220221616510.png" alt="image-20210220221616510"></p>
+<h3 id="cut"><a class="header-anchor" href="#cut"> </a>cut</h3>
+<p>cut命令能够按列提取文本</p>
+<blockquote>
+<p>cut [参数] 文本</p>
+</blockquote>
+<ul>
+<li><code>-d</code>后加分隔符。例如<code>-d:</code></li>
+<li><code>-f</code>代表<code>fields</code>，即后面加需要查看被分割的第几部分</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210220222101844.png" alt="image-20210220222101844"></p>
+<h3 id="diff"><a class="header-anchor" href="#diff"> </a>diff</h3>
+<p>diff命令用于查看多个文件内容的差异</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210220222606926.png" alt="image-20210220222606926"></p>
+<h2 id="文件目录管理命令"><a class="header-anchor" href="#文件目录管理命令"> </a>文件目录管理命令</h2>
+<h3 id="touch"><a class="header-anchor" href="#touch"> </a>touch</h3>
+<p>touch命令可以用来创建空白文件，以及设置文件的时间（修改时间（modification time），文件读取时间（access time））</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210226235406806.png" alt="image-20210226235406806"></p>
+<h3 id="mkdir"><a class="header-anchor" href="#mkdir"> </a>mkdir</h3>
+<p>mkdir用于创建空白目录，加参数<code>-p</code>用于创建出嵌套关系的文件目录</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210226235648590.png" alt="image-20210226235648590"></p>
+<h3 id="cp"><a class="header-anchor" href="#cp"> </a>cp</h3>
+<p>cp用于复制文件或者目录</p>
+<blockquote>
+<p>cp [选项] 源文件 目标文件</p>
+</blockquote>
+<ul>
+<li>
+<p>如果目标文件是目录，则将源文件复制到该目录</p>
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210228204115125.png" alt="image-20210228204115125"></li>
+</ul>
+</li>
+<li>
+<p>如果目标文件也是普通文件，则覆盖它</p>
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210228204229682.png" alt="image-20210228204229682"></li>
+</ul>
+</li>
+<li>
+<p>如果目标文件不存在，则执行正常复制操作</p>
+</li>
+<li>
+<p><code>-p</code>，保留文件的属性</p>
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210228204415482.png" alt="image-20210228204415482"></li>
+</ul>
+</li>
+<li>
+<p><code>-d</code>，若文件对象为链接文件，则保留该链接文件的属性</p>
+</li>
+<li>
+<p><code>-r</code>，递归持续复制（用于目录）</p>
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210228205218766.png" alt="image-20210228205218766"></li>
+</ul>
+</li>
+<li>
+<p><code>-i</code>，若目标文件存在，则询问是否覆盖</p>
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210228204703717.png" alt="image-20210228204703717"></li>
+</ul>
+</li>
+<li>
+<p><code>-a</code>，相当于<code>-pdr</code></p>
+</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228204018513.png" alt="image-20210228204018513"></p>
+<h3 id="mv"><a class="header-anchor" href="#mv"> </a>mv</h3>
+<p>mv用于剪切文件或者文件重命名</p>
+<blockquote>
+<p>mv [选项] 源文件 [目标路径|重命名后的文件名]</p>
+</blockquote>
+<p>源文件会被删除</p>
+<h3 id="rm"><a class="header-anchor" href="#rm"> </a>rm</h3>
+<p>rm用于删除文件或目录</p>
+<blockquote>
+<p>rm [选项] 文件</p>
+</blockquote>
+<ul>
+<li><code>-r</code>递归删除，用于删除目录</li>
+<li><code>-f</code>强制删除</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228205339443.png" alt="image-20210228205339443"></p>
+<h3 id="dd"><a class="header-anchor" href="#dd"> </a>dd</h3>
+<p>dd命令用于复制文件或者转化并格式化文件</p>
+<blockquote>
+<p>dd [选项]</p>
+</blockquote>
+<blockquote>
+<p>/dev/zero的设备文件不占用系统储存空间，但是可以提供无穷的数据</p>
+</blockquote>
+<ul>
+<li><code>if=FILE</code> 从FILE中读取数据而不是从标准输入读取</li>
+<li><code>of=FILE</code>输出到FILE中，而不是标准输出</li>
+<li><code>by=BYTES</code>一次性读写BYTES大小的数据</li>
+<li><code>count=N</code>复制N块输入块</li>
+</ul>
+<p>同时dd命令可以制作光盘镜像文件iso</p>
+<h3 id="file"><a class="header-anchor" href="#file"> </a>file</h3>
+<p>file命令用于查看文件类型</p>
+<blockquote>
+<p>file 文件名</p>
+</blockquote>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228212901921.png" alt="image-20210228212901921"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228210733905.png" alt="image-20210228210733905"></p>
+<h2 id="打包压缩与搜索命令"><a class="header-anchor" href="#打包压缩与搜索命令"> </a>打包压缩与搜索命令</h2>
+<h3 id="tar"><a class="header-anchor" href="#tar"> </a>tar</h3>
+<p>tar命令用于对文件的打包压缩或解压</p>
+<blockquote>
+<p>tar [选项] [文件]  …</p>
+</blockquote>
+<ul>
+<li>
+<p><code>-c</code>：创建压缩文件</p>
+</li>
+<li>
+<p><code>-x</code>：解压文件</p>
+</li>
+<li>
+<p><code>-t</code>：查看压缩包有哪些文件</p>
+</li>
+<li>
+<p><code>-z</code>：用gzip压缩或解压文件</p>
+</li>
+<li>
+<p><code>-j</code>：用bzip2压缩或解压文件</p>
+</li>
+<li>
+<p><code>-v</code>：显示压缩或解压过程</p>
+</li>
+<li>
+<p><code>-f</code>： 目标文件名</p>
+</li>
+<li>
+<p><code>-p</code>：保留原始的权限和属性</p>
+</li>
+<li>
+<p><code>-P</code>：使用绝对路径来压缩</p>
+</li>
+<li>
+<p><code>-C</code>：指定解压到的目录</p>
+</li>
+<li>
+<p><code>-c</code>和<code>-x</code>不能同时使用</p>
+</li>
+<li>
+<p><code>-f</code>必须放在参数的最后一位</p>
+</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228221028051.png" alt="image-20210228221028051"></p>
+<h3 id="grep"><a class="header-anchor" href="#grep"> </a>grep</h3>
+<p>用于在文本中执行关键词搜索</p>
+<blockquote>
+<p>grep [选项] patterns [文件]</p>
+</blockquote>
+<ul>
+<li><code>-n</code>显示行号</li>
+<li><code>-v</code>反向选择，即不包含关键词patterns的行</li>
+<li><code>-i</code>忽略大小写</li>
+<li><code>-c</code>仅显示找到的行数</li>
+<li><code>-b</code>将可执行文件bianry当作文本文件text搜索</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228221317677.png" alt="image-20210228221317677"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228221518342.png" alt="image-20210228221518342"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228221606705.png" alt="image-20210228221606705"></p>
+<h3 id="find"><a class="header-anchor" href="#find"> </a>find</h3>
+<p>find命令用于按照指定条件查找文件</p>
+<blockquote>
+<p>find [查找路径] 寻找条件 操作</p>
+<p>find [-H] [-L] [-P] [-Olevel] [-D debugopts] [path…] [expression]</p>
+</blockquote>
+<p>搜索可以根据文件不同的特性：文件名，大小，修改时间，权限等</p>
+<p>默认的expression是<code>-print</code></p>
+<p>参数太多了，俺直接复制了</p>
+<p><img src="Linux%E5%AD%A6%E4%B9%A0/image-20210228222757877.png" alt="image-20210228222757877"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210228222915513.png" alt="image-20210228222915513"></p>
+<h2 id="其他"><a class="header-anchor" href="#其他"> </a>其他</h2>
+<h3 id="配置centos网络"><a class="header-anchor" href="#配置centos网络"> </a>配置centos网络</h3>
+<p>参考资料<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bA411b7vs">羊哥视频</a>，但是做完还是联不通，原因找到了，在于网关没有配置正确</p>
+<p>又参考了<a target="_blank" rel="noopener" href="https://www.cnblogs.com/passer101/p/9899202.html">博客园博客</a></p>
+<p>在Windows下，如果使用VMWare,首先在上方菜单栏点击 编辑-&gt;虚拟网络编辑器-&gt;选择VMnet8的NAT设置，记录下上方的子网掩码和网关IP</p>
+<p><img src="http://algorithm-image.qibinaoe.top/%E6%9F%A5%E7%9C%8B%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE.jpg" alt="VMWARE网络配置"></p>
+<p>首先是切换到root 权限</p>
+<blockquote>
+<p>su root</p>
+</blockquote>
+<p>输入密码后</p>
+<p>可以先查看当前网络情况</p>
+<blockquote>
+<p>ifconfig</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin linuxpra]<span class="comment"># ifconfig</span></span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        ether 00:0c:29:5d:b1:6e  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 724  bytes 49922 (48.7 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>可以看到没有ip地址</p>
+<p>输入</p>
+<blockquote>
+<p>dhclient</p>
+</blockquote>
+<p>可以看到已经分配了一个ip地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@qibin linuxpra]<span class="comment"># dhclient</span></span><br><span class="line">[root@qibin linuxpra]<span class="comment"># ifconfig</span></span><br><span class="line">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.192.141  netmask 255.255.255.0  broadcast 192.168.192.255</span><br><span class="line">        ether 00:0c:29:5d:b1:6e  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 1354  bytes 90634 (88.5 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 50  bytes 5872 (5.7 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>ip地址为192.168.192.141，这时候将这个IP地址固定下来</p>
+<p>编辑文件</p>
+<blockquote>
+<p>vim /etc/sysconfig/network-scripts/ifcfg-ens33</p>
+</blockquote>
+<p><code>[root@qibin linuxpra]# vim /etc/sysconfig/network-scripts/ifcfg-ens33</code></p>
+<p>原本内容长这样</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=ens33</span><br><span class="line">UUID=b2fca141-6809-45c2-9093-a3362e8c4de2</span><br><span class="line">DEVICE=ens33</span><br><span class="line">ONBOOT=no</span><br></pre></td></tr></table></figure>
+<p>修改<code>BOOTPROTO=dhcp</code>为<code>BOOTPROTO=static</code></p>
+<p>修改<code>ONBOOT=no</code>为<code>ONBOOT=yes</code></p>
+<p>在末尾根据刚刚<code>ifconfig</code>获得的ip地址进行填写</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IPADDR=192.168.192.141</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.192.2</span><br><span class="line">DNS1=8.8.8.8</span><br><span class="line">DNS2=8.8.8.4</span><br></pre></td></tr></table></figure>
+<p>这里的ip地址，子网掩码，网关根据实际情况填写</p>
+<p>最终设置后，整个文本显示如下</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=ens33</span><br><span class="line">UUID=b2fca141-6809-45c2-9093-a3362e8c4de2</span><br><span class="line">DEVICE=ens33</span><br><span class="line">ONBOOT=yes</span><br><span class="line">IPADDR=192.168.192.141</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.192.2</span><br><span class="line">DNS1=8.8.8.8</span><br><span class="line">DNS2=8.8.8.4</span><br></pre></td></tr></table></figure>
+<p>接着重启网卡，在命令行输入</p>
+<blockquote>
+<p>systemctl restart network.service</p>
+</blockquote>
+<p>这时候查看是否能够成功联网</p>
+<blockquote>
+<p>ping <a target="_blank" rel="noopener" href="http://www.baidu.com">www.baidu.com</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/14/%E7%AE%97%E6%B3%954%E2%80%94%E7%9F%A5%E8%AF%86/" rel="prev" title="算法4—知识">
+                  <i class="fa fa-chevron-left"></i> 算法4—知识
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/22/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/" rel="next" title="Java核心技术—接口、lambda表达式与内部类">
+                  Java核心技术—接口、lambda表达式与内部类 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"a8bfddfa12d6847e300ad662a95b09ab"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="挑战程序设计2 STL 简单介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挑战程序设计2-STL">
+<meta property="og:url" content="http://qibinaoe.top/2020/10/28/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-STL/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="挑战程序设计2 STL 简单介绍">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://qibinaoe.top/2020/10/28/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-STL/list%E7%94%A8%5B%5D%E8%BF%9B%E8%A1%8C%E8%AE%BF%E9%97%AE.jpg">
+<meta property="article:published_time" content="2020-10-28T14:07:17.000Z">
+<meta property="article:modified_time" content="2020-10-31T03:27:13.375Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="挑战程序设计">
+<meta property="article:tag" content="STL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qibinaoe.top/2020/10/28/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-STL/list%E7%94%A8%5B%5D%E8%BF%9B%E8%A1%8C%E8%AE%BF%E9%97%AE.jpg">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/10/28/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-STL/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/10/28/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-STL/","path":"2020/10/28/挑战程序设计2-STL/","title":"挑战程序设计2-STL"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>挑战程序设计2-STL | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-STL-%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">挑战程序设计2 STL 简单介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88stack"><span class="nav-number">2.2.</span> <span class="nav-text">栈stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97-queue"><span class="nav-number">2.3.</span> <span class="nav-text">队列 queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A5%E4%B8%8A%E4%BB%A3%E8%A1%A8%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="nav-number">2.4.</span> <span class="nav-text">以上代表注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vector-%E5%90%91%E9%87%8F"><span class="nav-number">2.5.</span> <span class="nav-text">vector 向量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F-v3"><span class="nav-number">2.5.1.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93"><span class="nav-number">2.5.2.</span> <span class="nav-text">知识点总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E4%B9%8B"><span class="nav-number">2.5.3.</span> <span class="nav-text">总之</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#list-%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8"><span class="nav-number">2.6.</span> <span class="nav-text">list 双向链表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%84%9F%E6%83%B3"><span class="nav-number">2.6.1.</span> <span class="nav-text">感想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-v4"><span class="nav-number">2.6.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F-v4"><span class="nav-number">2.6.3.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93-v2"><span class="nav-number">2.6.4.</span> <span class="nav-text">知识点总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E4%B9%8B-v2"><span class="nav-number">2.6.5.</span> <span class="nav-text">总之</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2"><span class="nav-number">3.</span> <span class="nav-text">搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8-iterator"><span class="nav-number">3.1.</span> <span class="nav-text">迭代器 iterator</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">3.1.1.</span> <span class="nav-text">迭代器基本运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.2.</span> <span class="nav-text">迭代器函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">3.1.3.</span> <span class="nav-text">迭代器使用示例代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2"><span class="nav-number">3.2.</span> <span class="nav-text">二分搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lower-bound"><span class="nav-number">3.2.1.</span> <span class="nav-text">lower_bound</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#upper-bound"><span class="nav-number">3.2.2.</span> <span class="nav-text">upper_bound</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#binary-search"><span class="nav-number">3.2.3.</span> <span class="nav-text">binary_search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lower-bound%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.2.4.</span> <span class="nav-text">lower_bound示例</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/10/28/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-STL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="挑战程序设计2-STL | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          挑战程序设计2-STL
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-28 22:07:17" itemprop="dateCreated datePublished" datetime="2020-10-28T22:07:17+08:00">2020-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-10-31 11:27:13" itemprop="dateModified" datetime="2020-10-31T11:27:13+08:00">2020-10-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="挑战程序设计2-STL-简单介绍"><a class="header-anchor" href="#挑战程序设计2-STL-简单介绍"> </a>挑战程序设计2 STL 简单介绍</h2>
+<span id="more"></span>
+<hr>
+<h2 id="容器"><a class="header-anchor" href="#容器"> </a>容器</h2>
+<h3 id="注意点"><a class="header-anchor" href="#注意点"> </a>注意点</h3>
+<ul>
+<li><em><strong>每个容器的插入的函数不尽相同，返回头元素的函数也不尽相同，需要注意</strong></em></li>
+</ul>
+<h3 id="栈stack"><a class="header-anchor" href="#栈stack"> </a>栈stack</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="comment">//导入栈的包 </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//声明int类型元素的栈 </span></span><br><span class="line">	stack&lt;<span class="type">int</span>&gt; S;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* size() 返回栈的元素个数      O(1) </span></span><br><span class="line"><span class="comment">	* top() 返回栈顶的元素			O(1)</span></span><br><span class="line"><span class="comment">	* pop() 从栈中取出并删除元素 	O(1)</span></span><br><span class="line"><span class="comment">	* push(x) 向栈添加元素x 		O(1)</span></span><br><span class="line"><span class="comment">	* empty() 在栈为空的时候返回true O(1)</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	</span><br><span class="line">	S.<span class="built_in">push</span>(<span class="number">3</span>);</span><br><span class="line">	S.<span class="built_in">push</span>(<span class="number">7</span>);	</span><br><span class="line">	S.<span class="built_in">push</span>(<span class="number">1</span>);</span><br><span class="line">	</span><br><span class="line">	cout &lt;&lt; S.<span class="built_in">size</span>() &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	cout &lt;&lt; S.<span class="built_in">top</span>() &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	S.<span class="built_in">pop</span>();</span><br><span class="line">	cout &lt;&lt; S.<span class="built_in">top</span>() &lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h3 id="队列-queue"><a class="header-anchor" href="#队列-queue"> </a>队列 queue</h3>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="comment">//导入queue包 </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//声明元素类型为string的队列 </span></span><br><span class="line">	queue&lt;string&gt; Q;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* size() 返回队列的元素数  O(1) </span></span><br><span class="line"><span class="comment">	* push(x) 向队列添加元素x O(1) </span></span><br><span class="line"><span class="comment">	* front() 返回队头元素  O(1) </span></span><br><span class="line"><span class="comment">	* empty() 当队列为空的时候返回true O(1) </span></span><br><span class="line"><span class="comment">	* pop() 从队列中取出并删除元素 O(1) </span></span><br><span class="line"><span class="comment">	**/</span></span><br><span class="line">	</span><br><span class="line">	Q.<span class="built_in">push</span>(<span class="string">&quot;red&quot;</span>);</span><br><span class="line">	Q.<span class="built_in">push</span>(<span class="string">&quot;yellow&quot;</span>);</span><br><span class="line">	Q.<span class="built_in">push</span>(<span class="string">&quot;green&quot;</span>);</span><br><span class="line">	Q.<span class="built_in">pop</span>();</span><br><span class="line">	cout &lt;&lt; Q.<span class="built_in">front</span>() &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span> </span></span><br><span class="line"><span class="comment">//注 pair在头文件 &lt;utility&gt; </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n,q,t;</span><br><span class="line">	string name;</span><br><span class="line">	</span><br><span class="line">	queue&lt;pair&lt;string,<span class="type">int</span>&gt;&gt; Q; <span class="comment">//任务队列</span></span><br><span class="line">	cin &gt;&gt; n &gt;&gt; q;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		cin &gt;&gt; name &gt;&gt; t;</span><br><span class="line">		Q.<span class="built_in">push</span>(<span class="built_in">make_pair</span>(name,t));</span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">	pair&lt;string,<span class="type">int</span>&gt; u;</span><br><span class="line">	<span class="type">int</span> elaps = <span class="number">0</span>,a;</span><br><span class="line">	<span class="keyword">while</span>(!Q.<span class="built_in">empty</span>())&#123;</span><br><span class="line">	<span class="comment">//注意STL中pop不返回值</span></span><br><span class="line">	<span class="comment">//这样做是为了异常安全 exception safety</span></span><br><span class="line">	<span class="comment">//因此需要分两步进行操作,同时也能提高性能</span></span><br><span class="line">	<span class="comment">//而返回的u = Q.front() ,对u进行修改，也能修改队列里面的元素，而不需要重新push进去 </span></span><br><span class="line">		u = Q.<span class="built_in">front</span>();</span><br><span class="line">		Q.<span class="built_in">pop</span>(); </span><br><span class="line">		a = <span class="built_in">min</span>(u.second,q);</span><br><span class="line">		elaps += a;</span><br><span class="line">		u.second -= a;</span><br><span class="line">		<span class="keyword">if</span>(u.second &gt; <span class="number">0</span>)&#123;</span><br><span class="line">			Q.<span class="built_in">push</span>(u);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			cout &lt;&lt; u.first &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; u.second; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="以上代表注意点"><a class="header-anchor" href="#以上代表注意点"> </a>以上代表注意点</h3>
+<ol>
+<li>
+<p>STL中队列和栈，<code>pop</code>不返回值，而是要先<code>front</code>获取元素后再pop出来</p>
+</li>
+<li>
+<p>STL中pair是用于保存数值的结构体模板，注意是结构体不是类，因此访问的时候，对于第1个元素通过<code>.first</code>访问，第2个元素通过<code>.second</code>访问。同时make_pair()用于生成一对数值，注意是圆括号不是尖括号</p>
+</li>
+</ol>
+<hr>
+<h3 id="vector-向量"><a class="header-anchor" href="#vector-向量"> </a>vector 向量</h3>
+<p>vector属于动态数组或者说边长数组，即添加元素的时候能够增加长度；而必须事先指定长度，只能容纳一定数量元素的叫做静态数组</p>
+<h4 id="注意-v3"><a class="header-anchor" href="#注意-v3"> </a>注意</h4>
+<p><code>begin()</code>返回的是指向元素的迭代器，而<code>end()</code>返回的是指向末尾元素的后一个位置的迭代器，不指向元素</p>
+<h4 id="知识点总结"><a class="header-anchor" href="#知识点总结"> </a>知识点总结</h4>
+<ul>
+<li>vector在内存中是分配一段连续的内存空间进行储存，(<strong>分配多大？</strong>),因此才有<code>.capacity()这个函数</code>来访问总的容量，当超过该空间后需要重新分配一段新的空间。</li>
+<li>动态的进行<code>push_back()</code>和<code>pop_back()</code>操作</li>
+<li>像数组一样，通过<code>[]</code>操作符进行访问元素<br>
+<em><strong>但是</strong></em></li>
+<li>在内部插入效率低，需要挪动空间</li>
+<li>只能在尾部进行插入和删除，不能在头部进行push 和 pop</li>
+</ul>
+<h4 id="总之"><a class="header-anchor" href="#总之"> </a>总之</h4>
+<p>vector适合高效率随机访问的场景，不适合频繁的在内部插入删除操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(vector&lt;<span class="type">double</span>&gt; V)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; V.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">		<span class="comment">//vector可以通过&quot;[]&quot;运算符，像数组一样访问（赋值或写入） </span></span><br><span class="line">		cout &lt;&lt; V[i] &lt;&lt; <span class="string">&quot;  &quot;</span>; </span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* size() 返回向量元素数 O(1) </span></span><br><span class="line"><span class="comment">	* push_back(x) 向向量末尾添加元素x  O(1) </span></span><br><span class="line"><span class="comment">	* pop_back() 删除向量最后一个元素  O(1) </span></span><br><span class="line"><span class="comment">	* begin() 返回指向向量开头的迭代器  O(1)</span></span><br><span class="line"><span class="comment">	* end() 返回指向向量末尾(***最后一个元素的后一个位置***)的迭代器 O(1)</span></span><br><span class="line"><span class="comment">	* insert(p,x) 在向量的位置p处插入元素x O(n)</span></span><br><span class="line"><span class="comment">	* erase(p) 删除向量中位置p的元素  O(n)</span></span><br><span class="line"><span class="comment">	* clear() 删除向量中所有元素 O(n) </span></span><br><span class="line"><span class="comment">	* </span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="comment">//vector</span></span><br><span class="line">	vector&lt;<span class="type">double</span>&gt; V;</span><br><span class="line">	V.<span class="built_in">push_back</span>(<span class="number">0.1</span>);</span><br><span class="line">	V.<span class="built_in">push_back</span>(<span class="number">0.2</span>);</span><br><span class="line">	V.<span class="built_in">push_back</span>(<span class="number">0.3</span>);</span><br><span class="line">	V[<span class="number">1</span>] = <span class="number">0.4</span>;</span><br><span class="line">	<span class="built_in">print</span>(V);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	V.<span class="built_in">insert</span>(V.<span class="built_in">begin</span>()+<span class="number">2</span>,<span class="number">0.8</span>);</span><br><span class="line">	<span class="built_in">print</span>(V); </span><br><span class="line">	</span><br><span class="line">	<span class="comment">//注意这里是左闭右开 ，即删除 begin()+1  begin()+2 </span></span><br><span class="line">	V.<span class="built_in">erase</span>(V.<span class="built_in">begin</span>()+<span class="number">1</span>,V.<span class="built_in">begin</span>()+<span class="number">3</span>);</span><br><span class="line">	<span class="built_in">print</span>(V);</span><br><span class="line">	V.<span class="built_in">push_back</span>(<span class="number">0.11</span>);</span><br><span class="line">	V.<span class="built_in">push_back</span>(<span class="number">0.12</span>);</span><br><span class="line">	V.<span class="built_in">push_back</span>(<span class="number">0.13</span>);</span><br><span class="line">	V.<span class="built_in">push_back</span>(<span class="number">0.14</span>);</span><br><span class="line">	V.<span class="built_in">erase</span>(V.<span class="built_in">begin</span>()+<span class="number">2</span>);</span><br><span class="line">	<span class="built_in">print</span>(V);</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*输出</span></span><br><span class="line"><span class="comment">	0.1  0.4  0.3</span></span><br><span class="line"><span class="comment">	0.1  0.4  0.8  0.3</span></span><br><span class="line"><span class="comment">	0.1  0.3</span></span><br><span class="line"><span class="comment">	0.1  0.3  0.12  0.13  0.14</span></span><br><span class="line"><span class="comment">	*/</span> </span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="list-双向链表"><a class="header-anchor" href="#list-双向链表"> </a>list 双向链表</h3>
+<h4 id="感想"><a class="header-anchor" href="#感想"> </a>感想</h4>
+<pre><code>感觉list是vector的超集，很多vector有的功能，list都有，除此之外，相比于vector,list的`insert(p,x)`和`erase(p)`的时间复杂度是O（1）,而vector是 O(n)
+</code></pre>
+<h4 id="问题-v4"><a class="header-anchor" href="#问题-v4"> </a>问题</h4>
+<ol>
+<li>为什么list的在指定位置插入和删除比vector快
+<ul>
+<li>答：因为vector插入删除需要挪动内存空间的元素，而list只需要修改相邻结点的指向</li>
+</ul>
+</li>
+<li>list能够通过<code>[]</code>直接进行访问吗？
+<ul>
+<li>答：不能</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>这里书本有误？<br>
+<img src="list%E7%94%A8%5B%5D%E8%BF%9B%E8%A1%8C%E8%AE%BF%E9%97%AE.jpg" alt="挑战程序2第85页"></p>
+<hr>
+<h4 id="注意-v4"><a class="header-anchor" href="#注意-v4"> </a>注意</h4>
+<ul>
+<li>以<code>int</code>举例，<code>begin()</code>返回迭代器的是<code>list&lt;int&gt;::iterator</code></li>
+<li>获得迭代器元素用解引用符<code>*</code>，比如<code>*it</code></li>
+</ul>
+<h4 id="知识点总结-v2"><a class="header-anchor" href="#知识点总结-v2"> </a>知识点总结</h4>
+<ul>
+<li>list底层是带头结点的双向循环链表实现（参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/Shuffle_Ts/article/details/98493475">CSDN博客STL中vector和list的区别</a>）,因此字在内存中不是连续空间</li>
+<li>list不支持随机访问</li>
+<li>list插入和删除效率高，只需要改变相邻的两个结点的指向</li>
+<li>可以在链表的两端进行push和pop操作</li>
+</ul>
+<h4 id="总之-v2"><a class="header-anchor" href="#总之-v2"> </a>总之</h4>
+<p>list适合大量插入删除操作的场景，不适合随机访问。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;list&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//list是双向链表 </span></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* size()  返回表的元素数  O(1) </span></span><br><span class="line"><span class="comment">	* begin()  返回指向表开头的迭代器  O(1) </span></span><br><span class="line"><span class="comment">	* end()  返回指向表的末尾(最后一个元素的后一个位置)的迭代器  O(1) </span></span><br><span class="line"><span class="comment">	* push_front(x) 在表的开头添加元素x  O(1) </span></span><br><span class="line"><span class="comment">	* push_back(x)  在表的末尾添加元素x  O(1) </span></span><br><span class="line"><span class="comment">	* pop_front() 删除位于表的开头的元素  O(1) </span></span><br><span class="line"><span class="comment">	* pop_back()  删除位于表的结尾的元素 O(1) </span></span><br><span class="line"><span class="comment">	* insert(p,x)  在表的位置p插入元素x O(1)  ??为什么呢 与vector区别在哪里 </span></span><br><span class="line"><span class="comment">	* erase(p)  删除表中位置p的元素 O(1) </span></span><br><span class="line"><span class="comment">	* clear()  删除表中的所有元素 O(n) </span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	list&lt;<span class="type">char</span>&gt; L;</span><br><span class="line">	L.<span class="built_in">push_back</span>(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">	L.<span class="built_in">push_back</span>(<span class="string">&#x27;b&#x27;</span>);</span><br><span class="line">	L.<span class="built_in">push_back</span>(<span class="string">&#x27;c&#x27;</span>);</span><br><span class="line">	cout &lt;&lt; L.<span class="built_in">front</span>();</span><br><span class="line">	cout &lt;&lt; L.<span class="built_in">back</span>();</span><br><span class="line">	</span><br><span class="line">	L.<span class="built_in">pop_front</span>();</span><br><span class="line">	L.<span class="built_in">push_back</span>(<span class="string">&#x27;p&#x27;</span>);</span><br><span class="line">	<span class="comment">//char temp = L[0]; 这样会报错 </span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="搜索"><a class="header-anchor" href="#搜索"> </a>搜索</h2>
+<h3 id="迭代器-iterator"><a class="header-anchor" href="#迭代器-iterator"> </a>迭代器 iterator</h3>
+<p>迭代器是一种对象，用于对STL容器进行迭代操作。对于任何种类的容器，迭代器顺序访问元素使用的语法相同。在处理数组元素时，可以当作C/C++指针来用</p>
+<h4 id="迭代器基本运算符"><a class="header-anchor" href="#迭代器基本运算符"> </a>迭代器基本运算符</h4>
+<ul>
+<li><code>++</code> 让迭代器指向下一个元素</li>
+<li><code>==,!=</code> 判断两个迭代器是否指向同一个位置并返回结果</li>
+<li><code>=</code> 将右侧的值带入左侧迭代器所引用元素的位置</li>
+<li><code>*</code> 返回该位置的元素</li>
+</ul>
+<h4 id="迭代器函数"><a class="header-anchor" href="#迭代器函数"> </a>迭代器函数</h4>
+<ul>
+<li><code>begin()</code> 返回指向容器开头的迭代器</li>
+<li><code>end()</code> 返回指向容器末尾（最后一个元素的下一个位置）的迭代器</li>
+</ul>
+<h4 id="迭代器使用示例代码"><a class="header-anchor" href="#迭代器使用示例代码"> </a>迭代器使用示例代码</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//迭代器使用</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(vector&lt;<span class="type">int</span>&gt; v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;::iterator it;</span><br><span class="line">	<span class="keyword">for</span>(it = v.<span class="built_in">begin</span>(); it != v.<span class="built_in">end</span>(); it++)&#123;</span><br><span class="line">		cout &lt;&lt; *it;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt; v;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> N = <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">		<span class="type">int</span> x;</span><br><span class="line">		cin &gt;&gt; x;</span><br><span class="line">		v.<span class="built_in">push_back</span>(x);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">print</span>(v);</span><br><span class="line">	vector&lt;<span class="type">int</span>&gt;::iterator it = v.<span class="built_in">begin</span>();	</span><br><span class="line">	*it = <span class="number">3</span>;</span><br><span class="line">	it++;</span><br><span class="line">	(*it)++;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">print</span>(v);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="二分搜索"><a class="header-anchor" href="#二分搜索"> </a>二分搜索</h3>
+<p>STL在二分搜索提供了<code>binary_search</code>、<code>lower_bound</code>、<code>upper_bound</code>函数。这几个函数的使用的前提是数组是有序且非递减。包含在头文件<code>#include&lt;algorithm&gt;</code>中</p>
+<h4 id="lower-bound"><a class="header-anchor" href="#lower-bound"> </a>lower_bound</h4>
+<p>lower_bound(起始地址，结束地址，查询值),注意是左开右闭。返回一个迭代器(指针)，该指针指向第一个大于或等于（或者说不小于）指定值的元素的地址。<br>
+例如lower_bound(A,A+14,3)，指定数组A的头指针以及距离头指针14的位置，一般为数组的长度A+size。如果A为vector，则可以使用A.begin(),A.end()来指定范围。</p>
+<h4 id="upper-bound"><a class="header-anchor" href="#upper-bound"> </a>upper_bound</h4>
+<p>upper_bound(起始地址，结束地址，查询值),注意是左开右闭。返回一个迭代器(指针)，该指针指向第一个大于指定值的元素的地址。</p>
+<h4 id="binary-search"><a class="header-anchor" href="#binary-search"> </a>binary_search</h4>
+<p>binary_search(起始地址，结束地址，查询值),注意是左开右闭。找到元素返回真，找不到返回假.</p>
+<p><code>distance()</code>用于返回两个指针间的距离</p>
+<h4 id="lower-bound示例"><a class="header-anchor" href="#lower-bound示例"> </a>lower_bound示例</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> A[<span class="number">14</span>] = &#123;<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">8</span>,<span class="number">8</span>,<span class="number">8</span>,<span class="number">10</span>,<span class="number">15</span>&#125;;</span><br><span class="line">	<span class="type">int</span> *pos;</span><br><span class="line">	<span class="type">int</span> idx;</span><br><span class="line">	pos = <span class="built_in">lower_bound</span>(A,A+<span class="number">14</span>,<span class="number">3</span>);</span><br><span class="line">	idx = <span class="built_in">distance</span>(A,pos);</span><br><span class="line">	cout &lt;&lt; idx &lt;&lt; <span class="string">&quot;  &quot;</span>&lt;&lt;*pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> 挑战程序设计</a>
+              <a href="/tags/STL/" rel="tag"><i class="fa fa-tag"></i> STL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/27/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12-%E5%88%9D%E7%AD%89%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/" rel="prev" title="挑战程序设计2-初等数据结构-双向链表">
+                  <i class="fa fa-chevron-left"></i> 挑战程序设计2-初等数据结构-双向链表
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/29/%E8%AF%B4%E8%AF%9D%E3%80%81%E6%BC%94%E8%AE%B2%E7%AD%89%E6%84%9F%E6%82%9F/" rel="next" title="说话、演讲等感悟">
+                  说话、演讲等感悟 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"8d980aa3f12b83e29f5429b9ab23f03a"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

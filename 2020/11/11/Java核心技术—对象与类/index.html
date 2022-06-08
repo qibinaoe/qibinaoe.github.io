@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="Java核心技术——第四章 对象与类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术—对象与类">
+<meta property="og:url" content="http://qibinaoe.top/2020/11/11/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="Java核心技术——第四章 对象与类">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-11T13:29:45.000Z">
+<meta property="article:modified_time" content="2020-12-05T15:29:42.558Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="Java核心技术">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/11/11/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/11/11/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/","path":"2020/11/11/Java核心技术—对象与类/","title":"Java核心技术—对象与类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java核心技术—对象与类 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E2%80%94%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">Java核心技术——第四章 对象与类</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/11/11/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%AF%B9%E8%B1%A1%E4%B8%8E%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java核心技术—对象与类 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java核心技术—对象与类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-11 21:29:45" itemprop="dateCreated datePublished" datetime="2020-11-11T21:29:45+08:00">2020-11-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-12-05 23:29:42" itemprop="dateModified" datetime="2020-12-05T23:29:42+08:00">2020-12-05</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Java核心技术——第四章-对象与类"><a class="header-anchor" href="#Java核心技术——第四章-对象与类"> </a>Java核心技术——第四章 对象与类</h1>
+<span id="more"></span>
+<ul>
+<li>
+<p>面向对象设计(Object-oriented programming ,OOP)</p>
+</li>
+<li>
+<p>对象的三个主要特性</p>
+<ul>
+<li>对象的<strong>行为</strong>——可以对对象完成哪些操作，或者可以对对象应用哪些方法？</li>
+<li>对象的<strong>状态</strong>——当调用那些方法时，对象会如何相应？
+<ul>
+<li>状态:每个对象都保存着描述当前状况的信息</li>
+<li>状态可以随时间而发生改变，但是改变不是自发的</li>
+<li>对象状态的改变必须通过调用方法实现（否则破坏了封装性）</li>
+</ul>
+</li>
+<li>对象的<strong>标识</strong>——如何区分具有相同行为和状态的不同对象？</li>
+</ul>
+</li>
+<li>
+<p>面向对象的三个基本特征</p>
+<ul>
+<li>封装</li>
+<li>继承</li>
+<li>多态</li>
+</ul>
+</li>
+<li>
+<p>创建类的实例(instance): 由类class(构造对象的模板或蓝图)构造construct对象的过程</p>
+</li>
+<li>
+<p>封装(encapsulation)的关键在于程序只能通过对象的方法与对象数据进行交互，换句话说，绝对不能让类中的方法直接访问其他类的示例字段(instance field)</p>
+</li>
+<li>
+<p>对别对象和对象变量的概念</p>
+<ul>
+<li><code>Date deadline;</code> 这是一个对象遍历啊你给，不是一个对象，并且没有引用任何对象</li>
+<li>对象变量初始化的方法
+<ol>
+<li>引用一个新构造的对象 <code>deadline = new Date();</code></li>
+<li>引用一个已存在的对象 <code>deadline = birthday;</code></li>
+</ol>
+</li>
+<li>对象变量没有实际包含对象，而是引用一个对象</li>
+<li>new操作符返回值是一个引用</li>
+<li>所有的Java对象都存储在<em>堆</em>中。一个对象包含另一个对象变量时，它只是包含着另一个堆对象的指针</li>
+<li>Java中必须使用<code>clone</code>方法来获得对象的完整副本</li>
+</ul>
+</li>
+<li>
+<p>UTC(Coordinated Universal Time) 国际协调时间</p>
+</li>
+<li>
+<p>GMT(Greenwich Mean Time) 格林尼治时间</p>
+</li>
+<li>
+<p>访问器方法(accessor method) 只访问对象而不修改对象的方法</p>
+</li>
+<li>
+<p>修改器方法(mutator method) 访问对象后，对象的状态发生改变</p>
+</li>
+<li>
+<p>一个源文件(.java)只能由一个公共类，但可以任意数目的非公共类</p>
+<ul>
+<li>在编译的时候会分别为每个类生成.class文件</li>
+</ul>
+</li>
+<li>
+<p>构造器</p>
+<ul>
+<li>构造器结合<code>new</code>运算符调用</li>
+<li>不能对一个已经存在的对象调用构造器来达到重新设置实例字段的目的</li>
+<li>构造器没有返回值</li>
+</ul>
+</li>
+<li>
+<p>不要在构造器中定义与实例字段同名的局部变量</p>
+</li>
+<li>
+<p>隐式参数与显示参数</p>
+<ul>
+<li><code>employee.raiseSalary(1000);</code>
+<ul>
+<li><code>raiseSalary</code>方法有两个参数
+<ol>
+<li>隐式参数： <code>employee</code>出现在方法前的<code>Employee</code>类型对象（方法调用的目标或接收者）</li>
+<li>显示参数： <code>1000</code>位于方法方法名后面括号中的数值</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>在每个方法中，关键字<code>this</code>指示隐式参数
+<ul>
+<li><code>this.salary += raise;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Java中所有的方法都必须在类的内部定义(不同于C++),但这不表示它们是内联方法。是否将某个方法设置为内联方法是Java虚拟机的任务。即时编辑器会监视那些简短的、经常调用而且没有被覆盖的方法调用，并进行优化。</p>
+</li>
+<li>
+<p>访问器方法</p>
+<ul>
+<li>不要编写返回可变对象引用的访问器方法  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">private</span> Date  hireDay;</span><br><span class="line">  <span class="keyword">public</span> Date <span class="title function_">getHireDay</span><span class="params">()</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">return</span> hireDay; <span class="comment">//不要这样做。因为Date类有一个更改其的方法setTime,这样做会破坏封装性</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>如果需要返回一个可变对象的引用，应该先对其克隆(clone)再返回。<code>return (Date)hireDay.clone();</code></li>
+</ul>
+</li>
+<li>
+<p>基于类的访问权限</p>
+<ul>
+<li>方法可以访问调用这个方法的对象的私有数据</li>
+<li>一个方法可以访问所属类的所有对象的私有数据(可读可修改)  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Employee</span> <span class="variable">e1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="string">&quot;good&quot;</span>,<span class="number">10</span>);</span><br><span class="line">        <span class="type">Employee</span> <span class="variable">e2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">        System.out.println(e2.getSalary()); <span class="comment">// 20</span></span><br><span class="line">        System.out.println(e1.equals(e2)); <span class="comment">// true</span></span><br><span class="line">        System.out.println(e2.getSalary()); <span class="comment">//1000</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> salary;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Employee</span><span class="params">(String n, <span class="type">int</span> s)</span></span><br><span class="line">    &#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">equals</span><span class="params">(Employee l)</span> &#123;</span><br><span class="line">        l.salary = <span class="number">1000</span>;</span><br><span class="line">        <span class="keyword">return</span> name.equals(l.name);</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getSalary</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> salary;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>final实例字段</p>
+<ul>
+<li>实例字段定义为final
+<ul>
+<li>这些字段必须在构造对象时初始化，即每一个构造器执行之后，这些字段的值已经设置，并且以后不能再修改这个字段</li>
+</ul>
+</li>
+<li>final修饰符对于类型为基本类型或不可变类(类中所有方法都不会改变其对象)的字段(String)</li>
+<li>final修饰可变的类会造成混乱(StringBuilder)，因为final只表示储存在final修饰的变量的对象引用不会再知识另一个不同的对象，但是这个对象可以更改</li>
+</ul>
+</li>
+<li>
+<p>静态字段</p>
+<ul>
+<li>一个字段定义为<code>static</code>,则每个类只有一个这样的字段
+<ul>
+<li>这个类的所有实例都共享这个static修饰的静态字段</li>
+<li>即使没有这个对象，静态字段仍然存在</li>
+<li>静态字段属于类，不属于任何单个对象</li>
+</ul>
+</li>
+<li>对于非静态的实例字段，每个对象都有自己的副本</li>
+</ul>
+</li>
+<li>
+<p>静态常量</p>
+<ul>
+<li><code>public static final double PI = 3.14159265358979323846;</code></li>
+<li><code>public static final PrintStream out = ...;</code></li>
+<li>在<code>System</code>类中，有个<code>setOut</code>方法能够修改<code>System.out</code>为不同的流，这个方法能够修改<code>final</code>修饰变量的值的原因是因为这是个<strong>原生方法</strong>,不是在Java语言实现的，绕过Java语言的访问控制机制。</li>
+</ul>
+</li>
+<li>
+<p>静态方法</p>
+<ul>
+<li>不在对象上执行的方法 <code>Math.pow(x, a)</code>, 由于不使用任何对象，因此它没有隐式参数</li>
+<li>静态方法没有<code>this</code>参数</li>
+<li>静态方法不能访问实例字段，但是可以访问静态字段</li>
+<li>非静态方法也也可以访问静态字段  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getNextId</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> nextId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+这里的<code>static</code>可以省略，但这样一来就得通过对象引用来调用方法</li>
+</ul>
+</li>
+<li>
+<p>工厂方法</p>
+<ul>
+<li>静态工厂方法构造对象
+<ul>
+<li>无法命名构造器
+<ul>
+<li>希望有两个不同的名字得到不同的实例</li>
+</ul>
+</li>
+<li>使用构造器，无法改变所构造对象的类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>每一个类都可以有一个<code>main</code>方法</p>
+<ul>
+<li>对类进行的单元测试的技巧</li>
+</ul>
+</li>
+<li>
+<p>方法参数</p>
+<ul>
+<li>按值调用(call by value)
+<ul>
+<li>接受调用者提供的值</li>
+<li>方法不能修改按值传递的变量的值</li>
+</ul>
+</li>
+<li>按引用调用(call by reference)
+<ul>
+<li>接受的是调用者提供的变量地址</li>
+<li>方法可以修改按引用传递的变量的值</li>
+</ul>
+</li>
+<li>Java总是采用<strong>按值调用</strong>
+<ul>
+<li>
+<p>方法得到的是所有参数值的一个副本，方法不能修改传递给它的任何参数变量的内容</p>
+</li>
+<li>
+<p>方法参数类型</p>
+<ul>
+<li>基本数据类型(数字、布尔值)</li>
+<li>对象引用(<em>注：对象引用也是按值传递，不是按引用传递</em>)</li>
+</ul>
+</li>
+<li>
+<p>但是通过对象引用能够修改对象的参数状态，因为方法得到的是对象引用的一个副本，原来对象引用和副本都引用同一个对象</p>
+</li>
+<li>
+<p>证明对象引用不是按引用传递</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">      <span class="type">Employee</span> <span class="variable">e1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">      <span class="type">Employee</span> <span class="variable">e2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">      System.out.println(e1.getName()); <span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName()); <span class="comment">// good</span></span><br><span class="line">      swap(e1,e2);</span><br><span class="line">      System.out.println(e1.getName());<span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName());<span class="comment">// good</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">swap</span><span class="params">(Employee e1, Employee e2)</span> &#123;</span><br><span class="line">      <span class="type">Employee</span> <span class="variable">temp</span> <span class="operator">=</span> e1;</span><br><span class="line">      e1 = e2;</span><br><span class="line">      e2 = temp;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Employee</span><span class="params">(String n, <span class="type">int</span> s)</span></span><br><span class="line">    &#123;</span><br><span class="line">        name = n;</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>对象构造</p>
+<ul>
+<li>重载(overloading)
+<ul>
+<li>相同名字，不同参数。(不仅适用于构造器，Java允许重载任何方法)(注意区分重载(overload)和覆盖(override)区别)</li>
+</ul>
+</li>
+<li>重载解析(overloading solution)
+<ul>
+<li>查找匹配的过程</li>
+</ul>
+</li>
+<li>方法的<strong>签名</strong>: 方法名+参数类型
+<ul>
+<li>注意，返回值不是签名的一部分</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>默认字段初始化</p>
+<ul>
+<li>构造器没有显示为字段设置初值，会被自动赋为默认值
+<ul>
+<li>数值为<code>0</code></li>
+<li>布尔值为<code>false</code></li>
+<li>对象引用为<code>null</code></li>
+</ul>
+</li>
+<li>注意：方法中的<strong>局部变量</strong>必须明确地初始化，否则会报错</li>
+</ul>
+</li>
+<li>
+<p>无参数构造器</p>
+<ul>
+<li>写类的时候没有编写构造器，会提供一个无参数构造器
+<ul>
+<li>所有实例字段设置为默认值</li>
+</ul>
+</li>
+<li>仅当类没有任何其他构造器的时候，才会得到一个默认的无参数构造器
+<ul>
+<li>如果类提供了至少一个构造器，但是没有提供无参数的构造器，那么构造对象时如果不提供参数就是不合法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>显式字段初始化</p>
+<ol>
+<li>
+<p>类定义中直接为任何字段赋值</p>
+<ul>
+<li>
+<p>执行构造器之前先完成赋值操作</p>
+</li>
+<li>
+<p>希望将某个字段设置为同一值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="type">Sting</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;...&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>利用方法调用初始化一个字段</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> nextId;</span><br><span class="line">  <span class="keyword">private</span> <span class="type">int</span> <span class="variable">id</span> <span class="operator">=</span> assignId();</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">assignId</span><span class="params">()</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> nextId;</span><br><span class="line">    nextId++;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li>
+<p><code>this</code>关键字调用另一个构造器</p>
+<ul>
+<li>
+<p>构造器的第一个语句形如<code>this(...)</code>，构造器将调用同一个类的另一个构造器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">      <span class="type">Employee</span> <span class="variable">e1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="string">&quot;bad&quot;</span>,<span class="number">10</span>);</span><br><span class="line">      <span class="type">Employee</span> <span class="variable">e2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Employee</span>(<span class="string">&quot;good&quot;</span>,<span class="number">20</span>);</span><br><span class="line">      System.out.println(e1.getName()); <span class="comment">// bad</span></span><br><span class="line">      System.out.println(e2.getName()); <span class="comment">// good</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> salary;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Employee</span><span class="params">(String n)</span></span><br><span class="line">    &#123;</span><br><span class="line">        name = <span class="string">&quot;HAHAH&quot;</span> + n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Employee</span><span class="params">(String n, <span class="type">int</span> s)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">this</span>(n);</span><br><span class="line">        salary = s;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>初始化块(initialization block)</p>
+<ul>
+<li>首先运行初始化块，再运行构造器的主体部分</li>
+<li>通常将初始化代码放在构造器里</li>
+<li>建议将初始化块放在字段定义之后</li>
+</ul>
+</li>
+<li>
+<p>调用构造器的具体处理步骤</p>
+<ol>
+<li>如果构造器第一行调用了另一个构造器，则基于所提供的参数执行第二个构造器</li>
+<li>否则
+<ol>
+<li>所有数据字段初始化为其默认值</li>
+<li>按照类声明中出现的顺序，执行所有字段的初始化方法和初始化块</li>
+</ol>
+</li>
+<li>执行构造器主题代码</li>
+</ol>
+</li>
+<li>
+<p>静态字段初始化</p>
+<ol>
+<li>提供初始值
+<ul>
+<li><code>private static int nextId = 1;</code></li>
+</ul>
+</li>
+<li>静态的初始化块、</li>
+</ol>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">Random</span> <span class="variable">generator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Random</span>();</span><br><span class="line">  nextId = generator.nextInt(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>包</p>
+<ul>
+<li>一个类可以使用所属包的所有类，以及其他包的公共类</li>
+<li>在包中定位类是编译器(compiler)的工作。</li>
+<li>类文件中的字节码总是使用完整的包名引用其他类</li>
+<li>在Java中，通过显式地给出类名(java.util.Date)，可以完全避免使用import机制</li>
+</ul>
+</li>
+<li>
+<p>静态导入</p>
+<ul>
+<li><code>import</code>语句允许导入静态方法和静态字段，而不只是类</li>
+<li>源文件顶部添加<code>import static java.lang.System.*;</code>
+<ul>
+<li>就可以使用System类的静态方法和静态字段，不必加类名前缀</li>
+<li><code>out.println(&quot;Godd bye&quot;);</code></li>
+<li><code>exit(0);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>包访问</p>
+<ul>
+<li><code>public</code>: 可以由任意类使用</li>
+<li><code>private</code>: 只能由定义它们的类使用。（提示，变量必须显示的标记为<code>private</code>，否则将默认为包访问，会破坏封装性）</li>
+<li>没有指定<code>public</code>和<code>private</code>的(类、方法、变量): 可以被同一个包的所有方法访问</li>
+</ul>
+</li>
+<li>
+<p>编译器查找文件</p>
+<ul>
+<li>如果引用了一个类而没有指定这个类的包(不是这样<code>Date deadline = new java.util.Date();</code>),它首先查找包含这个类的包(通过<code>import</code>指令，来确定其中是否包含这个类)</li>
+<li>如果找到了一个以上的类，就会产生编译时错误(因为完全限定类名必须是唯一的，与import次序无关)</li>
+</ul>
+</li>
+<li>
+<p><code>java.lang</code>包总会默认导入</p>
+</li>
+<li>
+<p>JAR(Java Archive)</p>
+<ul>
+<li>JAR文件使用ZIP格式组织文件和子目录，可以使用任何ZIP工具查看JAR文件</li>
+<li>Java归档文件</li>
+<li>可以包含类也可以包含图片和声音等其他类型的文件</li>
+<li>创建JAR文件
+<ul>
+<li><code>jar cvf jarFileName file1 file2...</code>
+<ul>
+<li>例如<code>jar cvf CalculatorClasses.jar *.class icon.gif</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>jar程序的选项类似Unix tar命令的选项</li>
+<li>清单文件(mainfest)
+<ul>
+<li>包含在JAR文件当中，一个特殊的<code>META-INF</code>的子目录的</li>
+<li>清单文件被命名为<code>MAINFEST.MF</code></li>
+<li>清单文件被分成多个节
+<ul>
+<li>第一节称为主节(main section)</li>
+<li>随后的条目用来指定命名实体的属性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>文档注释 javadoc</p>
+<ul>
+<li>
+<p>javadoc抽取信息，为一下特性编写注释</p>
+<ul>
+<li>模块</li>
+<li>包</li>
+<li>公共类与接口</li>
+<li>公共的和受保护的字段</li>
+<li>公共的和受保护的构造器及方法</li>
+</ul>
+</li>
+<li>
+<p>注释放置在所描述特性的前面</p>
+</li>
+<li>
+<p>注释以<code>/**</code>开始，以<code>*/</code>结束</p>
+</li>
+<li>
+<p>自由格式文本(free-form text)</p>
+</li>
+<li>
+<p>标记以@开始，如@since、@param</p>
+</li>
+<li>
+<p>自由格式文本第一句应该是一个概要性的句子，javadoc工具将这些句子抽取出生成概要页</p>
+</li>
+<li>
+<p>自由格式文本中可以使用html修饰符</p>
+<ul>
+<li><code>&lt;em&gt; ... &lt;/em&gt;</code> 强调</li>
+<li><code>&lt;strong&gt; ... &lt;/strong&gt;</code> 着重强调</li>
+<li><code>&lt;img ...&gt;</code> 图片</li>
+<li><code>&#123;@code ...&#125;</code>等宽代码</li>
+</ul>
+</li>
+<li>
+<p>类注释</p>
+<ul>
+<li>类注释必须放在import语句之后，类定义之前</li>
+</ul>
+</li>
+<li>
+<p>方法注释</p>
+<ul>
+<li>方法必须放在所描述的方法之前</li>
+<li>除了通用标记，还能使用以下标记
+<ul>
+<li><code>@param variable description</code>
+<ul>
+<li>给当前方法的参数部分添加条目</li>
+<li>可以占据多行</li>
+<li>一个方法的所有<code>@param</code>必须放在一起</li>
+</ul>
+</li>
+<li><code>@return description</code>
+<ul>
+<li>给当前方法添加返回部分</li>
+<li>可以跨多行</li>
+</ul>
+</li>
+<li><code>@throws class description</code>
+<ul>
+<li>表示方法可能抛出异常</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>字段注释</p>
+<ul>
+<li>只需要对公共字段(通常指静态常量<code>public static final</code>)建立文档</li>
+</ul>
+</li>
+<li>
+<p>通用注释</p>
+<ul>
+<li><code>@since text</code>
+<ul>
+<li>建立一个&quot;since&quot;(始于)条目</li>
+<li>&quot;text&quot;可以是引入这个特性的版本任何描述
+<ul>
+<li><code>@since 1.7.1</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>@author name</code>
+<ul>
+<li>作者条目</li>
+<li>可以使用多个<code>@author</code>标记</li>
+</ul>
+</li>
+<li><code>version text</code>
+<ul>
+<li>版本条目</li>
+<li>对当前版本的任何描述</li>
+</ul>
+</li>
+<li><code>@see</code>和<code>@link</code>
+<ul>
+<li>可以使用超链接，链接到javadoc文档的相关部分或外部文档</li>
+<li><code>@see reference</code>
+<ul>
+<li>将在&quot;see also&quot;部分增加一个超链接</li>
+<li>可用于类和方法</li>
+<li><em>reference</em>可以有以下选择
+<ol>
+<li><code>package.class#feature label</code>
+<ul>
+<li>例如<code>@see com.horstmann.corejava.Employee#raiseSalary(double)</code></li>
+<li>包名或包名和类名都可以省略，这样会定位于当前包或当前类</li>
+</ul>
+</li>
+<li><code>&lt;a href=&quot;...&quot;&gt;label&lt;/a&gt;</code>
+<ul>
+<li><code>@see &lt;a href=&quot;www.horstmann.com/corejava.html&quot;&gt;The Core Java home page&lt;/a&gt;</code></li>
+</ul>
+</li>
+<li><code>&quot;text&quot;</code>
+<ul>
+<li><code>@see &quot;Core Java 2 volume 2&quot;</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><code>&#123;@link package.class#feature lable&#125;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>包注释</p>
+<ul>
+<li>需要在每个包目录中添加一个单独文件
+<ol>
+<li>提供<em>package-info.java</em>的Java文件</li>
+</ol>
+<ul>
+<li>该文件包含一个初是的以<code>/**</code>和<code>*/</code>界定的javadoc注释</li>
+<li>后面是一个package语句</li>
+</ul>
+<ol start="2">
+<li>提供<code>package.html</code>的HTML文件
+<ul>
+<li>会抽取<code>&lt;body&gt;&lt;/body&gt;</code>之间所有文本</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>类设计技巧</p>
+<ul>
+<li>一定要保证数据私有
+<ul>
+<li>绝对不要破坏封装性</li>
+</ul>
+</li>
+<li>一定要对数据进行初始化
+<ul>
+<li>不要依赖系统的默认值</li>
+<li>自己提供默认值</li>
+<li>所有构造器中设置默认值</li>
+</ul>
+</li>
+<li>不要再类中使用过多的基本类型
+<ul>
+<li>用其他类替换使用多个相关的基本类型</li>
+</ul>
+</li>
+<li>不是所有的字段都需要单独的字段访问器和字段更改器</li>
+<li>分解有过多指责的类</li>
+<li>类名和方法名要能够体现出它的职责</li>
+<li>优先使用不可变类
+<ul>
+<li>并发更改：多个线程试图同时更新一个对象</li>
+<li>如果类是不变的，可以安全地在多个线程间共享其对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" rel="tag"><i class="fa fa-tag"></i> Java核心技术</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/09/%E5%B0%B1%E4%B8%9A%E7%9B%B8%E5%85%B3%E5%A4%A7%E6%9D%82%E7%83%A9/" rel="prev" title="就业相关大杂烩">
+                  <i class="fa fa-chevron-left"></i> 就业相关大杂烩
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="设计模式">
+                  设计模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"9fc8214ae819edad4e6b7924b8a8cebc"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

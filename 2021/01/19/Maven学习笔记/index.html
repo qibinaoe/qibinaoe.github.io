@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="这是一篇在maven学习过程中的笔记 学习资料参考  2020最新Maven教程-Maven基础篇之Maven实战入门 菜鸟教程-maven maven官网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven学习笔记">
+<meta property="og:url" content="http://qibinaoe.top/2021/01/19/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="这是一篇在maven学习过程中的笔记 学习资料参考  2020最新Maven教程-Maven基础篇之Maven实战入门 菜鸟教程-maven maven官网">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210115215031149.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116150933064.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116151519988.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116151917778.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116152123525.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116154005457.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116155333154.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116160400885.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116164913210.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116161136206.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116164953475.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116165202888.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116165324295.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116165906481.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116170026083.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116170730020.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116171039571.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116171544450.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116171738168.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210116171832949.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118153016909.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118153124070.png">
+<meta property="og:image" content="http://qibinaoe.top/2021/01/19/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210118153503072.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118153527628.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118153708237.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118153742086.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118155732723.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118160343547.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118160418763.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118160521675.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118174002190.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118174214242.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118175344245.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118175357688.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118214851924.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118214913979.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118215323382.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118215726674.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118215845261.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118220631510.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118220646491.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118220709023.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118220816016.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118220854450.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118220915334.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118220926898.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118221409019.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118221451489.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118221542389.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210118221641992.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119121035364.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119121438268.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119121451351.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119124712512.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119124722771.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119124733245.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119124941616.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119142459278.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119142555543.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119142716700.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119142915389.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119142931290.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119143013485.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119143448979.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119143604064.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119143658604.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119151439329.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119153536756.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119153802622.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119154052518.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119154607046.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119155200347.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119160333131.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119160401157.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119160419722.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119160511400.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119160713520.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119161058218.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119161645348.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119161814418.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119162258957.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119162601126.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119173154947.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119172312270.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119172353020.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119172426755.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119173920867.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119174431147.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119174443747.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119175246729.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119175304318.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119175315334.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119175414947.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119175432171.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119175626858.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119180448339.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119180612099.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119180651307.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119181708371.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119182518136.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119184249256.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119184331838.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119184343468.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119184448122.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119184632770.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119184649355.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119184901180.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119184936121.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119185025327.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119185201885.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119185234304.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119185319770.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119185536599.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119185456512.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119203326590.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119203644272.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119203718168.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119203915580.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119203933455.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119203949803.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119210941647.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119211039417.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119212041832.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210119213417913.png">
+<meta property="article:published_time" content="2021-01-19T13:37:08.000Z">
+<meta property="article:modified_time" content="2022-06-07T15:15:14.317Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="maven">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://algorithm-image.qibinaoe.top/image-20210115215031149.png">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2021/01/19/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2021/01/19/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2021/01/19/Maven学习笔记/","title":"Maven学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Maven学习笔记 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">maven作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E5%92%8C%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">开发和管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%9E%84%E5%BB%BA"><span class="nav-number">1.2.</span> <span class="nav-text">项目的构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#maven%E6%94%AF%E6%8C%81%E7%9A%84%E6%9E%84%E5%BB%BA%E5%8C%85%E6%8B%AC"><span class="nav-number">1.2.1.</span> <span class="nav-text">maven支持的构建包括</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">maven核心概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">maven环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.1.</span> <span class="nav-text">官网下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B"><span class="nav-number">3.2.</span> <span class="nav-text">解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">3.3.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5"><span class="nav-number">3.3.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5"><span class="nav-number">3.3.2.</span> <span class="nav-text">第二步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5"><span class="nav-number">3.3.3.</span> <span class="nav-text">第三步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E7%BA%A6%E5%AE%9A%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">maven约定的目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%B0%9D%E8%AF%95maven"><span class="nav-number">5.</span> <span class="nav-text">手动尝试maven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%9B%AE%E5%BD%95%E5%8F%8A%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">创建目录及源文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">5.2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%B8%8B%E8%BD%BD%E4%B8%9C%E8%A5%BF%E8%A7%A3%E9%87%8A"><span class="nav-number">5.2.1.</span> <span class="nav-text">编译过程中下载东西解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E7%BB%93%E6%9E%9C"><span class="nav-number">5.2.2.</span> <span class="nav-text">编译结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%9C%B0%E5%9D%80"><span class="nav-number">6.</span> <span class="nav-text">修改本地仓库地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%BB%93%E5%BA%93%E9%95%9C%E5%83%8F"><span class="nav-number">7.</span> <span class="nav-text">修改仓库镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E9%85%8D%E7%BD%AE"><span class="nav-number">7.1.</span> <span class="nav-text">镜像配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%93%E5%BA%93"><span class="nav-number">8.</span> <span class="nav-text">仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%93%E5%BA%93%E5%88%86%E7%B1%BB"><span class="nav-number">8.1.</span> <span class="nav-text">仓库分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%93%E5%BA%93%E4%BD%BF%E7%94%A8"><span class="nav-number">8.2.</span> <span class="nav-text">仓库使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pom%E6%96%87%E4%BB%B6"><span class="nav-number">9.</span> <span class="nav-text">pom文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9D%90%E6%A0%87"><span class="nav-number">9.1.</span> <span class="nav-text">坐标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%A6%82%E6%90%9C%E7%B4%A2mysql"><span class="nav-number">9.1.1.</span> <span class="nav-text">例如搜索mysql</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">9.2.</span> <span class="nav-text">依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E5%A6%82%E4%BD%BF%E7%94%A8mysql%E9%A9%B1%E5%8A%A8"><span class="nav-number">9.2.1.</span> <span class="nav-text">例如使用mysql驱动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom-xml%E6%96%87%E4%BB%B6"><span class="nav-number">9.3.</span> <span class="nav-text">pom.xml文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">10.</span> <span class="nav-text">maven的常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Junit%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">10.1.</span> <span class="nav-text">Junit单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-number">10.1.1.</span> <span class="nav-text">操作步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%AF%B4%E6%98%8E"><span class="nav-number">10.2.</span> <span class="nav-text">命令说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-v2"><span class="nav-number">10.3.</span> <span class="nav-text">操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="nav-number">10.3.1.</span> <span class="nav-text">编写测试代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E7%90%86%E4%B9%8B%E5%89%8D%E7%BC%96%E8%AF%91%E7%BB%93%E6%9E%9C"><span class="nav-number">10.3.2.</span> <span class="nav-text">清理之前编译结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-v2"><span class="nav-number">10.3.3.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E6%B5%8B%E8%AF%95"><span class="nav-number">10.3.4.</span> <span class="nav-text">编译测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">10.3.5.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E4%B8%8D%E9%80%9A%E8%BF%87"><span class="nav-number">10.3.5.1.</span> <span class="nav-text">测试不通过</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%8C%85"><span class="nav-number">10.3.6.</span> <span class="nav-text">打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">10.3.7.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-number">10.3.8.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%85%B6%E4%BB%96%E9%A1%B9%E7%9B%AE%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">10.3.9.</span> <span class="nav-text">在其他项目的使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6"><span class="nav-number">11.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E5%9C%A8idea%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">12.</span> <span class="nav-text">maven在idea的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#idea%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE%E6%99%AE%E9%80%9AJava%E9%A1%B9%E7%9B%AE"><span class="nav-number">13.</span> <span class="nav-text">idea创建maven项目普通Java项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE"><span class="nav-number">13.1.</span> <span class="nav-text">新建maven项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE"><span class="nav-number">13.2.</span> <span class="nav-text">构建maven项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#idea%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AEweb%E9%A1%B9%E7%9B%AE"><span class="nav-number">14.</span> <span class="nav-text">idea创建maven项目web项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-number">14.1.</span> <span class="nav-text">创建新项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE"><span class="nav-number">14.2.</span> <span class="nav-text">依赖配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81"><span class="nav-number">14.3.</span> <span class="nav-text">编译代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2tomcat"><span class="nav-number">14.4.</span> <span class="nav-text">部署tomcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%8C%85-v2"><span class="nav-number">14.5.</span> <span class="nav-text">打包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4"><span class="nav-number">15.</span> <span class="nav-text">依赖范围</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8Btest"><span class="nav-number">15.1.</span> <span class="nav-text">举例test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8Bprovided"><span class="nav-number">15.2.</span> <span class="nav-text">举例provided</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8Bcompile"><span class="nav-number">15.3.</span> <span class="nav-text">举例compile</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE"><span class="nav-number">16.</span> <span class="nav-text">maven属性设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">16.1.</span> <span class="nav-text">全局变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E8%B5%84%E6%BA%90%E4%BD%8D%E7%BD%AE"><span class="nav-number">17.</span> <span class="nav-text">指定资源位置</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2021/01/19/Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Maven学习笔记 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Maven学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-19 21:37:08" itemprop="dateCreated datePublished" datetime="2021-01-19T21:37:08+08:00">2021-01-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-07 23:15:14" itemprop="dateModified" datetime="2022-06-07T23:15:14+08:00">2022-06-07</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>36k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1:01</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这是一篇在maven学习过程中的笔记</p>
+<p><strong>学习资料参考</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1dp4y1Q7Hf?p=3">2020最新Maven教程-Maven基础篇之Maven实战入门</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/maven/maven-pom.html">菜鸟教程-maven</a></li>
+<li><a target="_blank" rel="noopener" href="http://maven.apache.org/">maven官网</a></li>
+</ul>
+<span id="more"></span>
+<h2 id="maven作用"><a class="header-anchor" href="#maven作用"> </a>maven作用</h2>
+<h3 id="开发和管理"><a class="header-anchor" href="#开发和管理"> </a>开发和管理</h3>
+<ul>
+<li>管理jar文件</li>
+<li>自动下载jar文件及其相关文档、源代码</li>
+<li>管理jar直接的依赖
+<ul>
+<li>即该jar中所会用到的其他jar</li>
+</ul>
+</li>
+<li>编译程序：将java编译成class</li>
+<li>测试代码</li>
+<li>打包文件：打包成jar或war</li>
+<li>部署项目</li>
+</ul>
+<h3 id="项目的构建"><a class="header-anchor" href="#项目的构建"> </a>项目的构建</h3>
+<blockquote>
+<p>构建是面向过程的，即完成项目代码的编译、测试、运行、打包、部署等步骤</p>
+</blockquote>
+<h4 id="maven支持的构建包括"><a class="header-anchor" href="#maven支持的构建包括"> </a>maven支持的构建包括</h4>
+<ol>
+<li>清理
+<ul>
+<li>将之前项目编译的东西删掉，为新编译的代码做准备</li>
+</ul>
+</li>
+<li>编译
+<ul>
+<li>把程序源代码编译成执行代码：java -&gt; class文件</li>
+<li>批量：maven可同时编译多个文件，而javac一次编译一个文件</li>
+</ul>
+</li>
+<li>测试
+<ul>
+<li>maven可执行测试程序代码</li>
+<li>批量：maven可同时执行多个测试代码，同时测试多个功能</li>
+</ul>
+</li>
+<li>报告
+<ul>
+<li>生成测试结果的文件</li>
+</ul>
+</li>
+<li>打包
+<ul>
+<li>将项目中所有的class文件，配置文件等所有资源放在一个压缩文件中</li>
+<li>java程序生成jar扩展名</li>
+<li>web应用生成war扩展名</li>
+</ul>
+</li>
+<li>安装
+<ul>
+<li>把打包生成的文件（jar、war）安装到本机仓库</li>
+</ul>
+</li>
+<li>部署
+<ul>
+<li>把程序安装好可以执行</li>
+<li>一般不用maven进行部署，会更麻烦</li>
+</ul>
+</li>
+</ol>
+<h2 id="maven核心概念"><a class="header-anchor" href="#maven核心概念"> </a>maven核心概念</h2>
+<ul>
+<li>POM(Project Object Model)项目对象模型
+<ul>
+<li>文件名为pom.xml</li>
+<li>包含项目的基本信息，用于描述项目如何构建，声明项目依赖（如jar）等</li>
+</ul>
+</li>
+<li>约定的目录结构
+<ul>
+<li>maven项目的目录和文件的位置都是规定的</li>
+</ul>
+</li>
+<li>坐标
+<ul>
+<li>唯一的字符串，用来表示资源</li>
+</ul>
+</li>
+<li>依赖管理
+<ul>
+<li>管理项目可以使用的jar文件</li>
+</ul>
+</li>
+<li>仓库管理
+<ul>
+<li>资源存放的位置</li>
+</ul>
+</li>
+<li>生命周期
+<ul>
+<li>maven工具构建项目的过程</li>
+</ul>
+</li>
+<li>插件和目标
+<ul>
+<li>执行maven构建的时候用的工具</li>
+</ul>
+</li>
+<li>继承</li>
+<li>聚合</li>
+</ul>
+<h2 id="maven环境配置"><a class="header-anchor" href="#maven环境配置"> </a>maven环境配置</h2>
+<h3 id="官网下载"><a class="header-anchor" href="#官网下载"> </a>官网下载</h3>
+<p><a target="_blank" rel="noopener" href="http://maven.apache.org/">maven官网</a></p>
+<p>在download页面中点击archives可选择下载历史版本</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210115215031149.png" alt="image-20210115215031149"></p>
+<p>这里我根据视频的版本下载<code>3.3.9</code></p>
+<h3 id="解压"><a class="header-anchor" href="#解压"> </a>解压</h3>
+<p>解压压缩包并放在一个不包含中文的路径下。</p>
+<p>例如我放在<code>D:\Program Files\Environment</code>下</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116150933064.png" alt="image-20210116150933064"></p>
+<h3 id="环境配置"><a class="header-anchor" href="#环境配置"> </a>环境配置</h3>
+<p>大前提是配置好java环境，以及<code>JAVA_HOME</code>等</p>
+<h4 id="第一步"><a class="header-anchor" href="#第一步"> </a>第一步</h4>
+<p>在系统变量中添加</p>
+<p>变量名：<code>M2_HOME</code></p>
+<p>变量值：<code>D:\Program Files\Environment\apache-maven-3.3.9</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116151519988.png" alt="image-20210116151519988"></p>
+<blockquote>
+<p>对于MAVEN_HOME和M2_HOME的区别，网上这样解释的：</p>
+<p><code>MAVEN_HOME</code>适用于<code>Maven 1</code>，<code>M2_HOME</code>适用于<code>Maven 2</code>及更高版本</p>
+<p>同时也说</p>
+<p>从Maven 3.5.0开始M2_HOME的用法被移除且不再被支持</p>
+</blockquote>
+<h4 id="第二步"><a class="header-anchor" href="#第二步"> </a>第二步</h4>
+<p>将maven的<code>bin</code>目录添加到<code>path</code>中</p>
+<p><code>%M2_HOME%\bin</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116151917778.png" alt="image-20210116151917778"></p>
+<h4 id="第三步"><a class="header-anchor" href="#第三步"> </a>第三步</h4>
+<p>验证</p>
+<p><code>mvn -v</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116152123525.png" alt="image-20210116152123525"></p>
+<h2 id="maven约定的目录结构"><a class="header-anchor" href="#maven约定的目录结构"> </a>maven约定的目录结构</h2>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">my-app</span><br><span class="line">|-- pom.xml            # maven的核心文件（maven项目必须有）</span><br><span class="line">`-- src</span><br><span class="line">    |-- main           #放主程序java代码和配置文件</span><br><span class="line">    |   `-- resources   #放java程序中要使用到的配置文件    </span><br><span class="line">    |   `-- java       #放程序包和包中的java文件</span><br><span class="line">    |       `-- com</span><br><span class="line">    |           `-- mycompany</span><br><span class="line">    |               `-- app</span><br><span class="line">    |                   `-- App.java</span><br><span class="line">    `-- test		   #放测试程序代码和配置文件 （可以没有）</span><br><span class="line">        `-- resources   #测试程序中要使用到的配置文件    </span><br><span class="line">        `-- java       #放测试程序包和包中的java文件</span><br><span class="line">            `-- com</span><br><span class="line">                `-- mycompany</span><br><span class="line">                    `-- app</span><br><span class="line">                        `-- AppTest.java</span><br></pre></td></tr></table></figure>
+<p>来自<a target="_blank" rel="noopener" href="http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html">Maven in 5 Minutes</a></p>
+<h2 id="手动尝试maven"><a class="header-anchor" href="#手动尝试maven"> </a>手动尝试maven</h2>
+<h3 id="创建目录及源文件"><a class="header-anchor" href="#创建目录及源文件"> </a>创建目录及源文件</h3>
+<p>创建如下的文件夹层级</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116154005457.png" alt="image-20210116154005457"></p>
+<p>在与<code>src</code>同级，创建一个<code>pom.xml</code>文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>创建目录<code>src/main/java/com/example</code>文件夹，同时在<code>example</code>文件夹中创建<code>HelloMaven.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloMaven</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n1+n2;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">HelloMaven</span> <span class="variable">hello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloMaven</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> hello.add(<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;1+2=&quot;</span>+res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="编译"><a class="header-anchor" href="#编译"> </a>编译</h3>
+<p>到与<code>pom.xml</code>同级的目录下（即<code>my-app/</code>）下</p>
+<p>执行<code>mvn compile</code></p>
+<p>这样会自动编译：<code>src/main/java</code>目录下的所有java文件</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116155333154.png" alt="image-20210116155333154"></p>
+<p>😔不幸的是，没有视频那么顺利，这里报错了<code>BUILD FAILURE</code></p>
+<p>根据我用<code>Android Studio</code>写android程序时，在gradle下载第三方库也疯狂报错的经验下，我认为这八成是网络问题，<strong>毕竟在国内</strong>。而我当时解决办法是疯狂重试（<strong>或许可以更换镜像</strong>，但我有时候更换镜像也失败了）</p>
+<p>所以在命令行中多试几遍<code>mvn compile</code>，奇迹就出现了</p>
+<p>（当然，从默认的中央仓库下载是很慢的，可以从阿里云镜像等下载）</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116160400885.png" alt="image-20210116160400885"></p>
+<blockquote>
+<p>也有可能是刚刚的<code>pom.xml</code>文件内容是错的，注意检查一下</p>
+</blockquote>
+<p>下载编译完成后</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116164913210.png" alt="image-20210116164913210"></p>
+<h4 id="编译过程中下载东西解释"><a class="header-anchor" href="#编译过程中下载东西解释"> </a>编译过程中下载东西解释</h4>
+<p>下载原因：maven工具执行的操作需要很多插件（java类-jar文件）</p>
+<p>这些插件下载的地址就是：<strong>中央仓库</strong>（<a target="_blank" rel="noopener" href="https://repo.maven.apache.org/%EF%BC%89">https://repo.maven.apache.org/）</a></p>
+<p>而下载的这些东西存放在默认仓库（<strong>本机仓库</strong>）</p>
+<p>在：<code>C:\Users\用户名\.m2\repository</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116161136206.png" alt="image-20210116161136206"></p>
+<h4 id="编译结果"><a class="header-anchor" href="#编译结果"> </a>编译结果</h4>
+<p>在项目的根目录会生成<code>target</code>目录，用于存放编译结果</p>
+<p>可以看到生成了对应的class文件</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116164953475.png" alt="image-20210116164953475"></p>
+<p>我们可以用java命令进行运行</p>
+<p>先切换到<code>D:\CODE\maven-test\my-app\target\classes\</code>目录下（即与<code>com</code>同级）</p>
+<p>命令行执行<code>java com.example.HelloMaven</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116165202888.png" alt="image-20210116165202888"></p>
+<h2 id="修改本地仓库地址"><a class="header-anchor" href="#修改本地仓库地址"> </a>修改本地仓库地址</h2>
+<p>来到maven文件的目录</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116165324295.png" alt="image-20210116165324295"></p>
+<p>其中<code>conf</code>文件夹中存放的是配置文件</p>
+<p>修改<code>conf</code>文件夹中的<code>settings.xml</code></p>
+<p>修改前可以先备份一下<code>settings.xml</code></p>
+<p>在<code>settings.xml</code>文件中第53行左右</p>
+<p>有一段被注释掉的代码</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- localRepository</span><br><span class="line"> | The path to the local repository maven will use to store artifacts.</span><br><span class="line"> |</span><br><span class="line"> | Default: $&#123;user.home&#125;/.m2/repository</span><br><span class="line">&lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+<p>在注释外面添加本地仓库地址</p>
+<p>我们可以自己选择要修改的本地仓库地址，比如创建一个存放仓库的地址“D:\Program Files\Environment\apache-maven-3.3.9\repo”</p>
+<p>然后在<code>settings.xml</code>中添加这行,<strong>注意不要使用中文目录</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>D:/Program Files/Environment/apache-maven-3.3.9/repo<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116165906481.png" alt="image-20210116165906481"></p>
+<h2 id="修改仓库镜像"><a class="header-anchor" href="#修改仓库镜像"> </a>修改仓库镜像</h2>
+<p>刚刚用默认的中央仓库下载了四十多分钟，实在太慢了，所以这里记录一下修改中央仓库镜像为阿里云镜像</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116170026083.png" alt="image-20210116170026083"></p>
+<p>这里列出几个maven镜像地址的官网</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://mirrors.163.com/.help/maven.html">网易Maven镜像使用帮助</a></li>
+<li><a target="_blank" rel="noopener" href="https://maven.aliyun.com/mvn/guide?spm=a2c6h.13651104.0.0.435836a4Jjd8w9">阿里云云效 Maven</a></li>
+</ul>
+<blockquote>
+<p>可能镜像下载的仓库没有官网的全</p>
+</blockquote>
+<h3 id="镜像配置"><a class="header-anchor" href="#镜像配置"> </a>镜像配置</h3>
+<p>同样打开<code>conf/settings.xml</code></p>
+<p>在147行左右的位置找到修改镜像的位置</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116170730020.png" alt="image-20210116170730020"></p>
+<p>根据<a target="_blank" rel="noopener" href="https://maven.aliyun.com/mvn/guide?spm=a2c6h.13651104.0.0.435836a4Jjd8w9">阿里云maven镜像</a>的配置指南</p>
+<p>在<code>&lt;mirrors&gt;&lt;/mirrors&gt;</code>标签中添加 mirror 子节点:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>aliyunmaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>*<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>阿里云公共仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://maven.aliyun.com/repository/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116171039571.png" alt="image-20210116171039571"></p>
+<p>现在我们尝试一下镜像</p>
+<p>先把刚刚生成的target文件删了，然后在与<code>pom.xml</code>同级目录执行</p>
+<p><code>mvn compile</code>让它去中央仓库下载东西</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116171544450.png" alt="image-20210116171544450"></p>
+<p>很好，还是报错了😔，又是<code>BUILD FAILURE</code></p>
+<p>但是别灰心，多按几次&quot;⬆&quot;和&quot;Enter&quot;，多执行几次<code>mvn compile</code></p>
+<p>大概失败了七八次以后就成功了，确实快了几百倍</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116171738168.png" alt="image-20210116171738168"></p>
+<p>同时在修改的本地仓库里面也能够看到从阿里云仓库下载下来的。</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210116171832949.png" alt="image-20210116171832949"></p>
+<h2 id="仓库"><a class="header-anchor" href="#仓库"> </a>仓库</h2>
+<p>仓库用于存放maven使用的各种插件jar包与我们项目中使用到的jar（第三方工具）</p>
+<h3 id="仓库分类"><a class="header-anchor" href="#仓库分类"> </a>仓库分类</h3>
+<ul>
+<li>本地仓库：个人计算机文件夹中</li>
+<li>远程仓库：互联网上的
+<ul>
+<li>中央仓库：最权威的：<a target="_blank" rel="noopener" href="https://repo.maven.apache.org">https://repo.maven.apache.org</a></li>
+<li>中央仓库的镜像：中央仓库的备份</li>
+<li>私服：公司内部，在局域网中使用，不对外开发</li>
+</ul>
+</li>
+</ul>
+<h3 id="仓库使用"><a class="header-anchor" href="#仓库使用"> </a>仓库使用</h3>
+<p>例如需要mysql驱动则</p>
+<p>maven查找该驱动的顺序为</p>
+<ol>
+<li>查找本地仓库</li>
+<li>私服</li>
+<li>镜像</li>
+<li>中央仓库</li>
+</ol>
+<h2 id="pom文件"><a class="header-anchor" href="#pom文件"> </a>pom文件</h2>
+<p>pom（project object model）:项目对象模型，是一个pom.xml文件</p>
+<table>
+<thead>
+<tr>
+<th>基本信息</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>modelVersion</td>
+<td>maven模型的版本，对于maven2和maven3来说，只能是4.0.0</td>
+</tr>
+<tr>
+<td>groupId</td>
+<td>组织id，一般为公司域名的倒写，例如 1.域名倒写：com.baidu 2.域名倒写+项目名：com.baidu.appolo</td>
+</tr>
+<tr>
+<td>artifactId</td>
+<td>项目名称、模块名称，对应groupId的子项目</td>
+</tr>
+<tr>
+<td>version</td>
+<td>项目的版本号。如果项目还在开发，是不稳定版本，通常在版本后带-SNAPSHOT。version使用三位数字标识，例如1.1.0。例子<version>0.0.1-SNAPSHOT</version></td>
+</tr>
+<tr>
+<td>packaging</td>
+<td>项目打包的类型，可以是jar,war,rar,ear,pom。默认是jar</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>依赖</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dependencies和dependency</td>
+<td>maven通过dependency进行jar包的管理。项目构建运行中，使用到的其他jar包称为依赖。使用标签<dependency></dependency>进行配置，而依赖的配置通过坐标来定位</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>配置属性</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>properties</td>
+<td>properties是用来定义一些配置属性的</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>构建</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>build</td>
+<td>表示与构建相关的配置，例如编译插件的jdk版本</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>继承</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent</td>
+<td>在maven中，如果多个模块都需要声明相同的配置，例如groupId,version,有相同的依赖，或相同的组件配置等，可用parent声明要继承的父工程的pom配置</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>聚合</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>modules</td>
+<td>在maven的多模块开发中，为统一构建整个项目的所有模块，可以提供一个额外的模块，该模块的打包方式为pom，并且在其中使用modules聚合的其他模块，这样通过本模块就可以一键自动识别模块间的依赖关系来构建所有模块，叫maven的聚合</td>
+</tr>
+</tbody>
+</table>
+<h3 id="坐标"><a class="header-anchor" href="#坐标"> </a>坐标</h3>
+<p>坐标是一个唯一值：在互联网中唯一标识一个项目</p>
+<ul>
+<li><groupId>公司域名的倒写</groupId></li>
+<li><artifactId>自定义项目名称</artifactId></li>
+<li><version>自定义版本号</version></li>
+</ul>
+<p>搜索使用的中央仓库地址：<a target="_blank" rel="noopener" href="https://mvnrepository.com">https://mvnrepository.com</a></p>
+<ul>
+<li>根据groupId或artifactId作为搜索条件</li>
+</ul>
+<h4 id="例如搜索mysql"><a class="header-anchor" href="#例如搜索mysql"> </a>例如搜索mysql</h4>
+<p>输入关键字<code>mysql</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118153016909.png" alt="image-20210118153016909"></p>
+<p>点击mysql驱动 <a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/mysql/mysql-connector-java">MySQL Connector/J</a></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118153124070.png" alt="image-20210118153124070"></p>
+<p>点击某一版本号例如<a target="_blank" rel="noopener" href="https://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.9">5.1.9</a></p>
+<p><img src="Maven%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image-20210118153503072.png" alt="image-20210118153503072"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118153527628.png" alt="image-20210118153527628"></p>
+<p>Files点击下载对应的jar包</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118153708237.png" alt="image-20210118153708237"></p>
+<p>下方Maven显示的是mysql驱动的pom坐标</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118153742086.png" alt="image-20210118153742086">、</p>
+<h3 id="依赖"><a class="header-anchor" href="#依赖"> </a>依赖</h3>
+<p>项目中使用的各种资源说明</p>
+<p>dependencies</p>
+<p>dependency</p>
+<h4 id="例如使用mysql驱动"><a class="header-anchor" href="#例如使用mysql驱动"> </a>例如使用mysql驱动</h4>
+<p>首先在pom.xml的<project></project>标签<strong>内</strong>,新加标签（如果没有的话）<dependencies></dependencies>。</p>
+<p>在<dependenies></dependencies>中添加mysql驱动的坐标</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118155732723.png" alt="image-20210118155732723"></p>
+<p>其中groupId,artifactId,version都对应一个文件夹</p>
+<p>例如maven会先去查找本地仓库</p>
+<p>这里本地仓库之前没有下载这个mysql驱动，所以仓库找不到。因此这里在pom.xml中添加mysql驱动的依赖，再重新编译一下</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118160343547.png" alt="image-20210118160343547"></p>
+<p>下载过程也是疯狂失败，我们疯狂重试即可</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118160418763.png" alt="image-20210118160418763"></p>
+<p>下载成功后，在本地仓库的目录下，就出现了<code>mysql\mysql-connector-java\5.1.9</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118160521675.png" alt="image-20210118160521675"></p>
+<h3 id="pom-xml文件"><a class="header-anchor" href="#pom-xml文件"> </a>pom.xml文件</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">jave.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="maven的常用命令"><a class="header-anchor" href="#maven的常用命令"> </a>maven的常用命令</h2>
+<p>maven的命令就对应于maven的生命周期：编译，测试，报告，打包，安装，部署</p>
+<p>maven的命令执行依赖于插件，即一些jar文件</p>
+<h3 id="Junit单元测试"><a class="header-anchor" href="#Junit单元测试"> </a>Junit单元测试</h3>
+<p>junit测试类中的方法，每一个方法都是独立测试的</p>
+<h4 id="操作步骤"><a class="header-anchor" href="#操作步骤"> </a>操作步骤</h4>
+<ol>
+<li>在pom.xml加入单元测试依赖</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在maven项目中的<code>src/test/java</code>目录下，创建测试程序</li>
+</ol>
+<ul>
+<li>测试类命名为：Test+要被测试的类名</li>
+<li>测试方法命名为：test+方法名称</li>
+</ul>
+<p>例如测试HelloMaven，则创建测试类TestHelloMaven</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdd</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="comment">//测试HelloMaven的add方法是否正确</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>测试方法定义规则</strong></p>
+<ul>
+<li>方法是public</li>
+<li>方法没有返回值</li>
+<li>方法名称是自定义的，但推荐为test+方法名称</li>
+<li>在方法上面加入<code>@Test</code></li>
+</ul>
+<h3 id="命令说明"><a class="header-anchor" href="#命令说明"> </a>命令说明</h3>
+<blockquote>
+<p>maven命令的执行必须在pom.xml所在的目录</p>
+</blockquote>
+<ul>
+<li><code>mvn clean</code> 清理
+<ul>
+<li>会删除原来编译和测试的目录，即target目录，但是已经install到仓库的包不会删除</li>
+</ul>
+</li>
+<li><code>mvn compile</code> 编译<code>main/java</code>下的java程序
+<ul>
+<li>会在当前目录下生成一个target，里边存放编译主程序之后生成的字节码文件</li>
+</ul>
+</li>
+<li><code>mvn test-compile</code> 编译<code>test/java</code>下的java程序
+<ul>
+<li>会在当前目录下生成一个target，里边存放编译测试程序之后生成的字节码文件</li>
+</ul>
+</li>
+<li><code>mvn test </code>测试
+<ul>
+<li>会生成一个目录surefire-reports，保存测试结果</li>
+</ul>
+</li>
+<li><code>mvn package</code> 打包
+<ul>
+<li>会编译、编译测试、测试，并且按照pom.xml配置把主程序打包生成jar包或者war包</li>
+</ul>
+</li>
+<li><code>mvn install</code> 安装
+<ul>
+<li>会把本工程打包，并且按照本工程的坐标保存到本地仓库中</li>
+</ul>
+</li>
+<li><code>mvn deploy</code> 部署
+<ul>
+<li>会把本工程打包，按照本工程的坐标保存到本地库中，并且还会保存到私服仓库中，还会自动把项目部署到web容器中</li>
+</ul>
+</li>
+</ul>
+<h3 id="操作步骤-v2"><a class="header-anchor" href="#操作步骤-v2"> </a>操作步骤</h3>
+<h4 id="编写测试代码"><a class="header-anchor" href="#编写测试代码"> </a>编写测试代码</h4>
+<p>在<code>src/test/java</code>中创建我们要测试的类的相同包名</p>
+<p>例如我们要测试<code>src/main/java/com/example</code>的<code>HelloMaven.java</code>的<code>add</code>方法。</p>
+<p>这个<code>HelloMaven</code>类属于<code>com.example</code>包</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118174002190.png" alt="image-20210118174002190"></p>
+<p>所以我们在<code>src/test/java</code>一样创建文件夹目录<code>src/test/java/com/example</code>和对应的测试类java文件<code>TestHelloMaven.java</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118174214242.png" alt="image-20210118174214242"></p>
+<p>其中<code>TestHelloMaven.java</code>注意几点</p>
+<ul>
+<li>所属的包与被测试的类一致，即都为<code>package com.example;</code></li>
+<li>测试方法为<code>public void</code>，名字为test+被测试方法名。即<code>TestAdd</code>。同时增加注解<code>@Test</code></li>
+<li>调用Junit的方法<code>Assert.assertEquals(期待值，实际值)</code></li>
+<li>导junit的包</li>
+</ul>
+<p>TestHelloMaven.java文件内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example;</span><br><span class="line"><span class="keyword">import</span> org.junit.Assert;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestHelloMaven</span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">TestAdd</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;==== TestHelloMaven ====&quot;</span>);</span><br><span class="line">        <span class="type">HelloMaven</span> <span class="variable">hello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloMaven</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> hello.add(<span class="number">10</span>,<span class="number">20</span>);</span><br><span class="line">        Assert.assertEquals(<span class="number">30</span>,res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="清理之前编译结果"><a class="header-anchor" href="#清理之前编译结果"> </a>清理之前编译结果</h4>
+<p>切换到与<code>pom.xml</code>同级的目录下，可发现之前编译留下的<code>target</code>目录</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118175344245.png" alt="image-20210118175344245"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118175357688.png" alt="image-20210118175357688">··</p>
+<p>我们在’pom.xml’同级目录下执行</p>
+<p><code>mvn clean</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118214851924.png" alt="image-20210118214851924"></p>
+<p>可以看到target目录被删除了</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118214913979.png" alt="image-20210118214913979"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- https://mvnrepository.com/artifact/junit/junit --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="编译-v2"><a class="header-anchor" href="#编译-v2"> </a>编译</h4>
+<p>为了更全面的体现maven的compile作用，我们先在<code>src\main\resources\</code>这个目录中，创建一个config.txt文件</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118215323382.png" alt="image-20210118215323382"></p>
+<p>然后同样，在与<code>pom.xml</code>同级目录下执行<code>mvn compile</code></p>
+<ul>
+<li>出错一：这种情况就多试几次<code>mvn compile</code>就可以了</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118215726674.png" alt="image-20210118215726674"></p>
+<ul>
+<li>出错二：
+<ul>
+<li><img src="http://algorithm-image.qibinaoe.top/image-20210118215845261.png" alt="image-20210118215845261"></li>
+<li>这是因为<properties></properties>指定java版本的问题</li>
+<li>原来出错的时候我是这样写的<img src="http://algorithm-image.qibinaoe.top/image-20210118220631510.png" alt="image-20210118220631510"></li>
+<li>改过来后<img src="http://algorithm-image.qibinaoe.top/image-20210118220646491.png" alt="image-20210118220646491"></li>
+</ul>
+</li>
+</ul>
+<p>编译成功的结果</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118220709023.png" alt="image-20210118220709023"></p>
+<p>可以看到编译过程使用了两个插件</p>
+<p><code> maven-resources-plugin:2.6:resources</code></p>
+<p><code>maven-compiler-plugin:3.1:compile</code></p>
+<p>编译结果是将<code>main/java</code>目录下的所有java文件编译成class文件，并拷贝到<code>target/classes</code>下</p>
+<p>将<code>main/resources</code>目录下的所有资源文件拷贝到<code>target/classes</code>目录下</p>
+<p>看到生成了<code>target</code>目录</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118220816016.png" alt="image-20210118220816016"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118220854450.png" alt="image-20210118220854450"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118220915334.png" alt="image-20210118220915334"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118220926898.png" alt="image-20210118220926898"></p>
+<h4 id="编译测试"><a class="header-anchor" href="#编译测试"> </a>编译测试</h4>
+<p>之前编译的是编译<code>main/java</code>的java文件，并没有编译测试代码，所以我们执行编译测试的代码</p>
+<p><code>mvn test-compile</code></p>
+<p>同样，还是可能会报那个错，多试几次就可以</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118221409019.png" alt="image-20210118221409019"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118221451489.png" alt="image-20210118221451489"></p>
+<p>这里编译的是<code>src/test/java</code>的java文件</p>
+<p>根据输出信息<code>[INFO] Compiling 1 source file to D:\CODE\maven-test\my-app\target\test-classes</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118221542389.png" alt="image-20210118221542389"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210118221641992.png" alt="image-20210118221641992"></p>
+<h4 id="测试"><a class="header-anchor" href="#测试"> </a>测试</h4>
+<p>执行<code>mvn test</code>命令</p>
+<p>（此过程可能会出现<code>PluginResolutionException</code>的异常，一样的，多执行几遍<code>mvn test</code>即可）</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119121035364.png" alt="image-20210119121035364"></p>
+<p>在INFO中，其又重新执行编译java代码，编译测试代码过程</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ demo ---</span><br><span class="line">[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ demo ---</span><br><span class="line">[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ demo ---</span><br><span class="line">[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ demo ---</span><br><span class="line">[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ demo ---</span><br><span class="line">[INFO] Surefire report directory: D:\CODE\maven-test\my-app\target\surefire-reports</span><br></pre></td></tr></table></figure>
+<p>因此，在maven中，执行生命周期的其中一个命令时，会把其之前的命令也执行一遍</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-------------------------------------------------------</span><br><span class="line"> T E S T S</span><br><span class="line">-------------------------------------------------------</span><br><span class="line">Running com.example.TestHelloMaven</span><br><span class="line">==== TestHelloMaven ====</span><br><span class="line">Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.08 sec</span><br><span class="line"></span><br><span class="line">Results :</span><br><span class="line"></span><br><span class="line">Tests run: 1, Failures: 0, Errors: 0, Skipped: 0</span><br><span class="line"></span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time: 2.615 s</span><br><span class="line">[INFO] Finished at: 2021-01-19T12:10:17+08:00</span><br><span class="line">[INFO] Final Memory: 9M/245M</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<p>同时<code>BUILD SUCCESS</code>意味着测试通过</p>
+<p>这是测试完生成的文件</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119121438268.png" alt="image-20210119121438268"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119121451351.png" alt="image-20210119121451351"></p>
+<h5 id="测试不通过"><a class="header-anchor" href="#测试不通过"> </a>测试不通过</h5>
+<p>现在来修改一起使其测试不通过</p>
+<p>修改<code>TestHelloMaven.java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example;</span><br><span class="line"><span class="keyword">import</span> org.junit.Assert;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestHelloMaven</span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">TestAdd</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;==== TestHelloMaven ====&quot;</span>);</span><br><span class="line">        <span class="type">HelloMaven</span> <span class="variable">hello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloMaven</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> hello.add(<span class="number">10</span>,<span class="number">20</span>);</span><br><span class="line">        Assert.assertEquals(<span class="number">30</span>,res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">TestAdd2</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;==== TestHelloMaven2 ====&quot;</span>);</span><br><span class="line">        <span class="type">HelloMaven</span> <span class="variable">hello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloMaven</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> hello.add(<span class="number">10</span>,<span class="number">20</span>);</span><br><span class="line">        Assert.assertEquals(<span class="number">50</span>,res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，<code>TestAdd2</code>肯定报错</p>
+<p>现在重新执行<code>mvn test</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119124712512.png" alt="image-20210119124712512"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119124722771.png" alt="image-20210119124722771"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119124733245.png" alt="image-20210119124733245"></p>
+<p>可以看到，意料之中的抛出错误了，同时显示的是<code>BUILD FAILURE</code></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Results :</span><br><span class="line">Failed tests:   TestAdd2(com.example.TestHelloMaven): expected:&lt;50&gt; but was:&lt;30&gt;</span><br><span class="line">Tests run: 2, Failures: 1, Errors: 0, Skipped: 0</span><br></pre></td></tr></table></figure>
+<p>在<code>target\surefire-reports\com.example.TestHelloMaven.txt</code>中的测试报告保存了测试结果</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119124941616.png" alt="image-20210119124941616"></p>
+<h4 id="打包"><a class="header-anchor" href="#打包"> </a>打包</h4>
+<p>将刚刚错误代码改正或者删掉后，进行打包操作</p>
+<p>执行命令<code>mvn package</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119142459278.png" alt="image-20210119142459278"></p>
+<p>打包成功后，在<code>target</code>目录下，会生成一个jar包</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119142555543.png" alt="image-20210119142555543"></p>
+<p>这个jar包的命令是根据pom.xml文件中的<code>artifactId</code>和<code>version</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119142716700.png" alt="image-20210119142716700"></p>
+<p>对于jar包里面的内容，只打包<code>src/main</code>下的内容，不打包<code>src/test</code>的内容</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119142915389.png" alt="image-20210119142915389"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119142931290.png" alt="image-20210119142931290"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119143013485.png" alt="image-20210119143013485"></p>
+<h4 id="安装"><a class="header-anchor" href="#安装"> </a>安装</h4>
+<p>执行命令<code>mvn install</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119143448979.png" alt="image-20210119143448979"></p>
+<p>根据这条信息，这个项目jar包已经被保存到本地仓库中去</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[INFO] --- maven-install-plugin:2.4:install (default-install) @ demo ---</span><br><span class="line">[INFO] Installing D:\CODE\maven-test\my-app\target\demo-0.0.1-SNAPSHOT.jar to D:\Program Files\Environment\apache-maven-3.3.9\repo\com\example\demo\0.0.1-SNAPSHOT\demo-0.0.1-SNAPSHOT.jar[INFO] Installing D:\CODE\maven-test\my-app\pom.xml to D:\Program Files\Environment\apache-maven-3.3.9\repo\com\example\demo\0.0.1-SNAPSHOT\demo-0.0.1-SNAPSHOT.pom</span><br></pre></td></tr></table></figure>
+<p>定位到我们本地仓库的路径</p>
+<p>其中生成的目录文件夹是根据pom.xml中的坐标进行创建，同时如果坐标中包含点，例如<code>com.example</code>，则生成<code>com/example</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119143604064.png" alt="image-20210119143604064"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119143658604.png" alt="image-20210119143658604"></p>
+<h4 id="部署"><a class="header-anchor" href="#部署"> </a>部署</h4>
+<p>部署就不使用maven进行</p>
+<h4 id="在其他项目的使用"><a class="header-anchor" href="#在其他项目的使用"> </a>在其他项目的使用</h4>
+<p>现在如果要在其他项目中使用刚刚安装到本地仓库的<code>HelloMaven</code>，只需要在新项目的pom.xml中添加依赖，其中坐标即为<code>HelloMaven</code>那个项目的坐标</p>
+<p>例如我们新建一个demo2的项目</p>
+<p>其中pom.xml中的<code>dependencies</code>标签中添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样maven就会自动到本地仓库中寻找刚刚的项目的jar包</p>
+<h2 id="插件"><a class="header-anchor" href="#插件"> </a>插件</h2>
+<p>在maven构建项目构成中，可以在输出信息看到maven使用了许多插件</p>
+<p>例如</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ demo ---</span><br><span class="line">[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ demo ---</span><br><span class="line">[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ demo ---</span><br><span class="line">[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ demo ---</span><br></pre></td></tr></table></figure>
+<p>而这些插件信息也可以在pom.xml进行修改</p>
+<p>在pom.xml中的<project></project>标签内新建一个子标签<build></build>（如果没有的话）</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">	&lt;groupId&gt;com.example&lt;/groupId&gt;</span><br><span class="line">	&lt;artifactId&gt;demo&lt;/artifactId&gt;</span><br><span class="line">	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line"></span><br><span class="line">	&lt;properties&gt;</span><br><span class="line">		&lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">		&lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;</span><br><span class="line">		&lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;</span><br><span class="line">	&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">	&lt;dependencies&gt;</span><br><span class="line">		&lt;!-- https://mvnrepository.com/artifact/junit/junit --&gt;</span><br><span class="line">		&lt;dependency&gt;</span><br><span class="line">			&lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">			&lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">			&lt;version&gt;4.11&lt;/version&gt;</span><br><span class="line">			&lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">		&lt;/dependency&gt;</span><br><span class="line">	&lt;/dependencies&gt;</span><br><span class="line">	</span><br><span class="line">	&lt;build&gt;</span><br><span class="line">		&lt;plugins&gt;</span><br><span class="line">			&lt;plugin&gt;</span><br><span class="line">				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">				&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">				&lt;version&gt;3.8.1&lt;/version&gt;</span><br><span class="line">				&lt;configuration&gt;</span><br><span class="line">                    &lt;source&gt;1.8&lt;/source&gt;</span><br><span class="line">                    &lt;target&gt;1.8&lt;/target&gt;</span><br><span class="line">				&lt;/configuration&gt;</span><br><span class="line">			&lt;/plugin&gt;</span><br><span class="line">		&lt;/plugins&gt;</span><br><span class="line">	&lt;/build&gt;</span><br><span class="line">&lt;/project&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>再进行重新编译，可以看到maven在本地仓库没有找到该插件对应的版本，所以从中央仓库下载，并且使用</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119151439329.png" alt="image-20210119151439329"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 控制配置 maven构建项目的参数设置， 设置jdk版本 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 配置插件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 配置具体插件 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 插件名称 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 插件版本 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 配置插件的信息 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 写的代码是在jdk1.8上编译 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 程序应该运行在jdk1.8上--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="maven在idea的配置"><a class="header-anchor" href="#maven在idea的配置"> </a>maven在idea的配置</h2>
+<p>idea有内置maven，但是我们要使用我们自己下载的，所以需要修改idea中的maven</p>
+<p>需要修改的地方有两个</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119153536756.png" alt="image-20210119153536756"></p>
+<ol>
+<li>Settings
+<ul>
+<li>配置当前工程的设置</li>
+</ul>
+</li>
+<li>New Projects Settings（在旧的版本叫做Other Settings）
+<ul>
+<li>配置以后新建工程的设置</li>
+</ul>
+</li>
+</ol>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119153802622.png" alt="image-20210119153802622"></p>
+<p>Maven home directory：maven的安装目录</p>
+<p>User settings file：maven安装目录conf/settings.xml配置文件</p>
+<p>Local repository：本地仓库的目录</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119154052518.png" alt="image-20210119154052518"></p>
+<p>记得勾选Override才能选择文件夹。Local repository在选择settings.xml后会自动定位</p>
+<p>接着修改Runner中的VM  Options和JRE（如果不正确的话）</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119154607046.png" alt="image-20210119154607046"></p>
+<p>VM Options: -DarchetypeCatalog=internal</p>
+<p>这样配置的意义在于，原本maven项目创建时会联网下载模板文件，而是用这行命令就不用下载</p>
+<blockquote>
+<p>视频里的用户<a target="_blank" rel="noopener" href="https://space.bilibili.com/9259676">HIMSONCHAN</a>的评论这样解释的</p>
+<p>IDEA根据maven archetype的本质，执行mvn archetype:generate命令，该命令执行时，需要指定一个archetype-catalog.xml文件，该命令的参数-DarchetypeCatalog，可选值为：remote，internal  ，local等，用来指定archetype-catalog.xml文件从哪里获取。</p>
+<p>默认为remote，即从 <a target="_blank" rel="noopener" href="http://repo1.maven.org/maven2/archetype-catalog.xml%E8%B7%AF%E5%BE%84%E4%B8%8B%E8%BD%BDarchetype-catalog.xml%E6%96%87%E4%BB%B6%E3%80%82">http://repo1.maven.org/maven2/archetype-catalog.xml路径下载archetype-catalog.xml文件。</a><br>
+该文件约为3-4M，下载速度很慢，导致创建过程卡住。</p>
+<p>所以改成了internal使用内置的xml配置文件，这样以下子就能进到项目。</p>
+</blockquote>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119155200347.png" alt="image-20210119155200347"></p>
+<blockquote>
+<p>Settings和New Projects Setttings操作一样</p>
+</blockquote>
+<h2 id="idea创建maven项目普通Java项目"><a class="header-anchor" href="#idea创建maven项目普通Java项目"> </a>idea创建maven项目普通Java项目</h2>
+<h3 id="新建maven项目"><a class="header-anchor" href="#新建maven项目"> </a>新建maven项目</h3>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119160333131.png" alt="image-20210119160333131"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119160401157.png" alt="image-20210119160401157"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119160419722.png" alt="image-20210119160419722"></p>
+<p>如果创建<strong>失败</strong></p>
+<p>则目录结构都没有创建成功，像下图</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119160511400.png" alt="image-20210119160511400"></p>
+<p>这里报错的原因</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119160713520.png" alt="image-20210119160713520"></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&quot;C:\Program Files\Java\jdk1.8.0_201\bin\java.exe&quot; -Dmaven.multiModuleProjectDirectory=C:\Users\admin\AppData\Local\Temp\archetype1tmp -DarchetypeCatalog=internal &quot;-Dmaven.home=D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3&quot; &quot;-Dclassworlds.conf=D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3\bin\m2.conf&quot; &quot;-Dmaven.ext.class.path=D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven-event-listener.jar&quot; &quot;-javaagent:D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\lib\idea_rt.jar=14099:D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\bin&quot; -Dfile.encoding=UTF-8 -classpath &quot;D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3\boot\plexus-classworlds-2.6.0.jar;D:\Program Files\JetBrains\IntelliJ IDEA 2020.2.3\plugins\maven\lib\maven3\boot\plexus-classworlds.license&quot; org.codehaus.classworlds.Launcher -Didea.version=2020.2.3 -s &quot;D:\Program Files\Environment\apache-maven-3.3.9\conf\settings.xml&quot; -DinteractiveMode=false -DgroupId=org.example -DartifactId=maven-practice -Dversion=1.0-SNAPSHOT -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=RELEASE org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate</span><br><span class="line">[INFO] Scanning for projects...</span><br><span class="line">Downloading from aliyunmaven: https://maven.aliyun.com/repository/public/org/apache/maven/plugins/maven-archetype-plugin/maven-metadata.xml</span><br><span class="line">[WARNING] Could not transfer metadata org.apache.maven.plugins:maven-archetype-plugin/maven-metadata.xml from/to aliyunmaven (https://maven.aliyun.com/repository/public): Transfer failed for https://maven.aliyun.com/repository/public/org/apache/maven/plugins/maven-archetype-plugin/maven-metadata.xml</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD FAILURE</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time:  2.016 s</span><br><span class="line">[INFO] Finished at: 2021-01-19T16:06:48+08:00</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[ERROR] Plugin org.apache.maven.plugins:maven-archetype-plugin:RELEASE or one of its dependencies could not be resolved: Failed to read artifact descriptor for org.apache.maven.plugins:maven-archetype-plugin:jar:RELEASE: Failed to resolve version for org.apache.maven.plugins:maven-archetype-plugin:jar:RELEASE: Could not find metadata org.apache.maven.plugins:maven-archetype-plugin/maven-metadata.xml in local (D:\Program Files\Environment\apache-maven-3.3.9\repo) -&gt; [Help 1]</span><br><span class="line">[ERROR] </span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.</span><br><span class="line">[ERROR] Re-run Maven using the -X switch to enable full debug logging.</span><br><span class="line">[ERROR] </span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please read the following articles:</span><br><span class="line">[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginResolutionException</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not transfer metadata org.apache.maven.plugins:maven-archetype-plugin/maven-metadata.xml from/to aliyunmaven (https://maven.aliyun.com/repository/public): Transfer failed for https://maven.aliyun.com/repository/public/org/apache/maven/plugins/maven-archetype-plugin/maven-metadata.xml</span><br></pre></td></tr></table></figure>
+<p>这里的解决办法也是“<strong>疯狂重试</strong>”，类似之前在命令行对maven项目构建一样的道理</p>
+<p>左边绿色的箭头点一下它就重新构建了，重新下载，这样就成功了</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119161058218.png" alt="image-20210119161058218"></p>
+<p>可是显示<code>BUILD SUCCESSS</code>后也没有显示maven项目该有的目录结构</p>
+<p>解决办法就是跑去idea的工作目录，把项目删了，重新创一个就有了</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119161645348.png" alt="image-20210119161645348"></p>
+<p>但是下面又一大堆显示下载插件报错</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Cannot resolve plugin org.apache.maven.plugins:maven-jar-plugin:3.0.2</span><br><span class="line">Cannot resolve plugin org.apache.maven.plugins:maven-compiler-plugin:3.8.0</span><br><span class="line">Cannot resolve plugin org.apache.maven.plugins:maven-surefire-plugin:2.22.1</span><br><span class="line">Cannot resolve plugin org.apache.maven.plugins:maven-install-plugin:2.5.2</span><br><span class="line">Cannot resolve plugin org.apache.maven.plugins:maven-deploy-plugin:2.8.2</span><br><span class="line">Cannot resolve plugin org.apache.maven.plugins:maven-site-plugin:3.7.1</span><br></pre></td></tr></table></figure>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119161814418.png" alt="image-20210119161814418"></p>
+<p>但是这里疯狂点几次也还是出错，所以我们修改一下pom.xml文件</p>
+<p>这是idea自己生成的pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-practice<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>maven-practice<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- FIXME change it to the project&#x27;s website --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://www.example.com<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.7<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.7<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginManagement</span>&gt;</span><span class="comment">&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-clean-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-resources-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-surefire-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.22.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-install-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-deploy-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-site-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.7.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-project-info-reports-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginManagement</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>显然，我们java是1.8的版本，这里<strong>修改</strong>一下</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119162258957.png" alt="image-20210119162258957"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119162601126.png" alt="image-20210119162601126"></p>
+<p>同时把<build>标签全删了</p>
+<p>再点击reload即可</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119173154947.png" alt="image-20210119173154947"></p>
+<p>修改后的pom.xml</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line"></span><br><span class="line">  &lt;groupId&gt;org.example&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;maven-practice&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;</span><br><span class="line"></span><br><span class="line">  &lt;name&gt;maven-practice&lt;/name&gt;</span><br><span class="line">  &lt;!-- FIXME change it to the project&#x27;s website --&gt;</span><br><span class="line">  &lt;url&gt;http://www.example.com&lt;/url&gt;</span><br><span class="line"></span><br><span class="line">  &lt;properties&gt;</span><br><span class="line">    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;</span><br><span class="line">    &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;</span><br><span class="line">    &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;</span><br><span class="line">    &lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">  &lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">      &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">      &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">      &lt;version&gt;4.11&lt;/version&gt;</span><br><span class="line">      &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">  &lt;/dependencies&gt;</span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure>
+<p>可以看到目录结构中没有<code>resources</code>，我们可以手动创建</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119172312270.png" alt="image-20210119172312270"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119172353020.png" alt="image-20210119172353020"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119172426755.png" alt="image-20210119172426755"></p>
+<h3 id="构建maven项目"><a class="header-anchor" href="#构建maven项目"> </a>构建maven项目</h3>
+<p><code>App</code>和<code>AppTest</code>是默认生成的文件，可以删掉</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119173920867.png" alt="image-20210119173920867"></p>
+<p>然后分别创建<code>HelloMaven</code>和<code>TestHelloMaven</code></p>
+<p>HelloMaven.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloMaven</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> n1, <span class="type">int</span> n2)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n1+n2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">HelloMaven</span> <span class="variable">hello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloMaven</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> hello.add(<span class="number">10</span>,<span class="number">20</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;10+20=&quot;</span>+res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TestHelloMaven.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.example;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Assert;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestHelloMaven</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdd</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;=====TestHelloMaven=====&quot;</span>);</span><br><span class="line">        <span class="type">HelloMaven</span> <span class="variable">hello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloMaven</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> hello.add(<span class="number">10</span>,<span class="number">20</span>);</span><br><span class="line">        Assert.assertEquals(<span class="number">30</span>,res);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testAdd2</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;=====TestHelloMaven2=====&quot;</span>);</span><br><span class="line">        <span class="type">HelloMaven</span> <span class="variable">hello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloMaven</span>();</span><br><span class="line">        <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> hello.add(<span class="number">50</span>,<span class="number">20</span>);</span><br><span class="line">        Assert.assertEquals(<span class="number">70</span>,res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119174431147.png" alt="image-20210119174431147"></p>
+<p>右侧的lifecycle中，双击某一个即可执行</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119174443747.png" alt="image-20210119174443747"></p>
+<h2 id="idea创建maven项目web项目"><a class="header-anchor" href="#idea创建maven项目web项目"> </a>idea创建maven项目web项目</h2>
+<h3 id="创建新项目"><a class="header-anchor" href="#创建新项目"> </a>创建新项目</h3>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119175246729.png" alt="image-20210119175246729"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119175304318.png" alt="image-20210119175304318"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119175315334.png" alt="image-20210119175315334"></p>
+<p>很好，又报新的<strong>错误</strong></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119175414947.png" alt="image-20210119175414947"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119175432171.png" alt="image-20210119175432171"></p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not transfer metadata org.apache.maven.archetypes:maven-archetype-webapp/maven-metadata.xml from/to aliyunmaven (https://maven.aliyun.com/repository/public): sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to execute goal org.apache.maven.plugins:maven-archetype-plugin:3.2.0:generate (default-cli) on project standalone-pom: The desired archetype does not exist (org.apache.maven.archetypes:maven-archetype-webapp:RELEASE)</span><br></pre></td></tr></table></figure>
+<p>如果出现这种错误，不要怀疑，疯狂重试即可</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119175626858.png" alt="image-20210119175626858"></p>
+<p>这样，idea把该下载的包都下载后，删掉这个项目重新建一个即可</p>
+<p>接下来报插件错误</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119180448339.png" alt="image-20210119180448339"></p>
+<p>把pom.xml的 <build>标签删了即可，同时修改以下jdk版本</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>同时对于这个项目的结构不够完整，这里手动创建</p>
+<p>创建前</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119180612099.png" alt="image-20210119180612099"></p>
+<p>创建后</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119180651307.png" alt="image-20210119180651307"></p>
+<h3 id="依赖配置"><a class="header-anchor" href="#依赖配置"> </a>依赖配置</h3>
+<p>这里需要用到servlet等依赖，可以直接通过pom.xml配置，就不用导入jar包了</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119181708371.png" alt="image-20210119181708371"></p>
+<p>输入正确的情况下，标红意味还没下载，sycn一下就可以</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="编译代码"><a class="header-anchor" href="#编译代码"> </a>编译代码</h3>
+<p>创建一个servlet</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119182518136.png" alt="image-20210119182518136"></p>
+<p>web.xml中映射配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">web-app</span> <span class="keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"> <span class="string">&quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;</span></span></span><br><span class="line"><span class="meta"> <span class="string">&quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;</span> &gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">display-name</span>&gt;</span>Archetype Created Web Application<span class="tag">&lt;/<span class="name">display-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.example.controller.HelloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>HelloServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/hello<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>网页index.jsp编写</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h2&gt;Hello World!&lt;/h2&gt;</span><br><span class="line">&lt;a href=<span class="string">&quot;hello&quot;</span>&gt;访问servlet&lt;/a&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p>HelloServlet.java编写</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServlet</span> <span class="keyword">extends</span> <span class="title class_">HttpServlet</span> &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        response.setContentType(<span class="string">&quot;text/html;charset=utf-8&quot;</span>);</span><br><span class="line">        <span class="type">PrintWriter</span> <span class="variable">writer</span> <span class="operator">=</span> response.getWriter();</span><br><span class="line">        writer.println(<span class="string">&quot;你好！Hello&quot;</span>);</span><br><span class="line">        writer.flush();</span><br><span class="line">        writer.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="部署tomcat"><a class="header-anchor" href="#部署tomcat"> </a>部署tomcat</h3>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119184249256.png" alt="image-20210119184249256"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119184331838.png" alt="image-20210119184331838"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119184343468.png" alt="image-20210119184343468"></p>
+<p>改成短点的名字</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119184448122.png" alt="image-20210119184448122"></p>
+<p>点击ok，然后运行</p>
+<p>启动完毕后 ，浏览器进行访问http://localhost:8080/maven_web_war</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119184632770.png" alt="image-20210119184632770"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119184649355.png" alt="image-20210119184649355"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119184901180.png" alt="image-20210119184901180"></p>
+<h3 id="打包-v2"><a class="header-anchor" href="#打包-v2"> </a>打包</h3>
+<p>通过maven生命周期界面点击package进行打包</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119184936121.png" alt="image-20210119184936121"></p>
+<p>在target目录下生成了war包</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119185025327.png" alt="image-20210119185025327"></p>
+<p>把war包复制到tomcat的安装目录中的<code>webapps</code>中</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119185201885.png" alt="image-20210119185201885"></p>
+<p>同时把war包改个简单点的名字</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119185234304.png" alt="image-20210119185234304"></p>
+<p>这时候在bin目录下双击<code>startup.bat</code>启动tomcat</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119185319770.png" alt="image-20210119185319770"></p>
+<p>启动成功后，可以看到在webapps目录下，自动解压了war文件</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119185536599.png" alt="image-20210119185536599"></p>
+<p>启动成功即可看到项目部署上去了，访问http://localhost:8080/mavenweb/</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119185456512.png" alt="image-20210119185456512"></p>
+<h2 id="依赖范围"><a class="header-anchor" href="#依赖范围"> </a>依赖范围</h2>
+<p>依赖范围有</p>
+<ul>
+<li>compile</li>
+<li>test</li>
+<li>provided</li>
+</ul>
+<p>默认采用的是compile</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>compile</th>
+<th>test</th>
+<th>provided</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对主程序是否有效</td>
+<td>是</td>
+<td>否</td>
+<td>是</td>
+</tr>
+<tr>
+<td>对测试程序是否有效</td>
+<td>是</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>是否参与打包</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>是否参与部署</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<p>依赖范围使用<scope></scope>标签</p>
+<p>表示的是依赖使用的范围，即该依赖（jar包）在maven构建项目的哪些阶段其作用使用到</p>
+<p>maven构建项目：编译、测试、打包、安装、部署等过程</p>
+<h3 id="举例test"><a class="header-anchor" href="#举例test"> </a>举例test</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>junit的<code>&lt;scope&gt;test&lt;/scope&gt;</code>表示junit只有在测试这一步骤中会使用到，它不会参与编译主程序，打包等过程</p>
+<h3 id="举例provided"><a class="header-anchor" href="#举例provided"> </a>举例provided</h3>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>对于servlet的这两个依赖，<code>&lt;scope&gt;provided&lt;/scope&gt;</code>说明这些jar包只有在编译主程序和测试的过程中使用到，在打包的时候，不会添加到压缩文件当中，就servlet而言，tomcat环境已经提供了这些jar包，所以不需要打包进去。</p>
+<p>可以看到在tomcat的lib文件中，已经包含这些jar包了</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119203326590.png" alt="image-20210119203326590"></p>
+<h3 id="举例compile"><a class="header-anchor" href="#举例compile"> </a>举例compile</h3>
+<p>对于没有写<scope></scope>标签的依赖，默认为compile。compile的意味着该依赖（jar包）在项目的每个过程中都会使用到并且打包的时候也会添加进压缩文件中去。</p>
+<p>这里我们对项目进行打包，打开压缩文件<code>maven-web-1.0-SNAPSHOT.war</code></p>
+<p>压缩文件长这样的</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119203644272.png" alt="image-20210119203644272"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119203718168.png" alt="image-20210119203718168"></p>
+<p>现在，我们将servlet的依赖范围改成compile并重新清理打包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>打开新生成的<code>maven-web-1.0-SNAPSHOT.war</code></p>
+<p>压缩文件内长这样，比之前多了lib文件夹，同时servlet用到的两个jar包也一同打包进去了</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119203915580.png" alt="image-20210119203915580"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119203933455.png" alt="image-20210119203933455"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119203949803.png" alt="image-20210119203949803"></p>
+<h2 id="maven属性设置"><a class="header-anchor" href="#maven属性设置"> </a>maven属性设置</h2>
+<p>在pom.xml中的<properties></properties>标签中定义maven的属性</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- maven构建项目使用的编码 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 编译代码使用的jdk版本 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 运行程序使用的jdk版本 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="全局变量"><a class="header-anchor" href="#全局变量"> </a>全局变量</h3>
+<p>maven的全局变量也是在pom.xml中的<properties></properties>标签内进行定义</p>
+<p>其中标签名为变量名，标签中的值即为变量的值，通过${标签名}进行引用变量的值</p>
+<p>自定义的全局变量一般是定义依赖的版本号，当项目中使用多个相同的版本号，可以定义变量，便于统一管理</p>
+<p>例如定义一个spring.version的变量名，其中值为5.3.3</p>
+<p>那在properties标签中这样编写</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring.version</span>&gt;</span>5.3.3<span class="tag">&lt;/<span class="name">spring.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>而在依赖中这样引用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>即可</p>
+<h2 id="指定资源位置"><a class="header-anchor" href="#指定资源位置"> </a>指定资源位置</h2>
+<p>在compile阶段，会将<code>src/main/java</code>的所有<code>*.java</code>文件和<code>src/main/resources</code>放在<code>target/classes</code>目录</p>
+<p>在test-compile阶段，会将<code>src/test/java</code>的所有<code>*.java</code>文件和<code>src/test/resources</code>放在<code>target/test-classes</code>目录</p>
+<p>但是在<code>src/main/java</code>目录下的所有非java文件和<code>src/test/java</code>目录下的所有非java文件不作处理，不拷贝到<code>target/classes</code>目录中。</p>
+<p>例如我们创建三个非java文件，然后执行<code>test-compile</code></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119210941647.png" alt="image-20210119210941647"></p>
+<p>在生成的target的目录中，testfile.txt和myapp.txt被拷贝过来，而app.properties没有拷贝过来</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119211039417.png" alt="image-20210119211039417"></p>
+<p>而有时候我们又需要<code>src/main/java</code>目录下的非java文件</p>
+<p>那么我们在pom.xml的<build>标签内添加<resources>标签</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 需要添加文件的目录 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 包含的文件 ，这里表示properites和xml后缀的文件都会包括--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- filtering选项 false 不启用过滤器， 上面通配符已经起到过滤作用--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>**/*.xml</code>这种写法是保证各级子目录下的资源都能被打包</p>
+</blockquote>
+<p>重新编译测试</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119212041832.png" alt="image-20210119212041832"></p>
+<p>可以看到target目录下中，app.properties被包含进来了，但是发现myapp.txt不见了</p>
+<p>再增加一条<resource>标签把<code>res/main/resources</code>下的文件也添加进去</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.txt<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样子该有的文件都有了</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210119213417913.png" alt="image-20210119213417913"></p>
+<p>pom.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring.version</span>&gt;</span>5.3.3<span class="tag">&lt;/<span class="name">spring.version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.11<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet.jsp/jsp-api --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 需要添加文件的目录 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/java<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!-- 包含的文件 ，这里表示properites和xml后缀的文件都会包括--&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.properties<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.xml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- filtering选项 false 不启用过滤器， 上面通配符已经起到过滤作用--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">include</span>&gt;</span>**/*.txt<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>false<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<p>THAT’S ALL</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/maven/" rel="tag"><i class="fa fa-tag"></i> maven</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/12/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%E7%9B%B8%E5%85%B3/" rel="prev" title="服务器搭建相关">
+                  <i class="fa fa-chevron-left"></i> 服务器搭建相关
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/22/MyBatis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="MyBatis学习笔记">
+                  MyBatis学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"66fff33ec42f73d38e6c94c8b7e2e280"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

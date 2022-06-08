@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="Java核心技术 第六章 接口、lambda表达式与内部类  接口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java核心技术—接口、lambda表达式与内部类">
+<meta property="og:url" content="http://qibinaoe.top/2020/11/22/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="Java核心技术 第六章 接口、lambda表达式与内部类  接口">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-22T06:29:49.000Z">
+<meta property="article:modified_time" content="2020-12-19T03:25:58.344Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="Java核心技术">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/11/22/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/11/22/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/","path":"2020/11/22/Java核心技术—接口、lambda表达式与内部类/","title":"Java核心技术—接口、lambda表达式与内部类"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java核心技术—接口、lambda表达式与内部类 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E7%AC%AC%E5%85%AD%E7%AB%A0-%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">Java核心技术 第六章 接口、lambda表达式与内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">默认方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E6%96%B9%E6%B3%95%E5%86%B2%E7%AA%81"><span class="nav-number">1.1.2.</span> <span class="nav-text">默认方法冲突</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E4%B8%8E%E5%9B%9E%E8%B0%83"><span class="nav-number">1.1.3.</span> <span class="nav-text">接口与回调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Comparator-%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.4.</span> <span class="nav-text">Comparator 接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%85%8B%E9%9A%86"><span class="nav-number">1.1.5.</span> <span class="nav-text">对象克隆</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">lambda表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%BC%95%E7%94%A8-method-reference"><span class="nav-number">2.1.</span> <span class="nav-text">方法引用(method reference)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E5%BC%95%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">构造器引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">2.3.</span> <span class="nav-text">变量作用域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">内部类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">局部内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E5%86%85%E9%83%A8%E7%B1%BB-anonymous-inner-class"><span class="nav-number">3.2.</span> <span class="nav-text">匿名内部类 anonymous inner class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">3.3.</span> <span class="nav-text">静态内部类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-v2"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%981"><span class="nav-number">4.1.</span> <span class="nav-text">问题1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%982"><span class="nav-number">4.2.</span> <span class="nav-text">问题2</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/11/22/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E6%8E%A5%E5%8F%A3%E3%80%81lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8E%E5%86%85%E9%83%A8%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java核心技术—接口、lambda表达式与内部类 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java核心技术—接口、lambda表达式与内部类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-22 14:29:49" itemprop="dateCreated datePublished" datetime="2020-11-22T14:29:49+08:00">2020-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-12-19 11:25:58" itemprop="dateModified" datetime="2020-12-19T11:25:58+08:00">2020-12-19</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>16k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>27 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Java核心技术-第六章-接口、lambda表达式与内部类"><a class="header-anchor" href="#Java核心技术-第六章-接口、lambda表达式与内部类"> </a>Java核心技术 第六章 接口、lambda表达式与内部类</h2>
+<h3 id="接口"><a class="header-anchor" href="#接口"> </a>接口</h3>
+<span id="more"></span>
+<p>接口<em>不是</em>类，而是对希望符合这个接口的<em>类</em>的一组<em>需求</em></p>
+<p>接口用来描述类应该做什么，而不指定它们具体应该如何做</p>
+<p>举例，<code>Arrays</code>类中的<code>sort</code>方法实现了对对象数组进行排序，但是当然不是任意的对象数组都能够进行排序，因此，如果想使用<code>sort</code>方法进行排序，则对象所属的类必须实现<code>Comparable</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Comparable</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(T o)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现Comparable接口的类，都需要包含compareTo方法，这里Comparable接口为一个泛型类型，因此实现该接口的时候需要带上类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span>&lt;Employee&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Employee o)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Comparable也可以使用不带类型参数的，但是这样在实现的方法里就有Object类型的参数，需要手动的进行强制转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span> <span class="keyword">implements</span> <span class="title class_">Comparable</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compareTo</span><span class="params">(Object o)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">Employee</span> <span class="variable">other</span> <span class="operator">=</span> (Employee)o;</span><br><span class="line">        ....</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p><em>接口</em>中所有<em>方法</em>都是自动是<strong>public</strong>方法，可以不提供关键字<em>public</em>,但是提供也是可以的</p>
+</li>
+<li>
+<p>在实现接口的类中，重写的方法必须明确声明为<strong>public</strong>,否则编译器会认为是包可见性而报错。</p>
+</li>
+<li>
+<p>接口可以定义常量</p>
+</li>
+<li>
+<p>接口<strong>没有</strong><em>实例字段</em></p>
+</li>
+</ul>
+<p>实现接口的步骤</p>
+<ol>
+<li>将类声明为实现给定的接口</li>
+<li>对接口中的所有方法提供定义</li>
+</ol>
+<hr>
+<p>书上问题：</p>
+<blockquote>
+<p>为什么不能直接在类中直接提供一个<code>compareTo</code>方法，而必须实现<code>Comparable接口</code>呢？</p>
+</blockquote>
+<p>回答</p>
+<blockquote>
+<p>Java是一种强类型(strongly typed)语言，调用方法的时候，编译器要检查该方法确实存在。如果一个类实现了Comparable的接口，可以确保拥有compareTo方法，</p>
+</blockquote>
+<p>书上问题：</p>
+<blockquote>
+<p>对于继承了实现Comparable接口的子类之间比较的问题</p>
+</blockquote>
+<p>解决办法：</p>
+<ul>
+<li>如果不同子类中的比较有不同的含义(意思就是同一个类中可以进行比较，但是与另一个类无法进行比较)，应该将属于不同类的对象之间的比较视为非法的。每个compareTo方法开始时进行检测 <code>if(getClass() != other.getClass()) throw new ClassCastException();</code></li>
+<li>如果存在一个能够比较子类对象的通用算法，可以在超类中提供一个compareTo方法，并将这个方法声明为final</li>
+</ul>
+<hr>
+<p>接口不能用<code>new</code>运算符实例化一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="keyword">new</span> <span class="title class_">Comparable</span>(...) <span class="comment">//ERROR</span></span><br></pre></td></tr></table></figure>
+<p>能够声明接口的变量，同时该接口变量必须引用实现了这个接口的类对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Comparable x; <span class="comment">// OK</span></span><br><span class="line">x = <span class="keyword">new</span> <span class="title class_">Employee</span>(...) <span class="comment">//Employee必须实现Comparable接口才能够引用</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>instanceof</code>来检查一个对象是否实现了某个特定的接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( anObject <span class="keyword">instanceof</span> Comparable) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>接口链： 从通用性较高的接口扩展到专用性较高的接口</p>
+<ul>
+<li>接口通过<code>extends</code>来实现接口的扩展</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Moveable</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">move</span><span class="params">(<span class="type">double</span> x, <span class="type">double</span> y)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Powered</span> <span class="keyword">extends</span> <span class="title class_">Moveable</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> <span class="title function_">milesPerGallon</span><span class="params">()</span>;</span><br><span class="line">    <span class="type">double</span> <span class="variable">SPEED_LIMIT</span> <span class="operator">=</span> <span class="number">95</span>; <span class="comment">// a public static final constant</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>接口中的<em>方法</em>都自动设置为<strong>public</strong></p>
+</li>
+<li>
+<p>接口中的<em>字段</em>总是<strong>public</strong> <strong>static</strong> <strong>final</strong></p>
+<ul>
+<li>注：在接口中可以显示的标记出来，也可以不标记出来</li>
+</ul>
+</li>
+<li>
+<p>每个类只能有一个超类</p>
+</li>
+<li>
+<p>每个类能够实现多个接口</p>
+<ul>
+<li>实现多个接口用逗号隔开: <code>class Employee implements Cloneable, Comparable</code></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>书上问题：</p>
+<blockquote>
+<p>为什么不直接继承抽象类？</p>
+</blockquote>
+<p>回答：</p>
+<blockquote>
+<p>Java每个类只能扩展一个类</p>
+</blockquote>
+<p>书上问题：</p>
+<blockquote>
+<p>为什么Java不采用多重继承(multiple inheritance)</p>
+</blockquote>
+<p>回答：</p>
+<blockquote>
+<p>多重继承会让语言变得复杂和效率低下</p>
+</blockquote>
+<hr>
+<p>允许在接口中添加静态(statics)方法，但是有违将接口作为抽象规范的初衷</p>
+<p>通常做法：将静态方法放在伴随类中，例如表中库的中接口和实用工具类成对出现，Collection/Collections 和Path/Paths</p>
+<h4 id="默认方法"><a class="header-anchor" href="#默认方法"> </a>默认方法</h4>
+<p>用<code>default</code>修饰符来标记默认方法</p>
+<p>可以为<em>接口</em>实现<em>默认</em>方法</p>
+<p>如果一个<em>接口</em>(<code>interface</code>)中有<code>default</code>标识的方法，实现这个接口的类可以不用实现<code>default</code>标识的方法，但是还是一定要实现不是<em>默认方法</em>，也不是<em>静态方法</em>。</p>
+<p>默认方法的好处就是保证了<em>源代码兼容(source compatible)</em>，<em>接口演化(interface evolution)</em></p>
+<p>默认方法里面可以调用其他方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">MyInterface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        ....</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="默认方法冲突"><a class="header-anchor" href="#默认方法冲突"> </a>默认方法冲突</h4>
+<p>情景：一个接口中有默认方法，同时在超类或者另一个接口也有定义同样的方法</p>
+<p>解决规则</p>
+<ul>
+<li>
+<p><strong>超类优先</strong></p>
+<ul>
+<li>如果超类提供具体的方法，同名且有相同参数类型(签名相同)的默认方法会被忽略</li>
+</ul>
+</li>
+<li>
+<p><em>接口</em>冲突的情况</p>
+<ul>
+<li>如果一个接口提供默认方法，另一个接口提供了同名且参数类型相同的方法(无论是否是默认参数)，<strong>必须覆盖这个方法</strong>解决冲突
+<ul>
+<li>
+<p>重新写这个方法</p>
+</li>
+<li>
+<p>使用其中一个接口实现的方法，这里要加<code>super</code>才能够使用这个方法</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Mystyle</span> <span class="keyword">implements</span> <span class="title class_">MyInterface</span>,MyInterface2</span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">methodDefault</span><span class="params">()</span> &#123;</span><br><span class="line">        MyInterface.<span class="built_in">super</span>.methodDefault();  <span class="comment">// methodDefault MyInterface</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyInterface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">methodDefault</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodDefault MyInterface&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">methodStatic</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodStatic&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyInterface2</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">methodDefault</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodDefault MyInterface2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">methodStatic</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodStatic2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>如果一个类<em>implements</em>一个接口，但是不实现里面的方法，就需要将该类定义为抽象类(abstract)</p>
+<p>不要让静默方法重新定义Object类中的方法，因为所有类都继承Object类，根据类优先的原则，静默方法里面定义的Object类的方法是没有效果的。</p>
+<h4 id="接口与回调"><a class="header-anchor" href="#接口与回调"> </a>接口与回调</h4>
+<p>回调(callback)： 指定某个特定事件发生时应该采取的动作</p>
+<p>对于事件发送时应该采取的<strong>动作</strong>，Java不是通过传入一个函数，而是通过传入一个对象。调用该对象实现的方法即为动作。那么怎么知道应该调用哪个动作呢？因此该类应该去实现某个接口(interface)，通过重写该接口中的方法来明确这个动作。</p>
+<p>例如一个定时器<code>Timer</code>类，通过一定时间间隔调用一个方法</p>
+<p>这是<code>Timer</code>的构造器，可以看到其中一个参数是<code>ActionListener listener</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">Timer</span><span class="params">(<span class="type">int</span> delay, ActionListener listener)</span> &#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于<code>ActionListener</code>,这是一个接口，因此如果想要实现这个功能，需要写一个类去继承该接口，并实现这个方法，传入<code>Timer</code>，这样就能够正确的调用所需要触发的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ActionListener</span> <span class="keyword">extends</span> <span class="title class_">EventListener</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">        * Invoked when an action occurs.</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Comparator-接口"><a class="header-anchor" href="#Comparator-接口"> </a>Comparator 接口</h4>
+<p>需求：如果我们想按照自己的需求对于字符串(String)进行比较排序，例如按照长度进行排序，并不关心字典顺序。那么让<code>String</code>类实现<code>Comparable</code>接口是行不通的。</p>
+<p>原因有两个</p>
+<ol>
+<li>最根本的原因是<code>String</code>是final类，不能够继承来重写方法</li>
+<li>即使我们可以重写<code>String</code>实现<code>Comparable</code>接口的<code>compareTo</code>方法，但是对于新的需求的时候，还得去改代码，这样不太方便和现实，因为<code>compareTo</code>方法只能写一个</li>
+</ol>
+<p>因此<code>Arrays.sort()</code>有第二个版本</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="keyword">void</span> <span class="title function_">sort</span><span class="params">(T[] a, Comparator&lt;? <span class="built_in">super</span> T&gt; c)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="literal">null</span>) &#123;</span><br><span class="line">        sort(a);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (LegacyMergeSort.userRequested)</span><br><span class="line">            legacyMergeSort(a, c);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            TimSort.sort(a, <span class="number">0</span>, a.length, c, <span class="literal">null</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第一个参数是要被排序的数组，第二个参数即为一个比较器(comparator)。该比较器是实现了<code>Comparator</code>接口的类的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Comparator</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="type">int</span> <span class="title function_">compare</span><span class="params">(T o1, T o2)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因此我们可以这样实现一个比较器的类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">LengthComparator</span> <span class="keyword">implements</span> <span class="title class_">Comparator</span>&lt;String&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">compare</span><span class="params">(String o1, String o2)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> o1.length() - o2.length();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在传入<code>Arrays.sort()</code>时，比较器的参数需要实例化，因为<code>Arrays.sort()</code>内部是通过调用对象的方法进行比较的:<code>if (c.compare(a[runHi++], a[lo]) &lt; 0)</code></p>
+<h4 id="对象克隆"><a class="header-anchor" href="#对象克隆"> </a>对象克隆</h4>
+<ul>
+<li>
+<p>用<code>=</code>来为一个包含对象引用的变量建立副本时，只是将原变量和副本指向<em>同一个对象的引用</em></p>
+</li>
+<li>
+<p>Object类中有一个声明为protected的clone方法</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>浅拷贝
+<ul>
+<li>Object类中这个clone方法默认是浅拷贝，即没有克隆对象中引用的其他对象</li>
+<li>如果对象中的所有数字段都是数值或其他基本类型，拷贝字段没有问题</li>
+<li>如果对象包含子对象的引用，拷贝字段就会得到相同子对象的另一个引用
+<ul>
+<li>原对象和克隆的对象会共享信息</li>
+</ul>
+</li>
+<li>如果原对象和浅克隆对象<em>共享</em>的子对象是不可变的类(例如 String)，则共享安全</li>
+<li>如果共享子对象一直包含不变的常量、没有更改其方法改变它、没有方法生成引用，则也是安全</li>
+</ul>
+</li>
+<li>深拷贝(deep copy)
+<ul>
+<li>克隆对象的时候同时克隆所有子对象</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>对于克隆对象需要确定几点</p>
+<ol>
+<li>默认的clone方法是否满足要求</li>
+<li>是否可以在可变的子对象调用clone来修补默认的clone方法</li>
+<li>是否不该使用clone</li>
+</ol>
+<p>如果需要使用clone方法有以下步骤</p>
+<ol>
+<li>实现Cloneable接口</li>
+<li>重新定义clone方法，并指定public访问修饰符</li>
+</ol>
+<p>注意</p>
+<ul>
+<li>
+<p>如果要使用clone的方法，虽然重写了clone方法，却没有实现Cloneable的接口，会抛出异常<code>java.lang.CloneNotSupportedException</code></p>
+</li>
+<li>
+<p>将修饰符改成public的原因是为了在所有的方法都能够克隆对象</p>
+</li>
+<li>
+<p>标记接口(tagging interface) 记号接口(marker interface)</p>
+<ul>
+<li>标记接口不包含任何方法</li>
+<li>唯一作用是允许在类型查询中使用<code>instanceof</code>
+<ul>
+<li>例如<code>if(obj instanceof Cloneable)...</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Cloneable里面没有方法，clone方法是从Object类继承的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现浅拷贝</p>
+<ol>
+<li>实现Cloneable接口</li>
+<li>clone定义为public</li>
+<li>调用super.clone()</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Father</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Father <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="keyword">return</span> (Father) <span class="built_in">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Object类中返回类型是Object类，根据协变返回类型，可以在子类中指定正确的返回类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException;</span><br></pre></td></tr></table></figure>
+<p>实现深拷贝</p>
+<p>实现深拷贝除了浅拷贝的基础上实现的基本类型，还需要克隆对象中可变的实例字段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Employee</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">public</span> Employee <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">Employee</span> <span class="variable">cloned</span> <span class="operator">=</span> (Employee) <span class="built_in">super</span>.clone();</span><br><span class="line"></span><br><span class="line">        cloned.hireDay = (Date) hireDay.clone();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cloned;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>所有数组类型都有一个公共(public)的clone方法，可以建立一个新数组，包含原数组所有元素的副本</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] nums = &#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>&#125;;</span><br><span class="line"><span class="type">int</span>[] cloned = nums.clone();</span><br><span class="line">cloned[<span class="number">2</span>] = <span class="number">100</span>;</span><br><span class="line">System.out.println(Arrays.toString(nums)); <span class="comment">// [2, 3, 5, 7, 11, 13]</span></span><br><span class="line">System.out.println(Arrays.toString(cloned)); <span class="comment">// [2, 3, 100, 7, 11, 13]</span></span><br></pre></td></tr></table></figure>
+<h2 id="lambda表达式"><a class="header-anchor" href="#lambda表达式"> </a>lambda表达式</h2>
+<p>lambda表达式是一个可传递的<em>代码块</em>，可以在以后执行一次或多次</p>
+<p>场景：一个代码块传递到某个对象中，这个代码块会在将来某个时间调用</p>
+<p>lambda表达式形式</p>
+<ul>
+<li>参数</li>
+<li>箭头(-&gt;)</li>
+<li>一个表达式
+<ul>
+<li>如果代码要完成的计算无法放在一个标傲世中，可以像写方法一样放在<code>&#123;&#125;</code>中，并包含显示的return语句</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(planets,(String first, String second) -&gt;</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="keyword">if</span>(first.length() &lt;  second.length()) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">                            <span class="keyword">else</span> <span class="keyword">if</span>(first.length() &gt;  second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">                            <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                        &#125;);</span><br></pre></td></tr></table></figure>
+<p>如果lambda表达式没有参数，仍要提供空括号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; &#123;<span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) System.out.println(i);&#125;</span><br></pre></td></tr></table></figure>
+<p>如果可以推导出一个lambda表达式的参数类型，则可以忽略其类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Comparator&lt;String&gt; comp</span><br><span class="line">    = (first, second)</span><br><span class="line">        -&gt; first.length()-second.length();</span><br></pre></td></tr></table></figure>
+<p>如果方法只有一个参数且这个参数类型可以推导出，则可以省略小括号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ActionListener</span> <span class="variable">listener</span> <span class="operator">=</span> event -&gt;</span><br><span class="line">    System.out.println(<span class="string">&quot;The time is&quot;</span></span><br><span class="line">        + Instant.ofEpochMilli(event.getWhen()));</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Timer</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">500</span>, event -&gt;</span><br><span class="line">        System.out.println(<span class="string">&quot;The time is&quot;</span> + <span class="keyword">new</span> <span class="title class_">Date</span>()));</span><br><span class="line">timer.start();</span><br><span class="line"></span><br><span class="line">JOptionPane.showMessageDialog(<span class="literal">null</span>,<span class="string">&quot;Quit program?&quot;</span>);</span><br><span class="line">System.exit(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String[] planets = <span class="keyword">new</span> <span class="title class_">String</span>[] &#123;</span><br><span class="line">        <span class="string">&quot;Mercury&quot;</span>,<span class="string">&quot;venus&quot;</span>,<span class="string">&quot;earth&quot;</span>,<span class="string">&quot;Mars&quot;</span>,<span class="string">&quot;Jupiter&quot;</span>,<span class="string">&quot;Saturn&quot;</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(planets));</span><br><span class="line">Arrays.sort(planets);</span><br><span class="line">System.out.println(Arrays.toString(planets));</span><br><span class="line">Arrays.sort(planets,(String first, String second) -&gt; first.length()-second.length());</span><br><span class="line">System.out.println(Arrays.toString(planets));</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(planets, (first, second) -&gt; first.length()-second.length());</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>函数式接口(functional interface)</p>
+<ul>
+<li>对于<em>只有一个</em><strong>抽象</strong>方法的<em>接口</em>，需要这种接口对象时，可以提供一个lambda表达式</li>
+</ul>
+</li>
+<li>
+<p>Java中，lambda表达式所能做的也<em>只是</em>转换为函数式接口</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Predicate</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">test</span><span class="params">(T t)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">removeIf</span><span class="params">(Predicate&lt;? <span class="built_in">super</span> E&gt; filter)</span> &#123;</span><br><span class="line">    Objects.requireNonNull(filter);</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.removeIf(e -&gt; e == <span class="literal">null</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="方法引用-method-reference"><a class="header-anchor" href="#方法引用-method-reference"> </a>方法引用(method reference)</h3>
+<p>表达式<code>System.out::println</code>是一个方法引用，它指示编译器生成一个函数式接口的实例，覆盖这个接口的抽象方法来调用给定的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Timer</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">500</span>, event -&gt;</span><br><span class="line">                System.out.println(event));</span><br></pre></td></tr></table></figure>
+<p>使用方法引用可改写成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Timer</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">500</span>, System.out::println);</span><br></pre></td></tr></table></figure>
+<p>用<code>::</code>运算符分隔方法名与对象或类名</p>
+<ol>
+<li><code>object::instanceMethod</code></li>
+<li><code>Class::instanceMethod</code></li>
+<li><code>Class::staticMethod</code></li>
+</ol>
+<p>第一种情况下，方法引用等价于向方法传递参数的lambda表达式:<code>System.out::println</code> — <code>x-&gt;System.out.println(x)</code></p>
+<p>第二种情况下，第一个参数变成方法的隐式参数：<code>Arrays.sort(planets,String::compareToIgnoreCase);</code> — <code>(x,y)-&gt;x.compareToIgnoreCase(y)</code></p>
+<p>第三种情况下，所有参数都传递到静态方法:<code>Math::pow</code> — <code>(x,y)-&gt;Math.pow(x,y)</code></p>
+<p>注：只有当lambda表达式的体只调用一个方法而不做其他操作的时候，才能改写成方法引用</p>
+<p>方法引用和lambda表达式区别之一在于：lambda只有在调用的时候，才会抛出异常。方法引用在构造的时候就会抛出异常</p>
+<p>方法引用中可以使用<code>this</code>参数，例如<code>this::equals</code> 等同于<code>x -&gt; this.equals(x)</code></p>
+<p>方法引用使用<code>super</code>参数， <code>super::instanceMethod</code></p>
+<h3 id="构造器引用"><a class="header-anchor" href="#构造器引用"> </a>构造器引用</h3>
+<p>构造器引用的方法名为<code>new</code>，例如<code>Person::new</code>是<code>Person</code>构造器的一个引用</p>
+<p>如果有多个Person构造器，编译器会从上下文推导出符合类型的构造器</p>
+<p>数组类型可以建立构造器引用 <code>int[]::new</code></p>
+<p>数组构造器能够克服Java无法构造泛型类型T的数组 <code>Person[] people = stream.toArray(Person[]::new)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; names = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">names.add(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">names.add(<span class="string">&quot;hello2&quot;</span>);</span><br><span class="line">names.add(<span class="string">&quot;hello3&quot;</span>);</span><br><span class="line">names.add(<span class="string">&quot;hello4&quot;</span>);</span><br><span class="line">Stream&lt;Father&gt; stream = names.stream().map(Father::<span class="keyword">new</span>);</span><br><span class="line">List&lt;Father&gt; fathers = stream.collect(Collectors.toList());</span><br><span class="line">System.out.println(fathers);</span><br></pre></td></tr></table></figure>
+<h3 id="变量作用域"><a class="header-anchor" href="#变量作用域"> </a>变量作用域</h3>
+<ul>
+<li>lambda表达式就是<em>闭包</em></li>
+</ul>
+<p>lambda表达式有3部分</p>
+<ol>
+<li>一个代码块</li>
+<li>参数</li>
+<li>自由变量的值，这里指非参数而且不在代码中定义的变量</li>
+</ol>
+<p>lambda表达式可以捕获外围作用域中的变量值，要求所捕获的值是明确定义的同时值不会改变的变量</p>
+<p>lambda表达式所捕获的变量必须是<em>事实最终变量(effectively final)</em>，即该变量初始化之后就i不会再为它赋新值。</p>
+<p>lambda表达式的<em>体</em>与<em>嵌套块</em>具有相同的作用域：适用命名冲突和遮蔽</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Path</span> <span class="variable">first</span> <span class="operator">=</span> Path.of(<span class="string">&quot;/usr/bin&quot;</span>);</span><br><span class="line">Comparator&lt;String&gt; comp = (first,second) -&gt; first.length() - second.length(); <span class="comment">//ERROR,重复定义变量first</span></span><br></pre></td></tr></table></figure>
+<p>lambda表达式中使用<code>this</code>关键字，是指创建这个lambda表达式的方法的this参数</p>
+<p>自己设计接口，其中只有一个抽象方法，用<code>@FunctionalInterface</code>注解来标记这个接口。有两个好处</p>
+<ol>
+<li>如果无意增加另一个抽象方法，编译器会产生错误信息</li>
+<li>javadoc也指出该接口时一个函数式接口</li>
+</ol>
+<h2 id="内部类"><a class="header-anchor" href="#内部类"> </a>内部类</h2>
+<p><em>内部类(inner class)<em>是定义在另一个类</em>中</em>的类</p>
+<p>使用内部类的原因</p>
+<ol>
+<li>内部类可以对同一包中的其他类隐藏</li>
+<li>内部类方法可以访问定义这个类的作用域中的数据，包括<em>原本的私有数据</em></li>
+</ol>
+<ul>
+<li>C++的嵌套类与Java的内部类
+<ul>
+<li>Java的内部类的对象会有一个隐式引用，指向实例化这个对象的外部类对象，通过这个指针可以访问外部对象的全部状态</li>
+<li>Java静态内部类没有这个指针，相当于C++的嵌套类</li>
+</ul>
+</li>
+</ul>
+<p>内部类位于外部类的内部，不代表每个外部类都有一个内部类的实例字段。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InnerTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">OuterClass</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OuterClass</span>(<span class="number">100</span>, <span class="string">&quot;dog&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">        dog.hello();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">OuterClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> num;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> meet;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">OuterClass</span><span class="params">(<span class="type">int</span> num, String name, <span class="type">boolean</span> meet)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.num = num;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.meet = meet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">hello</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">        <span class="type">InnerClass</span> <span class="variable">innerClass</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InnerClass</span>();</span><br><span class="line">        innerClass.goodbye();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InnerClass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">goodbye</span><span class="params">()</span></span><br><span class="line">        &#123;</span><br><span class="line">            System.out.println(meet?<span class="string">&quot;goodbye&quot;</span>:<span class="string">&quot;nice to meet you&quot;</span>); <span class="comment">// 这里的meet是外部类的meet</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>内部类的方法可以访问自己的数据字段，也可以访问创建它的外围类对象的数据字段(上面的<code>meet</code>)</p>
+<ul>
+<li>内部类的对象总有一个隐式引用，指向创建它的外部类的对象。
+<ul>
+<li>这个引用在内部类的定义是不可见的(即没有显示的定义这个隐式引用)</li>
+<li>外围类的引用是在内部类的构造器中设置
+<ul>
+<li>编译器会修改所有内部类的构造器，添加一个对应外围类引用的参数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>内部类可以是私有的(private)</p>
+<p>常规类可以有包可见性或(没有访问修饰符)公共可见性(public)</p>
+<p>内部类中，表示外围类的引用:<code>OuterClass.this</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">goodbye</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    System.out.println(OuterClass.<span class="built_in">this</span>.meet?<span class="string">&quot;goodbye&quot;</span>:<span class="string">&quot;nice to meet you&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以采用以下语法更加明确的编写内部类对象的构造器 <code>outerObject.new InnerClass(construction parameters)</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">hello</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;hello world&quot;</span>);</span><br><span class="line">    <span class="type">InnerClass</span> <span class="variable">innerClass</span> <span class="operator">=</span> <span class="built_in">this</span>.<span class="keyword">new</span> <span class="title class_">InnerClass</span>();</span><br><span class="line">    innerClass.goodbye();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当内部类是公共访问的时候，可以这样构造。</p>
+<p>在外围类的作用域之外，这样引用内部类 <code>OuterClass.InnerClass</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OuterClass.<span class="type">InnerClass</span> <span class="variable">cat</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OuterClass</span>(<span class="number">200</span>, <span class="string">&quot;cat&quot;</span>, <span class="literal">false</span>).<span class="keyword">new</span> <span class="title class_">InnerClass</span>();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">OuterClass</span> <span class="variable">dog</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OuterClass</span>(<span class="number">100</span>, <span class="string">&quot;dog&quot;</span>, <span class="literal">true</span>);</span><br><span class="line">OuterClass.<span class="type">InnerClass</span> <span class="variable">dogson</span> <span class="operator">=</span> dog.<span class="keyword">new</span> <span class="title class_">InnerClass</span>();</span><br></pre></td></tr></table></figure>
+<p>内部类声明的所有<em>静态字段</em>必须是<em>final</em>,并初始化为一个编译时常量</p>
+<p>内部类<em>不能</em>有<em>static方法</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InnerClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> varible0;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">varible1</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">int</span> <span class="variable">varible2</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">    <span class="comment">//static int varible3 = 2; //ERROR 必须定义为final</span></span><br><span class="line">    <span class="comment">//final static int varible4; //ERROR 没有初始化</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>内部类是一个<em>编译器现象</em>，与<em>虚拟机无关</em>。编译器会把内部类转换成<em>常规的类文件</em>，用$分割外部类名与内部类名，虚拟机对此一无所知</p>
+<p>例如 <code>OuterClass$InnerClass</code></p>
+<p>与直接写一个常规类来访问某一个类，内部类拥有更大的访问权限。内部类可以访问外部类的私有数据，而常规类不能访问。</p>
+<h3 id="局部内部类"><a class="header-anchor" href="#局部内部类"> </a>局部内部类</h3>
+<p>当内部类在外部类中名字只出现一次的时候(只是在这个方法中创建这个类型的对象时使用了一次)，可以将内部类改写成局部内部类</p>
+<p>即在一个方法中局部的定义这个类</p>
+<p>声明局部类时，不能有访问说明符(public或private),局部类的作用域被限定在声明这个局部类的块中。局部类对外部世界完全隐藏，外部类的其他代码也不能访它。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">OuterClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">love</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">class</span> <span class="title class_">LocalInnerClass</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">sayLove</span><span class="params">()</span></span><br><span class="line">            &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;love you&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">LocalInnerClass</span> <span class="variable">localInnerClass</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LocalInnerClass</span>();</span><br><span class="line">        localInnerClass.sayLove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>局部类不仅能够访问外部类的字段，还可以访问局部变量，但要求局部变量必须是<em>事实最终变量(effectively final)</em>，即一旦赋值就不会改变。</p>
+<p>编译器检测局部内部类(<code>LocalInnerClass</code>)中对局部变量(<code>truelove</code>)的访问，为每一个变量建立相应的实例字段，并将局部变量复制到构造器，从而能够初始化这些实例字段。</p>
+<p>在下面的例子中，当调用love方法执行后，局部变量truelove已经不存在了，但是在局部类中，已经拥有这个局部变量的实例字段，所以还能够获得这个值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">love</span><span class="params">(<span class="type">boolean</span> truelove)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">class</span> <span class="title class_">LocalInnerClass</span> <span class="keyword">implements</span> <span class="title class_">ActionListener</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(truelove)</span><br><span class="line">                    System.out.println(<span class="string">&quot;love you&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">LocalInnerClass</span> <span class="variable">localInnerClass</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">LocalInnerClass</span>();</span><br><span class="line">        <span class="type">Timer</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">1000</span>, localInnerClass);</span><br><span class="line">        timer.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="匿名内部类-anonymous-inner-class"><a class="header-anchor" href="#匿名内部类-anonymous-inner-class"> </a>匿名内部类 anonymous inner class</h3>
+<p>局部内部类更进一步就是匿名内部类。如果只想创建这个类的一个对象，甚至不需要为类指定名字(名字是类似<code>class Name implements interface</code>中的<code>Name</code>,不是指变量名)。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">love</span><span class="params">(<span class="type">boolean</span> truelove)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">ActionListener</span> <span class="variable">listener</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ActionListener</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(truelove)</span><br><span class="line">                System.out.println(<span class="string">&quot;love you&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="type">Timer</span> <span class="variable">timer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Timer</span>(<span class="number">1000</span>, listener);</span><br><span class="line">    timer.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个语法的意思是创建一个类的新对象，这个类实现了<code>ActionListener</code>接口，需要实现的方法<code>actionPerformed</code>在括号{}内定义</p>
+<p>语法格式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">SuperType</span>(construction parameters)</span><br><span class="line">&#123;</span><br><span class="line">    inner <span class="keyword">class</span> <span class="title class_">methods</span> and data</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>SuperType</code>可以是接口，如<code>ActionListener</code>,内部类要实现该接口，同时如果是接口，就不能有任何构造参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">InterfaceType</span>()</span><br><span class="line">&#123;</span><br><span class="line">    methods and data</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>SuperType</code>可以是类，内部类要扩展这个类</p>
+<p>由于构造器的名字必须与类名相同，匿名内部类米欸有类名，所以匿名内部类不能有构造器。而这里的<code>construction parameters</code>构造参数要传递给超类<code>superclass</code>构造器</p>
+<p>构造一个类的新对象与构造一个扩展了那个类的匿名内部类的对象之间的区别在于小括号后面是否有大括号</p>
+<p>可以为匿名内部类提供对象初始化块</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Dog&quot;</span>)</span><br><span class="line">&#123;</span><br><span class="line">    &#123;initialization&#125;</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>双括号初始化(double brace initialization)</em> <code>invite(new ArrayList()&lt;String&gt;&#123;&#123;add("Harry");add("Tony");&#125;&#125;);</code>。这里外层括号建立了ArrayList的一个匿名子类，内层括号则是一个对象初始化块</p>
+<h3 id="静态内部类"><a class="header-anchor" href="#静态内部类"> </a>静态内部类</h3>
+<p>静态内部类：为了把一个类隐藏在另一个类的内部，并不需要内部类有外围对象的一个引用。将内部类声明为<code>static</code>就不会生成那个引用</p>
+<p>只有内部类可以声明为<code>static</code></p>
+<p>当静态方法中构造一个内部类，则该内部类必须是静态的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ArrayAlg</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Pair</span></span><br><span class="line">    &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>与常规内部类不同，静态内部类可以有静态字段和方法</li>
+<li>接口中声明的内部类自动是<code>static</code>和<code>public</code></li>
+</ul>
+<hr>
+<h2 id="问题-v2"><a class="header-anchor" href="#问题-v2"> </a>问题</h2>
+<h3 id="问题1"><a class="header-anchor" href="#问题1"> </a>问题1</h3>
+<p>实现了一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">MyInterface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">methodDefault</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodDefault MyInterface&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">methodStatic</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodStatic&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>那么实现这个接口的类，需要必须重写哪些方法呢？</p>
+<ul>
+<li>必须重写<code>void method();</code></li>
+</ul>
+</li>
+<li>
+<p>对于<code>default void methodDefault()</code>不重写可以调用吗？</p>
+<ul>
+<li>可以的</li>
+</ul>
+</li>
+<li>
+<p>对于<code>static void methodStatic()</code>不重写可以调用吗？</p>
+<ul>
+<li>不可以的</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Mystyle</span> <span class="keyword">implements</span> <span class="title class_">MyInterface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;method Mystyle&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Mystyle</span> <span class="variable">mystyle</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Mystyle</span>();</span><br><span class="line">        mystyle.method(); <span class="comment">// method Mystyle</span></span><br><span class="line">        mystyle.methodDefault(); <span class="comment">// methodDefault MyInterface</span></span><br><span class="line">        MyInterface.methodStatic(); <span class="comment">// methodStatic</span></span><br><span class="line">        <span class="comment">// mystyle.methodStatic(); // ERROR 会报找不到该方法</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="问题2"><a class="header-anchor" href="#问题2"> </a>问题2</h3>
+<blockquote>
+<p>为什么对于一个实现了两个拥有默认方法的接口，例如下面代码，要使用其中一个接口的默认方法时候，需要加关键字<code>super</code>呢</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Mystyle</span> <span class="keyword">extends</span> <span class="title class_">MySuperClass</span> <span class="keyword">implements</span> <span class="title class_">MyInterface</span>,MyInterface2</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">methodDefault</span><span class="params">()</span> &#123;</span><br><span class="line">        MyInterface.<span class="built_in">super</span>.methodDefault();  <span class="comment">// methodDefault MyInterface</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MySuperClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">methodSuperStatic</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodSuperStatic&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyInterface</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">methodDefault</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodDefault MyInterface&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">methodStatic</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodStatic&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">MyInterface2</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">methodDefault</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodDefault MyInterface2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">methodStatic</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;methodStatic2&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>回答：</p>
+<p>在Java中调用静态(static)方法通过<code>TypeName.method()</code>来调用，例如</p>
+<p><code>MySuperClass.methodSuperStatic();</code></p>
+<p><code>MyInterface.methodStatic();</code>8</p>
+<p>而要调用父类的方法通过<code>super.method()</code>来调用，(这种形式调用的方法也可以调用父类中的静态方法)，使用super一般用来区分子类和超类都有相同签名的方法，而想要调用父类的该方法才使用的</p>
+<p>对于调用实现的接口中的默认方法，使用的是<code>TypeName.super.method()</code>;调用实现的接口中的静态方法，使用的是<code>TypeName.method()</code>;不能调用实现接口的抽象方法</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" rel="tag"><i class="fa fa-tag"></i> Java核心技术</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/15/Linux%E5%AD%A6%E4%B9%A0/" rel="prev" title="Linux学习">
+                  <i class="fa fa-chevron-left"></i> Linux学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/30/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%BC%82%E5%B8%B8%E3%80%81%E6%96%AD%E8%A8%80%E5%92%8C%E6%97%A5%E5%BF%97/" rel="next" title="Java核心技术——异常、断言和日志">
+                  Java核心技术——异常、断言和日志 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"9870137e271ee4defd9bb44c3f73a057"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

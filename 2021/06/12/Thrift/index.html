@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="Thrift学习笔记 thritf简单的学习记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Thrift">
+<meta property="og:url" content="http://qibinaoe.top/2021/06/12/Thrift/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="Thrift学习笔记 thritf简单的学习记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/400px-Apache_Thrift_architecture.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/thrift-thrift-layers.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/thrift-image-20210611084119745.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/thrift-image-20210611142834298.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210611142921624.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210611143059120.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210611102635048.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210612134945276.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210612140424695.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210612140807435.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210612144508183.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210612140922678.png">
+<meta property="og:image" content="http://algorithm-image.qibinaoe.top/image-20210612145600801.png">
+<meta property="article:published_time" content="2021-06-12T06:57:11.000Z">
+<meta property="article:modified_time" content="2022-06-07T11:38:46.541Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="Thrift">
+<meta property="article:tag" content="序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://algorithm-image.qibinaoe.top/400px-Apache_Thrift_architecture.png">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2021/06/12/Thrift/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2021/06/12/Thrift/","path":"2021/06/12/Thrift/","title":"Thrift"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Thrift | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Thrift%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="nav-number">1.</span> <span class="nav-text">Thrift学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99-v7"><span class="nav-number">1.1.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thrift%E7%AE%80%E4%BB%8B"><span class="nav-number">1.2.</span> <span class="nav-text">Thrift简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Thrift%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.1.</span> <span class="nav-text">Thrift架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Thrift%E8%AE%BA%E6%96%87"><span class="nav-number">1.2.2.</span> <span class="nav-text">Thrift论文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEThrift%E7%8E%AF%E5%A2%83"><span class="nav-number">1.3.</span> <span class="nav-text">安装配置Thrift环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">1.3.1.</span> <span class="nav-text">Windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tutorial"><span class="nav-number">1.4.</span> <span class="nav-text">Tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%85%E8%AF%BBtutorial%E6%96%87%E6%A1%A3"><span class="nav-number">1.4.1.</span> <span class="nav-text">阅读tutorial文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Thrift%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">Thrift类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">1.4.1.3.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.4.</span> <span class="nav-text">重命名类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%B8%B8%E9%87%8F"><span class="nav-number">1.4.1.5.</span> <span class="nav-text">定义常量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.4.1.6.</span> <span class="nav-text">枚举类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">1.4.1.7.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%9C%8D%E5%8A%A1%EF%BC%88Service%EF%BC%89"><span class="nav-number">1.4.1.8.</span> <span class="nav-text">定义服务（Service）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">1.4.1.9.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Thrift-networdk-stack"><span class="nav-number">1.4.1.10.</span> <span class="nav-text">Thrift networdk stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server"><span class="nav-number">1.4.1.11.</span> <span class="nav-text">Server</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-v2"><span class="nav-number">1.4.2.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">生成的文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91tutorial-thrift%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.3.</span> <span class="nav-text">编译tutorial.thrift文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8Cthrift-tutorial-java"><span class="nav-number">1.5.</span> <span class="nav-text">编译运行thrift&#x2F;tutorial&#x2F;java</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85apache-ant"><span class="nav-number">1.5.1.</span> <span class="nav-text">安装apache ant</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91compiler"><span class="nav-number">1.5.2.</span> <span class="nav-text">编译compiler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91java-tutorial"><span class="nav-number">1.5.3.</span> <span class="nav-text">编译java tutorial</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2021/06/12/Thrift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Thrift | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Thrift
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-12 14:57:11" itemprop="dateCreated datePublished" datetime="2021-06-12T14:57:11+08:00">2021-06-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-07 19:38:46" itemprop="dateModified" datetime="2022-06-07T19:38:46+08:00">2022-06-07</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Thrift学习笔记"><a class="header-anchor" href="#Thrift学习笔记"> </a>Thrift学习笔记</h1>
+<p>thritf简单的学习记录</p>
+<span id="more"></span>
+<h2 id="参考资料-v7"><a class="header-anchor" href="#参考资料-v7"> </a>参考资料</h2>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-hans/Thrift">Thrift - 维基百科，自由的百科全书</a></li>
+<li><a target="_blank" rel="noopener" href="https://thrift.apache.org/">Apache Thrift - Home</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/apache/thrift">Apache Thrift - github</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.infoq.cn/article/get-to-know-rpc">体系化认识 RPC</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/85033562">Thrift入门 | RPC基础&amp;&amp;Thrift概念</a></li>
+<li><a target="_blank" rel="noopener" href="https://diwakergupta.github.io/thrift-missing-guide/">Thrift: The Missing Guide</a></li>
+</ol>
+<h2 id="Thrift简介"><a class="header-anchor" href="#Thrift简介"> </a>Thrift简介</h2>
+<p><strong>Thrift</strong>是一种<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%8E%A5%E5%8F%A3%E6%8F%8F%E8%BF%B0%E8%AF%AD%E8%A8%80">接口描述语言</a>和<strong>二进制通讯协议</strong>，它被用来定义和创建<strong>跨语言</strong>的服务。它被当作一个<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8">远程过程调用</a>（<strong>RPC</strong>）框架来使用，是由<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Facebook">Facebook</a>为“大规模<strong>跨语言服务开发</strong>”而开发的。它通过一个代码生成引擎联合了一个软件栈，来创建不同程度的、无缝的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E5%B9%B3%E5%8F%B0">跨平台</a>高效服务，现在是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Apache%E8%BD%AF%E4%BB%B6%E5%9F%BA%E9%87%91%E4%BC%9A">Apache软件基金会</a>的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%BC%80%E6%BA%90">开源</a>项目。</p>
+<blockquote>
+<p>The Apache Thrift software framework, for scalable cross-language services development, combines a software stack with a code generation engine to build services that work efficiently and seamlessly between C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, JavaScript, Node.js, Smalltalk, OCaml and Delphi and other languages.</p>
+</blockquote>
+<!-- more -->
+<h3 id="Thrift架构"><a class="header-anchor" href="#Thrift架构"> </a>Thrift架构</h3>
+<p>Thrift包含一套完整的<strong>栈</strong>来创建<strong>客户端</strong>和<strong>服务端</strong>程序。</p>
+<ul>
+<li>顶层部分是由Thrift定义生成的代码。而服务则由这个文件客户端和处理器代码生成。在生成的代码里会创建不同于内建类型的数据结构，并将其作为结果发送。</li>
+<li>协议和<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E5%B1%82">传输层</a>是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%BF%90%E8%A1%8C%E6%97%B6%E5%BA%93">运行时库</a>的一部分。有了Thrift，就可以定义一个服务或改变通讯和传输协议，而无需重新编译代码。除了客户端部分之外，Thrift还包括服务器基础设施来集成协议和传输，如阻塞、非阻塞及多线程服务器。</li>
+<li>栈中作为I/O基础的部分对于不同的语言则有不同的实现</li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/400px-Apache_Thrift_architecture.png" alt="Apache Thrift API CS架构"></p>
+<p><img src="http://algorithm-image.qibinaoe.top/thrift-thrift-layers.png" alt="Apache Thrift Layered Architecture"></p>
+<blockquote>
+<p>Thrift支持的通信通信协议</p>
+</blockquote>
+<ul>
+<li>TBinaryProtocol – 一种简单的二进制格式，简单，但没有为空间效率而优化。比文本协议处理起来更快，但更难于<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%B0%83%E8%AF%95">调试</a>。</li>
+<li>TCompactProtocol – 更紧凑的二进制格式，处理起来通常同样高效。</li>
+<li>TDebugProtocol – 一种人类可读的文本格式，用来协助调试。</li>
+<li>TDenseProtocol – 与TCompactProtocol类似，将传输数据的元信息剥离。</li>
+<li>TJSONProtocol – 使用<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/JSON">JSON</a>对数据编码。</li>
+<li>TSimpleJSONProtocol – 一种只写协议，它不能被Thrift解析，因为它使用JSON时丢弃了元数据。适合用脚本语言来解析</li>
+</ul>
+<blockquote>
+<p>支持的传输协议有：</p>
+</blockquote>
+<ul>
+<li>TFileTransport – 该传输协议会写文件。</li>
+<li>TFramedTransport – 当使用一个非阻塞服务器时，要求使用这个传输协议。它按帧来发送数据，其中每一帧的开头是长度信息。</li>
+<li>TMemoryTransport – 使用<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AD%98%E5%82%A8%E5%99%A8%E6%98%A0%E5%B0%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA">存储器映射输入输出</a>。（Java的实现使用了一个简单的<code>ByteArrayOutputStream</code>。）</li>
+<li>TSocket – 使用阻塞的套接字I/O来传输。</li>
+<li>TZlibTransport – 用<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Zlib">zlib</a>执行压缩。用于连接另一个传输协议。</li>
+</ul>
+<blockquote>
+<p>提供的服务器：</p>
+</blockquote>
+<ul>
+<li>TNonblockingServer – 一个多线程服务器，它使用非阻塞I/O（Java的实现使用了<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Java_NIO">NIO</a>通道）。TFramedTransport必须跟这个服务器配套使用。</li>
+<li>TSimpleServer – 一个单线程服务器，它使用标准的阻塞I/O。测试时很有用。</li>
+<li>TThreadPoolServer – 一个多线程服务器，它使用标准的阻塞I/O。</li>
+</ul>
+<h3 id="Thrift论文"><a class="header-anchor" href="#Thrift论文"> </a>Thrift论文</h3>
+<p><a target="_blank" rel="noopener" href="https://thrift.apache.org/static/files/thrift-20070401.pdf">Thrift: Scalable Cross-Language Services Implementation</a></p>
+<h2 id="安装配置Thrift环境"><a class="header-anchor" href="#安装配置Thrift环境"> </a>安装配置Thrift环境</h2>
+<h3 id="Windows"><a class="header-anchor" href="#Windows"> </a>Windows</h3>
+<p>从官网下载exe文件<a target="_blank" rel="noopener" href="https://thrift.apache.org/download">地址</a>，将其放在一个合适文件目录下，将其改名为<code>thrift.exe</code>，并加入系统环境变量中</p>
+<p><img src="http://algorithm-image.qibinaoe.top/thrift-image-20210611084119745.png" alt="image-20210611084119745"></p>
+<blockquote>
+<p>其他方式可通过源码编译，具体参考官方文档</p>
+</blockquote>
+<h2 id="Tutorial"><a class="header-anchor" href="#Tutorial"> </a>Tutorial</h2>
+<p>官方文档在<a target="_blank" rel="noopener" href="https://github.com/apache/thrift/tree/master/tutorial">github -tutorial</a>上</p>
+<h3 id="阅读tutorial文档"><a class="header-anchor" href="#阅读tutorial文档"> </a>阅读tutorial文档</h3>
+<p>以下内容包括</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/apache/thrift/blob/master/tutorial/tutorial.thrift">tutorial.thrift</a></li>
+<li><a target="_blank" rel="noopener" href="https://diwakergupta.github.io/thrift-missing-guide">Thrift: The Missing Guide</a></li>
+</ul>
+<blockquote>
+<p>以下翻译是我凭感觉翻译，专业术语不对还请参照官方教程</p>
+</blockquote>
+<h4 id="Thrift类型"><a class="header-anchor" href="#Thrift类型"> </a>Thrift类型</h4>
+<p>在Thrift中，有以下11种类型</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bool</td>
+<td>Boolean, one byte</td>
+</tr>
+<tr>
+<td>i8 (byte)</td>
+<td>Signed 8-bit integer</td>
+</tr>
+<tr>
+<td>i16</td>
+<td>Signed 16-bit integer</td>
+</tr>
+<tr>
+<td>i32</td>
+<td>Signed 32-bit integer</td>
+</tr>
+<tr>
+<td>i64</td>
+<td>Signed 64-bit integer</td>
+</tr>
+<tr>
+<td>double</td>
+<td>64-bit floating point value</td>
+</tr>
+<tr>
+<td>string</td>
+<td>String</td>
+</tr>
+<tr>
+<td>binary</td>
+<td>Blob (byte array)</td>
+</tr>
+<tr>
+<td>map&lt;t1,t2&gt;</td>
+<td>Map from one type to another</td>
+</tr>
+<tr>
+<td>list&lt;t1&gt;</td>
+<td>Ordered list of one type（可能包含重复项）</td>
+</tr>
+<tr>
+<td>set&lt;t1&gt;</td>
+<td>Set of unique elements of one type</td>
+</tr>
+</tbody>
+</table>
+<p>Thrift中不支持<strong>无符号整型</strong>，因为在很多Thrift的目标语言中，没有对应的基本类型（primitive types）</p>
+<p><strong>Containers:</strong></p>
+<p>Thrift的容器类型由三种<code>map&lt;t1,t2&gt;</code>，<code>list&lt;t1&gt;</code>，<code>set&lt;t1&gt;</code>。同时类似Java的泛型</p>
+<h4 id="引用"><a class="header-anchor" href="#引用"> </a>引用</h4>
+<p>Thrift files可以引用其他的 Thrift files来包含（include）一些共用的结构（struct）和服务定义（service definitions）。这些文件将在当前路径下寻找，或者通过<code>-I</code>的编译器标记（compiler flag）来指定相对路径。</p>
+<p>被引用的对象以<code>.thrift</code>文件的名字为前缀来访问，例如<code>shared.SharedObject</code></p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include <span class="string">&quot;shared.thrift&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">include <span class="string">&quot;tweet.thrift&quot;</span>           </span><br><span class="line">...</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TweetSearchResult</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="type">list</span>&lt;tweet.Tweet&gt; tweets;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong></p>
+<ul>
+<li>文件名需要用双引号包含</li>
+<li>语句结尾没有分号</li>
+<li>需要thrift后缀</li>
+</ul>
+<h4 id="命名空间"><a class="header-anchor" href="#命名空间"> </a>命名空间</h4>
+<p>Thrift 的namespace类似C++中的namespace或者Java中的package。</p>
+<p><strong>作用:</strong></p>
+<ul>
+<li>便于组织代码</li>
+<li>便于隔离代码，来避免在不同的类型定义（type definitions）发生命名冲突（name clashes）</li>
+</ul>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> cl tutorial</span><br><span class="line"><span class="keyword">namespace</span> cpp tutorial</span><br><span class="line"><span class="keyword">namespace</span> d tutorial</span><br><span class="line"><span class="keyword">namespace</span> dart tutorial</span><br><span class="line"><span class="keyword">namespace</span> java tutorial</span><br><span class="line"><span class="keyword">namespace</span> php tutorial</span><br><span class="line"><span class="keyword">namespace</span> perl tutorial </span><br><span class="line"><span class="keyword">namespace</span> haxe tutorial</span><br><span class="line"><span class="keyword">namespace</span> netstd tutorial</span><br></pre></td></tr></table></figure>
+<h4 id="重命名类型"><a class="header-anchor" href="#重命名类型"> </a>重命名类型</h4>
+<p>Thrift通过<code>typedef 原类型名 自定义类型名</code>的方式来给类型起别名</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">i32</span> MyInteger</span><br><span class="line"><span class="keyword">typedef</span> Tweet ReTweet</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li><code>typedef</code>语句后面没有分号</li>
+<li><code>typedef</code>也可用于struct</li>
+</ul>
+<h4 id="定义常量"><a class="header-anchor" href="#定义常量"> </a>定义常量</h4>
+<p>thrift可定义跨语言的常量类型。</p>
+<p>如果是复杂结构的常量可以使用json</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="type">i32</span> INT32CONSTANT = <span class="number">9853</span></span><br><span class="line"><span class="keyword">const</span> <span class="type">map</span>&lt;<span class="type">string</span>,<span class="type">string</span>&gt; MAPCONSTANT = &#123;&#x27;hello&#x27;:&#x27;world&#x27;, &#x27;goodnight&#x27;:&#x27;moon&#x27;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="枚举类型"><a class="header-anchor" href="#枚举类型"> </a>枚举类型</h4>
+<p>可自定义枚举类型，每个枚举类型是一个32bit整型。</p>
+<p>如果枚举值没有指定的话，以<code>0</code>开始增加，每个常量值必须是非负的</p>
+<p>枚举常量值也支持十六进制</p>
+<p>后面是没有分号的</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Operation</span> </span>&#123;</span><br><span class="line">  ADD = <span class="number">1</span>,</span><br><span class="line">  SUBTRACT = <span class="number">2</span>,</span><br><span class="line">  MULTIPLY = <span class="number">3</span>,</span><br><span class="line">  DIVIDE = <span class="number">4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">TweetType</span> </span>&#123;</span><br><span class="line">    TWEET,      </span><br><span class="line">    RETWEET = <span class="number">2</span>,</span><br><span class="line">    DM = <span class="number">0</span>xa,   </span><br><span class="line">    REPLY</span><br><span class="line">&#125;               </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Tweet</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">required</span> <span class="type">i32</span> userId;</span><br><span class="line">    <span class="number">2</span>: <span class="keyword">required</span> <span class="type">string</span> userName;</span><br><span class="line">    <span class="number">3</span>: <span class="keyword">required</span> <span class="type">string</span> text;</span><br><span class="line">    <span class="number">4</span>: <span class="keyword">optional</span> Location loc;</span><br><span class="line">    <span class="number">5</span>: <span class="keyword">optional</span> TweetType tweetType = TweetType.TWEET <span class="comment">// 5</span></span><br><span class="line">    <span class="number">16</span>: <span class="keyword">optional</span> <span class="type">string</span> language = <span class="string">&quot;english&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong></p>
+<p>对于enum默认从多少开始呢？</p>
+<p>在<a target="_blank" rel="noopener" href="https://github.com/apache/thrift/blob/master/tutorial/tutorial.thrift">tutorial.thrift</a>中这样写的</p>
+<p><img src="http://algorithm-image.qibinaoe.top/thrift-image-20210611142834298.png" alt="image-20210611142834298"></p>
+<p>在<a target="_blank" rel="noopener" href="https://thrift.apache.org/docs/idl#enum">官方网站</a>上这样介绍的</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210611142921624.png" alt="image-20210611142921624"></p>
+<p>在<a target="_blank" rel="noopener" href="https://diwakergupta.github.io/thrift-missing-guide/#_enums">Thrift: The Missing Guide</a></p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210611143059120.png" alt="image-20210611143059120"></p>
+<h4 id="结构体"><a class="header-anchor" href="#结构体"> </a>结构体</h4>
+<p>Thrift struct 类似 C strcut，将多个相关的项目（item）组合封装在一起，能够转换成面向对象语言中类的概念。</p>
+<p>异常（Exception）在语法和功能上等同于struct。它们的区别在于：</p>
+<ol>
+<li>异常(exception)用关键字<code>exception</code>，而结构体（struct）用关键字<code>struct</code>
+<ol>
+<li>语义上不同：当定义RPC服务（PRC services），开发人员可能在声明远程方法（remote method）时抛出异常（ throws an exception）</li>
+</ol>
+</li>
+</ol>
+<p>结构体（<code>Structs</code>）是最基本的复杂数据结构。结构体由域（fields）组成，每个域由五部分组成</p>
+<ol>
+<li>整型标识符（integer identifier）：必须为唯一的、正整数</li>
+<li>required 或者  optional</li>
+<li>类型（type）</li>
+<li>象征性名字（symbolic name）</li>
+<li>可选默认值（ optional default value）</li>
+</ol>
+<p>域（fields）还可以被声明为<code>optional</code>。这意味着如果该域没有被赋值（set），那么不会包含在序列化输出（serialized output）结果中。但是对于一个<code>optional</code>声明的域，如果被赋上默认值，那么如果没有显式的赋值给该域，在序列化的过程中会以默认值输出</p>
+<p>对于一个域，如果声明成<code>required</code>后，就应该一直是<code>required</code>。因为如果突然对于一个<code>required</code>域不进行写入数据或传输数据，那么接收方会认为该消息（message）是不完整的，从而拒绝该信息。</p>
+<p>同时struct中也能够包含其他struct，但是struct不能继承于另一个struct</p>
+<p>这特性在某些编程语言中需要手动做些处理操作。</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Work</span> </span>&#123;</span><br><span class="line">  <span class="number">1</span>: <span class="type">i32</span> num1 = <span class="number">0</span>,</span><br><span class="line">  <span class="number">2</span>: <span class="type">i32</span> num2,</span><br><span class="line">  <span class="number">3</span>: Operation op,</span><br><span class="line">  <span class="number">4</span>: <span class="keyword">optional</span> <span class="type">string</span> comment,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Location</span> </span>&#123;                           </span><br><span class="line">    <span class="number">1</span>: <span class="keyword">required</span> <span class="type">double</span> latitude;</span><br><span class="line">    <span class="number">2</span>: <span class="keyword">required</span> <span class="type">double</span> longitude;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Tweet</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">required</span> <span class="type">i32</span> userId;                  </span><br><span class="line">    <span class="number">2</span>: <span class="keyword">required</span> <span class="type">string</span> userName;             </span><br><span class="line">    <span class="number">3</span>: <span class="keyword">required</span> <span class="type">string</span> text;</span><br><span class="line">    <span class="number">4</span>: <span class="keyword">optional</span> Location loc;                </span><br><span class="line">    <span class="number">16</span>: <span class="keyword">optional</span> <span class="type">string</span> language = <span class="string">&quot;english&quot;</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除此之外，结构体（<code>Structs</code>）也可以是一种异常类型（<code>exceptions</code>）</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">exception</span> <span class="title">InvalidOperation</span> </span>&#123;</span><br><span class="line">  <span class="number">1</span>: <span class="type">i32</span> whatOp,</span><br><span class="line">  <span class="number">2</span>: <span class="type">string</span> why</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="定义服务（Service）"><a class="header-anchor" href="#定义服务（Service）"> </a>定义服务（Service）</h4>
+<p>对于服务（service）的定义，在语义上等同于面向对象语言的接口（interface）或者纯虚类（pure virtual abstract class）。</p>
+<p>Thrift编译器会生成实现该接口的客户端（client）和服务端（server ）</p>
+<p>定义一个服务（service），需要一个<u>名字</u>，同时可以<strong>可选的</strong>继承另外一个服务，通过关键字<code>extends</code></p>
+<p>Thrift编译器会所选择的编程语言生成对应的服务接口代码（ service interface code (for the server)）和对应的客户端代码（stubs (for the client)）</p>
+<p>对于服务中方法（method）的定义，是类C语言的代码。需要</p>
+<ol>
+<li>一个返回类型（return type）：返回类型可以是基本数据类型（primitive type）也可以是结构体（structs）或void</li>
+<li>方法名</li>
+<li>参数（arguments）：参数可以是基本数据类型（primitive type）也可以是结构体（structs）</li>
+<li>一系列异常（exceptions），如果该方法可能抛出的话</li>
+</ol>
+<p>**注意：**方法中的参数列表和异常列表使用相同的语法（<code>identity: structName name</code>）</p>
+<p>对于<code>oneway</code>修饰的方法，这意味着当客户端向服务端发送一个request请求后，不会等待接收（listen for）服务端的任何响应（response）。因此<code>oneway</code>修饰的方法必须为<code>void</code></p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Calculator</span> extends shared.SharedService </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">void</span> ping(),</span><br><span class="line"></span><br><span class="line">   <span class="type">i32</span> add(<span class="number">1</span>:<span class="type">i32</span> num1, <span class="number">2</span>:<span class="type">i32</span> num2),</span><br><span class="line"></span><br><span class="line">   <span class="type">i32</span> calculate(<span class="number">1</span>:<span class="type">i32</span> logid, <span class="number">2</span>:Work w) throws (<span class="number">1</span>:InvalidOperation ouch),</span><br><span class="line"></span><br><span class="line">   <span class="keyword">oneway</span> <span class="keyword">void</span> zip()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="注释"><a class="header-anchor" href="#注释"> </a>注释</h4>
+<p>thrift注释支持shell-style, C-style multi-line，single-line Java/C++ style</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># This is a valid comment.</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * This is a multi-line comment.</span></span><br><span class="line"><span class="comment"> * Just like in C.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// C++/Java style single-line comments work just as well.</span></span><br></pre></td></tr></table></figure>
+<h4 id="Thrift-networdk-stack"><a class="header-anchor" href="#Thrift-networdk-stack"> </a>Thrift networdk stack</h4>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">+-------------------------------------------+</span><br><span class="line">| cGRE                                      |</span><br><span class="line">| Server                                    |</span><br><span class="line">| (single-threaded, event-driven etc)       |</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| cBLU                                      |</span><br><span class="line">| Processor                                 |</span><br><span class="line">| (compiler generated)                      |</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| cGRE                                      |</span><br><span class="line">| Protocol                                  |</span><br><span class="line">| (JSON, compact etc)                       |</span><br><span class="line">+-------------------------------------------+</span><br><span class="line">| cGRE                                      |</span><br><span class="line">| Transport                                 |</span><br><span class="line">| (raw TCP, HTTP etc)                       |</span><br><span class="line">+-------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p><strong>Transport 运输</strong></p>
+<p>运输层（The Transport layer）为网络读写提供一层简单的抽象，使得Thrift里，底层传输与系统的其他部分（例如序列化、反序列）解耦。</p>
+<p><code>Transport</code>接口方法：</p>
+<ul>
+<li><code>open</code></li>
+<li><code>close</code></li>
+<li><code>read</code></li>
+<li><code>write</code></li>
+<li><code>flush</code></li>
+</ul>
+<p>Thrift还使用<code>ServerTransport</code>接口来接收（accept）或者创建（create）基本传输对象（primitive transport objects.）。<code>ServerTransport</code>主要用于服务端（on the server side ）为新建立的连接（incoming connections）创建传输对象（create new Transport objects）</p>
+<ul>
+<li><code>open</code></li>
+<li><code>listen</code></li>
+<li><code>accpet</code></li>
+<li><code>close</code></li>
+</ul>
+<p>Thrift支持的语言中，主要传输方式有：</p>
+<ol>
+<li>file: read/write to/from a file on disk</li>
+<li>http: as the name suggests</li>
+</ol>
+<p><strong>Protocol 协议</strong></p>
+<p>协议层定义了将内存中数据结构映射到网络传输形式数据的机制。换句话说，协议指定了数据类型如何使用底层传输去编码和解码它们自身数据。因此协议层管理编码方式，并且负责序列化和反序列化。从这方面将，协议包括JSON、XML、纯文本和压缩二进制（compact binary）</p>
+<p>协议接口（Protocol interface）:</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">writeMessageBegin(name, type, seq)</span><br><span class="line">writeMessageEnd()</span><br><span class="line">writeStructBegin(name)</span><br><span class="line">writeStructEnd()</span><br><span class="line">writeFieldBegin(name, type, id)</span><br><span class="line">writeFieldEnd()</span><br><span class="line">writeFieldStop()</span><br><span class="line">writeMapBegin(ktype, vtype, size)</span><br><span class="line">writeMapEnd()</span><br><span class="line">writeListBegin(etype, size)</span><br><span class="line">writeListEnd()</span><br><span class="line">writeSetBegin(etype, size)</span><br><span class="line">writeSetEnd()</span><br><span class="line">writeBool(<span class="type">bool</span>)</span><br><span class="line">writeByte(<span class="type">byte</span>)</span><br><span class="line">writeI16(<span class="type">i16</span>)</span><br><span class="line">writeI32(<span class="type">i32</span>)</span><br><span class="line">writeI64(<span class="type">i64</span>)</span><br><span class="line">writeDouble(<span class="type">double</span>)</span><br><span class="line">writeString(<span class="type">string</span>)</span><br><span class="line"></span><br><span class="line">name, type, seq = readMessageBegin()</span><br><span class="line">                  readMessageEnd()</span><br><span class="line">name = readStructBegin()</span><br><span class="line">       readStructEnd()</span><br><span class="line">name, type, id = readFieldBegin()</span><br><span class="line">                 readFieldEnd()</span><br><span class="line">k, v, size = readMapBegin()</span><br><span class="line">             readMapEnd()</span><br><span class="line">etype, size = readListBegin()</span><br><span class="line">              readListEnd()</span><br><span class="line">etype, size = readSetBegin()</span><br><span class="line">              readSetEnd()</span><br><span class="line"><span class="type">bool</span> = readBool()</span><br><span class="line"><span class="type">byte</span> = readByte()</span><br><span class="line"><span class="type">i16</span> = readI16()</span><br><span class="line"><span class="type">i32</span> = readI32()</span><br><span class="line"><span class="type">i64</span> = readI64()</span><br><span class="line"><span class="type">double</span> = readDouble()</span><br><span class="line"><span class="type">string</span> = readString()</span><br></pre></td></tr></table></figure>
+<p>由于协议（Thrift Protocols）是面向流（stream oriented）设计的，因此不需要任何显式约束或规定。比如我们在开始序列化数据之前，不需要知道一个字符串的长度或者一个列表中的元素个数</p>
+<p>在Thrift支持的语言中，可以使用以下协议：</p>
+<ul>
+<li>binary：将一个域的长度和类型编码成字节，并在后面跟着该域的值</li>
+<li>compact</li>
+<li>json</li>
+</ul>
+<p><strong>processor 处理器</strong></p>
+<p>处理器（processor）封装了从输入流中读取数据和向输出流写数据的能力。输入输出流用Protocol objects来表示</p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface TProcessor &#123;</span><br><span class="line">    <span class="type">bool</span> process(TProtocol in, TProtocol out) throws TException</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用于服务端的处理器实现（Service-specific processor）由编译器生成。处理器通过输入协议从网线（wire）中读取数据，将处理数据的操作交给由用户实现的handler，再通过输出协议，将响应（response）写入网线（wire）</p>
+<h4 id="Server"><a class="header-anchor" href="#Server"> </a>Server</h4>
+<p>一个服务器（Server）整合了上述的network stack。</p>
+<ul>
+<li>创建一个传输（transport）</li>
+<li>为传输创建输入输出协议</li>
+<li>基于输入输出协议创建处理器（processor）</li>
+<li>等待进入的连接（incoming connection），并将请求交给处理器处理</li>
+</ul>
+<p><strong>IDL示例</strong></p>
+<figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> cpp thrift.example</span><br><span class="line"><span class="keyword">namespace</span> java thrift.example</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">TweetType</span> </span>&#123;</span><br><span class="line">    TWEET,</span><br><span class="line">    RETWEET = <span class="number">2</span>,</span><br><span class="line">    DM = <span class="number">0</span>xa,</span><br><span class="line">    REPLY</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Location</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">required</span> <span class="type">double</span> latitude;</span><br><span class="line">    <span class="number">2</span>: <span class="keyword">required</span> <span class="type">double</span> longitude;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Tweet</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="keyword">required</span> <span class="type">i32</span> userId;</span><br><span class="line">    <span class="number">2</span>: <span class="keyword">required</span> <span class="type">string</span> userName;</span><br><span class="line">    <span class="number">3</span>: <span class="keyword">required</span> <span class="type">string</span> text;</span><br><span class="line">    <span class="number">4</span>: <span class="keyword">optional</span> Location loc;</span><br><span class="line">    <span class="number">5</span>: <span class="keyword">optional</span> TweetType tweetType = TweetType.TWEET;</span><br><span class="line">    <span class="number">16</span>: <span class="keyword">optional</span> <span class="type">string</span> language = <span class="string">&quot;english&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">list</span>&lt;Tweet&gt; TweetList</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TweetSearchResult</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: TweetList tweets;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">exception</span> <span class="title">TwitterUnavailable</span> </span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="type">string</span> message;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="type">i32</span> MAX_RESULTS = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Twitter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">void</span> ping(),</span><br><span class="line">    <span class="type">bool</span> postTweet(<span class="number">1</span>:Tweet tweet) throws (<span class="number">1</span>:TwitterUnavailable unavailable),</span><br><span class="line">    TweetSearchResult searchTweets(<span class="number">1</span>:<span class="type">string</span> query);</span><br><span class="line">    <span class="keyword">oneway</span> <span class="keyword">void</span> zip()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Java-v2"><a class="header-anchor" href="#Java-v2"> </a>Java</h3>
+<h4 id="生成的文件"><a class="header-anchor" href="#生成的文件"> </a>生成的文件</h4>
+<ul>
+<li>单个文件（Constans.java）包含所有常量的定义</li>
+<li>一个文件一个结构体（struct），一个文件一个枚举（enum），一个文件一个服务（service）</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tree gen-java</span></span><br><span class="line">`-- thrift</span><br><span class="line">    `-- example</span><br><span class="line">        |-- Constants.java</span><br><span class="line">        |-- Location.java</span><br><span class="line">        |-- Tweet.java</span><br><span class="line">        |-- TweetSearchResult.java</span><br><span class="line">        |-- TweetType.java</span><br><span class="line">        `-- Twitter.java</span><br></pre></td></tr></table></figure>
+<p>Java语言不支持<code>typedef</code></p>
+<p>That’s all for tutorial</p>
+<h3 id="编译tutorial-thrift文件"><a class="header-anchor" href="#编译tutorial-thrift文件"> </a>编译tutorial.thrift文件</h3>
+<p>在tutorial.thrift所在目录下，执行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thrift -r --gen cpp tutorial.thrift</span><br></pre></td></tr></table></figure>
+<p>在当前目录下就会生成<code>gen-cpp</code>的文件夹</p>
+<p>可以看到里面生成一系列文件</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210611102635048.png" alt="image-20210611102635048"></p>
+<p>再试试生成Java代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thrift -r --gen java tutorial.thrift</span><br></pre></td></tr></table></figure>
+<p>可以看到生成<code>gen-java</code>文件</p>
+<p>尝试用idea打开gen-java，可以看到gen-java的目录结构</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210612134945276.png" alt="image-20210612134945276"></p>
+<h2 id="编译运行thrift-tutorial-java"><a class="header-anchor" href="#编译运行thrift-tutorial-java"> </a>编译运行thrift/tutorial/java</h2>
+<h3 id="安装apache-ant"><a class="header-anchor" href="#安装apache-ant"> </a>安装apache ant</h3>
+<p>阅读<a target="_blank" rel="noopener" href="https://github.com/apache/thrift/blob/master/tutorial/java/README.md">readme</a>，要编译java项目需要使用make或者ant命令。因此我们先下载apache ant工具</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://ant.apache.org/"><em>Apache</em> <em>Ant</em> - Welcome</a>官方网站</li>
+<li><a target="_blank" rel="noopener" href="https://ant.apache.org/bindownload.cgi">Apache ant 下载地址</a></li>
+</ul>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210612140424695.png" alt="image-20210612140424695"></p>
+<p>将其下载解压，并添加系统环境变量</p>
+<p>输入<code>ant -version</code>进行测试</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210612140807435.png" alt="image-20210612140807435"></p>
+<h3 id="编译compiler"><a class="header-anchor" href="#编译compiler"> </a>编译compiler</h3>
+<p>切换到<code>thrift/compiler/cpp</code>目录下，打开readme.md阅读阅读</p>
+<p>根据<code>Prerequisites</code>所说的，安装Cmake和git bash</p>
+<p>在<code>thrift\compiler\cpp</code>目录下，使用git bash 依次执行以下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir cmake-vs &amp;&amp; cd cmake-vs</span><br><span class="line">cmake -DWITH_SHARED_LIB=off ..</span><br><span class="line">cmake --build .</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ERROR</p>
+<p>在执行<code>cmake -DWITH_SHARED_LIB=off ..</code>可能会报错</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210612144508183.png" alt="image-20210612144508183"></p>
+</blockquote>
+<h3 id="编译java-tutorial"><a class="header-anchor" href="#编译java-tutorial"> </a>编译java tutorial</h3>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210612140922678.png" alt="image-20210612140922678"></p>
+<p>可以看到<code>build.xml</code>是给ant命令的。<code>Makefile.am</code>是给make命令的</p>
+<p>切换到<code>build.xml</code>所在的目录，输入<code>ant</code>命令</p>
+<blockquote>
+<p><strong>ERROR</strong></p>
+<p>如果报<code>Execute failed: java.io.IOException: Cannot run program &quot;..\..\compiler\cpp\thrift&quot;</code>的错误的话，需要编译自行编译编译器</p>
+</blockquote>
+<blockquote>
+<p>在windows中，配置环境过程有点劝退，所以我放弃了！</p>
+<p>因为自行编译编译器需要满足下列环境要求</p>
+<p><img src="http://algorithm-image.qibinaoe.top/image-20210612145600801.png" alt="image-20210612145600801"></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Thrift/" rel="tag"><i class="fa fa-tag"></i> Thrift</a>
+              <a href="/tags/%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 序列化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/17/hashcode%E4%B8%8Eequals%E6%8E%A2%E7%B4%A2/" rel="prev" title="hashcode与equals探索">
+                  <i class="fa fa-chevron-left"></i> hashcode与equals探索
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/03/%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" rel="next" title="每日一题">
+                  每日一题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"9aa6827d73efa75e24fa2aefb1531fcb"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

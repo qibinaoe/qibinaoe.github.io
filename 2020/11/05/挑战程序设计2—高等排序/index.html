@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="高等排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挑战程序设计2—高等排序">
+<meta property="og:url" content="http://qibinaoe.top/2020/11/05/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%AB%98%E7%AD%89%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="高等排序">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-05T14:17:42.000Z">
+<meta property="article:modified_time" content="2020-11-08T09:08:28.942Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="挑战程序设计">
+<meta property="article:tag" content="排序">
+<meta property="article:tag" content="高等排序">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/11/05/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%AB%98%E7%AD%89%E6%8E%92%E5%BA%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/11/05/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%AB%98%E7%AD%89%E6%8E%92%E5%BA%8F/","path":"2020/11/05/挑战程序设计2—高等排序/","title":"挑战程序设计2—高等排序"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>挑战程序设计2—高等排序 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%AD%89%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">高等排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E7%82%B9-v2"><span class="nav-number">1.1.2.</span> <span class="nav-text">特点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E7%89%88%E6%9C%AC"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">递归版本</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">递归算法实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.4.</span> <span class="nav-text">迭代思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.5.</span> <span class="nav-text">迭代算法实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96-v2"><span class="nav-number">1.1.6.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%89%B2-partition-%E4%B9%A6%E4%B8%8A%E7%9A%84%E4%BE%8B%E9%A2%98"><span class="nav-number">1.1.7.</span> <span class="nav-text">分割 partition (书上的例题)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-v195"><span class="nav-number">1.1.8.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.9.</span> <span class="nav-text">输入示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.10.</span> <span class="nav-text">输出示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.11.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-v9"><span class="nav-number">1.1.12.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/11/05/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%AB%98%E7%AD%89%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="挑战程序设计2—高等排序 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          挑战程序设计2—高等排序
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-05 22:17:42" itemprop="dateCreated datePublished" datetime="2020-11-05T22:17:42+08:00">2020-11-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-11-08 17:08:28" itemprop="dateModified" datetime="2020-11-08T17:08:28+08:00">2020-11-08</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="高等排序"><a class="header-anchor" href="#高等排序"> </a>高等排序</h2>
+<span id="more"></span>
+<h3 id="归并排序"><a class="header-anchor" href="#归并排序"> </a>归并排序</h3>
+<h4 id="算法思想"><a class="header-anchor" href="#算法思想"> </a>算法思想</h4>
+<ul>
+<li>
+<p>归并排序以整个数组为对象执行mergeSort</p>
+</li>
+<li>
+<p>归并排序使用的是分治的思想(Divide and Conquer)</p>
+<ol>
+<li>将给定的包含n个元素的局部数组分割成两个局部数组，每个数组包含n/2个元素。(Divide)</li>
+<li>对两个局部数组分别执行mergeSort排序。(Solve)</li>
+<li>通过merge将两个已排序完毕的局部数组整合成一个数组。(Conquer)</li>
+</ol>
+</li>
+<li>
+<p>对于每两个局部有序数组要合并成一个整体有序的数组时候，我们采用的是通过不断挑选两个数组中最小的一个，并添加到大的数组当中去，因此合并成大的数组时间复杂度为O(n1+n2),同时，这里也需要开辟两个数组空间来存放临时的两个局部数组，因此这里的空间复杂度为O(n)。同时，我们在两个数组的末尾插入哨兵元素(即数组大于比较数值的数)，这样就可以判断为数组的结尾。当其中一个局部数组已经都添加到大数组当中去的时候，只需要将另一个数组拼接上去即可。</p>
+</li>
+</ul>
+<h4 id="特点-v2"><a class="header-anchor" href="#特点-v2"> </a>特点</h4>
+<h5 id="递归版本"><a class="header-anchor" href="#递归版本"> </a>递归版本</h5>
+<ul>
+<li>
+<p>时间复杂度: O(nlogn)</p>
+</li>
+<li>
+<p>空间复杂度: O(n)  包括存放结果的n的数组和占空间logn 因此实际空间复杂度为O(n+logn)</p>
+</li>
+<li>
+<p>稳定性: 稳定</p>
+<ul>
+<li>虽然归并排序包含不相邻的两个元素之间的比较，但是如果在合并两个数组，遇到相同元素时，只要保证前半部分数组优先于后半部分数组，相同元素的顺序就不会颠倒。</li>
+</ul>
+</li>
+</ul>
+<h4 id="递归算法实现"><a class="header-anchor" href="#递归算法实现"> </a>递归算法实现</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX 500000</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SENTINEL 2000000000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="comment">//归并排序</span></span><br><span class="line"><span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> L[MAX/<span class="number">2</span>+<span class="number">2</span>], R[MAX/<span class="number">2</span>+<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//将两个数组合并 </span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">merge</span><span class="params">(<span class="type">int</span> A[],<span class="type">int</span> n,<span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//定义两个数组，存放要比较的两列数组</span></span><br><span class="line">	<span class="type">int</span> n1 = mid - left;</span><br><span class="line">	<span class="type">int</span> n2 = right - mid;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//将A中的[left ~ left+n1]存入L</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n1; i++)&#123;</span><br><span class="line">		L[i] = A[left+i];</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="comment">//将A中的[mid ~ mid+n2]存入R</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n2; i++)&#123;</span><br><span class="line">		R[i] = A[mid+i];</span><br><span class="line">	&#125;</span><br><span class="line">	L[n1] = SENTINEL;</span><br><span class="line">	R[n2] = SENTINEL;</span><br><span class="line">	<span class="comment">//比较大小</span></span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> k = left; k &lt; right; k++)&#123;</span><br><span class="line">		count++; </span><br><span class="line">		<span class="keyword">if</span>(L[i] &lt;= R[j])&#123;	</span><br><span class="line">			A[k] = L[i];</span><br><span class="line">			i++;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			A[k] = R[j];</span><br><span class="line">			j++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mergeSort</span><span class="params">(<span class="type">int</span> A[],<span class="type">int</span> n, <span class="type">int</span> left,<span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(left + <span class="number">1</span> &lt; right )&#123;</span><br><span class="line">	</span><br><span class="line">		<span class="type">int</span> mid = (left+right)/<span class="number">2</span>;</span><br><span class="line">		<span class="built_in">mergeSort</span>(A,n,left,mid);</span><br><span class="line">		<span class="built_in">mergeSort</span>(A,n,mid,right);</span><br><span class="line">		<span class="built_in">merge</span>(A,n,left,mid,right);</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="type">int</span> A[MAX];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">mergeSort</span>(A,n,<span class="number">0</span>,n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,count);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="迭代思路"><a class="header-anchor" href="#迭代思路"> </a>迭代思路</h4>
+<p>迭代时通过从局部分组长度为1开始，每一次乘2进行翻倍进行比较。例如第一次的局部分组的长度为1，第二次的局部分组的长度为2这样。但是在这过程中，要注意边界条件，即当最右边的局部分组落单了，只剩自己一个时，需要<code>continue</code>,否则会造成越界。同时如果在比较的一个数组中<code>left_start+offset</code>如果大于数组长度时，需要将最右边界置为<code>n</code>，否则也会造成越界。</p>
+<h4 id="迭代算法实现"><a class="header-anchor" href="#迭代算法实现"> </a>迭代算法实现</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#define MAX 500000</span><br><span class="line">#define SENTINEL 2000000000</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">//归并排序</span><br><span class="line"></span><br><span class="line">int L[MAX/2+2], R[MAX/2+2];</span><br><span class="line"></span><br><span class="line">//将两个数组合并 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void merge(int A[],int n,int left, int mid, int right)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	//定义两个数组，存放要比较的两列数组</span><br><span class="line">	int n1 = mid - left;</span><br><span class="line">	int n2 = right - mid;</span><br><span class="line">	</span><br><span class="line">	//将A中的[left ~ left+n1]存入L</span><br><span class="line">	for(int i = 0; i &lt; n1; i++)&#123;</span><br><span class="line">		L[i] = A[left+i];</span><br><span class="line">	&#125; </span><br><span class="line">	//将A中的[mid ~ mid+n2]存入R</span><br><span class="line">	for(int i = 0; i &lt; n2; i++)&#123;</span><br><span class="line">		R[i] = A[mid+i];</span><br><span class="line">	&#125;</span><br><span class="line">	L[n1] = SENTINEL;</span><br><span class="line">	R[n2] = SENTINEL;</span><br><span class="line">	//比较大小</span><br><span class="line">	int i = 0;</span><br><span class="line">	int j = 0;</span><br><span class="line">	</span><br><span class="line">	for(int k = left; k &lt; right; k++)&#123;</span><br><span class="line">		if(L[i] &lt;= R[j])&#123;	</span><br><span class="line">			A[k] = L[i];</span><br><span class="line">			i++;</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			A[k] = R[j];</span><br><span class="line">			j++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; </span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">void mergeSort(int A[],int n, int left,int right)</span><br><span class="line">&#123;</span><br><span class="line">	for(int step = 1; step &lt; n; step&lt;&lt;=1)&#123;</span><br><span class="line">		//每一个局部数组的长度为i,因此移动的步长为i+i</span><br><span class="line">		// 最后一次的第一个局部数组的长度为小于n的2的倍数</span><br><span class="line">		int offset  = step+step;</span><br><span class="line">		//offset意思为一次小的局部整理后，移动的步长 </span><br><span class="line">		for(int left_start = 0; left_start &lt; n; left_start+=offset)&#123;</span><br><span class="line">			int right;</span><br><span class="line">			</span><br><span class="line">			if(left_start+step&gt;=n)&#123;</span><br><span class="line">				//只有一组，不需要比较</span><br><span class="line">				continue; </span><br><span class="line">			&#125;</span><br><span class="line">			//right指向最后一个元素的下一个，即不比较right </span><br><span class="line">			if(left_start+offset&gt;n)&#123;</span><br><span class="line">				right = n;</span><br><span class="line">			&#125;else&#123;</span><br><span class="line">				right = left_start+offset;</span><br><span class="line">			&#125;</span><br><span class="line">			int mid = left_start+step;</span><br><span class="line">			merge(A,n,left_start,mid,right);</span><br><span class="line">		&#125;</span><br><span class="line">		for(int i = 0; i &lt; n; i++)&#123;</span><br><span class="line">			cout &lt;&lt; &quot; &quot; &lt;&lt; A[i] &lt;&lt; &quot; &quot; ; </span><br><span class="line">		&#125; </span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n;</span><br><span class="line">	scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">	int A[MAX];</span><br><span class="line">	for(int i = 0; i &lt; n; i++)&#123;</span><br><span class="line">		scanf(&quot;%d&quot;,&amp;A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	mergeSort(A,n,0,n);</span><br><span class="line">	for(int i = 0; i &lt; n; i++)&#123;</span><br><span class="line">		printf(&quot;%d &quot;,A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;\n&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="其他-v2"><a class="header-anchor" href="#其他-v2"> </a>其他</h4>
+<ul>
+<li>右移一位<code>&gt;&gt;1</code>的效率比直接除2<code>/2</code>效率高</li>
+</ul>
+<hr>
+<h4 id="分割-partition-书上的例题"><a class="header-anchor" href="#分割-partition-书上的例题"> </a>分割 partition (书上的例题)</h4>
+<h4 id="题目-v195"><a class="header-anchor" href="#题目-v195"> </a>题目</h4>
+<p>输入数组，将数组A[p…r]分割成A[p…q-1]和A[q+1…r]两部分，并返回下标q的值，其中A[p…q-1]中的所有元素小于等于A[q]，A[q+1…r]的所有元素都大于A[q]</p>
+<p>题目分割以A[r]为基准，即r为q</p>
+<h4 id="输入示例"><a class="header-anchor" href="#输入示例"> </a>输入示例</h4>
+<blockquote>
+<p>12</p>
+</blockquote>
+<blockquote>
+<p>13 19 9 5 12 8 7 4 21 2 6 11</p>
+</blockquote>
+<h4 id="输出示例"><a class="header-anchor" href="#输出示例"> </a>输出示例</h4>
+<blockquote>
+<p>9 5 8 7 4 2 6 [11] 21 23 19 12</p>
+</blockquote>
+<h4 id="实现思路"><a class="header-anchor" href="#实现思路"> </a>实现思路</h4>
+<p>定义一个i指向最后一个小于等于A[r]的位置，即A[i+1]的位置是大于A[r]的</p>
+<h4 id="代码实现-v9"><a class="header-anchor" href="#代码实现-v9"> </a>代码实现</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">partition</span><span class="params">(<span class="type">int</span> A[], <span class="type">int</span> p, <span class="type">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//i 指向最后一个小于等于A[r]的位置 </span></span><br><span class="line">	<span class="type">int</span> i = p - <span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> val = A[r];</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j = p; j &lt;= r; j++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(A[j] &lt;= val)&#123;</span><br><span class="line">			<span class="comment">// j 这个位置要放前面</span></span><br><span class="line">			i++;</span><br><span class="line">			<span class="comment">//i+1的位置是大于val的位置</span></span><br><span class="line">			<span class="type">int</span> temp = A[i];</span><br><span class="line">			A[i] = A[j];</span><br><span class="line">			A[j] = temp;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//i及i之前的都是小于等于val的， i+1及i+1之后的都是大于val的</span></span><br><span class="line">	<span class="comment">//放入所谓的q</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> m = p; m &lt;= r; m++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(m != i)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,A[m]);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;[%d] &quot;</span>,A[m]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n; </span><br><span class="line">	<span class="type">int</span> A[<span class="number">100001</span>];</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">partition</span>(A,<span class="number">0</span>,n<span class="number">-1</span>);</span><br><span class="line">	</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> 挑战程序设计</a>
+              <a href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag"><i class="fa fa-tag"></i> 排序</a>
+              <a href="/tags/%E9%AB%98%E7%AD%89%E6%8E%92%E5%BA%8F/" rel="tag"><i class="fa fa-tag"></i> 高等排序</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/04/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="prev" title="Java核心技术—基础知识">
+                  <i class="fa fa-chevron-left"></i> Java核心技术—基础知识
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/09/%E5%B0%B1%E4%B8%9A%E7%9B%B8%E5%85%B3%E5%A4%A7%E6%9D%82%E7%83%A9/" rel="next" title="就业相关大杂烩">
+                  就业相关大杂烩 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"552ea0861a46ad683cf4762b6241d1ff"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

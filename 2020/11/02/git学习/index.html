@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="学习git记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git学习">
+<meta property="og:url" content="http://qibinaoe.top/2020/11/02/git%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="学习git记录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://qibinaoe.top/2020/11/02/git%E5%AD%A6%E4%B9%A0/workingdirectory.jpg">
+<meta property="article:published_time" content="2020-11-02T07:27:13.000Z">
+<meta property="article:modified_time" content="2020-11-15T02:34:36.544Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qibinaoe.top/2020/11/02/git%E5%AD%A6%E4%B9%A0/workingdirectory.jpg">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/11/02/git%E5%AD%A6%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/11/02/git%E5%AD%A6%E4%B9%A0/","path":"2020/11/02/git学习/","title":"git学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>git学习 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0git%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">学习git记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%96%E9%9B%AA%E5%B3%B0%E5%8D%9A%E5%AE%A2"><span class="nav-number">1.1.</span> <span class="nav-text">廖雪峰博客</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B0%E5%BD%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">知识点记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.2.</span> <span class="nav-text">git安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.3.</span> <span class="nav-text">git使用问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.4.</span> <span class="nav-text">git命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#git%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.5.</span> <span class="nav-text">git概念</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%AE%A1%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">远程仓库管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">分支管理</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/11/02/git%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="git学习 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          git学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-02 15:27:13" itemprop="dateCreated datePublished" datetime="2020-11-02T15:27:13+08:00">2020-11-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-11-15 10:34:36" itemprop="dateModified" datetime="2020-11-15T10:34:36+08:00">2020-11-15</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="学习git记录"><a class="header-anchor" href="#学习git记录"> </a>学习git记录</h2>
+<span id="more"></span>
+<h3 id="廖雪峰博客"><a class="header-anchor" href="#廖雪峰博客"> </a>廖雪峰博客</h3>
+<p>先从<a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰博客git教程</a>中学习并作记录。</p>
+<hr>
+<h4 id="知识点记录"><a class="header-anchor" href="#知识点记录"> </a>知识点记录</h4>
+<ul>
+<li>
+<p>git属于分布式版本控制系统</p>
+</li>
+<li>
+<p>集中式与分布式</p>
+<ul>
+<li>
+<p>集中式的版本控制系统</p>
+<ul>
+<li>CVS和SVN(SVN是对CVS的一种改进)</li>
+<li>缺点:
+<ul>
+<li>需要联网工作上传到中央服务器</li>
+<li>中央服务器坏掉后，会影响所有人</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>分布式的版本控制系统</p>
+<ul>
+<li>git、bitkeeper</li>
+<li>优点
+<ul>
+<li>每一个人的电脑都有一个完整的版本库</li>
+<li>安全性高</li>
+</ul>
+</li>
+</ul>
+<p>github服务器是用来中转的，即每一个人可以把自己修改后的推上去，其他人也可以从中同步，而github服务器故障后，只要本地的仓库(repository)还存在,就不会丢失。而对于集中式的版本控制系统，必须联网提交回滚等操作，如果断网就不能实现这些操作，并且服务器故障后，历史版本信息都没有了</p>
+</li>
+</ul>
+</li>
+<li>
+<p>所有版本控制系统只能跟踪文本文件，如txt、网页、程序代码。不能跟踪二进制文件内容的变化，如图片、word</p>
+</li>
+<li>
+<p>git跟踪并管理的是修改而非文件，意思就是文件中的内容修改后，git能跟踪内容变化是什么。</p>
+</li>
+</ul>
+<hr>
+<h4 id="git安装"><a class="header-anchor" href="#git安装"> </a>git安装</h4>
+<p><code>sudo apt-get install git</code></p>
+<h4 id="git使用问题"><a class="header-anchor" href="#git使用问题"> </a>git使用问题</h4>
+<ol>
+<li><code>git add</code>与<code>git commit</code>区别</li>
+</ol>
+<h4 id="git命令"><a class="header-anchor" href="#git命令"> </a>git命令</h4>
+<ul>
+<li>
+<p><code>git config</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;Your Name&quot;</span><br><span class="line">$ git config --global user.email &quot;email@example.com&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>--global</code>参数表示电脑上的所有仓库都使用该配置</li>
+</ul>
+</li>
+<li>
+<p><code>git init</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br><span class="line">Initialized empty Git repository in D:/CODE/gitlearning/.git/</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>git init</code>用于声明当前目录为git可以管理的仓库</li>
+<li>会生成<code>.git</code>目录，用于跟踪管理版本库</li>
+</ul>
+</li>
+<li>
+<p><code>git add</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add readme.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>将文件添加到仓库</li>
+</ul>
+</li>
+<li>
+<p><code>git commit</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;wrote a readme file&quot;</span><br><span class="line">[master (root-commit) eaadf4e] wrote a readme file</span><br><span class="line">1 file changed, 2 insertions(+)</span><br><span class="line">create mode 100644 readme.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>git commit</code>表示将文件提交到仓库</li>
+<li><code>-m </code>后的文字代表本次提交的说明</li>
+</ul>
+</li>
+<li>
+<p><code>git status</code></p>
+<ul>
+<li>查看当前仓库的状态</li>
+</ul>
+</li>
+<li>
+<p><code>git diff</code></p>
+<ul>
+<li>查看对当前仓库里的文件做了什么修改</li>
+</ul>
+</li>
+<li>
+<p><code>git log</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br><span class="line">commit e31be9240c251ddde0747f160b13ca30a8a055aa (HEAD -&gt; master)</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:25:30 2020 +0800</span><br><span class="line"></span><br><span class="line">    append GPL</span><br><span class="line"></span><br><span class="line">commit 99403f77708a6f871ab514371f4dffb075f4c57d</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:24:32 2020 +0800</span><br><span class="line"></span><br><span class="line">    add distributed</span><br><span class="line"></span><br><span class="line">commit 620a5b729a1ed380ae4f7630b1255e5cea3694aa</span><br><span class="line">Author: qibin &lt;780891896@qq.com&gt;</span><br><span class="line">Date:   Mon Nov 2 15:20:14 2020 +0800</span><br><span class="line"></span><br><span class="line">    wrote a readme file</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git log --pretty=oneline</span><br><span class="line">e31be9240c251ddde0747f160b13ca30a8a055aa (HEAD -&gt; master) append GPL</span><br><span class="line">99403f77708a6f871ab514371f4dffb075f4c57d add distributed</span><br><span class="line">620a5b729a1ed380ae4f7630b1255e5cea3694aa wrote a readme file</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意这里<code>--pretty=oneline</code>不能写成<code>-pretty=oneline</code></li>
+<li>查看仓库的提交历史记录</li>
+<li>这里类似<code>e31be9240c251ddde0747f160b13ca30a8a055aa</code>叫做<code>commit id</code> 版本号，是由sha1计算出来的，用十六进制表示</li>
+<li>当前版本用<code>HEAD</code>表示，上一个版本用<code>HEAD^</code>表示，上上个版本用<code>HEAD^^</code>表示，而上100个版本可以写成<code>HEAD~100</code></li>
+</ul>
+</li>
+<li>
+<p><code>git reset</code></p>
+<ol>
+<li>
+<p>将工作区的版本回退到版本库的某个版本</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard HEAD^</span><br><span class="line">HEAD is now at 99403f7 add distributed</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>
+<p>回退版本</p>
+</li>
+<li>
+<p>git用一个指针<code>HEAD</code>来指向当前版本，</p>
+</li>
+<li>
+<p>要想回到时间最新的那个版本，需要有那个版本的commit id，即</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git reset --hard e31be92</span><br><span class="line">HEAD is now at e31be92 append GPL</span><br></pre></td></tr></table></figure>
+<p>如果<code>commit id</code>找不到了可以通过<code>git reflog</code>来查看历史命令</p>
+</li>
+<li>
+<p>对于<code>commit id</code>只需要前几位数就可以了，当然也不能写太少，不然有重复的时候就指向不明</p>
+</li>
+</ul>
+<ol start="2">
+<li>将暂存区的修改撤销，重新放回工作区</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git reset HEAD readme.txt</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M       readme.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的<code>HEAD</code>表示使用最新版本</li>
+<li>这时工作区内的文件还是修改后的，如果要撤销工作区的修改使用<code>git checkout -- file</code></li>
+</ul>
+</li>
+<li>
+<p><code>git reflog</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git reflog</span><br><span class="line">e31be92 (HEAD -&gt; master) HEAD@&#123;0&#125;: reset: moving to e31be92</span><br><span class="line">99403f7 HEAD@&#123;1&#125;: reset: moving to HEAD^</span><br><span class="line">e31be92 (HEAD -&gt; master) HEAD@&#123;2&#125;: commit: append GPL</span><br><span class="line">99403f7 HEAD@&#123;3&#125;: commit: add distributed</span><br><span class="line">620a5b7 HEAD@&#123;4&#125;: commit (initial): wrote a readme file</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看命令历史</li>
+</ul>
+</li>
+<li>
+<p><code>git checkout</code></p>
+<ol>
+<li>在工作区的修改全部撤销</li>
+</ol>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$git  checkout -- readme.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>当 <code>readme.txt</code>修改后没放到暂存区的时候，撤销修改回到和版本库一样</li>
+<li>当 <code>readme.txt</code>修改后已经添加到暂存区，又修改了，则撤销修改回到暂存区的状态</li>
+<li>即回到最近一次<code>git commit</code>或<code>git add</code>状态<br>
+<strong>注：git checkout – file</strong>中<code>--</code>需要加上，否则变成“切换到另一个分支”的命令</li>
+<li>将工作区的被删除的文件，从版本库中复原，即将误删的文件恢复到最新版本(其实是将版本库中的版本替换工作区的把版本，所以工作区是修改还是删除都是变成版本库的版本)</li>
+</ul>
+<ol start="2">
+<li><code>git checkout -b dev</code></li>
+</ol>
+<ul>
+<li>
+<p>创建<code>dev</code>分支，并切换到<code>dev</code>分支</p>
+</li>
+<li>
+<p>相当于</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch dev</span><br><span class="line">git checkout dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p><code>git rm &lt;file&gt;</code></p>
+<ul>
+<li>当有个文件提交到版本库后，我们在工作目录后删除该文件，如果确实要将改文件从版本库删除，则使用<code>git rm &lt;file&gt;</code>然后再<code>git commit</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git rm test.txt</span><br><span class="line">rm &#x27;test.txt&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;remove test.txt&quot;</span><br><span class="line">[master e5ffcc1] remove test.txt</span><br><span class="line">1 file changed, 0 insertions(+), 0 deletions(-)</span><br><span class="line">delete mode 100644 test.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>git branch</code></p>
+<ul>
+<li>
+<p><code>git branch</code>命令查看当前分支</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br><span class="line">* dev</span><br><span class="line">  master</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>git branch dev</code> 创建<code>dev</code>分支</p>
+</li>
+<li>
+<p><code>git branch -d dev</code> 删除<code>dev</code>分支</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>git merge</code>命令用于合并并指定分支到当前分支(比如要将dev合并到master,则得先将HEAD指针指向master分支)</p>
+<ul>
+<li><code>git merge dev</code></li>
+</ul>
+</li>
+<li>
+<p><code>git switch</code></p>
+<ul>
+<li><code>git switch -c dev</code> 创建并切换到新的<code>dev</code>分支</li>
+<li><code>git switch dev</code> 切换到<code>dev</code>分支</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="git概念"><a class="header-anchor" href="#git概念"> </a>git概念</h4>
+<ul>
+<li>
+<p>工作区(Working Directory)</p>
+<ul>
+<li>电脑的目录，即这里的gitlearning文件夹就是工作区<br>
+<img src="workingdirectory.jpg" alt="工作区"></li>
+</ul>
+</li>
+<li>
+<p>版本库(Repository)</p>
+<ul>
+<li>工作区中隐藏的文件夹 <code>.git</code>属于版本库不属于工作区 ，其中版本库中存了一个叫做stage(或者叫index)的<strong>暂存区</strong>,同时版本库中还有一个git自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的指针<code>HEAD</code></li>
+</ul>
+</li>
+<li>
+<p><code>git add</code>是将文件添加到暂存区</p>
+<p><code>git commit</code>是将暂存区的所有内容提交到当前分支</p>
+<p>当添加一个新文件<code>LISENCE</code>而没有add到暂存区的时候，使用<code>git status</code>命令会显示其<code>Untracked</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">(use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">(use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line">        modified:   readme.txt</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">(use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line">        LISENCE</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>而当我们把其新添加的文件<code>git add</code>到仓库时，会显示 <code>new files</code></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">(use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)</span><br><span class="line">        new file:   LISENCE</span><br><span class="line">        modified:   readme.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>git commit</code>是将暂存区的内容提交，因此如果工作区内的内容没有<code>git add</code>的话，其不会被<code>commit</code>上去</p>
+</li>
+</ul>
+<hr>
+<h3 id="远程仓库管理"><a class="header-anchor" href="#远程仓库管理"> </a>远程仓库管理</h3>
+<ul>
+<li>
+<p>创建SSH key</p>
+<ul>
+<li><code>ssh-keygen -t rsa -C &quot;youremail@example.com</code></li>
+<li><code>id_rsa</code>是私钥</li>
+<li><code>id_rsa.pub</code>是公钥</li>
+<li>将<code>id_rsa.pub</code>记录在github上</li>
+</ul>
+</li>
+<li>
+<p>创建新的repository</p>
+</li>
+<li>
+<p>将本地仓库推送远程库</p>
+<ul>
+<li>在git文件夹里
+<ul>
+<li><code>git remote add origin https://github.com/qibinaoe/learngit.git</code>
+<ul>
+<li><code>origin</code>是远程库的名字，git的默认叫法</li>
+</ul>
+</li>
+<li><code>git push -u origin master</code> 用<code>git push</code>将本地库中的当前分支<code>master</code>推送到远程
+<ul>
+<li>第一次推送<code>master</code>分支时，加上<code>-u</code>参数，同时实现两种操作
+<ol>
+<li>将本地<code>master</code>分支内容推送到远程新的<code>master</code>分支</li>
+<li>将本地<code>master</code>分支和远程<code>master</code>分支关联起来，在以后的推送和拉去就可以简化命令</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>此后修改后要将本地仓库推送到远程时，只需要使用<code>git push origin master</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>将远程库克隆到本地</p>
+<ul>
+<li><code>$ git clone git@github.com:qibinaoe/gitskills.git</code>
+<ul>
+<li>使用的是ssh的协议</li>
+</ul>
+</li>
+<li><code>$ git clone https://github.com/qibinaoe/gitskills.git</code>
+<ul>
+<li>使用的是https的协议</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="分支管理"><a class="header-anchor" href="#分支管理"> </a>分支管理</h3>
+<p>在分支<code>dev</code>上修改后，如果需要将该分支的内容合并到<code>master</code>分支</p>
+<ol>
+<li>切换到<code>master</code>分支</li>
+</ol>
+<p><code>git checkout master</code><br>
+2. 指定要合并的分支</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git merge dev</span><br><span class="line">Updating e5ffcc1..a3f33f3</span><br><span class="line">Fast-forward</span><br><span class="line">  readme.txt | 3 ++-</span><br><span class="line">  1 file changed, 2 insertions(+), 1 deletion(-)</span><br></pre></td></tr></table></figure>
+<p>这里的<code>Fast-forward</code>指的是将<code>master</code>指向<code>dev</code></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/11/01/leetcode%E2%80%94%E9%93%BE%E8%A1%A8/" rel="prev" title="leetcode—链表">
+                  <i class="fa fa-chevron-left"></i> leetcode—链表
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/11/02/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E9%80%92%E5%BD%92%E5%92%8C%E5%88%86%E6%B2%BB/" rel="next" title="挑战程序设计2—递归和分治">
+                  挑战程序设计2—递归和分治 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"260d1cd0b3410186cef800cf3d56252d"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

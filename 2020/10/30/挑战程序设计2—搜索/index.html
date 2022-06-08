@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#f3a683"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-bin.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-bin.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-bin.png">
+  <link rel="mask-icon" href="/images/logo-bin.svg" color="#f3a683">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"qibinaoe.top","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":true,"color":"#FF8B8B","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/config.js"></script>
+
+    <meta name="description" content="搜索  线性搜索 二分搜索 散列法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="挑战程序设计2—搜索">
+<meta property="og:url" content="http://qibinaoe.top/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/index.html">
+<meta property="og:site_name" content="Qibin&#39;s Blog">
+<meta property="og:description" content="搜索  线性搜索 二分搜索 散列法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://qibinaoe.top/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/dictionary.JPG">
+<meta property="article:published_time" content="2020-10-30T13:19:31.000Z">
+<meta property="article:modified_time" content="2020-10-31T02:34:53.345Z">
+<meta property="article:author" content="ZQB">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="挑战程序设计">
+<meta property="article:tag" content="搜索">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qibinaoe.top/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/dictionary.JPG">
+
+
+<link rel="canonical" href="http://qibinaoe.top/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://qibinaoe.top/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/","path":"2020/10/30/挑战程序设计2—搜索/","title":"挑战程序设计2—搜索"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>挑战程序设计2—搜索 | Qibin's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Qibin's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">better and better</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2-v2"><span class="nav-number">1.</span> <span class="nav-text">搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%90%9C%E7%B4%A2"><span class="nav-number">1.1.</span> <span class="nav-text">线性搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%90%9C%E7%B4%A2%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.1.</span> <span class="nav-text">线性搜索改进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-v4"><span class="nav-number">1.1.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2-v2"><span class="nav-number">1.2.</span> <span class="nav-text">二分搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E7%82%B9-v2"><span class="nav-number">1.2.1.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81-v5"><span class="nav-number">1.2.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E5%88%97%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">散列法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8E%E9%93%BE%E8%A1%A8%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.1.</span> <span class="nav-text">与链表区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%A3%E5%88%97%E8%A1%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">散列表</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%80%E6%94%BE%E5%9C%B0%E5%9D%80%E6%B3%95"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">开放地址法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F-v5"><span class="nav-number">1.3.3.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-number">1.3.4.</span> <span class="nav-text">例题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%88%91%E5%86%99%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.5.</span> <span class="nav-text">我写的代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%A6%E4%B8%8A%E5%81%9A%E6%B3%95"><span class="nav-number">1.3.6.</span> <span class="nav-text">书上做法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98-v5"><span class="nav-number">1.3.7.</span> <span class="nav-text">问题</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZQB"
+      src="/images/me_avatar.png">
+  <p class="site-author-name" itemprop="name">ZQB</p>
+  <div class="site-description" itemprop="description">Better Me</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qibinaoe" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qibinaoe" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:780891896@qq.com" title="E-Mail → mailto:780891896@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://gagalab.tech/" title="https:&#x2F;&#x2F;gagalab.tech&#x2F;" rel="noopener" target="_blank">嘎嘎研究所</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://qibinaoe.top/2020/10/30/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E6%90%9C%E7%B4%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me_avatar.png">
+      <meta itemprop="name" content="ZQB">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Qibin's Blog">
+      <meta itemprop="description" content="Better Me">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="挑战程序设计2—搜索 | Qibin's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          挑战程序设计2—搜索
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-30 21:19:31" itemprop="dateCreated datePublished" datetime="2020-10-30T21:19:31+08:00">2020-10-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-10-31 10:34:53" itemprop="dateModified" datetime="2020-10-31T10:34:53+08:00">2020-10-31</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="搜索-v2"><a class="header-anchor" href="#搜索-v2"> </a>搜索</h2>
+<ul>
+<li>线性搜索</li>
+<li>二分搜索</li>
+<li>散列法</li>
+</ul>
+<span id="more"></span>
+<h3 id="线性搜索"><a class="header-anchor" href="#线性搜索"> </a>线性搜索</h3>
+<p>线性搜索是从开头顺序遍历各元素来判断是否与目标值相等，效率低但是适用于任何形式数据。</p>
+<h4 id="线性搜索改进"><a class="header-anchor" href="#线性搜索改进"> </a>线性搜索改进</h4>
+<p>在线性搜索的过程中引入一个特殊“标记”，在处理大规模数据时会有常数倍的性能提升。例如本题中，将搜索目标<code>key</code>放在数组末尾作为标记，当<code>while</code>遍历的末尾时，就必定会返回相等，但此时意味着没找到。对于性能的提升在于，相比<code>for</code>循环需要两次判断。1次在判断是否到底末尾，1次在判断是否匹配目标。而加入“标记”，只需要判断是否匹配到目标。</p>
+<h4 id="代码-v4"><a class="header-anchor" href="#代码-v4"> </a>代码</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">search</span><span class="params">(<span class="type">int</span> A[],<span class="type">int</span> n, <span class="type">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="comment">//才用标记的方法，将要搜索的key作为标记</span></span><br><span class="line">	<span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">	A[n] = key;</span><br><span class="line">	<span class="keyword">while</span>(A[i] != key)&#123;</span><br><span class="line">		i++;</span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> i!=n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">// 我的做法 </span></span><br><span class="line"><span class="comment">//	int n,q;</span></span><br><span class="line"><span class="comment">//	//线性查找</span></span><br><span class="line"><span class="comment">//	cin &gt;&gt; n;</span></span><br><span class="line"><span class="comment">//	int* p;</span></span><br><span class="line"><span class="comment">//	int temp;</span></span><br><span class="line"><span class="comment">//	p = (int*)malloc(sizeof(int)*n);</span></span><br><span class="line"><span class="comment">//	for(int i = 0; i &lt; n; i++)&#123;</span></span><br><span class="line"><span class="comment">//		cin &gt;&gt; temp;</span></span><br><span class="line"><span class="comment">//		p[i] = temp;</span></span><br><span class="line"><span class="comment">//	&#125; </span></span><br><span class="line"><span class="comment">//	cin &gt;&gt; q;</span></span><br><span class="line"><span class="comment">//	int cur;</span></span><br><span class="line"><span class="comment">//	int count = 0;</span></span><br><span class="line"><span class="comment">//	for(int i = 0; i &lt; q; i++)&#123;</span></span><br><span class="line"><span class="comment">//		cin &gt;&gt; cur;</span></span><br><span class="line"><span class="comment">//		int flag = false;</span></span><br><span class="line"><span class="comment">//		for(int j = 0; j &lt; n; j++)&#123;</span></span><br><span class="line"><span class="comment">//			if(p[j] == cur)&#123;</span></span><br><span class="line"><span class="comment">//				flag = true;</span></span><br><span class="line"><span class="comment">//			&#125;</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line"><span class="comment">//		if(flag)&#123;</span></span><br><span class="line"><span class="comment">//			count++;</span></span><br><span class="line"><span class="comment">//		&#125;</span></span><br><span class="line"><span class="comment">//	&#125;</span></span><br><span class="line"><span class="comment">//	</span></span><br><span class="line"><span class="comment">//	printf(&quot;%d&quot;,count);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 书上做法，其引用标记的概念，简化for循环的比较以提高效率</span></span><br><span class="line"></span><br><span class="line">	<span class="type">int</span>  i,n,A[<span class="number">10001</span>],q,key,sum=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;q);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; q; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;key);</span><br><span class="line">		<span class="comment">//找到了 </span></span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">search</span>(A,n,key)) sum++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,sum);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h3 id="二分搜索-v2"><a class="header-anchor" href="#二分搜索-v2"> </a>二分搜索</h3>
+<p>二分搜索适用于已经提前按照关键字进行升序排列的数组，由于每一次搜索，数组范围都会减半，因此其时间复杂度为O(logn)</p>
+<h4 id="注意点-v2"><a class="header-anchor" href="#注意点-v2"> </a>注意点</h4>
+<ul>
+<li>二分搜索中需要规定搜索范围的左边和右边，左边<code>left</code>为搜索范围的第一个元素，而右边<code>right</code>为最后一个元素的后一个位置。</li>
+<li>因此初始化的时候<code>left = 0</code>，<code>right = n</code>，对于判断的位置<code>middle</code>为<code>middle = (left + right)/2</code>。</li>
+<li>在一次判断后，如果我们判断的关键字小于当前位置<code>A[middle] &gt; key</code>，说明<code>key</code>小，要在数组前部分搜索，此时需要改变<code>right</code>位置来缩小范围，而<code>right</code>为搜索范围的最后一个元素的后一个位置，而此时<code>middle</code>已经不在我们的搜索范围了。因此<code>left = middle</code></li>
+<li>在一次判断后，如果我们判断的关键字大于当前位置<code>A[middle] &lt; key</code>，说明<code>key</code>大，要在数组后部分搜索，此时需要改变<code>left</code>位置来缩小范围，而<code>left</code>为搜索范围的第一个元素，而此时<code>middle</code>已经不在我们的搜索范围了。因此<code>right = middle+1</code>,<strong>而不是right = middle，虽然这样也能正常运行，但是不是正版的二分搜索</strong></li>
+<li>判断条件<code>left &lt; right</code>。
+<ul>
+<li>假设我们要搜索的关键词小于数组所有元素，则<code>left</code>一直为<code>0</code>，而<code>right</code>在不断的缩小，在最后一次判断中，<code>right</code>注定是<code>1</code>,而<code>middle</code>为<code>(0+1) /2= 0</code>,因此我们判断了<code>A[0]的位置</code>，再进行一次则<code>right == left跳出循环</code>.</li>
+<li>假设我们要搜索的关键词大于数组所有元素，则<code>right</code>一直为<code>n</code>，而<code>left</code>在不断的变大，在最后一次判断中，<code>left</code>注定是<code>n-1</code>,而<code>middle</code>为<code>(n-1+n) /2= n-0.5 = n-1</code>,因此我们判断了<code>A[n-1]的位置</code>，再进行一次则<code>right == left == n跳出循环</code>.</li>
+</ul>
+</li>
+<li>对于<code>middle = (right + left) / 2</code>这句语句执行的位置应该为<code>while</code>循环的第一句</li>
+</ul>
+<h4 id="代码-v5"><a class="header-anchor" href="#代码-v5"> </a>代码</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//二分搜索 </span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">binarySearch</span><span class="params">(<span class="type">int</span> A[],<span class="type">int</span> n, <span class="type">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//left指向搜索范围开头元素</span></span><br><span class="line">	<span class="comment">//right指向末尾元素的后一个元素（指向一个不存在的位置） </span></span><br><span class="line">	<span class="type">int</span> right = n;</span><br><span class="line">	<span class="type">int</span> middle;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">		middle = (right + left) / <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(A[middle] == key)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(A[middle] &lt; key)&#123;</span><br><span class="line">			<span class="comment">//注意，left指向开头第一个元素，而middle已经判断过了无需判断 </span></span><br><span class="line">			left = middle+<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">//right指向最后一个元素的后一个位置，而我们要判断的是middle前方的数字，因此middle即为最后一个元素的后一个位置 </span></span><br><span class="line">			right =middle;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span>  i,n,A[<span class="number">10001</span>],q,key,sum=<span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;A[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;q);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; q; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;key);</span><br><span class="line">		<span class="comment">//找到了 </span></span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">binarySearch</span>(A,n,key)) sum++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,sum);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="散列法"><a class="header-anchor" href="#散列法"> </a>散列法</h3>
+<p>散列法是一种搜索算法，能够根据个元素的值来确定储存位置，从而实现数据的告诉搜索。而其中的散列表是一种数据结构，能够对关键字的数据集合高效地执行动态插入、搜索和删除操作。</p>
+<h4 id="与链表区别"><a class="header-anchor" href="#与链表区别"> </a>与链表区别</h4>
+<ul>
+<li>链表在删除和搜索操作中，时间复杂度为O(n)</li>
+<li>散列表在不考虑发生冲突的情况下，时间复杂度为O(1)</li>
+</ul>
+<h4 id="散列表"><a class="header-anchor" href="#散列表"> </a>散列表</h4>
+<ul>
+<li>散列函数 <code>h(k)</code>： 根据k的值求得数组T的下标的函数</li>
+<li>散列值： 散列函数的返回值</li>
+<li>数组T的长度为m，则散列值的范围为0 ~ m-1。因此函数内需要使用到求余运算</li>
+<li>冲突：不同的key对应到同一个散列值</li>
+</ul>
+<h5 id="开放地址法"><a class="header-anchor" href="#开放地址法"> </a>开放地址法</h5>
+<p>开放地址法是解决冲突的手段之一，这里介绍的是双散列结构里的开放地址法。</p>
+<p>在双散列结构中一旦发生冲突，则会调用第二个散列函数求散列值:H(k) = h(k,i) = (h<sub>1</sub>(k)+i*h<sub>2</sub>(k)) mod m</p>
+<p>i是发送冲突后计算下一个散列值的次数。当h<sub>1</sub>(k)计算第一个下标冲突后，则会下标移动h<sub>2</sub>(k)个位置，知道不发送冲突为止。</p>
+<h4 id="注意-v5"><a class="header-anchor" href="#注意-v5"> </a>注意</h4>
+<ul>
+<li>
+<p>下标每次移动的h<sub>2</sub>(k)个位置应该与数组长度m互质，否则会出现无法生成下标的情况。因此可以让m为质数，而h<sub>2</sub>(k)为小于m的数字</p>
+</li>
+<li>
+<p>在搜索的时候，判断散列表中不存在要搜索的元素时，是通过<code>T[j] == NIL || i &gt;= m</code>的条件</p>
+</li>
+</ul>
+<h4 id="例题"><a class="header-anchor" href="#例题"> </a>例题</h4>
+<p><img src="dictionary.JPG" alt="dictionary"></p>
+<h4 id="我写的代码"><a class="header-anchor" href="#我写的代码"> </a>我写的代码</h4>
+<p>我只是简单的通过将输入值转成ASCILL码相加求余来得散列值。这样做法有以下缺点</p>
+<ul>
+<li>没有解决冲突问题</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	string hashTable[<span class="number">100</span>];</span><br><span class="line">	string order;</span><br><span class="line">	string str;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">		cin &gt;&gt; order &gt;&gt; str;</span><br><span class="line">		<span class="type">int</span> code = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(order[<span class="number">0</span>] == <span class="string">&#x27;i&#x27;</span>)&#123;</span><br><span class="line">			<span class="comment">//插入</span></span><br><span class="line">		</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; str.<span class="built_in">size</span>(); j++)&#123;</span><br><span class="line">				code += str[j];</span><br><span class="line">			&#125;</span><br><span class="line">			code %= <span class="number">100</span>; </span><br><span class="line">			<span class="comment">//放入散列表</span></span><br><span class="line">			hashTable[code] = str;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; str.<span class="built_in">size</span>(); j++)&#123;</span><br><span class="line">				code += str[j];</span><br><span class="line">			&#125;</span><br><span class="line">			code %= <span class="number">100</span>; </span><br><span class="line">			<span class="keyword">if</span>(hashTable[code] == str)&#123;</span><br><span class="line">				cout &lt;&lt; <span class="string">&quot;yes&quot;</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				cout &lt;&lt; <span class="string">&quot;no&quot;</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<h4 id="书上做法"><a class="header-anchor" href="#书上做法"> </a>书上做法</h4>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> M 1046572</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> NIL (-1)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> L 14</span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> H[M][L];</span><br><span class="line"></span><br><span class="line"><span class="comment">//字符转数值</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getChar</span><span class="params">(<span class="type">char</span> ch)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(ch==<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">&#x27;C&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">&#x27;G&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch == <span class="string">&#x27;T&#x27;</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将字符串转成数值并生成key</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">getKey</span><span class="params">(<span class="type">char</span> str[])</span></span>&#123;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> sum = <span class="number">0</span>,p=<span class="number">1</span>,i;</span><br><span class="line">	<span class="comment">//算出字符串的值 </span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(str);i++)&#123;</span><br><span class="line">		sum += p* <span class="built_in">getChar</span>(str[i]);</span><br><span class="line">		<span class="comment">//这里p的作用是将每个字符的数值分散来开，减小冲突概率 </span></span><br><span class="line">		p *= <span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">h1</span><span class="params">(<span class="type">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> key%M;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">h2</span><span class="params">(<span class="type">int</span> key)</span></span>&#123;</span><br><span class="line">	<span class="comment">//保证下标值不为零，否则和h1就一样了 </span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>+key%(M<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">char</span> str[])</span></span>&#123;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> i,key,h;</span><br><span class="line">	<span class="comment">//字符串转成数值</span></span><br><span class="line">	key = <span class="built_in">getKey</span>(str);</span><br><span class="line">	<span class="comment">//不太明白这里，为什么不判断i&lt;M </span></span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;;i++)&#123;</span><br><span class="line">		h = (<span class="built_in">h1</span>(key)+i*<span class="built_in">h2</span>(key))%M;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(H[h],str) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">strlen</span>(H[h]) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;		</span><br><span class="line">	&#125;  </span><br><span class="line">	<span class="keyword">return</span>  <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">insert</span><span class="params">(<span class="type">char</span> str[])</span></span>&#123;</span><br><span class="line">	<span class="type">long</span> <span class="type">long</span> i,h,key;</span><br><span class="line">	key = <span class="built_in">getKey</span>(str);</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>;;i++)&#123;</span><br><span class="line">		h = (<span class="built_in">h1</span>(key) + i*<span class="built_in">h2</span>(key)) % M;</span><br><span class="line">		<span class="keyword">if</span>(<span class="built_in">strcmp</span>(H[h],str) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">strlen</span>(H[h]) == <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">strcpy</span>(H[h],str);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> i, n, h;</span><br><span class="line">	<span class="type">char</span> str[L], com[<span class="number">9</span>];</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; M; i++) H[i][<span class="number">0</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>; i &lt;n; i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%s %s&quot;</span>,com,str);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(com[<span class="number">0</span>] == <span class="string">&#x27;i&#x27;</span>)&#123;</span><br><span class="line">			<span class="built_in">insert</span>(str);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">find</span>(str))&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;yes\n&quot;</span>);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;no\n&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="问题-v5"><a class="header-anchor" href="#问题-v5"> </a>问题</h4>
+<ul>
+<li>散列有哪些方法</li>
+</ul>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+              <a href="/tags/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> 挑战程序设计</a>
+              <a href="/tags/%E6%90%9C%E7%B4%A2/" rel="tag"><i class="fa fa-tag"></i> 搜索</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/30/%E8%87%AA%E6%88%91%E8%83%BD%E5%8A%9B%E6%89%B9%E5%88%A4%E3%80%81%E5%AE%A1%E8%A7%86%E4%B8%8E%E6%BF%80%E5%8A%B1/" rel="prev" title="自我能力批判、审视与激励">
+                  <i class="fa fa-chevron-left"></i> 自我能力批判、审视与激励
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/31/%E6%8C%91%E6%88%98%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A12%E2%80%94%E5%8D%A1%E8%BD%A6%E8%A3%85%E8%B4%A7Allocation/" rel="next" title="挑战程序设计2—卡车装货Allocation">
+                  挑战程序设计2—卡车装货Allocation <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备2021001502号 </a>
+      <img src="/images/%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt=""><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35058202000501" rel="noopener" target="_blank">闽公网安备 35058202000501号 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-seedling"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZQB</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">596k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">16:34</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://unpkg.com/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/comments.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/utils.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/motion.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/next-boot.js"></script><script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/bookmark.js"></script>
+
+  
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://unpkg.com/mathjax@3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/math/mathjax.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"qibinaoe","repo":"blog-comments","client_id":"157704bd238da130367f","client_secret":"b0bc6368a8d8c75ba5562dabf654a38242c9600f","admin_user":"qibinaoe","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://unpkg.com/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"6f0ebd754d8b2e7b6e818f70f41f1644"}</script>
+<script src="https://unpkg.com/hexo-theme-next@8.12.1/source/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

@@ -149,7 +149,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E7%9A%84%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%80%E4%BC%98%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">搜索的应用——计算最优解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-v193"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-v178"><span class="nav-number">1.1.1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%83%B3%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">错误想法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81-v2"><span class="nav-number">1.1.3.</span> <span class="nav-text">实现代码</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E7%9A%84%E5%BA%94%E7%94%A8%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%80%E4%BC%98%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">搜索的应用——计算最优解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE-v115"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-v91"><span class="nav-number">1.1.1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E6%83%B3%E6%B3%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">错误想法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81-v2"><span class="nav-number">1.1.3.</span> <span class="nav-text">实现代码</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -316,10 +316,10 @@
     <div class="post-body" itemprop="articleBody">
         <h2 id="搜索的应用——计算最优解"><a class="header-anchor" href="#搜索的应用——计算最优解"> </a>搜索的应用——计算最优解</h2>
 <!-- more -->
-<h3 id="题目-v193"><a class="header-anchor" href="#题目-v193"> </a>题目</h3>
+<h3 id="题目-v115"><a class="header-anchor" href="#题目-v115"> </a>题目</h3>
 <p><img src="http://algorithm-image.qibinaoe.top/%E9%A2%98%E7%9B%AE1.jpg" alt="题目1"></p>
 <p><img src="http://algorithm-image.qibinaoe.top/%E9%A2%98%E7%9B%AE2.jpg" alt="题目2"></p>
-<h4 id="解题思路-v178"><a class="header-anchor" href="#解题思路-v178"> </a>解题思路</h4>
+<h4 id="解题思路-v91"><a class="header-anchor" href="#解题思路-v91"> </a>解题思路</h4>
 <p>这题题意是按照来货的顺序进行装货。而思路就是不断递增最大载货量P，得到一个每一辆车都能装下所有货的值P，但是这样时间复杂度为O(Pn)，因为判断一个P是否符合需要O(n),遍历到P值需要O§。而书上采用的方法是二分法，初始化时，左值为0，右值为每辆车都能装上最重货物，然后不断二分，使得左值为最大不满足P，而右值为最小满足P的。</p>
 <h4 id="错误想法"><a class="header-anchor" href="#错误想法"> </a>错误想法</h4>
 <p>而我最开始想这道题的时候以为是已知所有货物的重量，给出货物数量n，货车数量k，求得最大载货数量的最小值。于是开始对货物重量进行从大到小的排序，然后思考如何分配这些货物，才能够达到最大值最小化，虽然题意理解错了，但是也编出了一道我不会的题，或许有兴趣可以对这题目进行思考如何求解。<em><strong>询问之后，发现这个问题有名字，叫做“多机调度”</strong></em></p>
@@ -385,14 +385,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">596k</span>
+    <span title="站点总字数">598k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">16:34</span>
+    <span title="站点阅读时长">16:36</span>
   </span>
 </div>
 <div class="busuanzi-count">
